@@ -924,30 +924,25 @@ float AAA_Yaw(C_BaseEntity* entity)
     {
         static float last_moving_lby [ 65 ];
         
-        bool Movingg;
-        entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
+        bool Movingg = entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
         
-        bool Fakewalkk;
-        Movingg && entity->GetVelocity().Length2D() < 45.f && !( entity->GetFlags( ) & FL_DUCKING );
+        bool Fakewalkk = Movingg && entity->GetVelocity().Length2D() < 45.f && !( entity->GetFlags( ) & FL_DUCKING );
         
         if ( Movingg ) {
             if ( Fakewalkk ) {
-                angle = entity->GetLowerBodyYawTarget( ) - 180.f;
+                angle = rand() % 2 ? 
+                entity->GetLowerBodyYawTarget( ) - 125.f :
+                entity->GetLowerBodyYawTarget( ) + 125.f :
             }
             else
             {
                 angle = entity->GetLowerBodyYawTarget( );
                 last_moving_lby [ entity->GetIndex() ] = entity->GetLowerBodyYawTarget( );
             }
-            if (HasFakeHead)
-            {
-                angle = angle - entity->GetLowerBodyYawTarget();
-            }
         }
         else
         {
-#define RandomFloat(min, max) (rand() % (max - min + 1) + min)
-            angle += RandomFloat(35, 35);
+            #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
             angle = last_moving_lby[ entity->GetIndex() ] + rand( ) % ( 25 - -25 + 1 ) + -25;
         }
         
