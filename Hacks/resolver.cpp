@@ -676,7 +676,6 @@ float AAA_Yaw(C_BaseEntity* entity)
             if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
                 angle = entity->GetLowerBodyYawTarget() + delta;
         }
-        return angle;
     }
     
     
@@ -825,7 +824,6 @@ float AAA_Yaw(C_BaseEntity* entity)
             if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
                 angle = entity->GetLowerBodyYawTarget() + delta;
         }
-        return angle;
                                   }
                                       
         
@@ -972,12 +970,13 @@ float AAA_Yaw(C_BaseEntity* entity)
      }
      else{
       angle = entity->GetLowerBodyYawTarget();
+     }
     }
     
     if(vars.aimbot.yresolve == 7){
         angle = entity->GetLowerBodyYawTarget() + 180;
     }
-    
+            return angle;
 }
 
 void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {
