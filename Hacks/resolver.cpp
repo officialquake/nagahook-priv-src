@@ -42,6 +42,8 @@ RecvVarProxyFn OldProxy_Y; //OldProxy_X;
  }
  */
 
+
+
 float get_average_lby_standing_update_delta(C_BaseEntity* entity) {
     static float last_update_time[64];
     static float second_laste_update_time[64];
@@ -676,7 +678,6 @@ float AAA_Yaw(C_BaseEntity* entity)
             if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
                 angle = entity->GetLowerBodyYawTarget() + delta;
         }
-        return angle;
     }
     
     
@@ -825,7 +826,6 @@ float AAA_Yaw(C_BaseEntity* entity)
             if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
                 angle = entity->GetLowerBodyYawTarget() + delta;
         }
-        return angle;
                                   }
                                       
         
@@ -924,45 +924,58 @@ float AAA_Yaw(C_BaseEntity* entity)
     }
     if(vars.aimbot.yresolve == 5)
     {
-        float last_moving_lby [ 65 ];
+        static float last_moving_lby [ 65 ];
         
-        bool Movingg;
-        entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
+        bool Movingg = entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
         
-        bool Fakewalkk;
-        Movingg && entity->GetVelocity().Length2D() < 45.f && !( entity->GetFlags( ) & FL_DUCKING );
+        bool Fakewalkk = Movingg && entity->GetVelocity().Length2D() < 45.f && !( entity->GetFlags( ) & FL_DUCKING );
         
         if ( Movingg ) {
             if ( Fakewalkk ) {
-                angle = entity->GetLowerBodyYawTarget( ) - 180.f;
+                angle = rand() % 2 ? 
+                entity->GetLowerBodyYawTarget( ) - 125.f :
+                entity->GetLowerBodyYawTarget( ) + 125.f ;
             }
             else
             {
                 angle = entity->GetLowerBodyYawTarget( );
                 last_moving_lby [ entity->GetIndex() ] = entity->GetLowerBodyYawTarget( );
             }
-            if (HasFakeHead)
-            {
-                angle = angle - entity->GetLowerBodyYawTarget();
-            }
         }
         else
         {
-#define RandomFloat(min, max) (rand() % (max - min + 1) + min)
-            angle += RandomFloat(35, 35);
+            #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
             angle = last_moving_lby[ entity->GetIndex() ] + rand( ) % ( 25 - -25 + 1 ) + -25;
         }
         
     } // end of resolver 5
     
     if(vars.aimbot.yresolve == 6){
-        angle += RandomFloat(35, 35);
-    }
+        //test
+        static float stored_lby[65];
+        static bool bLowerBodyIsUpdated;
+        if (entity->GetLowerBodyYawTarget() != stored_lby[entity->GetIndex()]){
+            bLowerBodyIsUpdated = true;
+            stored_lby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
+        }
+        else bLowerBodyIsUpdated = false;
+     
+        if(bLowerBodyIsUpdated){
+            angle = rand() % 2 ? 
+            stored_lby[entity->GetIndex()] - 15 :
+            stored_lby[entity->GetIndex()] + 15 ;
+        }
+        else {
+            angle = rand() % 2 ? 
+            entity->GetLowerBodyYawTarget() - 30 :
+            entity->GetLowerBodyYawTarget() + 30 ;
+        }
+     }
     
     if(vars.aimbot.yresolve == 7){
         angle = entity->GetLowerBodyYawTarget() + 180;
     }
-    
+            return angle;
 }
 
 void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {

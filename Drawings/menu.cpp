@@ -489,13 +489,12 @@ void cMenu::renderAim(int x, int y) {
     
     
     Resolve.push_back("Experimental");
-    Resolve.push_back("LBY Resolver");
+    Resolve.push_back("LBYResolver");
     Resolve.push_back("Smart");
     Resolve.push_back("Evolution");
-    //Resolve.push_back("Test");
-    //Resolve.push_back("Simple");
-    //Resolve.push_back("gaycents");
-   // Resolve.push_back("Brute");
+    Resolve.push_back("Test");
+    Resolve.push_back("Synfixedthis");
+    Resolve.push_back("Synfixedthistoo");
     
     
     this->renderCheckbox(x - 15, y + 180, "Yaw Resolver", &vars.aimbot.Yawresolver);
