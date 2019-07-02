@@ -674,7 +674,7 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "No Flash", & vars.misc.noflash);
     this->renderCheckbox(x + 235, y + 120, "Recoil Crosshair", & vars.visuals.rcrosshair);
     this->renderCheckbox(x + 235, y + 200, "No Scope", & vars.misc.noscope);
-    this->renderCheckbox(x + 235, y + 220, "Radar", & vars.misc.radar);
+    //this->renderCheckbox(x + 235, y + 220, "Radar", & vars.misc.radar);
     
     this->renderCheckbox(x + 235, y + 140, "AA Indicators", & vars.visuals.antiaim_indicator);
     std::vector<std::string> Indicator;

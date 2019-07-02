@@ -5,7 +5,6 @@
 #include "../Hacks/spectators.h"
 #include "../Hacks/antiaiminfos.h"
 #include "../Hacks/hitmarker.h"
-#include "visuals.hpp"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -93,7 +92,6 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         pwnmymenu();
         
         {   // Drawing features / own scope just for readablity
-            visuals->draw_esp();
             DrawOtherESP();     // Other ESP
             
             DrawPlayerESP();    // Player esp

@@ -1,6 +1,5 @@
 #include "skinchanger.h"
 #include "../Variables/skins.h"
-#include "../Variables/Config.h"
 int KnifeCT = skin.knifeCT; // Change Knife model here
 int KnifeT = skin.knifeT;
 int GloveCT = skin.gloveCT;
@@ -67,7 +66,6 @@ void cSkinchanger::FrameStageNotify(ClientFrameStage_t stage) {
                 Init();
                 bInit = true;
             }
-            skins_cfg->LoadSkins();
             ForceSkins();
         }
     }

@@ -1,5 +1,4 @@
 #include "main.h"
-#include "visuals.hpp"
 string DirName(string source)
 {
     source.erase(find(source.rbegin(), source.rend(), '/').base(), source.end());
