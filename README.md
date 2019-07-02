@@ -23,9 +23,9 @@ Warlauke (Barbossa & Noriaela)
 
 CreditCode (cooperative and deleted the face.us repository) 
 
-Nagatoro (for suggesting me to paste it idk)
+Nagatoro (For his marvelous idea on pasting Breathless and making it great again)
 
-Gael (for testing it all the time i want him to)
+Gael (For cooperatively testing, giving feedback, and is always ready to help 24/7/365)
 
-Giraffe (for hvhing with gael to test it out lmao)
+Giraffe (for hvhing with gael to test it out lmao + he's gay)
 
