@@ -1,5 +1,5 @@
-# breathless
-This is basically breathless fixed or what others call it face.us just by the real creator ;)
+# nagahook
+This is basically shit fucking leaked and papa syn is god
 
 ## Why is this existing and not on the face.us repo?
 The face.us repository got deleted by (Creditcode) the creator long live the original fork
@@ -23,4 +23,4 @@ Warlauke (Barbossa)
 
 CreditCode (cooperative and deleted the face.us repository) 
 
-Manigamer22 (Updating)
+Raizo (updating it for the new update)
