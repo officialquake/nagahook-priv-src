@@ -392,5 +392,3 @@ void pwnmymenu()
         vars.menu = !vars.menu;
     }
 }
-
-
