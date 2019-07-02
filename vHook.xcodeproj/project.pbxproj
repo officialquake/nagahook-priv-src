@@ -42,10 +42,6 @@
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
 		9147029E22C4C8D300F7E780 /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9147029C22C4C8D300F7E780 /* fakelag.cpp */; };
 		9147029F22C4C8D300F7E780 /* fakelag.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9147029D22C4C8D300F7E780 /* fakelag.hpp */; };
-		914702A222C4C97E00F7E780 /* dlights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 914702A022C4C97E00F7E780 /* dlights.cpp */; };
-		914702A322C4C97E00F7E780 /* dlights.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 914702A122C4C97E00F7E780 /* dlights.hpp */; };
-		91725EFA22C90A3000E6E93C /* visuals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91725EF822C90A3000E6E93C /* visuals.cpp */; };
-		91725EFB22C90A3000E6E93C /* visuals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91725EF922C90A3000E6E93C /* visuals.hpp */; };
 		91A9506222BF11ED007E0CB7 /* thirdperson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A9506022BF11ED007E0CB7 /* thirdperson.cpp */; };
 		91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A9506122BF11ED007E0CB7 /* thirdperson.hpp */; };
 		91BBD44222C0829C006B9EA0 /* moonwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BBD44022C0829C006B9EA0 /* moonwalk.cpp */; };
@@ -156,10 +152,6 @@
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
 		9147029C22C4C8D300F7E780 /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fakelag.cpp; sourceTree = "<group>"; };
 		9147029D22C4C8D300F7E780 /* fakelag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fakelag.hpp; sourceTree = "<group>"; };
-		914702A022C4C97E00F7E780 /* dlights.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dlights.cpp; sourceTree = "<group>"; };
-		914702A122C4C97E00F7E780 /* dlights.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dlights.hpp; sourceTree = "<group>"; };
-		91725EF822C90A3000E6E93C /* visuals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = visuals.cpp; path = Hooks/visuals.cpp; sourceTree = "<group>"; };
-		91725EF922C90A3000E6E93C /* visuals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = visuals.hpp; path = Hooks/visuals.hpp; sourceTree = "<group>"; };
 		91A9506022BF11ED007E0CB7 /* thirdperson.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = thirdperson.cpp; path = Hacks/thirdperson.cpp; sourceTree = "<group>"; };
 		91A9506122BF11ED007E0CB7 /* thirdperson.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = thirdperson.hpp; path = Hacks/thirdperson.hpp; sourceTree = "<group>"; };
 		91BBD44022C0829C006B9EA0 /* moonwalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = moonwalk.cpp; sourceTree = "<group>"; };
@@ -359,12 +351,8 @@
 				91BBD44122C0829C006B9EA0 /* moonwalk.hpp */,
 				9147029C22C4C8D300F7E780 /* fakelag.cpp */,
 				9147029D22C4C8D300F7E780 /* fakelag.hpp */,
-				914702A022C4C97E00F7E780 /* dlights.cpp */,
-				914702A122C4C97E00F7E780 /* dlights.hpp */,
 				91216B8F22C777810042172E /* triggerbot.cpp */,
 				91216B9022C777810042172E /* triggerbot.hpp */,
-				91725EF822C90A3000E6E93C /* visuals.cpp */,
-				91725EF922C90A3000E6E93C /* visuals.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -497,7 +485,6 @@
 				8F4E12E8200FC7F8000F17A0 /* skins.h in Headers */,
 				B6A954651FAC9CB600351006 /* CPlayerResource.h in Headers */,
 				E1FE19C91E718F020018D409 /* IEngineTrace.h in Headers */,
-				91725EFB22C90A3000E6E93C /* visuals.hpp in Headers */,
 				E1FE19D51E718F020018D409 /* VMT.h in Headers */,
 				9A213B371F86611C00518DE8 /* bhop.h in Headers */,
 				8F4E12F1200FCB8D000F17A0 /* ConvertUTF.h in Headers */,
@@ -513,7 +500,6 @@
 				E1FE19C31E718F020018D409 /* common.h in Headers */,
 				8F4E12E6200FC300000F17A0 /* GameEvent.h in Headers */,
 				9147029F22C4C8D300F7E780 /* fakelag.hpp in Headers */,
-				914702A322C4C97E00F7E780 /* dlights.hpp in Headers */,
 				B67AE8491F91B20800ADDCD8 /* bvars.h in Headers */,
 				B67AE83E1F91B1E600ADDCD8 /* hacks.h in Headers */,
 				B67AE83C1F91B0D800ADDCD8 /* hooks.h in Headers */,
@@ -624,7 +610,6 @@
 				B67AE83B1F91B0D800ADDCD8 /* Info.cpp in Sources */,
 				96E80CAD20BCEE5F00C87050 /* skinchanger.cpp in Sources */,
 				14D91C001F99B58F00252244 /* crosshair.cpp in Sources */,
-				91725EFA22C90A3000E6E93C /* visuals.cpp in Sources */,
 				B67AE8391F91B0D800ADDCD8 /* interfaces.cpp in Sources */,
 				9ADC15F01F8F7AFE00BBF4A7 /* spammer.cpp in Sources */,
 				91216B9122C777810042172E /* triggerbot.cpp in Sources */,
@@ -644,7 +629,6 @@
 				9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */,
 				B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */,
 				9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */,
-				914702A222C4C97E00F7E780 /* dlights.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

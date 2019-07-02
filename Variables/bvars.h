@@ -154,16 +154,6 @@ public:
         bool backtrack = false;
         bool moonwalk = false;
         bool edge           = false;
-        bool warlauke           = true;
-        bool syn           = true;
-        bool bellez           = true;
-        bool nagatoro           = true;
-        bool tim           = true;
-        bool quake           = true;
-        bool v1rus           = true;
-        bool raizo           = true;
-        bool gael           = true;
-        bool giraffe           = true;
         
         // Different Clantags
         bool clantag         = true;    // Enables clantag
