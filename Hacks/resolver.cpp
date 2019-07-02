@@ -924,7 +924,7 @@ float AAA_Yaw(C_BaseEntity* entity)
     }
     if(vars.aimbot.yresolve == 5)
     {
-        float last_moving_lby [ 65 ];
+        static float last_moving_lby [ 65 ];
         
         bool Movingg;
         entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
@@ -956,7 +956,22 @@ float AAA_Yaw(C_BaseEntity* entity)
     } // end of resolver 5
     
     if(vars.aimbot.yresolve == 6){
-        angle += RandomFloat(35, 35);
+        //test
+        static float oldlby[65] = 0.0f;
+        static bool bLowerBodyIsUpdated;
+        if (entity->GetLowerBodyYawTarget() != stored_lby[entity->GetIndex()]){
+         bLowerBodyIsUpdated = true;
+         stored_lby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
+        }
+        else bLowerBodyIsUpdated = false;
+     
+     if(entity->GetVelocity.Length2D() > 50){
+      angle = rand() % 2 ? 
+       stored_lby[entity->GetIndex()] - 15 :
+       stored_lby[entity->GetIndex()] + 15 ;
+     }
+     else{
+      angle = entity->GetLowerBodyYawTarget();
     }
     
     if(vars.aimbot.yresolve == 7){
