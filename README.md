@@ -14,13 +14,18 @@ Raizo (updating)
 
 ViKiNG (Making Barbossa)
 
--X (Making breathless)
+-X/Syn (Making breathless and everything in life)
 Akalisch (NetVarManager/PatternScanner)
 
 Pwned (Menu & Sorting Everything)
 
-Warlauke (Barbossa)
+Warlauke (Barbossa & Noriaela)
 
 CreditCode (cooperative and deleted the face.us repository) 
 
-Raizo (updating it for the new update)
+Nagatoro (for suggesting me to paste it idk)
+
+Gael (for testing it all the time i want him to)
+
+Giraffe (for hvhing with gael to test it out lmao)
+
