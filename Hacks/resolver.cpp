@@ -958,20 +958,22 @@ float AAA_Yaw(C_BaseEntity* entity)
         static float oldlby[65] = 0.0f;
         static bool bLowerBodyIsUpdated;
         if (entity->GetLowerBodyYawTarget() != stored_lby[entity->GetIndex()]){
-         bLowerBodyIsUpdated = true;
-         stored_lby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
+            bLowerBodyIsUpdated = true;
+            stored_lby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
         }
         else bLowerBodyIsUpdated = false;
      
-     if(entity->GetVelocity.Length2D() > 50){
-      angle = rand() % 2 ? 
-       stored_lby[entity->GetIndex()] - 15 :
-       stored_lby[entity->GetIndex()] + 15 ;
+        if(bLowerBodyIsUpdated){
+            angle = rand() % 2 ? 
+            stored_lby[entity->GetIndex()] - 15 :
+            stored_lby[entity->GetIndex()] + 15 ;
+        }
+        else {
+            angle = rand() % 2 ? 
+            entity->GetLowerBodyYawTarget() - 30 :
+            entity->GetLowerBodyYawTarget() + 30 ;
+        }
      }
-     else{
-      angle = entity->GetLowerBodyYawTarget();
-     }
-    }
     
     if(vars.aimbot.yresolve == 7){
         angle = entity->GetLowerBodyYawTarget() + 180;
