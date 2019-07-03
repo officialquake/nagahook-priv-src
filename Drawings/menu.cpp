@@ -752,11 +752,13 @@ void cMenu::renderMisc(int x, int y) {
     
     vector<string> conf;
     
-    conf.push_back("Legit");
-    conf.push_back("Rage");
-    conf.push_back("HvH");
+    conf.push_back("scout");
+    conf.push_back("autos");
+    conf.push_back("legit");
+    conf.push_back("rage");
+    conf.push_back("rifles");
     
-    this->renderCombo(x, y + 245,  150, 20, "Legit", conf, cfg.cfgcombo, &vars.cfg_opend);
+    this->renderCombo(x, y + 245,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);
     if(!vars.cfg_opend) {
         this->renderButton(x, y + 265, "Save", &cfg.saveconfig);
         this->renderButton(x + 85, y + 265, "Load", &cfg.loadconfig);

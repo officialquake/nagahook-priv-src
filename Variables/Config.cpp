@@ -17,9 +17,11 @@ const char* ConfigName;
 string user     = getenv("USER");
 string dsk      = "/Users/" + user + "/Desktop/";
 string fdr      = "/Users/" + user + "/Desktop/Nagahook";
-string legit    = "/Users/" + user + "/Desktop/Nagahook/Legit.ini";
-string rage    = "/Users/" + user + "/Desktop/Nagahook/Rage.ini";
-string hvh    = "/Users/" + user + "/Desktop/Nagahook/HvH.ini";
+string scout    = "/Users/" + user + "/Desktop/Nagahook/scout.ini";
+string autos    = "/Users/" + user + "/Desktop/Nagahook/autos.ini";
+string legit    = "/Users/" + user + "/Desktop/Nagahook/legit.ini";
+string rage    = "/Users/" + user + "/Desktop/Nagahook/rage.ini";
+string rifles    = "/Users/" + user + "/Desktop/Nagahook/rifles.ini";
 string skins    = "/Users/" + user + "/Desktop/Nagahook/skins.ini";
 
 bool GetBoolValue(bool Value)
@@ -38,9 +40,11 @@ float GetFloatValue(float Value)
 }
 
 void Config::getConfig(int ConfigNo) {
-    if(ConfigNo == 0) ConfigName = legit.c_str();
-    else if (ConfigNo == 1) ConfigName = rage.c_str();
-    else if (ConfigNo == 2) ConfigName = hvh.c_str();
+    if(ConfigNo == 0) ConfigName = scout.c_str();
+    else if (ConfigNo == 1) ConfigName = autos.c_str();
+    else if (ConfigNo == 2) ConfigName = legit.c_str();
+    else if (ConfigNo == 3) ConfigName = rage.c_str();
+    else if (ConfigNo == 4) ConfigName = rifles.c_str();
 }
 
 bool fileExist(const char* path) {
