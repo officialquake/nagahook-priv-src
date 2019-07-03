@@ -359,7 +359,7 @@ void DrawPlayerESP()
             
             /* Draw snaplines */
             if(vars.visuals.snapline)
-                draw->drawline(getscreenw / 2, getscreenh / 2, players.x + players.w / 2, players.y + players.h, Color::White());
+                draw->drawline(getscreenw / 2, getscreenh / 2, players.x + players.w / 2, players.y + players.h, Color::Red());
             
             /* Draw skeleton */
             if(vars.visuals.skeleton)
