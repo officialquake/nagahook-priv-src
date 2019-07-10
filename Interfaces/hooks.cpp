@@ -114,6 +114,11 @@ void UpdateResolver()
 void PrintInfo()
 {
     pCvar->ConsoleColorPrintf(Color::White(), "[nagahook] Injected successfully! ");
-    
+    pCvar->ConsoleColorPrintf(Color::Red(), "Credits to: ");
+    pCvar->ConsoleColorPrintf(Color::Green(), "Syn/-X making breathless");
+    pCvar->ConsoleColorPrintf(Color::Yellow(), "ViKiNG making barbossa");
+    pCvar->ConsoleColorPrintf(Color::Blue(), "Akalisch (netvarmanager/patternscanner)");
+    pCvar->ConsoleColorPrintf(Color::Purple(), "Warlauke (barbossa)");
+    pCvar->ConsoleColorPrintf(Color::Avoz(), "Tim (implementing Tp and extra AA's)");
 }
 
