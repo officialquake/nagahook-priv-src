@@ -51,29 +51,53 @@ string GetLocalName()
     return localInfo.name;
 }
 
-void FakeLag(C_BaseEntity* local, CUserCmd* cmd)
+static int ticks = 0;
+int ticksMax = 16;
+
+void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool& sendPacket)
 {
     if (!vars.misc.fakelag)
         return;
     
-    if (!local || !local->GetAlive())
+    C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer || !localplayer->GetAlive())
         return;
     
-    if (cmd->buttons & IN_ATTACK)
+    if (localplayer->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
         return;
     
-    if(vars.misc.fakelagtype == 1){
-        static int choked = 0;
-        
-        if (choked >= vars.misc.fakelagfactor) {
-            *bSendPacket = true;
-            choked = 0;
-        } else {
-            *bSendPacket = false;
-        }
-        
-        choked++;
+    if (cmd->buttons & IN_ATTACK) {
+        sendPacket = true;
+        return;
     }
+    
+    if (ticks >= ticksMax) {
+        sendPacket = true;
+        ticks = 0;
+    } else {
+        
+        if (vars.misc.adaptive) {
+            
+            int packetsToChoke;
+            
+            if (localplayer->GetVelocity().Length() > 0.f)
+            {
+                packetsToChoke = (int)((64.f / pGlobals->interval_per_tick) / localplayer->GetVelocity().Length()) + 1;
+                if (packetsToChoke >= 15)
+                    packetsToChoke = 14;
+                if (packetsToChoke < vars.misc.fakelagfactor)
+                    packetsToChoke = vars.misc.fakelagfactor;
+            } else {
+                packetsToChoke = 0;
+            }
+            
+            sendPacket = ticks < 16 - packetsToChoke;
+            
+        } else {
+            sendPacket = ticks < 16 - vars.misc.fakelagfactor;
+        }
+    }
+    ticks++;
 }
 
 /*void showranks(CUserCmd* cmd)
@@ -88,7 +112,7 @@ void FakeLag(C_BaseEntity* local, CUserCmd* cmd)
     MsgFunc_ServerRankRevealAll(input);
 }
 */
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove) //float& flWall, float& flConor
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket) //float& flWall, float& flConor
 {
     //set.command_number = cmd->command_number;
     
@@ -99,7 +123,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     CirlceStrafe(local, cmd, vOldAngles);
     
-    FakeLag(local,cmd);
+    FakeLag(local,cmd,sendPacket);
     
     Moonwalk(cmd); // Moonwalk
     
@@ -109,6 +133,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     lby_spin(cmd, local);
     tank(cmd, local);
     resolverfucker(cmd, local);
+    DoAntiaim(cmd, local, weapon, sendPacket);
     
         
     DoAim(cmd, local, weapon, flForwardmove, flSidemove); // Add some black magic shit.
@@ -184,7 +209,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove);
+        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket);
         
         if(local->GetAlive()){
             *bSendPacket = true;

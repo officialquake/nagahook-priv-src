@@ -38,8 +38,6 @@ extern bool* bSendPacket;
 
 extern RecvVarProxyFn OldProxy_Y, OldProxy_Z, OldProxy_Velocity, VeloProx1, VeloProx2, VeloProx3; //OldProxy_X
 
-extern bool* bSendPacket;
-
 namespace Global
 {
     extern CUserCmd*     cmd;

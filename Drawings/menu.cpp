@@ -527,61 +527,81 @@ void cMenu::renderAim(int x, int y) {
     this->renderCombo(x + 260, y + 120, 150, 20, "Hitscan", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
     
     
-    vector<string> X;  // Real Pitch
-    vector<string> Y;  // Real Yaw
-    vector<string> FY; // Fake Yaw
-    vector<string> MY; // Ground Yaw
-    vector<string> AY; // Air Yaw
-    // Pitch
-    X.push_back("Off");
-    X.push_back("Emotion");
-    X.push_back("Dance");
-    if(!vars.misc.antiuntrust)
-    {
-        X.push_back("FakeDown");
-        X.push_back("FakeUp");
-    }
-    // Yaw
-    Y.push_back("Off");
-    Y.push_back("Backwards");
-    Y.push_back("LowerYaw");
-    Y.push_back("Manual Edge");
-    Y.push_back("LBY Breaker");
-    // Fake Yaw
-    FY.push_back("Off");
-    FY.push_back("Rand");
-    FY.push_back("Rand2");
-    FY.push_back("Rand3");
-    FY.push_back("180");
-    FY.push_back("180 Rotation");
-    //Moving Yaw
-    MY.push_back("Off");
-    MY.push_back("LowerYaw");
-    MY.push_back("Backwards Jitter");
-    MY.push_back("Rotate");
-    // Air Yaw
-    AY.push_back("Off");
-    AY.push_back("Rotate");
+   
+    
+    
+    
 }
     
     void cMenu::renderAntiAim(int x, int y) {
+        
+        vector<string> Pitch;  // Real Pitch
+        vector<string> Yaw;  // Real Yaw
+        vector<string> FakeYaw; // Fake Yaw
+        vector<string> MY; // Ground Yaw
+        vector<string> AY; // Air Yaw
+        // Pitch
+        Pitch.push_back("Off");
+        Pitch.push_back("Down");
+        Pitch.push_back("Up");
+        // Yaw
+        Yaw.push_back("Off");
+        Yaw.push_back("Backwards");
+        Yaw.push_back("Jitter");
+        Yaw.push_back("FakeStatic");
+        Yaw.push_back("FJitter");
+        Yaw.push_back("SlowSpin");
+        Yaw.push_back("FastSpin");
+        Yaw.push_back("RandomBackJitter");
+        Yaw.push_back("BackJitter");
+        Yaw.push_back("LowerYaw");
+        Yaw.push_back("SidewaysLeft");
+        Yaw.push_back("SidewaysRight");
+        Yaw.push_back("LBYBreaker");
+        // Fake Yaw
+        // Fake Yaw
+        FakeYaw.push_back("Off");
+        FakeYaw.push_back("FakeSpin");
+        FakeYaw.push_back("FakeLBYHook");
+        FakeYaw.push_back("FakeTwoStep");
+        FakeYaw.push_back("FakeLowerBody135");
+        FakeYaw.push_back("FakeInverseRotation");
+        FakeYaw.push_back("FakeJitter");
+        FakeYaw.push_back("FakeLBY");
+        FakeYaw.push_back("FakeSideLBY");
+        //Moving Yaw
+        MY.push_back("Off");
+        MY.push_back("LowerYaw");
+        MY.push_back("Backwards Jitter");
+        MY.push_back("Rotate");
+        // Air Yaw
+        AY.push_back("Off");
+        AY.push_back("Rotate");
     
     this->renderCheckbox(x - 15, y, "Anti-Aim", &vars.misc.antiaim);
     this->renderCheckbox(x - 15, y + 20, "Show Real Angles", &vars.misc.thirdpersonmode);
-    this->renderCheckbox(x - 15, y + 40, "Fake", &vars.misc.fakeaa); // 60
-    this->renderSlider(x - 5, y + 60, 150, "LBY Delta", vars.misc.delta, 180, 0);
-    this->renderCheckbox(x - 15, y + 80, "AA Turbo Jitter", &vars.misc.turbojizzer);
-    this->renderCheckbox(x - 15, y + 100, "AA Back Jitter", &vars.misc.backjizzer);
-    this->renderCheckbox(x - 15, y + 120, "AA LBY Spin", &vars.misc.lby_spin);
-    this->renderCheckbox(x - 15, y + 140, "AA Tank", &vars.misc.tank);
-    this->renderCheckbox(x - 15, y + 160, "Resolver Fucker", &vars.misc.resolverfucker);
-    this->renderCheckbox(x - 15, y + 180, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
+    
+    //this->renderSlider(x - 5, y + 60, 150, "LBY Delta", vars.misc.delta, 180, 0);
+    this->renderCheckbox(x - 15, y + 40, "AA Turbo Jitter", &vars.misc.turbojizzer);
+    this->renderCheckbox(x - 15, y + 60, "AA Back Jitter", &vars.misc.backjizzer);
+    this->renderCheckbox(x - 15, y + 80, "AA LBY Spin", &vars.misc.lby_spin);
+    this->renderCheckbox(x - 15, y + 100, "AA Tank", &vars.misc.tank);
+    this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
+    this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
     //this->renderCheckbox(x - 15, y + 180, "Dlights", &vars.misc.dlights);
-    this->renderCheckbox(x - 15, y + 200, "Freestand", &vars.aimbot.freestand);
+    this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
         if (!vars.freestand_opend) {
             
-            this->renderSlider(x - 5, y + 220, 150, "Jitter", vars.aimbot.jitter, 180, 0);
+            this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
             
+        }
+        this->renderCheckbox(x - 15, y + 200, "Fake", &vars.misc.fakeaa); // 60
+        this->renderCombo(x - 15, y + 240, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+        if(!vars.aaX_opend){
+            this->renderCombo(x - 15, y + 270, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+        }
+        if((!vars.aaX_opend) && !vars.aaY_opend) {
+            this->renderCombo(x - 15, y + 300, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
         }
     }
     /*

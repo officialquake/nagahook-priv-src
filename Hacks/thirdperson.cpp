@@ -12,6 +12,7 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     float distance = 100.f;
     
     C_BaseEntity *localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
     if(!localplayer || !localplayer->GetAlive())
         return;
     

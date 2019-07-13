@@ -4,7 +4,7 @@ void DoTrigger(CUserCmd *Cmd)
     if(!vars.aimbot.trigger)
         return;
     
-    if(pInputSystem->IsButtonDown(KEY_COMMA)) // Change the trigger bot key here
+    if(pInputSystem->IsButtonDown(MOUSE_MIDDLE)) // Change the trigger bot key here
     {
         C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
         

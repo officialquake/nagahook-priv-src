@@ -161,7 +161,7 @@ public:
         bool showrank       = true;     // Show everyboys rank in MM
         bool spammer        = false;    // Chat spammer
         bool noflash        = true;     // Disabled flashbangs
-        int flashalpha      = 255.f;    // How "flashed" you are
+        int flashalpha      = 0.f;    // How "flashed" you are
         bool noscope        = false;     // Noscope
         
         bool fakelag        = false;    // Fake lag enable (WIP)

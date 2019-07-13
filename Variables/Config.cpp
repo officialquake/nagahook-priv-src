@@ -82,7 +82,7 @@ void Config::LoadConfig() {
     //Right Aimbot
     vars.misc.antiaim  = (ButtonCode_t)cfgget_b("Aimbot", "AntiAim Enabled");
     vars.misc.thirdpersonmode     = cfgget_b("Aimbot", "Show Real Angles");
-    vars.misc.fakeaa     = cfgget_b("Aimbot", "Fake");
+    vars.misc.fakeaa     = cfgget_b("Aimbot", "Fake aa");
     vars.misc.aaX     = cfgget_i("Aimbot", "aaX");
     vars.aimbot.pointscale     = cfgget_i("Aimbot", "Pointscale");
     vars.misc.aaY     = cfgget_i("Aimbot", "aaY");
