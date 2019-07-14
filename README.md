@@ -1,12 +1,8 @@
 # nagahook
-This is basically shit fucking leaked and papa syn is god
+A better Version of breathless ;^)
 
 ## Why is this existing and not on the face.us repo?
-The face.us repository got deleted by (Creditcode) the creator long live the original fork
-# Installation proccess.
-
-Please go to the [wiki](https://github.com/iraizo/breathless-fork/wiki) to know how to install it for any issues please go to the [issue tracker](https://github.com/iraizo/breathless-fork/issues)
-
+The face.us repository got deleted by faithful (CreditCode) the creator, long live the original fork
 
 # Credits
 
@@ -23,9 +19,14 @@ Warlauke (Barbossa & Noriaela)
 
 CreditCode (cooperative and deleted the face.us repository) 
 
-Nagatoro (For his marvelous idea on pasting Breathless and making it great again)
+nagatoro单独 (The idea to create the paste,searching for src,recoomendations)
 
 Gael (For cooperatively testing, giving feedback, and is always ready to help 24/7/365)
 
 Giraffe (for hvhing with gael to test it out lmao + he's gay)
+
+Tim (Making the paste and adding any feature we want for free)
+
+
+MAKE BREATHLESS GREAT AGAIN
 
