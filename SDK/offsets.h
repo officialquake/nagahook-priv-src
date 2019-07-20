@@ -103,6 +103,7 @@ struct COffsets
 
 	struct
 	{
+        int m_bIsPlayerGhost;
 		int m_iShotsFired;
         int m_angEyeAngles[2];
 		int m_ArmorValue;

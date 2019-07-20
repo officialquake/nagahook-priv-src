@@ -9,18 +9,18 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
         return;
     }
     
-    float distance = 100.f;
+    //float distance = 100.f;
     
     C_BaseEntity *localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
     if(!localplayer || !localplayer->GetAlive())
         return;
     
-    Vector view = localplayer->GetViewAngles();
+    QAngle *view = localplayer->GetViewwAngles();
     trace_t tr;
     Ray_t ray;
     
-    Vector desiredCamOffset = Vector(cos(DEG2RAD(view.y)) * distance, sin(DEG2RAD(view.y)) * distance, sin(DEG2RAD(-view.x)) * distance);
+    Vector desiredCamOffset = Vector(cos(DEG2RAD(view->y)) * vars.misc.tpoffset, sin(DEG2RAD(view->y)) * vars.misc.tpoffset, sin(DEG2RAD(-view->x)) * vars.misc.tpoffset);
     
     ray.Init(localplayer->GetEyePosition(), (localplayer->GetEyePosition() - desiredCamOffset));
     CTraceFilter traceFilter;
@@ -31,14 +31,14 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     
     float distance2D = diff.Length2D();
     
-    bool horOK = distance2D > (distance - 2.0f);
+    bool horOK = distance2D > (vars.misc.tpoffset - 2.0f);
     bool vertOK = (abs(diff.z) - abs(desiredCamOffset.z) < 3.0f);
     
     float cameraDistance;
     
     if( horOK && vertOK )  // If we are clear of obstacles
     {
-        cameraDistance= distance; // go ahead and set the distance to the setting
+        cameraDistance= vars.misc.tpoffset; // go ahead and set the distance to the setting
     }
     else
     {

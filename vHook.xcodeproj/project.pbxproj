@@ -35,13 +35,15 @@
 		8FB45F20207FCF79003567EF /* asuswalls.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB45F1E207FCF78003567EF /* asuswalls.h */; };
 		8FEBA0322005201200F991CA /* hitmarker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FEBA0302005201200F991CA /* hitmarker.h */; };
 		8FEBA0332005201200F991CA /* hitmarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBA0312005201200F991CA /* hitmarker.cpp */; };
-		911476AD22C03DEF00BC3E31 /* backtrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911476AB22C03DEF00BC3E31 /* backtrack.cpp */; };
-		911476AE22C03DEF00BC3E31 /* backtrack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 911476AC22C03DEF00BC3E31 /* backtrack.hpp */; };
 		91216B9122C777810042172E /* triggerbot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91216B8F22C777810042172E /* triggerbot.cpp */; };
 		91216B9222C777810042172E /* triggerbot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91216B9022C777810042172E /* triggerbot.hpp */; };
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
-		9147029E22C4C8D300F7E780 /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9147029C22C4C8D300F7E780 /* fakelag.cpp */; };
-		9147029F22C4C8D300F7E780 /* fakelag.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9147029D22C4C8D300F7E780 /* fakelag.hpp */; };
+		91A48C3222E36541008A0BBA /* nosmoke.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3022E36541008A0BBA /* nosmoke.hpp */; };
+		91A48C3322E36541008A0BBA /* nosmoke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A48C3122E36541008A0BBA /* nosmoke.cpp */; };
+		91A48C3622E36553008A0BBA /* Backtrack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3422E36553008A0BBA /* Backtrack.hpp */; };
+		91A48C3722E36553008A0BBA /* Backtrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A48C3522E36553008A0BBA /* Backtrack.cpp */; };
+		91A48C3E22E3669E008A0BBA /* noduckcooldown.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3C22E3669E008A0BBA /* noduckcooldown.hpp */; };
+		91A48C3F22E3669E008A0BBA /* noduckcooldown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */; };
 		91A9506222BF11ED007E0CB7 /* thirdperson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A9506022BF11ED007E0CB7 /* thirdperson.cpp */; };
 		91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A9506122BF11ED007E0CB7 /* thirdperson.hpp */; };
 		91BBD44222C0829C006B9EA0 /* moonwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BBD44022C0829C006B9EA0 /* moonwalk.cpp */; };
@@ -145,13 +147,15 @@
 		8FB45F1E207FCF78003567EF /* asuswalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = asuswalls.h; path = Hacks/asuswalls.h; sourceTree = "<group>"; };
 		8FEBA0302005201200F991CA /* hitmarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hitmarker.h; path = Hacks/hitmarker.h; sourceTree = "<group>"; };
 		8FEBA0312005201200F991CA /* hitmarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hitmarker.cpp; path = Hacks/hitmarker.cpp; sourceTree = "<group>"; };
-		911476AB22C03DEF00BC3E31 /* backtrack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = backtrack.cpp; path = Hacks/backtrack.cpp; sourceTree = "<group>"; };
-		911476AC22C03DEF00BC3E31 /* backtrack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = backtrack.hpp; path = Hacks/backtrack.hpp; sourceTree = "<group>"; };
 		91216B8F22C777810042172E /* triggerbot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = triggerbot.cpp; path = Hacks/triggerbot.cpp; sourceTree = "<group>"; };
 		91216B9022C777810042172E /* triggerbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = triggerbot.hpp; path = Hacks/triggerbot.hpp; sourceTree = "<group>"; };
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
-		9147029C22C4C8D300F7E780 /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fakelag.cpp; sourceTree = "<group>"; };
-		9147029D22C4C8D300F7E780 /* fakelag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fakelag.hpp; sourceTree = "<group>"; };
+		91A48C3022E36541008A0BBA /* nosmoke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nosmoke.hpp; path = Hacks/nosmoke.hpp; sourceTree = "<group>"; };
+		91A48C3122E36541008A0BBA /* nosmoke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nosmoke.cpp; path = Hacks/nosmoke.cpp; sourceTree = "<group>"; };
+		91A48C3422E36553008A0BBA /* Backtrack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Backtrack.hpp; sourceTree = "<group>"; };
+		91A48C3522E36553008A0BBA /* Backtrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Backtrack.cpp; sourceTree = "<group>"; };
+		91A48C3C22E3669E008A0BBA /* noduckcooldown.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = noduckcooldown.hpp; sourceTree = "<group>"; };
+		91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = noduckcooldown.cpp; sourceTree = "<group>"; };
 		91A9506022BF11ED007E0CB7 /* thirdperson.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = thirdperson.cpp; path = Hacks/thirdperson.cpp; sourceTree = "<group>"; };
 		91A9506122BF11ED007E0CB7 /* thirdperson.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = thirdperson.hpp; path = Hacks/thirdperson.hpp; sourceTree = "<group>"; };
 		91BBD44022C0829C006B9EA0 /* moonwalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = moonwalk.cpp; sourceTree = "<group>"; };
@@ -309,6 +313,10 @@
 		E181BB151E74661D00D1CCED /* Hacks */ = {
 			isa = PBXGroup;
 			children = (
+				91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */,
+				91A48C3C22E3669E008A0BBA /* noduckcooldown.hpp */,
+				91A48C3122E36541008A0BBA /* nosmoke.cpp */,
+				91A48C3022E36541008A0BBA /* nosmoke.hpp */,
 				B67AE84F1F91CE7D00ADDCD8 /* aimbot.cpp */,
 				B67AE8501F91CE7D00ADDCD8 /* aimbot.h */,
 				B67AE8531F91CE8800ADDCD8 /* antiaim.cpp */,
@@ -345,12 +353,8 @@
 				8FEBA0302005201200F991CA /* hitmarker.h */,
 				91A9506022BF11ED007E0CB7 /* thirdperson.cpp */,
 				91A9506122BF11ED007E0CB7 /* thirdperson.hpp */,
-				911476AB22C03DEF00BC3E31 /* backtrack.cpp */,
-				911476AC22C03DEF00BC3E31 /* backtrack.hpp */,
 				91BBD44022C0829C006B9EA0 /* moonwalk.cpp */,
 				91BBD44122C0829C006B9EA0 /* moonwalk.hpp */,
-				9147029C22C4C8D300F7E780 /* fakelag.cpp */,
-				9147029D22C4C8D300F7E780 /* fakelag.hpp */,
 				91216B8F22C777810042172E /* triggerbot.cpp */,
 				91216B9022C777810042172E /* triggerbot.hpp */,
 			);
@@ -360,6 +364,8 @@
 		E1FE199B1E718EA90018D409 = {
 			isa = PBXGroup;
 			children = (
+				91A48C3522E36553008A0BBA /* Backtrack.cpp */,
+				91A48C3422E36553008A0BBA /* Backtrack.hpp */,
 				E14A23721E72F00900195305 /* Variables */,
 				E104BF981E71DA0B0080C9BA /* Drawings */,
 				E104BF921E71D2E80080C9BA /* Utils */,
@@ -473,6 +479,7 @@
 				91216B9222C777810042172E /* triggerbot.hpp in Headers */,
 				9A213B431F86632D00518DE8 /* clantag.h in Headers */,
 				96E80CAE20BCEE5F00C87050 /* skinchanger.h in Headers */,
+				91A48C3622E36553008A0BBA /* Backtrack.hpp in Headers */,
 				E1FE19CD1E718F020018D409 /* IVDebugOverlay.h in Headers */,
 				8FB45F20207FCF79003567EF /* asuswalls.h in Headers */,
 				8F4F524A2037568B00507024 /* checksum_md5.h in Headers */,
@@ -497,9 +504,9 @@
 				8614F618209CCB2400C49CE0 /* CBaseAnimating.h in Headers */,
 				E1FE19C21E718F020018D409 /* Color.h in Headers */,
 				E1FE19C81E718F020018D409 /* IEngineClient.h in Headers */,
+				91A48C3E22E3669E008A0BBA /* noduckcooldown.hpp in Headers */,
 				E1FE19C31E718F020018D409 /* common.h in Headers */,
 				8F4E12E6200FC300000F17A0 /* GameEvent.h in Headers */,
-				9147029F22C4C8D300F7E780 /* fakelag.hpp in Headers */,
 				B67AE8491F91B20800ADDCD8 /* bvars.h in Headers */,
 				B67AE83E1F91B1E600ADDCD8 /* hacks.h in Headers */,
 				B67AE83C1F91B0D800ADDCD8 /* hooks.h in Headers */,
@@ -515,8 +522,8 @@
 				91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */,
 				8F94DAA32076AFB100177009 /* autoshoot.h in Headers */,
 				8FEBA0322005201200F991CA /* hitmarker.h in Headers */,
-				911476AE22C03DEF00BC3E31 /* backtrack.hpp in Headers */,
 				B67AE83A1F91B0D800ADDCD8 /* interfaces.h in Headers */,
+				91A48C3222E36541008A0BBA /* nosmoke.hpp in Headers */,
 				E1FE19D41E718F020018D409 /* Vector.h in Headers */,
 				B67AE8421F91B1F100ADDCD8 /* utils.h in Headers */,
 				E1FE19CE1E718F020018D409 /* IVModelInfo.h in Headers */,
@@ -590,8 +597,9 @@
 				9A213B301F8660FD00518DE8 /* KeyEvent.cpp in Sources */,
 				9A213B2E1F8660FD00518DE8 /* DrawModelExecute.cpp in Sources */,
 				B67AE82F1F91AED700ADDCD8 /* netvarmanager.cpp in Sources */,
-				9147029E22C4C8D300F7E780 /* fakelag.cpp in Sources */,
+				91A48C3F22E3669E008A0BBA /* noduckcooldown.cpp in Sources */,
 				B67AE8451F91B20100ADDCD8 /* drawings.cpp in Sources */,
+				91A48C3322E36541008A0BBA /* nosmoke.cpp in Sources */,
 				B67AE84A1F91B20800ADDCD8 /* bvars.cpp in Sources */,
 				14D91BFD1F99B58700252244 /* spectators.cpp in Sources */,
 				B67AE8551F91CE8800ADDCD8 /* antiaim.cpp in Sources */,
@@ -615,6 +623,7 @@
 				91216B9122C777810042172E /* triggerbot.cpp in Sources */,
 				8F4E12EE200FCAEA000F17A0 /* Config.cpp in Sources */,
 				9A213B451F866CCB00518DE8 /* BeginFrame.cpp in Sources */,
+				91A48C3722E36553008A0BBA /* Backtrack.cpp in Sources */,
 				8FAEFEB92014046F0057A419 /* antiaiminfos.cpp in Sources */,
 				B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */,
 				9A213B311F8660FD00518DE8 /* OverrideView.cpp in Sources */,
@@ -625,7 +634,6 @@
 				9A213B321F8660FD00518DE8 /* PaintTraverse.cpp in Sources */,
 				B67AE84D1F91CD8200ADDCD8 /* menu.cpp in Sources */,
 				E1FE19DA1E718F230018D409 /* main.cpp in Sources */,
-				911476AD22C03DEF00BC3E31 /* backtrack.cpp in Sources */,
 				9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */,
 				B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */,
 				9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */,

@@ -33,7 +33,7 @@ public:
     
     // For text input
     bool misc_name, misc_changename;
-
+    
 };
 
 class cVariables : public ccombobox
@@ -51,18 +51,22 @@ public:
     public:
         
         bool enabled     = true;         // Enable
+        bool prediction        = false;
+        int baimxhp     = 0;         // Enable
+        bool baimhp     = false;         // Enable
         int jitter     = 0;
         bool freestand = false;
+        bool slowalk = false;
         bool silent      = true;         // Silent Aim ob
         int  FovToPlayer = 180;          // Aimbot Fov
         int  hitbox      = 0;            // Hitbox
         int  pointscale  = 80;           // Pointscale
         bool trigger     = false;        // Will shoot when an enemy is in your crosshair
-        bool prediction  = true;         // Player prediction
+        //bool prediction  = true;         // Player prediction
         bool autowall    = true;         // Shoots through walls if calulated damage is higher than set amount
         int  mindmg      = 5;            // Autowall min damage
         bool hitchance  = true;         // Hitchance
-        int accuracyhithcance = .0f;     // Hitchance Accuacry
+        int accuracyhithcance = 0;     // Hitchance Accuacry
         bool hitscan    = true;         // Hitscan
         int hitscantype = 0;            // HItscan Types
         bool autoshoot  = false;        // Shoots for you
@@ -71,7 +75,7 @@ public:
         bool autopistol = true;         // Pistol is like AK
         bool autocock   = true;        // Auto Revovler
         bool autocrouch = false;        // Crouch when something is in fov
-        bool autozeus   = true;         // Zeus when something is close enough
+        //bool autozeus   = false;         // Zeus when something is close enough
         bool rcs        = false;        // Recoil control system
         int rcsf        = 0;            // Recoil control
         bool Yawresolver= false;        // Resolver
@@ -82,7 +86,7 @@ public:
         
         bool freestanding = false;
         
-
+        
     }aimbot;
     
     class cVisuals
@@ -92,6 +96,7 @@ public:
         bool enabled    = true;        // Enable
         bool enemyonly  = true;        // Enemy only
         bool visonly    = false;       // Visual only
+        bool bullett    = false;       // Visual only
         bool box        = false;       // Box ESP
         bool name       = true;        // Name ESP
         bool health     = true;        // Health Bar
@@ -110,6 +115,8 @@ public:
         bool nosmoke    = false;        // No Smoke
         bool antiaim_indicator= true;  // Manual AA idicator
         int indicatorAA_types = 2;     // antiaim idicator
+        bool anglelinenames = false;     // antiaim idicator
+        bool aaline = false;     // antiaim idicator
         bool antiaiminfos= true;       // AntiAim Lines
         bool direction = false;         // Enemy Direction
         bool hitmarker  = false;        // Aimware Hitmarkers
@@ -117,8 +124,8 @@ public:
         bool grenade = true;
         bool active    = true;
         float edge_distance = 25.f;
-    
-
+        
+        
         // Chams
         bool chams      = true;         // Player Chams
         bool handchams  = false;        // Handchams obv
@@ -140,7 +147,10 @@ public:
         bool enabled        = true;     // Enabled
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
         bool radar    = false;
+        bool noduckcooldown    = false;
+        bool spreadcrosshair    = false;
         bool dlights        = false;
+        
         bool norecoil       = true;
         bool thirdperson    = false;     // Basically RCS without slider
         bool novisual       = true;     // No visual recoil ofc
@@ -149,26 +159,27 @@ public:
         bool cstrafe        = false;    // Circle strafes
         bool airstuck       = false;    // Airstuck
         bool fovt           = false;    // Fov Changer Enabled
-        int fov             = 10;       // FOV changer
+        int fov             = 20;       // FOV changer
         bool watermark      = true;
         bool backtrack = false;
         bool moonwalk = false;
+        float tpoffset = 64.f;
         bool edge           = false;
         
         // Different Clantags
-        bool clantag         = true;    // Enables clantag
+        bool clantag         = false;    // Enables clantag
         
         bool showrank       = true;     // Show everyboys rank in MM
         bool spammer        = false;    // Chat spammer
         bool noflash        = true;     // Disabled flashbangs
-        int flashalpha      = 0.f;    // How "flashed" you are
+        int flashalpha      = 255.f;    // How "flashed" you are
         bool noscope        = false;     // Noscope
         
         bool fakelag        = false;    // Fake lag enable (WIP)
         int fakelagfactor   = 0;        // Fake Lag (WIP)
-        int fakelagtype     = 0;        // 0 Normal - 1 Adaptive
         bool adaptive       = false;    //
-    
+        
+        
         bool nightmode      = false;    // Night Mode
         bool asuswalls      = false;    // asuswalls - see through walls
         bool worldpaint     = false;    // World Paint
@@ -197,9 +208,9 @@ public:
         bool lby_spin = false;
         bool tank = false;
         float asusalpha      = .0;
-
+        
     }misc;
-
+    
     class cColors
     {
     public:
@@ -243,7 +254,7 @@ public:
         
         bool  recoil_control= false;
         int   rcs_factor    = 0.f;
-    }legit; 
+    }legit;
 };
 
 struct Corrections

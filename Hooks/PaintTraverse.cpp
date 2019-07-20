@@ -4,7 +4,6 @@
 #include "../Hacks/esp.h"
 #include "../Hacks/spectators.h"
 #include "../Hacks/antiaiminfos.h"
-#include "../Hacks/hitmarker.h"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -15,6 +14,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
     paintVMT->GetOriginalMethod<tPaintTraverse>(42)(thisptr, panel, forceRepaint, allowForce);
     
     C_BaseEntity* local = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+
     
     static VPANEL last = 0;
     
@@ -103,7 +103,9 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             manualaa(local);        // Manual AA idicator
             
             Spectatorlist();    // Draws speclist
-            
+            DrawAngles(local);
+            DrawSpread();
+        
             //aw_hitmarker->initilisze();
         }
         

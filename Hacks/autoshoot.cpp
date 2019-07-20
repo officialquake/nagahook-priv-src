@@ -139,7 +139,7 @@ void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
      */
 
 
-void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
+/*void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
     
     if (!vars.aimbot.autozeus)
         return;
@@ -226,7 +226,7 @@ void AutoKnife(C_BaseEntity* local)
     
     
     
-}
+}*/
 
 
 

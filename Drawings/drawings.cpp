@@ -247,6 +247,16 @@ void cDrawings::drawline(int x, int y, int xx, int yy, Color color) {
     
 }
 
+void cDrawings::Line(int x0, int y0, int x1, int y1, Color col)
+{
+    pSurface->DrawSetColor(col);
+    pSurface->DrawLine(x0, y0, x1, y1);
+}
+void cDrawings::Line(Vector2D start_pos, Vector2D end_pos, Color col)
+{
+    Line(start_pos.x, start_pos.y, end_pos.x, end_pos.y, col);
+}
+
 
 void cDrawings::BorderBox(int x, int y, int w, int h, int thickness, Color color) {
     

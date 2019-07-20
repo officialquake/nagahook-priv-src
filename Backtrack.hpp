@@ -1,6 +1,11 @@
-/*
- *  backtrack.h
- */
+//
+//  backtrack.hpp
+//  vHook
+//
+//  Created by xxxSkies on 2018-06-20.
+//  Copyright © 2018 ViKiNG. All rights reserved.
+//
+
 #pragma once
 #include "main.h"
 
@@ -15,6 +20,8 @@ struct backtrackData
 {
     float simtime;
     Vector hitboxPos;
+    Vector origin;
+    QAngle angs;
 };
 
 class BackTrack
@@ -29,22 +36,6 @@ public:
     void legitBackTrack(CUserCmd* cmd, C_BaseEntity* pLocal);
 };
 
-class C_Backtrack
-{
-private:
-    
-private:
-    
-public:
-    
-    void store();
-    void backtrack_player(C_BasePlayer* player);
-    void draw(C_BasePlayer* player);
-    
-};
-
 extern backtrackData headPositions[64][12];
 
 extern BackTrack* backtracking;
-
-extern C_Backtrack* backtrack;

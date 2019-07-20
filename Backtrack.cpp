@@ -2,11 +2,11 @@
 //  backtrack.cpp
 //  vHook
 //
-//  Created by Timothy Dillan on 6/24/19.
-//  Copyright © 2019 ViKiNG. All rights reserved.
+//  Created by xxxSkies on 2018-06-20.
+//  Copyright © 2018 ViKiNG. All rights reserved.
 //
 
-#include "backtrack.hpp"
+#include "Backtrack.hpp"
 
 #define TICK_INTERVAL            (pGlobals->interval_per_tick)
 #define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
@@ -150,9 +150,7 @@ void BackTrack::legitBackTrack(CUserCmd* cmd, C_BaseEntity* pLocal)
                 cmd->tick_count = TIME_TO_TICKS(bestTargetSimTime);
             }
         }
-        
     }
-    
 }
 
 BackTrack* backtracking = new BackTrack();

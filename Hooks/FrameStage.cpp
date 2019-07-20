@@ -2,7 +2,8 @@
 #include "skinchanger.h"
 #include "asuswalls.h"
 #include "LagComp.h"
-#include "../Hacks/backtrack.hpp"
+#include "../Backtrack.hpp"
+#include "../Hacks/nosmoke.hpp"
 
 void RemoveFlash(ClientFrameStage_t stage)
 {
@@ -28,6 +29,7 @@ void RemoveFlash(ClientFrameStage_t stage)
     {
         *localplayer->GetFlashMaxAlpha() = 255.0f;
     }
+    
 }
 
 void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
@@ -42,37 +44,74 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     Vector VecPunch, VecView;
     
-    if(vars.misc.thirdpersonmode)
+    /*if(vars.misc.thirdpersonmode)
+     {
+     if (curStage == ClientFrameStage_t::FRAME_RENDER_START && (pEngine->IsConnected() && pEngine->IsInGame()))
+     {
+     
+     
+     }
+     
+     }*/
+    
+    if(curStage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
     {
-        if (curStage == ClientFrameStage_t::FRAME_RENDER_START && (pEngine->IsConnected() && pEngine->IsInGame()))
+        if(vars.aimbot.backtrack)
         {
-
-            
+            for(int i = 0; i < 64; i++ )
+            {
+                auto entity = (C_BaseEntity*)pEntList->GetClientEntity(i);
+                
+                if(!entity)
+                    continue;
+                
+                if(entity == local)
+                    continue;
+                
+                if(entity->GetDormant())
+                    continue;
+                
+                if(entity->IsGhost())
+                    continue;
+                
+                if(entity->GetImmune())
+                    continue;
+                
+                //if(entity->GetTeam() == Global::local->GetTeam())
+                //continue;
+                
+                if(!entity->GetAlive())
+                    continue;
+                
+                backtracking->Update(pGlobals->tickcount);
+            }
         }
-        
     }
     
     if(vars.visuals.skinc) {
-         skinchanger->FrameStageNotify(curStage);
+        skinchanger->FrameStageNotify(curStage);
     }
     
     
     if(vars.misc.asuswalls)
         asuswalls(curStage);
     
-    if(curStage == FRAME_RENDER_START && local)
+    if(curStage == FRAME_NET_UPDATE_POSTDATAUPDATE_END)
     {
-        if(vars.misc.thirdpersonmode)
-        {
-            if(pEngine->IsConnected() && pEngine->IsInGame())
-            {
-                if(local->GetLifeState() == LIFE_ALIVE)
-                {
-                    *reinterpret_cast<Vector*>(reinterpret_cast<uintptr_t>(local) + offsets.DT_BasePlayer.deadflag + 0x4) = tpangles;
-                }
+        smoke->remove_smoke(curStage);
+    }
+    
+    
+    
+    if (curStage == ClientFrameStage_t::FRAME_RENDER_START && (pEngine->IsConnected() && pEngine->IsInGame())) {
+        if(local->GetLifeState() == LIFE_ALIVE) {
+            if(vars.misc.thirdpersonmode) {
+                *reinterpret_cast<Vector*>(reinterpret_cast<uintptr_t>(local) + offsets.DT_BasePlayer.deadflag + 0x4) = tpangles;
             }
-            
         }
+        
+        
+        
         
         if(vars.misc.novisual)
         {
@@ -95,9 +134,9 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     {   // Call functions here just so its cleaner
         RemoveFlash(curStage);
-   
-    
-    
+        
+        
+        
         
         
     }

@@ -27,12 +27,14 @@ public:
     void drawboxoutline(int x, int y, int w, int h, Color color);
     void fillrgba(int x, int y, int w, int h, Color color);
     void drawline(int x, int y, int xx, int yy, Color color);
+    void Line(int x0, int y0, int x1, int y1, Color col);
+    void Line(Vector2D start_pos, Vector2D end_pos, Color col);
     void drawstring(int x, int y, Color color, HFONT font, const char* szString, bool bCenter = false);
     void drawgradient(int x, int y, int w, int h, Color col1, Color col2);
     void GradientH(int x, int y, int width, int height, Color color1, Color color2);
     void BorderBox(int x, int y, int w, int h, int thickness, Color color);
     void RectOutlined(int x, int y, int w, int h, int thickness, Color color, Color outlined);
-    void Line(Vector2D start_pos, Vector2D end_pos, Color col);
+    //void Line(Vector2D start_pos, Vector2D end_pos, Color col);
     void DrawCircle(float x, float y, float r, float s, Color color);
     void DrawTexturedPoly(int n, Vertex_t* vertice, Color col);
     void DrawFilledCircle(Vector2D center, Color color, float radius, float points);

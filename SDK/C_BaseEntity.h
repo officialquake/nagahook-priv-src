@@ -494,6 +494,11 @@ public:
         return *(Vector*)((uintptr_t)this + offsets.DT_BasePlayer.deadflag + 0x4);
     }
     
+    QAngle* GetViewwAngles()
+    {
+        return (QAngle*)((uintptr_t)this + offsets.DT_BasePlayer.deadflag + 0x4);
+    }
+    
     int GetTickBase()
     {
         return *(int*)((uintptr_t)this + offsets.DT_BasePlayer.m_nTickBase);
@@ -512,6 +517,10 @@ public:
     int* GetWearables()
     {
         return (int*)((uintptr_t)this + offsets.DT_BaseCombatCharacter.m_hMyWearables);
+        
+    }
+    bool IsGhost() { ///< C_BaseEntity.h
+        return *(bool*)((uintptr_t)this + offsets.DT_CSPlayer.m_bIsPlayerGhost);
     }
     
 };

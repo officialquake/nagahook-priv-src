@@ -58,6 +58,7 @@ void lby_spin(CUserCmd* cmd, C_BaseEntity* local);
 void tank(CUserCmd* cmd, C_BaseEntity* local);
 void resolverfucker(CUserCmd* cmd, C_BaseEntity* local);
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
+float Freestand(C_BaseEntity* local, CUserCmd* cmd);
 //void GetBestHeadAngle(CUserCmd* cmd, C_BasePlayer* local);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
 

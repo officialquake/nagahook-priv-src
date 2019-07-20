@@ -16,8 +16,6 @@
 //  Copyright © 2017 ViKiNG. All rights reserved.
 //
 
-#include "fakewalk.h" // Pasted from JingWare
-
 void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
 {
     

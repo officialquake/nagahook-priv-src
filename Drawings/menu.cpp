@@ -482,8 +482,9 @@ void cMenu::renderAim(int x, int y) {
     this->renderSlider(x + 5, y + 70, 150, "Hitbox", vars.aimbot.hitbox, 19, 0);
     this->renderCheckbox(x - 15, y + 90, "Auto Wall", &vars.aimbot.autowall);
     this->renderSlider(x + 5, y + 110, 150, "Minimum Damage", vars.aimbot.mindmg, 100, 0);
-    this->renderSlider(x + 5, y + 140, 150, "Hitchance", vars.aimbot.accuracyhithcance, 100, 0);
-    this->renderSlider(x + 5, y + 160, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
+    this->renderCheckbox(x - 15, y + 140, "Hitchance", &vars.aimbot.hitchance);
+    this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
+    this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
     
     vector<string> Resolve;  // Resolver
     
@@ -497,21 +498,28 @@ void cMenu::renderAim(int x, int y) {
     Resolve.push_back("Synp2");
     
     
-    this->renderCheckbox(x - 15, y + 180, "Yaw Resolver", &vars.aimbot.Yawresolver);
-    this->renderCombo(x + 5, y + 200, 110, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    this->renderCheckbox(x - 15, y + 200, "Yaw Resolver", &vars.aimbot.Yawresolver);
+    this->renderCombo(x + 5, y + 220, 110, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    this->renderCheckbox(x - 15, y + 245, "Baim Under x HP", &vars.aimbot.baimhp);
+    this->renderSlider(x - 5, y + 260, 150, "", vars.aimbot.baimxhp, 100, 0);
     
     //Middle
     this->renderCheckbox(x + 235, y, "Auto Scope", &vars.aimbot.autoscope);
     this->renderCheckbox(x + 235, y + 20, "Auto Pistol", &vars.aimbot.autopistol);
     this->renderCheckbox(x + 235, y + 40, "Auto Crouch", &vars.aimbot.autocrouch);
     this->renderCheckbox(x + 235, y + 60, "Auto Shoot", &vars.aimbot.autoshoot);
-    this->renderCheckbox(x + 235, y + 80, "Backtrack", &vars.misc.backtrack);
+    this->renderCheckbox(x + 235, y + 80, "Backtrack", &vars.aimbot.backtrack);
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
+    this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
+    //this->renderCheckbox(x + 235, y + 260, "Bullet Tracers", &vars.visuals.bullett);
+    //this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
+    
+    //this->renderCheckbox(x + 235, y + 260, "Auto Zeus", &vars.aimbot.autozeus);
     this->renderSlider(x + 230, y + 180, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 200, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 220, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
-    //this->renderCheckbox(x + 235, y + 170, "Auto Stop", &vars.aimbot.autostop);
+    //this->renderCheckbox(x + 235, y + 280, "Auto Stop", &vars.aimbot.autostop);
     
     
     vector<string> hitscan;
@@ -527,56 +535,56 @@ void cMenu::renderAim(int x, int y) {
     this->renderCombo(x + 260, y + 120, 150, 20, "Hitscan", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
     
     
-   
+    
     
     
     
 }
+
+void cMenu::renderAntiAim(int x, int y) {
     
-    void cMenu::renderAntiAim(int x, int y) {
-        
-        vector<string> Pitch;  // Real Pitch
-        vector<string> Yaw;  // Real Yaw
-        vector<string> FakeYaw; // Fake Yaw
-        vector<string> MY; // Ground Yaw
-        vector<string> AY; // Air Yaw
-        // Pitch
-        Pitch.push_back("Off");
-        Pitch.push_back("Down");
-        Pitch.push_back("Up");
-        // Yaw
-        Yaw.push_back("Off");
-        Yaw.push_back("Backwards");
-        Yaw.push_back("Jitter");
-        Yaw.push_back("FakeStatic");
-        Yaw.push_back("FJitter");
-        Yaw.push_back("SlowSpin");
-        Yaw.push_back("FastSpin");
-        Yaw.push_back("RandomBackJitter");
-        Yaw.push_back("BackJitter");
-        Yaw.push_back("LowerYaw");
-        Yaw.push_back("SidewaysLeft");
-        Yaw.push_back("SidewaysRight");
-        Yaw.push_back("LBYBreaker");
-        // Fake Yaw
-        // Fake Yaw
-        FakeYaw.push_back("Off");
-        FakeYaw.push_back("FakeSpin");
-        FakeYaw.push_back("FakeLBYHook");
-        FakeYaw.push_back("FakeTwoStep");
-        FakeYaw.push_back("FakeLowerBody135");
-        FakeYaw.push_back("FakeInverseRotation");
-        FakeYaw.push_back("FakeJitter");
-        FakeYaw.push_back("FakeLBY");
-        FakeYaw.push_back("FakeSideLBY");
-        //Moving Yaw
-        MY.push_back("Off");
-        MY.push_back("LowerYaw");
-        MY.push_back("Backwards Jitter");
-        MY.push_back("Rotate");
-        // Air Yaw
-        AY.push_back("Off");
-        AY.push_back("Rotate");
+    vector<string> Pitch;  // Real Pitch
+    vector<string> Yaw;  // Real Yaw
+    vector<string> FakeYaw; // Fake Yaw
+    vector<string> MY; // Ground Yaw
+    vector<string> AY; // Air Yaw
+    // Pitch
+    Pitch.push_back("Off");
+    Pitch.push_back("Down");
+    Pitch.push_back("Up");
+    // Yaw
+    Yaw.push_back("Off");
+    Yaw.push_back("Backwards");
+    Yaw.push_back("Jitter");
+    Yaw.push_back("FakeStatic");
+    Yaw.push_back("FJitter");
+    Yaw.push_back("SlowSpin");
+    Yaw.push_back("FastSpin");
+    Yaw.push_back("RandomBackJitter");
+    Yaw.push_back("BackJitter");
+    Yaw.push_back("LowerYaw");
+    Yaw.push_back("SidewaysLeft");
+    Yaw.push_back("SidewaysRight");
+    Yaw.push_back("LBYBreaker");
+    // Fake Yaw
+    // Fake Yaw
+    FakeYaw.push_back("Off");
+    FakeYaw.push_back("FakeSpin");
+    FakeYaw.push_back("FakeLBYHook");
+    FakeYaw.push_back("FakeTwoStep");
+    FakeYaw.push_back("FakeLowerBody135");
+    FakeYaw.push_back("FakeInverseRotation");
+    FakeYaw.push_back("FakeJitter");
+    FakeYaw.push_back("FakeLBY");
+    FakeYaw.push_back("FakeSideLBY");
+    //Moving Yaw
+    MY.push_back("Off");
+    MY.push_back("LowerYaw");
+    MY.push_back("Backwards Jitter");
+    MY.push_back("Rotate");
+    // Air Yaw
+    AY.push_back("Off");
+    AY.push_back("Rotate");
     
     this->renderCheckbox(x - 15, y, "Anti-Aim", &vars.misc.antiaim);
     this->renderCheckbox(x - 15, y + 20, "Show Real Angles", &vars.misc.thirdpersonmode);
@@ -590,52 +598,52 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
     //this->renderCheckbox(x - 15, y + 180, "Dlights", &vars.misc.dlights);
     this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
-        if (!vars.freestand_opend) {
-            
-            this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
-            
-        }
-        this->renderCheckbox(x - 15, y + 200, "Fake", &vars.misc.fakeaa); // 60
-        this->renderCombo(x - 15, y + 240, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
-        if(!vars.aaX_opend){
-            this->renderCombo(x - 15, y + 270, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
-        }
-        if((!vars.aaX_opend) && !vars.aaY_opend) {
-            this->renderCombo(x - 15, y + 300, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
-        }
+    if (!vars.freestand_opend) {
+        
+        this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
+        
     }
-    /*
-     this->renderCombo(x + 300, y + 60, 125, 20, "Pitch", X, vars.misc.aaX, &vars.aaX_opend); // 80
-     if(!vars.aaX_opend)
-     
-     this->renderCombo(x + 300, y + 80, 125, 20, "Yaw", Y, vars.misc.aaY, &vars.aaY_opend);
-     if((!vars.aaX_opend) && !vars.aaY_opend)
-     
-     this->renderCombo(x + 300, y + 100, 125, 20, "Fake Yaw", FY, vars.misc.FaaY, &vars.FaaY_opend); // 100*/
-    //if((!vars.aaX_opend) && !vars.aaY_opend && !vars.FaaY_opend)
-    
-    //this->renderCombo(x + 300, y + 120, 125, 20, "Moving Yaw", MY, vars.misc.MaaY, &vars.MaaY_opend); // 120
-    //if((!vars.aaX_opend) && !vars.aaY_opend && !vars.FaaY_opend && !vars.misc.MaaY)
-    
-    //this->renderCombo(x + 300, y + 140, 125, 20, "Air Yaw", AY, vars.misc.AaaY, &vars.AaaY_opend); // 140
+    this->renderCheckbox(x - 15, y + 200, "Fake", &vars.misc.fakeaa); // 60
+    this->renderCombo(x - 15, y + 240, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    if(!vars.aaX_opend){
+        this->renderCombo(x - 15, y + 270, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+    }
+    if((!vars.aaX_opend) && !vars.aaY_opend) {
+        this->renderCombo(x - 15, y + 300, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+    }
+}
+/*
+ this->renderCombo(x + 300, y + 60, 125, 20, "Pitch", X, vars.misc.aaX, &vars.aaX_opend); // 80
+ if(!vars.aaX_opend)
+ 
+ this->renderCombo(x + 300, y + 80, 125, 20, "Yaw", Y, vars.misc.aaY, &vars.aaY_opend);
+ if((!vars.aaX_opend) && !vars.aaY_opend)
+ 
+ this->renderCombo(x + 300, y + 100, 125, 20, "Fake Yaw", FY, vars.misc.FaaY, &vars.FaaY_opend); // 100*/
+//if((!vars.aaX_opend) && !vars.aaY_opend && !vars.FaaY_opend)
+
+//this->renderCombo(x + 300, y + 120, 125, 20, "Moving Yaw", MY, vars.misc.MaaY, &vars.MaaY_opend); // 120
+//if((!vars.aaX_opend) && !vars.aaY_opend && !vars.FaaY_opend && !vars.misc.MaaY)
+
+//this->renderCombo(x + 300, y + 140, 125, 20, "Air Yaw", AY, vars.misc.AaaY, &vars.AaaY_opend); // 140
 
 
 /*void cMenu::renderPlayer(int x, int y)
-{
-    vector<string> conf;
-    
-    conf.push_back("HvH");
-    conf.push_back("HvH 2");
-    conf.push_back("HvH 3");
-    
-    this->renderCombo(x + 15, y + 153,  125, 20, "HvH", conf, cfg.cfgcombo, &vars.cfg_opend);
-    if(!vars.cfg_opend) {
-        this->renderButton(x + 19, y + 173, "Save", &cfg.saveconfig);
-        this->renderButton(x + 80, y + 173, "Load", &cfg.loadconfig);
-    }
-    
-    }
-}*/
+ {
+ vector<string> conf;
+ 
+ conf.push_back("HvH");
+ conf.push_back("HvH 2");
+ conf.push_back("HvH 3");
+ 
+ this->renderCombo(x + 15, y + 153,  125, 20, "HvH", conf, cfg.cfgcombo, &vars.cfg_opend);
+ if(!vars.cfg_opend) {
+ this->renderButton(x + 19, y + 173, "Save", &cfg.saveconfig);
+ this->renderButton(x + 80, y + 173, "Load", &cfg.loadconfig);
+ }
+ 
+ }
+ }*/
 
 
 void cMenu::renderPlayer(int x, int y) {
@@ -650,7 +658,7 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x, y + 140, "Heath text", &vars.visuals.healthtext);
     this->renderCheckbox(x, y + 160, "Skeleton", &vars.visuals.skeleton);
     this->renderCheckbox(x, y + 180, "Snaplines", &vars.visuals.snapline);
-     this->renderCheckbox(x, y + 200, "Grenade ESP", &vars.visuals.grenade);
+    this->renderCheckbox(x, y + 200, "Grenade ESP", &vars.visuals.grenade);
     this->renderCheckbox(x, y + 220, "Weapon ESP", &vars.visuals.active);
     
     vector<string> Players;
@@ -692,18 +700,21 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x + 235, y + 60, "Defusing", & vars.visuals.defusing);
     this->renderCheckbox(x + 235, y + 80, "Rescuing", & vars.visuals.rescuing);
     this->renderCheckbox(x + 235, y + 100, "No Flash", & vars.misc.noflash);
-    this->renderCheckbox(x + 235, y + 120, "Recoil Crosshair", & vars.visuals.rcrosshair);
-    this->renderCheckbox(x + 235, y + 200, "No Scope", & vars.misc.noscope);
+    this->renderSlider(x + 230, y + 120, 150, "", vars.misc.flashalpha, 255, 0);
+    this->renderCheckbox(x + 235, y + 140, "Recoil Crosshair", & vars.visuals.rcrosshair);
+    this->renderCheckbox(x + 235, y + 220, "No Scope", & vars.misc.noscope);
     //this->renderCheckbox(x + 235, y + 220, "Radar", & vars.misc.radar);
     
-    this->renderCheckbox(x + 235, y + 140, "AA Indicators", & vars.visuals.antiaim_indicator);
+    this->renderCheckbox(x + 235, y + 160, "AA Indicators", & vars.visuals.antiaim_indicator);
     std::vector<std::string> Indicator;
     
     Indicator.push_back("Off");
     Indicator.push_back("Words");
     Indicator.push_back("Arrows");
     
-    this->renderCombo(x + 235, y + 160, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
+    this->renderCombo(x + 235, y + 180, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
+    this->renderCheckbox(x + 235, y + 240, "AA Lines", & vars.visuals.aaline);
+    this->renderCheckbox(x + 235, y + 260, "Angle Line Names", & vars.visuals.anglelinenames);
     
     //this->renderCheckbox(x + 150, y + 195, "nightmode(wip)", & vars.misc.nightmode); (wip)
     
@@ -712,7 +723,7 @@ void cMenu::renderPlayer(int x, int y) {
     
     
 }
- 
+
 
 void cMenu::renderMisc(int x, int y) {
     
@@ -730,26 +741,21 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x, y, "Bhop", &vars.misc.bhop);
     this->renderCheckbox(x, y + 20, "Auto strafe", &vars.misc.autostrafe);
     this->renderCheckbox(x, y + 40, "Circle Strafe", &vars.misc.cstrafe);
-
-    this->renderSlider(x - 5, y + 65, 150, "FOV Changer", vars.misc.fov, 70, 0);
-    this->renderCheckbox(x, y + 85, "No recoil", &vars.misc.norecoil);
-    this->renderCheckbox(x, y + 105, "No visual recoil", &vars.misc.novisual);
-    this->renderCheckbox(x, y + 125, "Chat Spam", &vars.misc.spammer);
+    this->renderCheckbox(x, y + 60, "FOV Changer", &vars.misc.fovt);
+    this->renderSlider(x - 5, y + 80, 150, "", vars.misc.fov, 70, 0);
+    this->renderCheckbox(x, y + 100, "No recoil", &vars.misc.norecoil);
+    this->renderCheckbox(x, y + 120, "No visual recoil", &vars.misc.novisual);
+    this->renderCheckbox(x, y + 140, "Chat Spam", &vars.misc.spammer);
     //clan tags
     //this->renderCheckbox(x, y + 150, "Clan Tag", &vars.misc.vangeme);
     //this->renderCheckbox(x, y + 150, "skeet.cc", &vars.misc.gamesense);
     //this->renderCheckbox(x, y + 170, "aimware.net", &vars.misc.aimware);
-    this->renderCheckbox(x, y + 145, "Clantag", &vars.misc.clantag);
-    this->renderCheckbox(x, y + 165, "Thirdperson", &vars.misc.thirdperson);
-    this->renderCheckbox(x, y + 185, "Watermark", &vars.misc.watermark);
-    this->renderCheckbox(x, y + 205, "Moonwalk", &vars.misc.moonwalk);
-    //this->renderCheckbox(x, y + 225, "Nightmode", &vars.misc.nightmode);
+    // this->renderCheckbox(x, y + 145, "Clantag", &vars.misc.clantag);
+    this->renderCheckbox(x, y + 160, "Thirdperson", &vars.misc.thirdperson);
+    this->renderSlider(x - 5, y + 180, 150, "", vars.misc.tpoffset, 200, 0);
+    this->renderCheckbox(x, y + 200, "Moonwalk", &vars.misc.moonwalk);
+    this->renderCheckbox(x, y + 220, "Watermark", &vars.misc.watermark);
     
-    vector<string> FakeLag;
-    
-    FakeLag.push_back("Off");
-    FakeLag.push_back("Adaptive");
-    FakeLag.push_back("Test");
     
     // Fake Lag
     this->renderCheckbox(x + 235, y, "WorldPaint", &vars.misc.worldpaint);
@@ -758,17 +764,16 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 60, "Anti untrust", &vars.misc.antiuntrust);
     this->renderCheckbox(x + 235, y + 80, "Asuswall", &vars.misc.asuswalls);
     this->renderSlider(x + 235, y + 100, 150, "", vars.misc.asusalpha, 1.f, 0.f);
-    this->renderCheckbox(x + 235, y + 120, "FakeLag", &vars.misc.fakelag);
-    this->renderCombo(x + 235, y + 140, 125, 20, "Off", FakeLag, vars.misc.fakelagtype, &vars.fakelag_opend);
-    if(!vars.fakelag_opend)
-        this->renderSlider(x + 235, y + 160, 150, "", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 235, y + 220, "FakeWalk", &vars.aimbot.fakewalk);
-    vector<string> fakewalk;  // Fake types
-    fakewalk.push_back("Off");
-    fakewalk.push_back("v1");
-    fakewalk.push_back("v2");
-    fakewalk.push_back("v3");
-    this->renderCombo(x + 235, y + 240, 110, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
+    
+    this->renderCheckbox(x + 235, y + 120, "No Smoke", &vars.visuals.nosmoke);
+    this->renderCheckbox(x + 235, y + 140, "No Duck Cool", &vars.misc.noduckcooldown);
+    this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
+    /*this->renderCheckbox(x + 235, y + 180, "Fake Lag (no worc)", &vars.misc.fakelag);
+     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
+     
+     if(!vars.fakelag_opend)
+     this->renderSlider(x + 235, y + 220, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 9, 0);*/
+    
     
     vector<string> conf;
     
@@ -821,9 +826,9 @@ void cMenu::renderColors(int x, int y) {
     }
     
     
-
     
-
+    
+    
 }
 
 // Menu tabs
@@ -996,10 +1001,10 @@ void cMenu::renderMenu() {
     
     config->getConfig(cfg.cfgcombo);
     /*
-    if(!vars.cfgInit) {
-        skins_cfg->LoadSkins();
-        vars.cfgInit = true;
-    }*/
+     if(!vars.cfgInit) {
+     skins_cfg->LoadSkins();
+     vars.cfgInit = true;
+     }*/
     if(cfg.loadconfig) {
         config->LoadConfig();
         skins_cfg->LoadSkins();
@@ -1008,16 +1013,16 @@ void cMenu::renderMenu() {
     if(cfg.saveconfig) {
         config->SaveConfig();
     }
-     
+    
     
     
     // Render strings last so they're on top
     /*draw->drawstring(x + 50, y + 22 + 16, white, osFont, "A", true);
-    draw->drawstring(x + 150, y + 22 + 17, white, osFont, "J", true);
-    draw->drawstring(x + 250, y + 22 + 16, white, osFont, "B", true);
-    draw->drawstring(x + 350, y + 22 + 17, white, osFont, "C", true);
-    draw->drawstring(x + 450, y + 22 + 15, white, osFont, "G", true);
-    */
+     draw->drawstring(x + 150, y + 22 + 17, white, osFont, "J", true);
+     draw->drawstring(x + 250, y + 22 + 16, white, osFont, "B", true);
+     draw->drawstring(x + 350, y + 22 + 17, white, osFont, "C", true);
+     draw->drawstring(x + 450, y + 22 + 15, white, osFont, "G", true);
+     */
     
     Pressed(MOUSE_LEFT);
     draw->MoveMenu(x, y, w, hh, 1);

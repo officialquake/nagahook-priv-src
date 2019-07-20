@@ -2,37 +2,36 @@
 
 #include "esp.h"
 #include "../Hacks/autowall.h"
-#include "hitmarker.h"
-#include "../Hacks/backtrack.hpp"
+#include "../Backtrack.hpp"
 void DrawSkeleton(C_BaseEntity* pEntity, Color color){
     
-studiohdr_t* pStudioModel = pModelInfo->GetStudioModel( pEntity->GetModel() );
-
-if ( pStudioModel ) {
+    studiohdr_t* pStudioModel = pModelInfo->GetStudioModel( pEntity->GetModel() );
     
-    static matrix3x4_t pBoneToWorldOut[128];
-    
-    if ( pEntity->SetupBones( pBoneToWorldOut, 128, 256, 0) )
-    {
-        for ( int i = 0; i < pStudioModel->numbones; i++ )
+    if ( pStudioModel ) {
+        
+        static matrix3x4_t pBoneToWorldOut[128];
+        
+        if ( pEntity->SetupBones( pBoneToWorldOut, 128, 256, 0) )
         {
-            mstudiobone_t* pBone = pStudioModel->pBone( i );
-            
-            if ( !pBone || !( pBone->flags & 256 ) || pBone->parent == -1 )
-                continue;
-            
-            Vector vBone1 = pEntity->GetBonePosition(i);
-            Vector vBoneOut1;
-            
-            Vector vBone2 = pEntity->GetBonePosition(pBone->parent);
-            Vector vBoneOut2;
-            
-            if(WorldToScreen(vBone1, vBoneOut1) && WorldToScreen(vBone2, vBoneOut2)) {
-                draw->drawline(vBoneOut1.x, vBoneOut1.y, vBoneOut2.x, vBoneOut2.y, color);
+            for ( int i = 0; i < pStudioModel->numbones; i++ )
+            {
+                mstudiobone_t* pBone = pStudioModel->pBone( i );
+                
+                if ( !pBone || !( pBone->flags & 256 ) || pBone->parent == -1 )
+                    continue;
+                
+                Vector vBone1 = pEntity->GetBonePosition(i);
+                Vector vBoneOut1;
+                
+                Vector vBone2 = pEntity->GetBonePosition(pBone->parent);
+                Vector vBoneOut2;
+                
+                if(WorldToScreen(vBone1, vBoneOut1) && WorldToScreen(vBone2, vBoneOut2)) {
+                    draw->drawline(vBoneOut1.x, vBoneOut1.y, vBoneOut2.x, vBoneOut2.y, color);
+                }
             }
         }
     }
-}
 }
 
 
@@ -109,7 +108,7 @@ void DrawDroppedWeapons(C_BaseCombatWeapon* weapon) {
     if(DrawPlayerBox(weapon, wBox)) {
         draw->drawstring(wBox.x + wBox.w / 2, wBox.y, Color::White(), csgo_icons, model.c_str(), true);
         
-    
+        
     }
 }
 
@@ -257,14 +256,104 @@ void DrawOtherESP() {
         if (vars.visuals.grenade)
             grenadeESP(entity);
         
+        
         // Manual AA prediction
         /*if(vars.visuals.manualaa)
-        {
-            manualaa();
-        }*/
+         {
+         manualaa();
+         }*/
         
     }
 }
+
+void DrawSpread() {
+    
+    if(!pEngine->IsInGame())
+        return;
+    
+    if(!vars.misc.spreadcrosshair)
+        return;
+    
+    
+    float GetInaccuracy = 0.f;
+    
+    C_BasePlayer* localplayer = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer)
+        return;
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+    if (!activeWeapon)
+        return;
+    
+    int w, h;
+    pEngine->GetScreenSize(w, h);
+    
+    int crX = w / 2, crY = h / 2;
+    int drX;
+    int drY;
+    
+    char getInaccuracy[255];
+    float flCone = activeWeapon->GetInaccuracy();
+    float flSpread = activeWeapon->GetSpread();
+    float flRadius = (flCone + flSpread) * 500.0f;
+    //sprintf(getInaccuracy, "Accuracy: 100.f", activeWeapon->GetInaccuracy());
+    
+    draw->Circle(w / 2, h / 2, flRadius, 100, Color::Black());
+    //draw->drawstring(10, h - 440, Color::Red(), tFont, getInaccuracy);
+}
+
+void DrawAngles(C_BaseEntity* local)
+{
+    //if (!pEngine->IsConnected() || !pEngine->IsInGame()) {
+    
+    if(!pEngine->IsInGame())
+        return;
+    
+    if(!vars.visuals.antiaim_indicator )
+        return;
+    
+    if(!vars.visuals.aaline)
+        return;
+    
+    Vector src3D, dst3D, forward, src, dst;
+    trace_t tr;
+    Ray_t ray;
+    CTraceFilter filter;
+    
+    filter.pSkip = local;
+    src3D = local->GetVecOrigin();
+    
+    AngleVectors(Vector(0, YAW, 0), &forward);
+    dst3D = src3D + (forward * 45.f);
+    
+    ray.Init(src3D, dst3D);
+    
+    pEngineTrace->TraceRay(ray, 0, &filter, &tr);
+    
+    if (!WorldToScreen(src3D, src) || !WorldToScreen(tr.endpos, dst))
+        return;
+    
+    draw->Line(src.x, src.y, dst.x, dst.y, Color::Blue());
+    
+    if (vars.visuals.anglelinenames)
+        draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "LBY");
+    
+    
+    AngleVectors(Vector(0, local->GetLowerBodyYawTarget(), 0), &forward);
+    dst3D = src3D + (forward * 45.f);
+    
+    ray.Init(src3D, dst3D);
+    
+    pEngineTrace->TraceRay(ray, 0, &filter, &tr);
+    
+    if (!WorldToScreen(src3D, src) || !WorldToScreen(tr.endpos, dst))
+        return;
+    
+    draw->Line(src.x, src.y, dst.x, dst.y, Color(0, 255, 0, 255));
+    
+    if (vars.visuals.anglelinenames)
+        draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
+}
+//}
 
 
 void DrawPlayerESP()
@@ -324,7 +413,7 @@ void DrawPlayerESP()
         Vector origin = entity->GetVecOrigin();
         
         if(DrawPlayerBox(entity, players)) {
-        
+            
             /* Draw box */
             
             if(vars.visuals.box)
@@ -348,7 +437,7 @@ void DrawPlayerESP()
                 DrawHealthbar(players.x, players.y + players.h + 3, players.w, 2, entity->GetArmor(), Color(72, 136, 189, 255));
             
             /*if(vars.visuals.armortext)
-                draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetArmor()).c_str(), true);*/
+             draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetArmor()).c_str(), true);*/
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
@@ -369,6 +458,7 @@ void DrawPlayerESP()
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "DEFUSING", true);
             
             
+            
             if(entity->IsGrabbingHostage())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "RESCUING", true);
             
@@ -377,9 +467,42 @@ void DrawPlayerESP()
             
             if((entity->IsScoped()))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPING", true);
-            
+            if(vars.misc.radar){
+                *entity->GetSpotted() = true;
+            }
             if((entity->GetFlashDuration() - pGlobals->curtime > 2.0f))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Yellow(), espfont, "Flashed");
+        }
+        if (entity && entity != local && !entity->GetDormant())
+        {
+            if (entity->GetAlive())
+            {
+                if (vars.aimbot.backtrack)
+                {
+                    if (local->GetAlive())
+                    {
+                        for (int t = 0; t < 12; ++t)
+                        {
+                            Vector screenbacktrack[64][12];
+                            
+                            if (headPositions[i][t].simtime && headPositions[i][t].simtime + 1 > local->GetSimulationTime())
+                            {
+                                if (WorldToScreen(headPositions[i][t].hitboxPos, screenbacktrack[i][t]))
+                                {
+                                    
+                                    pSurface->DrawSetColor(Color::Black());
+                                    pSurface->DrawOutlinedRect(screenbacktrack[i][t].x, screenbacktrack[i][t].y, screenbacktrack[i][t].x + 2, screenbacktrack[i][t].y + 2);
+                                    
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        memset(&headPositions[0][0], 0, sizeof(headPositions));
+                    }
+                }
+            }
         }
     }
 }

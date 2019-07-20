@@ -8,9 +8,10 @@
 #include "../Hacks/spammer.h"
 #include "../Hacks/fakewalk.h"
 #include "../Hacks/LagComp.h"
-#include "../Hacks/backtrack.hpp"
+#include "../Backtrack.hpp"
 #include "../moonwalk.hpp"
 #include "../Hacks/triggerbot.hpp"
+#include "../noduckcooldown.hpp"
 
 Vector tpangles;
 
@@ -51,104 +52,34 @@ string GetLocalName()
     return localInfo.name;
 }
 
-static int ticks = 0;
-int ticksMax = 16;
 
-void FakeLag(C_BaseEntity* local, CUserCmd* cmd, bool& sendPacket)
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
 {
-    if (!vars.misc.fakelag)
-        return;
-    
-    C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!localplayer || !localplayer->GetAlive())
-        return;
-    
-    if (localplayer->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
-        return;
-    
-    if (cmd->buttons & IN_ATTACK) {
-        sendPacket = true;
-        return;
-    }
-    
-    if (ticks >= ticksMax) {
-        sendPacket = true;
-        ticks = 0;
-    } else {
-        
-        if (vars.misc.adaptive) {
-            
-            int packetsToChoke;
-            
-            if (localplayer->GetVelocity().Length() > 0.f)
-            {
-                packetsToChoke = (int)((64.f / pGlobals->interval_per_tick) / localplayer->GetVelocity().Length()) + 1;
-                if (packetsToChoke >= 15)
-                    packetsToChoke = 14;
-                if (packetsToChoke < vars.misc.fakelagfactor)
-                    packetsToChoke = vars.misc.fakelagfactor;
-            } else {
-                packetsToChoke = 0;
-            }
-            
-            sendPacket = ticks < 16 - packetsToChoke;
-            
-        } else {
-            sendPacket = ticks < 16 - vars.misc.fakelagfactor;
-        }
-    }
-    ticks++;
-}
-
-/*void showranks(CUserCmd* cmd)
-{
-    if(!vars.misc.showrank)
-        return;
-    
-    if(!(cmd->buttons & IN_SCORE))
-        return;
-    
-    float input[3] = { 0.f };
-    MsgFunc_ServerRankRevealAll(input);
-}
-*/
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket) //float& flWall, float& flConor
-{
-    //set.command_number = cmd->command_number;
     
     DoAutoStrafe(cmd, local);
     
-    DoTrigger(cmd);  
+    DoTrigger(cmd);
     DoBhop(cmd, local);
-    
+    duck->DuckCool(cmd);
     CirlceStrafe(local, cmd, vOldAngles);
-    
-    FakeLag(local,cmd,sendPacket);
-    
-    Moonwalk(cmd); // Moonwalk
-    
+    Moonwalk(cmd);
+    backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
+    Freestand(local, cmd);
     lby_spin(cmd, local);
     tank(cmd, local);
     resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
-    
-        
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove); // Add some black magic shit.
-    
-    ContinuousPistols(cmd, weapon); // will continously fire pistol when trigger is  held
-    
-    AutoCock(cmd, weapon);          // Auto Cock
-    
-  //  showranks(cmd);                 // Show all ranks
-    
-    DoSpammer();                    // Spammer
-    
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
+    ContinuousPistols(cmd, weapon);
+    Hitchance(local, weapon);
+    AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
+    DoSpammer();
+    Fakewalk(cmd, local);
     
-    Fakewalk(cmd, local); // Fakewalk
     
     
     

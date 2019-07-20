@@ -128,4 +128,5 @@ void Offsets::getOffsets()
 	offsets.DT_DynamicProp.m_bShouldGlow = NetVarManager::GetOffset(tables, "DT_DynamicProp", "m_bShouldGlow");
     
     offsets.DT_BasePlayer.m_nHitboxSet = NetVarManager::GetOffset(tables, "DT_BasePlayer", "m_nHitboxSet");
+    offsets.DT_CSPlayer.m_bIsPlayerGhost = NetVarManager::GetOffset(tables, "DT_CSPlayer", "m_bIsPlayerGhost");
 }
