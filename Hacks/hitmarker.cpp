@@ -148,20 +148,20 @@ void Hitmarker::bullet_impact(IGameEvent* event){
     impact.push_back(info);
     
 }
-*/
 
-/*#include "hitmarker.h"
+
+#include "hitmarker.h"
 
 int duration = 2000;
 int size = 16;
 int innerGap = 5;
 long lastHitmarkerTimestamp = 0;
+std::vector<std::pair<int, long>> damages;
 float alpha = 255.f;
-long GetEpochTime;
 
 void Hitmarkers::Paint() {
     
-    if(!vars.visuals.hitmarkers)
+    if(!vars.visuals.hitmarker)
         return;
     
     if(!pEngine->IsInGame())
@@ -185,20 +185,17 @@ void Hitmarkers::Paint() {
     pEngine->GetScreenSize(width, height);
     
     Color color = Color::Red();
-    color.a = std::min(color.a(), (int)(diff * color.a() / duration * 2));
+    //color.a() = std::min(color.a(), (int)(diff * color.a() / duration * 2));
     
     int sides[4][2] = { {-1, -1}, {1, 1}, {-1, 1}, {1, -1} };
     for(auto& it : sides)
         draw->drawline(width / 2 + (innerGap * it[0]), height / 2 + (innerGap * it[1]), width / 2 + (size * it[0]), height / 2 + (size * it[1]), color);
     
-    if(!vars.visuals.hitdmg)
-        return;
-    
     float textHeight = draw->GetTextSize("[cool]", espfont).y;
     
     for (unsigned int i = 0; i < damages.size(); i++)
     {
-        long timestamp = damages.second;
+        long timestamp = damages[i].second;
         long hitDiff = timestamp + duration - now;
         
         if (hitDiff <= 0)
@@ -216,7 +213,7 @@ void Hitmarkers::Paint() {
         std::string damageStr = '-' + std::to_string(damage);
         
         alpha = Color::White().a();
-        alpha = min(alpha, (int)(hitDiff * alpha / duration * 2));
+        alpha = min(alpha, (int)(hitDiff * alpha / duration * 2) *sc );
         
         draw->text(pos, damageStr.c_str(), spe, color);
     }
@@ -234,7 +231,7 @@ void Hitmarkers::FireGameEvent(IGameEvent* event) {
         return;
     
     int hurt_player_id = event->GetInt("userid");
-    int attacker_id = event->Getint("attackerid");
+    int attacker_id = event->GetInt("attackerid");
     
     if(pEngine->GetPlayerForUserID(hurt_player_id) = pEngine->GetLocalPlayer())
         return;
@@ -247,7 +244,7 @@ void Hitmarkers::FireGameEvent(IGameEvent* event) {
     if (!local)
         return;
     
-    if (hurt_player->GetTeam() != localplayer->GetTeam() && !Settings::ESP::Hitmarker::enemies)
+    if (hurt_player_id->GetTeam() != localplayer->GetTeam() && !Settings::ESP::Hitmarker::enemies)
         return;
     
     long now = GetEpochTime();

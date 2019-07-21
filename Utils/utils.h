@@ -11,7 +11,7 @@ extern void FixMovement(Vector& oang, CUserCmd* cmd);
 extern bool WorldToScreen(Vector& vFrom, Vector& vTo);
 extern bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str);
 extern void CorrectMovement(Vector vOldAngles, CUserCmd* pCmd, float fOldForward, float fOldSidemove);
-extern void GetEpochTime();
+extern long GetEpochTime();
 extern Vector GetHitboxPosition(C_BaseEntity* pEntity, int Hitbox);
 extern bool IsVisible(C_BaseEntity* local, C_BaseEntity* entity);
 extern void Normalize(Vector & vIn, Vector & vOut);
