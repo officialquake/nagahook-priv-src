@@ -7,6 +7,8 @@ typedef bool (*tCreateMove)(void*, float flSampleInput, CUserCmd* cmd);
 typedef int  (*tKeyEvent)(void*, int, int, const char*);
 typedef void (*tOverrideView)(void*, CViewSetup& setup);
 typedef void (*tFrameStage)(void*, ClientFrameStage_t);
+typedef bool(*oFireEvent)       (void*, IGameEvent*, bool);
+typedef void(*oPaint)           (void*, PaintMode_t);
 typedef void (*tDrawModelExecute)(void*, void*, void*, const ModelRenderInfo_t&, matrix3x4_t*);
 typedef void (* tRunCommand)(void*, C_BaseEntity*, CUserCmd*, void*);
 typedef void (*BeginFrameFn) (void*, float);
@@ -19,6 +21,7 @@ extern int  hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* cur
 extern void hkOverrideView(void* thisptr, CViewSetup& setup);
 extern void hkFrameStage(void* thisptr, ClientFrameStage_t curStage);
 extern void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld);
+extern void Paint_hk(void* thisptr, PaintMode_t mode);
 extern void hkRunCommand(void* thisptr, C_BaseEntity* pLocal, CUserCmd* pCmd, void* pHelper);
 extern void hkBeginFrame(void* thisptr, float frameTime);
 extern bool hkFireEventClientSide(void* thisptr, IGameEvent* event);

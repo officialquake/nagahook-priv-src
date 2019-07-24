@@ -120,6 +120,11 @@ public:
         bool antiaiminfos= true;       // AntiAim Lines
         bool direction = false;         // Enemy Direction
         bool hitmarker  = false;        // Aimware Hitmarkers
+        bool allieshit  = false;        // Aimware Hitmarkers
+        bool enemyhit  = false;        // Aimware Hitmarkers
+        int hitinnergap = 5;     // antiaim idicator
+        int hitsize = 16;     // antiaim idicator
+        int durationhit = 1000;     // antiaim idicator
         bool spreadcircle = true;
         bool grenade = true;
         bool active    = true;
@@ -235,6 +240,7 @@ public:
         Color scope;
         Color sky;
         Color world;
+        Color hitmarkers;
         
         Color asus = Color(255, 255, 255, 150);
         

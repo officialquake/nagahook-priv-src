@@ -15,6 +15,7 @@ extern ICvar*               pCvar;
 extern IBaseClientDLL*      pClient;
 extern IClientEntityList*   pEntList;
 extern IVDebugOverlay*      pOverlay;
+extern IEngineVGui*         pEngineGUI;
 extern IEngineClient*       pEngine;
 extern IVModelInfo*         pModelInfo;
 extern IEngineTrace*        pEngineTrace;
@@ -43,6 +44,7 @@ extern VMT* modelVMT;
 extern VMT* predVMT;
 extern VMT* materialVMT;
 extern VMT* game_event_vmt;
+extern VMT* engineVGuiVMT;;
 
 extern RecvVarProxyFn g_pSequence;
 

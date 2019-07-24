@@ -4,6 +4,7 @@
 #include "../Hacks/esp.h"
 #include "../Hacks/spectators.h"
 #include "../Hacks/antiaiminfos.h"
+#include "../Hacks/hitmarker.h"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -38,7 +39,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             o4Font_03       = draw->createfont(o4Font_03, "04b03", 12, FONTFLAG_ANTIALIAS);
             o4Font_11       = draw->createfont(o4Font_11, "04b11", 12, FONTFLAG_ANTIALIAS);
             o4Font_20       = draw->createfont(o4Font_20, "04b_20", 12, FONTFLAG_ANTIALIAS);
-            eFont       = draw->createfont(eFont, "Caviar Dreams", 11, FONTFLAG_DROPSHADOW);  // ESP font // v
+            eFont       = draw->createfont(eFont, "Caviar Dreams", 12, FONTFLAG_DROPSHADOW);  // ESP font // v
             //       sFont       = draw->createfont(sFont, "Verdana", 11, FONTFLAG_OUTLINE);     // Used for sliders
             xFont          = draw->createfont(xFont, "osmiummenufont", 60, FONTFLAG_ANTIALIAS);
             xFontGay          = draw->createfont(xFontGay, "Caviar Dreams", 60, FONTFLAG_ANTIALIAS);
@@ -78,6 +79,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             vars.colors.scope       = Color::Red();
             vars.colors.world       = Color::Test();
             vars.colors.sky         = Color::Red();
+            //vars.colors.hitmarkers = Color::White();
         }
         
     }
@@ -105,6 +107,8 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
             DrawSpread();
+            
+            
         
             //aw_hitmarker->initilisze();
         }

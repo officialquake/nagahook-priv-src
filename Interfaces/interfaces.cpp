@@ -18,6 +18,7 @@ CGlobalVarsBase*    pGlobals        = nullptr;
 IInputSystem*       pInputSystem    = nullptr;
 CInput*             pInput          = nullptr;
 IMaterialSystem*    pMatSystem      = nullptr;
+IEngineVGui*        pEngineGUI = nullptr;
 IVModelRender*      pModelRender    = nullptr;
 IPrediction*        pPrediction     = nullptr;
 IMoveHelper*        pMoveHelper     = nullptr;
@@ -39,8 +40,10 @@ VMT* createmoveVMT;
 VMT* clientVMT;
 VMT* modelVMT;
 VMT* predVMT;
+VMT* engineVGuiVMT;
 VMT* materialVMT;
 VMT* game_event_vmt;
+//VMT* gameVMT;
 
 RecvVarProxyFn g_pSequence = nullptr;
 

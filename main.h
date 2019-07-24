@@ -64,6 +64,7 @@ using namespace std;
 #include "SDK/VMT.h"
 #include "SDK/INetChannelInfo.h"
 #include "SDK/GameEvent.h"
+#include "SDK/IEngineVGui.h"
 
 #include "netvarmanager.h"
 #include "bvars.h"

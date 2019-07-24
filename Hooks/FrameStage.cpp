@@ -103,10 +103,17 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     
     
-    if (curStage == ClientFrameStage_t::FRAME_RENDER_START && (pEngine->IsConnected() && pEngine->IsInGame())) {
-        if(local->GetLifeState() == LIFE_ALIVE) {
-            if(vars.misc.thirdpersonmode) {
-                *reinterpret_cast<Vector*>(reinterpret_cast<uintptr_t>(local) + offsets.DT_BasePlayer.deadflag + 0x4) = tpangles;
+    if(vars.misc.thirdpersonmode) {
+        if (curStage == ClientFrameStage_t::FRAME_RENDER_START && (pEngine->IsConnected() && pEngine->IsInGame())) {
+        }
+    }
+    
+    if(curStage == FRAME_RENDER_START && local) {
+        if(vars.misc.thirdpersonmode) {
+            if(pEngine->IsConnected() && pEngine->IsInGame()) {
+                if(local->GetLifeState() == LIFE_ALIVE) {
+                    *reinterpret_cast<Vector*>(reinterpret_cast<uintptr_t>(local) + offsets.DT_BasePlayer.deadflag + 0x4) = tpangles;
+                }
             }
         }
         

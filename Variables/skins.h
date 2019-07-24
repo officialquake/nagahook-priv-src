@@ -1,14 +1,14 @@
 class Skins {
 public:
-    int knifeT      = WEAPON_KNIFE_WIDOWMAKER;
-    int knifeCT     = WEAPON_KNIFE_WIDOWMAKER;
-    int TknifeID    = 12;  // Ruby
-    int CTknifeID   = 416;   // Fade
+    int knifeT      = WEAPON_KNIFE_M9_BAYONET;
+    int knifeCT     = WEAPON_KNIFE_M9_BAYONET;
+    int TknifeID    = 562;  // Ruby
+    int CTknifeID   = 562;   // Fade
     
     int gloveCT      = GLOVE_SPORTY;
-    int gloveT     = GLOVE_STUDDED_BLOODHOUND;
+    int gloveT     = GLOVE_SPORTY;
     int CTgloveID    = 10037;
-    int TgloveID   = 10008;
+    int TgloveID   = 10037;
     // Rifles
     int galil   = 661;
     int famas   = 604;

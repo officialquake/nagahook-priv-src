@@ -63,6 +63,7 @@ public:
     {
         return *((int *)this);
     }
+    void SetAlpha(int a) { _color[3] = (unsigned char)a; }
     
     inline int r() const	{ return _color[0]; }
     inline int g() const	{ return _color[1]; }

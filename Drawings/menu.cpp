@@ -513,10 +513,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
     this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);
-    //this->renderCheckbox(x + 235, y + 260, "Bullet Tracers", &vars.visuals.bullett);
-    //this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
-    
-    //this->renderCheckbox(x + 235, y + 260, "Auto Zeus", &vars.aimbot.autozeus);
+
     this->renderSlider(x + 230, y + 180, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 200, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 220, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
@@ -716,7 +713,12 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCombo(x + 235, y + 180, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
     this->renderCheckbox(x + 235, y + 240, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 260, "Angle Line Names", & vars.visuals.anglelinenames);
-    
+    this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
+    this->renderCheckbox(x + 235, y + 300, "Enemies Hitmarkers", &vars.visuals.enemyhit);
+    this->renderCheckbox(x + 235, y + 320, "Allies Hitmarkers", &vars.visuals.allieshit);
+    this->renderSlider(x + 230, y + 340, 150, "Hit Duration", vars.visuals.durationhit, 3000, 0);
+    this->renderSlider(x + 230, y + 360, 150, "Hit Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 230, y + 380, 150, "Hit Gap", vars.visuals.hitinnergap, 16, 0);
     //this->renderCheckbox(x + 150, y + 195, "nightmode(wip)", & vars.misc.nightmode); (wip)
     
     
@@ -800,6 +802,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("T Colours");
     Colors.push_back("Hand/Weapon Colours");
     Colors.push_back("World Colours");
+    Colors.push_back("Hitmarker Colours");
     
     
     
@@ -824,6 +827,10 @@ void cMenu::renderColors(int x, int y) {
     if(vars.colors.combo == 3) {
         this->drawcolorpicker(x, y + 22, "World", vars.colors.world);
         this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
+    }
+    if(vars.colors.combo == 4) {
+        this->drawcolorpicker(x, y + 22, "Hitmarker", vars.colors.hitmarkers);
+
     }
     
     
@@ -851,7 +858,7 @@ void cMenu::renderMenu() {
     static int x = 100;
     static int y = 100;
     int w = 489;
-    int h = 477;
+    int h = 500;
     int hh = 22; // The height of the dragable area
     
     

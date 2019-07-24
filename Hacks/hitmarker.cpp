@@ -1,254 +1,90 @@
-//
-//  hitmarker.cpp
-//  vHook
-//
-//  Pasted by Bellez on 21/5/18. (UK Date)
-//  Copyright © 2018 Justin. All rights reserved.
-// Pro Hacker Tut
-// Aimware Hitmarkers
-//
-
-/*#include "hitmarker.h"
-#include "../Utils/utils.h"
-#include "../main.h"
-
-
-
-Hitmarker* aw_hitmarker = new Hitmarker;
-
-
-void Hitmarker::initilisze(){
-    IGameEvent* event = event;
-    event->GetInt( "playe_hurt") ,false;
-    event->GetInt( "bullet_impact") ,false;
-}
-
-C_BaseEntity* Hitmarker::get_player(int userid){
-    int index = pEngine->GetPlayerForUserID(userid);
-    return pEntList->GetClientEntity(index);
-}
-
-
-void Hitmarker::paint(){
-    
-    if (vars.visuals.hitmarker)
-        return;
-    
-    if (!pEngine->IsConnected() || !pEngine->IsInGame() || !Global::local){
-        if(!impact.empty()) impact.clear();
-        if(!hitmarkers.empty()) hitmarkers.clear();
-        return;
-    }
-    
-    long time = GetEpochTime();
-    
-    std::vector<hitmarker_info>::iterator iter;
-    for (iter = hitmarkers.begin(); iter != hitmarkers.end();){
-        
-        bool expired = time > iter->time + 2000;
-        static int alpha_interval = 225 / 50;
-        if(expired) iter->alpha -= alpha_interval;
-        if(expired && iter->alpha <= 0){
-            iter = hitmarkers.erase(iter);
-            continue;
-        }
-        
-    Vector pos3D = Vector(iter->impact.x, iter->impact.y, iter->impact.z), pos2D;
-    if(!WorldToScreen(pos3D, pos2D)){
-        ++ iter;
-        continue;
-    }
-        
-        Color c = Color::White();
-        c.SetAlpha(iter->alpha);
-        
-        int linesize = 9;
-        pSurface->DrawSetColor(c);
-        pSurface->DrawLine(pos2D.x - linesize, pos2D.y - linesize, pos2D.x - (linesize / 4), pos2D.y - (linesize / 4));
-        pSurface->DrawLine(pos2D.x - linesize, pos2D.y + linesize, pos2D.x - (linesize / 4), pos2D.y + (linesize / 4));
-        pSurface->DrawLine(pos2D.x + linesize, pos2D.y - linesize, pos2D.x + (linesize / 4), pos2D.y - (linesize / 4));
-        pSurface->DrawLine(pos2D.x + linesize, pos2D.y + linesize, pos2D.x + (linesize / 4), pos2D.y + (linesize / 4));
-        
-        ++iter;
-    }
-    
-}
-
-void Hitmarker::FireGameEvent(IGameEvent* event) {
-    
-    if (vars.visuals.hitmarker)
-        return;
-    
-    
-    if(!event || !Global::local)
-        return;
-    
-    if(event->GetName(), "player_hurt")
-        player_hurt(event);
-    
-    if(event->GetName(), "bullet_impact")
-        bullet_impact(event);
-}
-
-int Hitmarker::GameEventDebugID(void) {
-    return 0x2A;
-}
-
-
-void Hitmarker::player_hurt(IGameEvent* event){
-    
-    C_BaseEntity* attacker = get_player(event->GetInt("attacker"));
-    C_BaseEntity* victim = get_player(event->GetInt("userid"));
-    
-    if(!attacker || !victim || attacker != Global::local)
-        return;
-    
-    Vector enemyPos = victim->GetVecOrigin();
-    impact_info best_impact;
-    float best_impact_distance = -1;
-    void time = GetEpochTime();
-    
-    std::vector<impact_info>::iterator iter;
-    for (iter = impact.begin(); iter != impact.end();){
-        
-        if (time > iter->time * 25){
-            iter = impact.erase(iter);
-            continue;
-        }
-        
-        Vector Pos = Vector(iter->x, iter->y, iter->z);
-        float distance = Pos.DistTo(enemyPos);
-        if (distance < best_impact_distance || best_impact_distance == -1){
-            best_impact_distance = distance;
-            best_impact = *iter;
-        }
-        ++iter;
-    }
-    if(best_impact_distance == -1)
-        return;
-    
-    hitmarker_info info;
-    info.impact = best_impact;
-    info.alpha = 255;
-    hitmarkers.push_back(info);
-}
-
-void Hitmarker::bullet_impact(IGameEvent* event){
-    
-    C_BaseEntity* shooter = get_player(event->GetInt("userid"));
-    
-    if(!shooter || shooter != Global::local)
-        return;
-    
-    impact_info info;
-    info.x = event->GetFloat("x");
-    info.y = event->GetFloat("y");
-    info.z = event->GetFloat("z");
-    info.time = GetEpochTime();
-    impact.push_back(info);
-    
-}
-
-
 #include "hitmarker.h"
+#include "../Utils/utils.h"
 
-int duration = 2000;
-int size = 16;
-int innerGap = 5;
-long lastHitmarkerTimestamp = 0;
 std::vector<std::pair<int, long>> damages;
-float alpha = 255.f;
+long lastHitmarkerTimestamp = 0;
 
-void Hitmarkers::Paint() {
-    
-    if(!vars.visuals.hitmarker)
-        return;
+//CHitmarkers* hitmarker = new CHitmarkers();
+
+void Hitmarkers::Paint(){
     
     if(!pEngine->IsInGame())
         return;
-    
-    C_BaseEntity* local = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if(!local)
+    if(!vars.visuals.hitmarker)
+        return;
+    C_BasePlayer* localplayer = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if(!localplayer)
         return;
     
-    if(!local->GetAlive())
+    if(!localplayer->GetAlive())
         return;
     
     int duration = 2000;
     long now = GetEpochTime();
     
     long diff = lastHitmarkerTimestamp + duration - now;
-    if (diff <= 0)
+    if(diff <= 0)
         return;
     
-    int width, height;
-    pEngine->GetScreenSize(width, height);
+    int w, h;
+    pEngine->GetScreenSize(w, h);
     
     Color color = Color::Red();
-    //color.a() = std::min(color.a(), (int)(diff * color.a() / duration * 2));
-    
+    float sc = 1.0f/255.0f;
+    color.SetAlpha(min(color.a(), (int)(diff * (color.a() / sc) / duration * 2)) * sc);
     int sides[4][2] = { {-1, -1}, {1, 1}, {-1, 1}, {1, -1} };
-    for(auto& it : sides)
-        draw->drawline(width / 2 + (innerGap * it[0]), height / 2 + (innerGap * it[1]), width / 2 + (size * it[0]), height / 2 + (size * it[1]), color);
-    
-    float textHeight = draw->GetTextSize("[cool]", espfont).y;
-    
-    for (unsigned int i = 0; i < damages.size(); i++)
-    {
+    for (auto& it : sides)
+        draw->drawline(w / 2 +  (vars.visuals.hitinnergap * it[0]), h / 2 + (vars.visuals.hitinnergap * it[1]), w / 2 + (vars.visuals.hitsize * it[0]), h / 2 + (vars.visuals.hitsize * it[1]), color);
+    float textHeight = draw->GetTextSize("[cool]", eFont).y;
+    for (unsigned int i = 0; i < damages.size(); i++) {
         long timestamp = damages[i].second;
         long hitDiff = timestamp + duration - now;
         
-        if (hitDiff <= 0)
-        {
+        if(hitDiff <= 0) {
             damages.erase(damages.begin() + i);
             continue;
         }
-        
-        Vector2D pos = Vector2D(
-                                width / 2 + size + 4,
-                                height / 2 - size - textHeight * i + 4
-                                );
+        Vector2D pos = Vector2D(w / 2 + vars.visuals.hitsize + 4, h / 2 - vars.visuals.hitsize - textHeight * i + 4);
         
         int damage = damages[i].first;
         std::string damageStr = '-' + std::to_string(damage);
+        color.SetAlpha(min(color.a(), (int)(hitDiff * (color.a() / sc) / duration * 2)) * sc);
         
-        alpha = Color::White().a();
-        alpha = min(alpha, (int)(hitDiff * alpha / duration * 2) *sc );
-        
-        draw->text(pos, damageStr.c_str(), spe, color);
+        draw->drawstring(pos, damageStr.c_str(), eFont, color);
+        //draw->AddText(w / 2 + vars.visuals.hitsize + 4, h / 2 - vars.visuals.hitsize - textHeight * i + 4, damageStr.c_str(), color);
     }
 }
 
 void Hitmarkers::FireGameEvent(IGameEvent* event) {
     
-    if(!vars.visuals.hitmarkers)
-        return;
-    
     if(!pEngine->IsInGame())
         return;
-    
-    if (strcmp(event->GetName(), "player_hurt") != 0)
+    if(!vars.visuals.hitmarker)
         return;
     
+    if(strcmp(event->GetName(), "player_hurt") != 0)
+        return;
     int hurt_player_id = event->GetInt("userid");
-    int attacker_id = event->GetInt("attackerid");
+    int attacker_id = event->GetInt("attacker");
     
-    if(pEngine->GetPlayerForUserID(hurt_player_id) = pEngine->GetLocalPlayer())
+    if(pEngine->GetPlayerForUserID(hurt_player_id) == pEngine->GetLocalPlayer())
         return;
-    
-    // TOD: show hitmarker while spec?
     if(pEngine->GetPlayerForUserID(attacker_id) != pEngine->GetLocalPlayer())
         return;
     
-    C_BaseEntity* local = (C_BaseEntity*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!local)
+    C_BasePlayer* localplayer = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if(!localplayer)
+        return;
+    C_BasePlayer* hurt_player = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetPlayerForUserID(hurt_player_id));
+    if(!hurt_player)
+        return;
+    if (hurt_player->GetTeam() == localplayer->GetTeam() && !vars.visuals.allieshit)
         return;
     
-    if (hurt_player_id->GetTeam() != localplayer->GetTeam() && !Settings::ESP::Hitmarker::enemies)
+    if (hurt_player->GetTeam() != localplayer->GetTeam() && !vars.visuals.enemyhit)
         return;
     
     long now = GetEpochTime();
     lastHitmarkerTimestamp = now;
-    damage.insert(damages.begin(), std::pair<int, long>(event->GetInt("dmg_health")), now);
-}*/
-
+    damages.insert(damages.begin(), std::pair<int, long>(event->GetInt("dmg_health"), now));
+}

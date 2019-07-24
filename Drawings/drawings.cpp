@@ -666,6 +666,12 @@ void cDrawings::textbox(int x, int y, int w, const char* szString, string szValu
     
 }
 
+void cDrawings::drawstring(Vector2D pos, const char* szString, HFONT font, Color color) {
+    draw->drawstring(pos.x, pos.y, color, font, szString);
+}
+
+    
+
 void cDrawings::handleinput(int eventcode, string arr[100]) {
     
     if (IsKeyPressed(eventcode, KEY_BACKSPACE)) {
