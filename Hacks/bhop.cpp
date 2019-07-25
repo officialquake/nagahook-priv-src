@@ -10,6 +10,9 @@ void DoBhop(CUserCmd* cmd, C_BaseEntity* local)
     if (!localplayer)
         return;
     
+    if (!vars.misc.bhop)
+        return;
+    
     if (localplayer->GetMoveType() == MOVETYPE_LADDER || localplayer->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     

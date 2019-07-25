@@ -18,7 +18,7 @@ public:
     int scout   = 222;
     int sg      = 259;
     int aug     = 455;
-    int awp     = 803;
+    int awp     = 279;
     int g3      = 511;
     int scar    = 597;
     // Pistols

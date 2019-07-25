@@ -466,6 +466,8 @@ void DrawPlayerESP()
             if(entity->IsRescuing())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "CARRYING", true);
             
+        
+            
             if((vars.visuals.scoped && entity->IsScoped()))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPING", true);
             if(vars.misc.radar){

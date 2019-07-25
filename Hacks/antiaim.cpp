@@ -346,6 +346,9 @@ void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector&
 
 float Freestand(C_BaseEntity* local, CUserCmd* cmd)
 {
+    if(!vars.misc.antiaim)
+        return;
+    
     if(vars.aimbot.freestand)
     {
         if(vars.aimbot.jitter > 0)
