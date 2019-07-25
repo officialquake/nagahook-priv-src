@@ -149,7 +149,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
     static IMaterial* Glass = pMatSystem->FindMaterial("models/inventory_items/cologne_prediction/cologne_prediction_glass", TEXTURE_GROUP_OTHER);
     static IMaterial* Gold = pMatSystem->FindMaterial("models/inventory_items/trophy_majors/crystal_clear", TEXTURE_GROUP_OTHER);
     static IMaterial* crystal = pMatSystem->FindMaterial("models/inventory_items/dogtags/dogtags_outline", TEXTURE_GROUP_OTHER);
-    static IMaterial* Mp3 = pMatSystem->FindMaterial("vgui/achievements/glow", TEXTURE_GROUP_OTHER);
+    static IMaterial* Mp3 = pMatSystem->FindMaterial("models/inventory_items/wildfire_gold/wildfire_gold_detail", TEXTURE_GROUP_OTHER);
     static IMaterial* Random = pMatSystem->FindMaterial("dev/glow_armsrace.vmt", TEXTURE_GROUP_OTHER);
     static IMaterial* Random1 = pMatSystem->FindMaterial("models/props_shacks/fishing_net01", TEXTURE_GROUP_OTHER);
     static IMaterial* Random2 = pMatSystem->FindMaterial("models/props_foliage/urban_tree03_branches", TEXTURE_GROUP_OTHER);

@@ -666,11 +666,11 @@ void cMenu::renderPlayer(int x, int y) {
     Players.push_back("Platinum");
     Players.push_back("Texture");
     Players.push_back("WireFrame");
-    Players.push_back("Crystal");
+    Players.push_back("Crystal Blue");
     Players.push_back("Mexican Cartel");
     Players.push_back("Random2");
     Players.push_back("Glass");
-    Players.push_back("Glow");
+    Players.push_back("Wildfire");
     Players.push_back("Random4");
     Players.push_back("Random5");
     Players.push_back("Random6");
@@ -682,7 +682,7 @@ void cMenu::renderPlayer(int x, int y) {
     Hands.push_back("Mexican Cartel");
     Hands.push_back("Random2");
     Hands.push_back("Glass");
-    Hands.push_back("Glow");
+    Hands.push_back("Wildfire");
     Hands.push_back("Random4");
     Hands.push_back("Random5");
     Hands.push_back("Random6");
@@ -690,11 +690,11 @@ void cMenu::renderPlayer(int x, int y) {
     Weapons.push_back("Platinum");
     Weapons.push_back("Texture");
     Weapons.push_back("Wireframe");
-    Weapons.push_back("Crystal");
+    Weapons.push_back("Crystal Blue");
     Weapons.push_back("Mexican Cartel");
     Weapons.push_back("Random2");
     Weapons.push_back("Glass");
-    Weapons.push_back("Glow");
+    Weapons.push_back("Wildfire");
     Weapons.push_back("Random4");
     Weapons.push_back("Random5");
     Weapons.push_back("Random6");
@@ -724,28 +724,29 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x + 235, y + 40, "Bomb Timer", & vars.visuals.bombtimer);
     this->renderCheckbox(x + 235, y + 60, "Defusing", & vars.visuals.defusing);
     this->renderCheckbox(x + 235, y + 80, "Rescuing", & vars.visuals.rescuing);
-    this->renderCheckbox(x + 235, y + 100, "No Flash", & vars.misc.noflash);
-    this->renderSlider(x + 230, y + 120, 150, "", vars.misc.flashalpha, 255, 0);
-    this->renderCheckbox(x + 235, y + 140, "Recoil Crosshair", & vars.visuals.rcrosshair);
-    this->renderCheckbox(x + 235, y + 220, "No Scope", & vars.misc.noscope);
+    this->renderCheckbox(x + 235, y + 100, "Scoping", & vars.visuals.scoped);
+    this->renderCheckbox(x + 235, y + 120, "No Flash", & vars.misc.noflash);
+    this->renderSlider(x + 230, y + 140, 150, "", vars.misc.flashalpha, 255, 0);
+    this->renderCheckbox(x + 235, y + 160, "Recoil Crosshair", & vars.visuals.rcrosshair);
+    this->renderCheckbox(x + 235, y + 240, "No Scope", & vars.misc.noscope);
     //this->renderCheckbox(x + 235, y + 220, "Radar", & vars.misc.radar);
     
-    this->renderCheckbox(x + 235, y + 160, "AA Indicators", & vars.visuals.antiaim_indicator);
+    this->renderCheckbox(x + 235, y + 180, "AA Indicators", & vars.visuals.antiaim_indicator);
     std::vector<std::string> Indicator;
     
     Indicator.push_back("Off");
     Indicator.push_back("Words");
     Indicator.push_back("Arrows");
     
-    this->renderCombo(x + 235, y + 180, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
-    this->renderCheckbox(x + 235, y + 240, "AA Lines", & vars.visuals.aaline);
-    this->renderCheckbox(x + 235, y + 260, "Angle Line Names", & vars.visuals.anglelinenames);
-    /*this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
-    this->renderCheckbox(x + 235, y + 300, "Enemies Hitmarkers", &vars.visuals.enemyhit);
-    this->renderCheckbox(x + 235, y + 320, "Allies Hitmarkers", &vars.visuals.allieshit);
-    this->renderSlider(x + 230, y + 340, 150, "Hit Duration", vars.visuals.durationhit, 3000, 0);
-    this->renderSlider(x + 230, y + 360, 150, "Hit Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 230, y + 380, 150, "Hit Gap", vars.visuals.hitinnergap, 16, 0);*/
+    this->renderCombo(x + 235, y + 200, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
+    this->renderCheckbox(x + 235, y + 260, "AA Lines", & vars.visuals.aaline);
+    this->renderCheckbox(x + 235, y + 280, "Angle Line Names", & vars.visuals.anglelinenames);
+    //this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
+    //this->renderCheckbox(x + 235, y + 300, "Enemies Hitmarkers", &vars.visuals.enemyhit);
+    //this->renderCheckbox(x + 235, y + 320, "Allies Hitmarkers", &vars.visuals.allieshit);
+    //this->renderSlider(x + 230, y + 280, 150, "M4A4 Skin", vars.visuals.m4a4skin, 3000, 0);
+    //this->renderSlider(x + 230, y + 360, 150, "Hit Size", vars.visuals.hitsize, 32, 0);
+    //this->renderSlider(x + 230, y + 380, 150, "Hit Gap", vars.visuals.hitinnergap, 16, 0);*/
     //this->renderCheckbox(x + 150, y + 195, "nightmode(wip)", & vars.misc.nightmode); (wip)
     
     

@@ -454,18 +454,19 @@ void DrawPlayerESP()
             if(vars.visuals.skeleton)
                 DrawSkeleton(entity, Color::Red());
             
-            if(entity->IsDefusing())
+            
+            if(vars.visuals.defusing && entity->IsDefusing())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "DEFUSING", true);
             
             
             
-            if(entity->IsGrabbingHostage())
+            if(vars.visuals.rescuing && entity->IsGrabbingHostage())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "RESCUING", true);
             
             if(entity->IsRescuing())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "CARRYING", true);
             
-            if((entity->IsScoped()))
+            if((vars.visuals.scoped && entity->IsScoped()))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPING", true);
             if(vars.misc.radar){
                 *entity->GetSpotted() = true;

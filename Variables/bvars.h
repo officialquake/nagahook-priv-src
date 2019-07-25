@@ -124,11 +124,12 @@ public:
         bool enemyhit  = false;        // Aimware Hitmarkers
         int hitinnergap = 5;     // antiaim idicator
         int hitsize = 16;     // antiaim idicator
-        int durationhit = 1000;     // antiaim idicator
+        int m4a4skin = 309;     // antiaim idicator
         bool spreadcircle = true;
         bool grenade = true;
         bool active    = true;
         float edge_distance = 25.f;
+        
         
         
         // Chams

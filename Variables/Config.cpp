@@ -98,6 +98,7 @@ void Config::LoadConfig() {
     vars.aimbot.accuracyhithcance = cfgget_i("Aimbot", "ACHC");
     vars.aimbot.hitscantype = cfgget_i("Aimbot", "HT");
     vars.aimbot.freestand = cfgget_b("Aimbot", "FT");
+    vars.aimbot.hitchance = cfgget_b("Aimbot", "Hitchance");
     vars.aimbot.jitter = cfgget_i("Aimbot", "Jitter");
     
     // Left Visuals
@@ -115,6 +116,10 @@ void Config::LoadConfig() {
     vars.visuals.scoped       = cfgget_b("Visuals", "Scoped");
     vars.visuals.rcrosshair       = cfgget_b("Visuals", "RC");
     vars.visuals.scrosshair       = cfgget_b("Visuals", "SC");
+    vars.visuals.active       = cfgget_b("Visuals", "Weapon");
+    vars.visuals.grenade       = cfgget_b("Visuals", "Grenade");
+    //vars.mi       = cfgget_b("Visuals", "SC");
+    
     
     
     // Middle Visuals
@@ -125,7 +130,7 @@ void Config::LoadConfig() {
     vars.visuals.indicatorAA_types = cfgget_i("Visuals", "AA Indicator Type");
     vars.visuals.antiaiminfos = cfgget_b("Visuals", "AA Info");
     vars.visuals.direction = cfgget_b("Visuals", "Direction");
-    vars.visuals.grenade = cfgget_b("Visuals", "Grenade ESP");
+    //vars.visuals.grenade = cfgget_b("Visuals", "Grenade ESP");
     
     // Right Visual
     vars.visuals.chams= cfgget_b("Visuals", "Player Chams");
@@ -167,7 +172,7 @@ void Config::LoadConfig() {
     
     //Misc Right
     vars.misc.noflash       = cfgget_b("Misc", "No Flash Enable");
-    //vars.misc.flashalpha    = cfgget_i("Misc", "Flash Alpha");
+    vars.misc.flashalpha    = cfgget_i("Misc", "Flash Alpha");
     vars.misc.noscope = cfgget_b("Misc", "No Scope");
     vars.misc.fakelag = cfgget_b("Misc", "Fake Lag");
     vars.misc.fakelagfactor = cfgget_i("Misc", "FakeLagf");
@@ -185,6 +190,7 @@ void Config::LoadConfig() {
     vars.misc.lby_spin = cfgget_b("Aimbot", "LBY Spin");
     vars.misc.tank = cfgget_b("Aimbot", "Tank");
     vars.misc.radar = cfgget_b("Aimbot", "Radar");
+    vars.aimbot.autocock = cfgget_b("Aimbot", "Auto Cock");
     vars.aimbot.baimhp = cfgget_b("Aimbot", "Baim");
     vars.aimbot.baimxhp = cfgget_i("Aimbot", "BaimxHP");
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
@@ -248,7 +254,9 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Aimbot", "Mindmg", GetIntValue(vars.aimbot.mindmg));
     cfg.SetBoolValue("Aimbot", "LBY Flip", GetBoolValue(vars.misc.antiResolverFlip));
     cfg.SetBoolValue("Aimbot", "LBY Spin", GetBoolValue(vars.misc.lby_spin));
+    cfg.SetBoolValue("Aimbot", "Hitchance", GetBoolValue(vars.aimbot.hitchance));
     cfg.SetBoolValue("Aimbot", "AntiAim Enabled", GetBoolValue(vars.misc.antiaim));
+    cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
     
     cfg.SetBoolValue("Misc", "Fake Walk", GetBoolValue(vars.aimbot.fakewalk));
     cfg.SetLongValue("Misc", "FakeWalkT", GetIntValue(vars.aimbot.fakewalktype));
@@ -275,6 +283,8 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Visuals", "Scoped", GetBoolValue(vars.visuals.scoped));
     cfg.SetBoolValue("Visuals", "RC", GetBoolValue(vars.visuals.rcrosshair));
     cfg.SetBoolValue("Visuals", "SC", GetBoolValue(vars.visuals.scrosshair));
+    cfg.SetBoolValue("Visuals", "Weapon", GetBoolValue(vars.visuals.active));
+    cfg.SetBoolValue("Visuals", "Grenade", GetBoolValue(vars.visuals.grenade));
     cfg.SetBoolValue("Visuals", "Vis Only", GetBoolValue(vars.visuals.visonly));
     
     
@@ -295,7 +305,7 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Visuals", "HCA", GetIntValue(vars.visuals.handchams_alpha));
     cfg.SetLongValue("Visuals", "WCA", GetIntValue(vars.visuals.weaponchams_alpha));
     
-    cfg.SetBoolValue("Visuals", "Grenade ESP", GetBoolValue(vars.visuals.grenade));
+    //cfg.SetBoolValue("Visuals", "Grenade ESP", GetBoolValue(vars.visuals.grenade));
     cfg.SetBoolValue("Visuals", "Direction", GetBoolValue(vars.visuals.direction));
     cfg.SetBoolValue("Visuals", "AA Info", GetBoolValue(vars.visuals.antiaiminfos));
     cfg.SetBoolValue("Visuals", "AA Indicator", GetBoolValue(vars.visuals.antiaim_indicator));
@@ -311,6 +321,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "Show Rank", GetBoolValue(vars.misc.showrank));
     //cfg.SetBoolValue("Misc", "Asus", GetBoolValue(vars.misc.asuswalls));
     cfg.SetBoolValue("Misc", "No Flash Enable", GetBoolValue(vars.misc.noflash));
+    cfg.SetLongValue("Misc", "Flash Alpha", GetIntValue(vars.misc.flashalpha));
     cfg.SetBoolValue("Misc", "Chat Spam", GetBoolValue(vars.misc.spammer));
     cfg.SetBoolValue("Misc", "Clantag", GetBoolValue(vars.misc.clantag));
     cfg.SetBoolValue("Visuals", "Skin Changer", GetBoolValue(vars.visuals.skinc));
@@ -374,7 +385,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "Show Real Angles", GetBoolValue(vars.misc.thirdpersonmode));
     cfg.SetBoolValue("Misc", "aa", GetBoolValue(vars.misc.antiaim));
     cfg.SetBoolValue("Misc", "At Target", GetBoolValue(vars.misc.attargets));
-    cfg.SetBoolValue("Misc", "Fake aa", GetBoolValue(vars.misc.fakeaa));
+    cfg.SetBoolValue("Aimbot", "Fake aa", GetBoolValue(vars.misc.fakeaa));
     
     cfg.SetLongValue("Misc", "aaX", GetIntValue(vars.misc.aaX));
     cfg.SetLongValue("Misc", "aaY", GetIntValue(vars.misc.aaY));

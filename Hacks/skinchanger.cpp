@@ -10,7 +10,14 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     // make_pair(WEAPON, cSkin(Skin, Seed, -1, Stattrak, Entity Quality, (char*)("Name") or nullptr for no name, Wear)),
     make_pair(WEAPON_KNIFE, cSkin(skin.TknifeID, -1, KnifeCT, -1, 3, (char*)("Sharper Dildo"), 0.0001f)), // Ruby Doppler
     make_pair(WEAPON_KNIFE_T, cSkin(skin.CTknifeID, -1, KnifeT, -1, 3, (char*)("Bloody Dildo"), 0.0001f)), // Fade
+    /*make_pair(WEAPON_C4, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
+    make_pair(WEAPON_FRAG_GRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
+    make_pair(WEAPON_HEGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
     // Gloves
+    make_pair(WEAPON_TAGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)),
+    make_pair(WEAPON_INCGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar// Jaguar
+    make_pair(WEAPON_SMOKEGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), //*/
+    
     make_pair(GLOVE_CT, cSkin(skin.CTgloveID, -1, GloveCT, -1, 3, (char*)("Purple Dildo"), 0.0001f)), //
     make_pair(GLOVE_T, cSkin(skin.TgloveID, -1, GloveT, -1, 3, nullptr, 0.0001f)), //
     // Pistols
@@ -30,8 +37,8 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_AWP, cSkin(skin.awp, -1, -1, 1337, 0, nullptr, 0.0001f)), // Asiimov
     make_pair(WEAPON_FAMAS, cSkin(skin.famas, -1, -1, -1, 0, nullptr, 0.0001f)), // Roll Cage
     make_pair(WEAPON_G3SG1, cSkin(skin.g3, -1, -1, 1337, 0, nullptr, 0.0001f)), // Ventilator
-    make_pair(WEAPON_M4A1_SILENCER, cSkin(skin.m4a4, -1, -1, 1337, 0, nullptr, 0.0001f)), // Breifing
-    make_pair(WEAPON_M4A1, cSkin(skin.m4a1, -1, -1, -1, 0, nullptr, 0.0001f)), // Neo-Noir
+    make_pair(WEAPON_M4A1_SILENCER, cSkin(skin.m4a1, -1, -1, 1337, 0, nullptr, 0.0001f)), // Breifing
+    make_pair(WEAPON_M4A1, cSkin(skin.m4a4, -1, -1, -1, 0, nullptr, 0.0001f)), // Neo-Noir
     make_pair(WEAPON_SCAR20, cSkin(skin.scar, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     make_pair(WEAPON_SG556, cSkin(skin.sg, -1, -1, 1337, 0, nullptr, 0.0001f)), // Mayan Dreams
     make_pair(WEAPON_SSG08, cSkin(skin.scout, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
