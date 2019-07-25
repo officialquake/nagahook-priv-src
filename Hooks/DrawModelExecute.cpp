@@ -145,6 +145,17 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
     static IMaterial* firstWire = CreateMaterial(false, true, "WireFrame");
     static IMaterial* secondWire = CreateMaterial(true, true, "WireFrame");
     
+    static IMaterial* Plastic = pMatSystem->FindMaterial("models/inventory_items/trophy_majors/crystal_blue", TEXTURE_GROUP_OTHER);
+    static IMaterial* Glass = pMatSystem->FindMaterial("models/inventory_items/cologne_prediction/cologne_prediction_glass", TEXTURE_GROUP_OTHER);
+    static IMaterial* Gold = pMatSystem->FindMaterial("models/inventory_items/trophy_majors/crystal_clear", TEXTURE_GROUP_OTHER);
+    static IMaterial* crystal = pMatSystem->FindMaterial("models/inventory_items/dogtags/dogtags_outline", TEXTURE_GROUP_OTHER);
+    static IMaterial* Mp3 = pMatSystem->FindMaterial("vgui/achievements/glow", TEXTURE_GROUP_OTHER);
+    static IMaterial* Random = pMatSystem->FindMaterial("dev/glow_armsrace.vmt", TEXTURE_GROUP_OTHER);
+    static IMaterial* Random1 = pMatSystem->FindMaterial("models/props_shacks/fishing_net01", TEXTURE_GROUP_OTHER);
+    static IMaterial* Random2 = pMatSystem->FindMaterial("models/props_foliage/urban_tree03_branches", TEXTURE_GROUP_OTHER);
+    static IMaterial* Random3 = pMatSystem->FindMaterial("models/inventory_items/trophy_majors/gloss", TEXTURE_GROUP_OTHER);
+    static IMaterial* Random4 = pMatSystem->FindMaterial("models/player/ct_fbi/ct_fbi_glass", TEXTURE_GROUP_OTHER);
+    
     if(pInfo.pModel)
     {
         string pszModel = pModelInfo->GetModelName(pInfo.pModel);
@@ -180,11 +191,29 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
             IMaterial* materialCheckFirst = [&]() -> IMaterial*
             {
                 if(vars.visuals.weaponType == 0)
-                    return firstLit;
+                    return Random4;
                 else if(vars.visuals.weaponType == 1)
                     return firstLayer;
                 else if (vars.visuals.weaponType == 2)
                     return firstWire;
+                else if(vars.visuals.weaponType == 3)
+                    return Plastic;
+                else if(vars.visuals.weaponType == 4)
+                    return Gold;
+                else if(vars.visuals.weaponType == 5)
+                    return crystal;
+                else if(vars.visuals.weaponType == 6)
+                    return Glass;
+                else if(vars.visuals.weaponType == 7)
+                    return Mp3;
+                else if(vars.visuals.weaponType == 8)
+                    return Random;
+                else if(vars.visuals.weaponType == 9)
+                    return Random1;
+                else if(vars.visuals.weaponType == 10)
+                    return Random2;
+                else if(vars.visuals.weaponType == 11)
+                    return Random3;
             }();
             
             materialCheckFirst->ColorModulate(vars.colors.weapon);
@@ -200,11 +229,29 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
             IMaterial* materialCheckFirst = [&]() -> IMaterial*
             {
                 if(vars.visuals.handsType == 0)
-                    return firstLit;
+                    return Random4;
                 else if(vars.visuals.handsType == 1)
                     return firstLayer;
                 else if (vars.visuals.handsType == 2)
                     return firstWire;
+                else if(vars.visuals.handsType == 3)
+                    return Plastic;
+                else if(vars.visuals.handsType == 4)
+                    return Gold;
+                else if(vars.visuals.handsType == 5)
+                    return crystal;
+                else if(vars.visuals.handsType == 6)
+                    return Glass;
+                else if(vars.visuals.handsType == 7)
+                    return Mp3;
+                else if(vars.visuals.handsType == 8)
+                    return Random;
+                else if(vars.visuals.handsType == 9)
+                    return Random1;
+                else if(vars.visuals.handsType == 10)
+                    return Random2;
+                else if(vars.visuals.handsType == 11)
+                    return Random3;
             }();
             
             materialCheckFirst->ColorModulate(vars.colors.hands);
@@ -245,11 +292,29 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     IMaterial* materialCheckFirst = [&]() -> IMaterial*
                     {
                         if(vars.visuals.playersType == 0)
-                            return firstLit;
+                            return Random4;
                         else if(vars.visuals.playersType == 1)
                             return firstLayer;
                         else if (vars.visuals.playersType == 2)
                             return firstWire;
+                        else if(vars.visuals.playersType == 3)
+                            return Plastic;
+                        else if(vars.visuals.playersType == 4)
+                            return Gold;
+                        else if(vars.visuals.playersType == 5)
+                            return crystal;
+                        else if(vars.visuals.playersType == 6)
+                            return Glass;
+                        else if(vars.visuals.playersType == 7)
+                            return Mp3;
+                        else if(vars.visuals.playersType == 8)
+                            return Random;
+                        else if(vars.visuals.playersType == 9)
+                            return Random1;
+                        else if(vars.visuals.playersType == 10)
+                            return Random2;
+                        else if(vars.visuals.playersType == 11)
+                            return Random3;
                     }();
                     
                     IMaterial* materialCheckSecond = [&]() -> IMaterial*

@@ -663,15 +663,42 @@ void cMenu::renderPlayer(int x, int y) {
     vector<string> Hands;
     vector<string> Weapons;
     
-    Players.push_back("Lit");
+    Players.push_back("Platinum");
     Players.push_back("Texture");
     Players.push_back("WireFrame");
-    Hands.push_back("Lit");
+    Players.push_back("Crystal");
+    Players.push_back("Mexican Cartel");
+    Players.push_back("Random2");
+    Players.push_back("Glass");
+    Players.push_back("Glow");
+    Players.push_back("Random4");
+    Players.push_back("Random5");
+    Players.push_back("Random6");
+    Players.push_back("Plastic");
+    Hands.push_back("Platinum");
     Hands.push_back("Texture");
     Hands.push_back("Wireframe");
-    Weapons.push_back("Lit");
+    Hands.push_back("Crystal Blue");
+    Hands.push_back("Mexican Cartel");
+    Hands.push_back("Random2");
+    Hands.push_back("Glass");
+    Hands.push_back("Glow");
+    Hands.push_back("Random4");
+    Hands.push_back("Random5");
+    Hands.push_back("Random6");
+    Hands.push_back("Plastic");
+    Weapons.push_back("Platinum");
     Weapons.push_back("Texture");
     Weapons.push_back("Wireframe");
+    Weapons.push_back("Crystal");
+    Weapons.push_back("Mexican Cartel");
+    Weapons.push_back("Random2");
+    Weapons.push_back("Glass");
+    Weapons.push_back("Glow");
+    Weapons.push_back("Random4");
+    Weapons.push_back("Random5");
+    Weapons.push_back("Random6");
+    Weapons.push_back("Plastic");
     
     this->renderCheckbox(x, y + 240, "Player Chams", &vars.visuals.chams);
     this->renderCheckbox(x, y + 260, "Hand Chams", &vars.visuals.handchams);
@@ -713,12 +740,12 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCombo(x + 235, y + 180, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
     this->renderCheckbox(x + 235, y + 240, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 260, "Angle Line Names", & vars.visuals.anglelinenames);
-    this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
+    /*this->renderCheckbox(x + 235, y + 280, "Hitmarkers", &vars.visuals.hitmarker);
     this->renderCheckbox(x + 235, y + 300, "Enemies Hitmarkers", &vars.visuals.enemyhit);
     this->renderCheckbox(x + 235, y + 320, "Allies Hitmarkers", &vars.visuals.allieshit);
     this->renderSlider(x + 230, y + 340, 150, "Hit Duration", vars.visuals.durationhit, 3000, 0);
     this->renderSlider(x + 230, y + 360, 150, "Hit Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 230, y + 380, 150, "Hit Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderSlider(x + 230, y + 380, 150, "Hit Gap", vars.visuals.hitinnergap, 16, 0);*/
     //this->renderCheckbox(x + 150, y + 195, "nightmode(wip)", & vars.misc.nightmode); (wip)
     
     

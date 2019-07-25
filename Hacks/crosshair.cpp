@@ -57,6 +57,8 @@ void manualaa(C_BaseEntity* Local)
 {
     if ( !vars.visuals.antiaim_indicator )
         return;
+    if(!pEngine->IsInGame())
+        return;
     
     static bool left = false;
     static bool right = false;

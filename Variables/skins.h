@@ -7,22 +7,22 @@ public:
     
     int gloveCT      = GLOVE_SPORTY;
     int gloveT     = GLOVE_SPORTY;
-    int CTgloveID    = 10037;
-    int TgloveID   = 10037;
+    int CTgloveID    = 10047;
+    int TgloveID   = 10047;
     // Rifles
     int galil   = 661;
     int famas   = 604;
-    int ak47    = 180;
-    int m4a4    = 155;
+    int ak47    = 801;
+    int m4a4    = 309;
     int m4a1    = 430;
     int scout   = 222;
     int sg      = 259;
     int aug     = 455;
-    int awp     = 259;
+    int awp     = 803;
     int g3      = 511;
     int scar    = 597;
     // Pistols
-    int glock   = 353;
+    int glock   = 586;
     int usp     = 504;
     int p2000   = 71;
     int dual    = 491;
@@ -30,7 +30,7 @@ public:
     int tec9    = 671;
     int five7   = 44;
     int cz      = 350;
-    int deagle  = 351;
+    int deagle  = 711;
     int revolver= 12;
     // SMGs
     int mac10   = 433;

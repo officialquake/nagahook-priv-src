@@ -1,4 +1,4 @@
-#include "main.h"
+/*#include "main.h"
 #include "Hacks/hitmarker.h"
 class EventListener : public IGameEventListener2
 {
@@ -23,4 +23,4 @@ public:
     {
         return EVENT_DEBUG_ID_INIT;
     }
-};
+};*/
