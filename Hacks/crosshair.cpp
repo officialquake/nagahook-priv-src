@@ -28,7 +28,7 @@ void rCrosshair(C_BaseEntity* local)
     int X = x - (dx * punchAngles.y);
     int Y = y + (dy * punchAngles.x);
     
-    draw->drawCrosshair(X, Y, Color::Red());
+    draw->drawCrosshair(X, Y, Color::White());
 }
 
 void DrawScope(C_BaseEntity* local)

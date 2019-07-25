@@ -12,6 +12,7 @@
 #include "../moonwalk.hpp"
 #include "../Hacks/triggerbot.hpp"
 #include "../noduckcooldown.hpp"
+#include "../Hacks/EnginePrediction.h"
 
 Vector tpangles;
 
@@ -57,12 +58,13 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
 {
     
     DoAutoStrafe(cmd, local);
-    
-    DoTrigger(cmd);
     DoBhop(cmd, local);
     duck->DuckCool(cmd);
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
+    
+    CEnginePrediction::Instance()->Start(cmd);
+    DoTrigger(cmd);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
@@ -77,11 +79,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     Hitchance(local, weapon);
     AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
+    CEnginePrediction::Instance()->End();
+    
     DoSpammer();
     Fakewalk(cmd, local);
-    
-    
-    
     
 }
 

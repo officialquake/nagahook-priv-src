@@ -25,7 +25,7 @@ public:
     int glock   = 586;
     int usp     = 504;
     int p2000   = 71;
-    int dual    = 491;
+    int dual    = 747;
     int p250    = 668;
     int tec9    = 671;
     int five7   = 44;

@@ -346,8 +346,6 @@ void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector&
 
 float Freestand(C_BaseEntity* local, CUserCmd* cmd)
 {
-    if(!vars.misc.antiaim)
-        return;
     
     if(vars.aimbot.freestand)
     {
@@ -781,11 +779,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     
     
-    /*if (!bSendPacket) {
+    if (!bSendPacket) {
      do_real(cmd, local);
      } else {
      do_fake(cmd);
-     }*/
+     }
+    cmd->viewangles.ClampAngles();
     
     
     

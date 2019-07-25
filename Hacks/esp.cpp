@@ -496,6 +496,7 @@ void DrawPlayerESP()
                                     pSurface->DrawSetColor(Color::Black());
                                     pSurface->DrawOutlinedRect(screenbacktrack[i][t].x, screenbacktrack[i][t].y, screenbacktrack[i][t].x + 2, screenbacktrack[i][t].y + 2);
                                     
+                                    
                                 }
                             }
                         }

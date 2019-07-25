@@ -53,7 +53,7 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     }
     
     Vector origin; // Origin angles which we're seeing
-    pEngine->GetViewAngles( origin );
+    pEngine->GetViewAngles(origin);
     
     pInput->m_fCameraInThirdPerson = true;
     pInput->m_vecCameraOffset.x = origin.x;

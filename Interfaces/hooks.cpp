@@ -43,6 +43,8 @@ void InitializeVMTs()
     uintptr_t findRankReveal = CPatternScanner::Instance()->GetPointer("client_panorama.dylib",(unsigned char*)RANKREVEAL_SIG, RANKREVEAL_MASK, 0x15) + 0x4;
     uintptr_t findClanTag    = CPatternScanner::Instance()->GetPointer("engine.dylib", (unsigned char*) CLANTAG_SIG, CLANTAG_MASK, 0xB) + 0x4;
     uintptr_t sendPacketPtr =  CPatternScanner::Instance()->GetProcedure("engine.dylib", (unsigned char*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
+    uint64_t findMoveData = CPatternScanner::Instance()->GetPointer("client_panorama.dylib", (unsigned char*)"\x48\x8D\x05\x00\x00\x00\x00\x48\x8B\x00\x0F\x57\xC0\x0F\x2E\x40\x00\x73\x00", "xxx????xxxxxxxxx?x?", 0x3) + 0x4;
+    uintptr_t predictionSeedPointer = CPatternScanner::Instance()->GetPointer("client_panorama.dylib", (unsigned char*)"\x48\x8D\x0D\x00\x00\x00\x00\x89\x01\x5D\xC3", "xxx????xxxx", 0x3) + 0x4;
 
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     ProtectAddr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
@@ -55,6 +57,8 @@ void InitializeVMTs()
     SetClanTag  = reinterpret_cast<SendClanTagFn>(findClanTag);
     pClientMode = reinterpret_cast<IClientMode*>(findClientMode);
     pGlobals    = *reinterpret_cast<CGlobalVarsBase**>(findGlobalVars);
+    nPredictionRandomSeed = reinterpret_cast<int*>(predictionSeedPointer);
+    MoveData = *reinterpret_cast<CMoveData**>(findMoveData);
     MsgFunc_ServerRankRevealAll = reinterpret_cast<MsgFunc_ServerRankRevealAllFn>(findRankReveal);
 
     paintVMT        = new VMT(pPanel);

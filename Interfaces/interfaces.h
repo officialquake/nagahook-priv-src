@@ -47,5 +47,7 @@ extern VMT* game_event_vmt;
 extern VMT* engineVGuiVMT;;
 
 extern RecvVarProxyFn g_pSequence;
+extern int* nPredictionRandomSeed;
+extern CMoveData* MoveData;
 
 

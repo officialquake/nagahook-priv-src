@@ -389,6 +389,10 @@ public:
     {
         return *(int*)((uintptr_t)this + offsets.DT_BasePlayer.m_fFlags);
     }
+    int* pGetFlags()
+    {
+        return (int*)((uintptr_t)this + offsets.DT_BasePlayer.m_fFlags);
+    }
     
     Vector GetPredicted( Vector p0 );
     

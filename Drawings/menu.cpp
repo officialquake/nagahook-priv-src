@@ -704,15 +704,15 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x, y + 260, "Hand Chams", &vars.visuals.handchams);
     this->renderCheckbox(x, y + 280, "Weapon Chams", &vars.visuals.weaponchams);
     if(vars.visuals.chams) {
-        this->renderCombo(x + 10, y + 300, 150, 20, "Lit", Players, vars.visuals.playersType, &vars.players_opend);
+        this->renderCombo(x + 10, y + 300, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
     }
     if(vars.visuals.handchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 320, 150, 20, "Lit", Hands, vars.visuals.handsType, &vars.hands_opend);
+            this->renderCombo(x + 10, y + 320, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
     }
     if(vars.visuals.weaponchams) {
         if((!vars.players_opend) && !vars.hands_opend)
-            this->renderCombo(x + 10, y + 340, 150, 20, "Lit", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
+            this->renderCombo(x + 10, y + 340, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
     }
     
     int iScreenWidth, iScreenHeight;
