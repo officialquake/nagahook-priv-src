@@ -332,7 +332,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                  //pCmd->buttons |= IN_ATTACK;
                  AutoZeus(pCmd, local, weapon);
                  }*/
-                if(vars.aimbot.autocock)
+                if(vars.aimbot.autocock && vars.aimbot.autoshoot)
                 {
                     //pCmd->buttons |= IN_ATTACK;
                     AutoCock(pCmd, weapon);
