@@ -774,18 +774,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             } // End Of FakeAA Yaw
         }
+        
     }
-    
-    
-    
-    
-    if (!bSendPacket) {
-     do_real(cmd, local);
-     } else {
-     do_fake(cmd);
-     }
     cmd->viewangles.ClampAngles();
-    
-    
-    
 }

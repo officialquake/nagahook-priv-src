@@ -190,7 +190,7 @@ void Config::LoadConfig() {
     vars.misc.lby_spin = cfgget_b("Aimbot", "LBY Spin");
     vars.misc.tank = cfgget_b("Aimbot", "Tank");
     vars.misc.radar = cfgget_b("Aimbot", "Radar");
-    vars.aimbot.autocock = cfgget_b("Aimbot", "Auto Cock");
+    //vars.aimbot.autocock = cfgget_b("Aimbot", "Auto Cock");
     vars.aimbot.baimhp = cfgget_b("Aimbot", "Baim");
     vars.aimbot.baimxhp = cfgget_i("Aimbot", "BaimxHP");
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
@@ -256,7 +256,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "LBY Spin", GetBoolValue(vars.misc.lby_spin));
     cfg.SetBoolValue("Aimbot", "Hitchance", GetBoolValue(vars.aimbot.hitchance));
     cfg.SetBoolValue("Aimbot", "AntiAim Enabled", GetBoolValue(vars.misc.antiaim));
-    cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
+    //cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
     
     cfg.SetBoolValue("Misc", "Fake Walk", GetBoolValue(vars.aimbot.fakewalk));
     cfg.SetLongValue("Misc", "FakeWalkT", GetIntValue(vars.aimbot.fakewalktype));

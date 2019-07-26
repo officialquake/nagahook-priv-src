@@ -3,18 +3,27 @@
 
 void ThirdPerson::OverrideView(CViewSetup& pSetup)
 {
-    if(!vars.misc.thirdperson) {
+    
+    /*if(!vars.misc.thirdperson) {
         pInput->m_fCameraInThirdPerson = false;
         pInput->m_vecCameraOffset.z = 150.0f;
         return;
-    }
+    }*/
     
     //float distance = 100.f;
     
     C_BaseEntity *localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
-    if(!localplayer || !localplayer->GetAlive())
+    if(!localplayer)
         return;
+    
+    if (vars.misc.thirdperson && localplayer->GetAlive())
+    {
+        
+    if (!vars.misc.thirdperson)
+    {
+        pInput->m_fCameraInThirdPerson = true;
+    }
     
     QAngle *view = localplayer->GetViewwAngles();
     trace_t tr;
@@ -29,7 +38,7 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     
     Vector diff = localplayer->GetEyePosition() - tr.endpos;
     
-    float distance2D = diff.Length2D();
+    float distance2D = sqrt(abs(diff.x * diff.x) + abs(diff.y * diff.y));//
     
     bool horOK = distance2D > (vars.misc.tpoffset - 2.0f);
     bool vertOK = (abs(diff.z) - abs(desiredCamOffset.z) < 3.0f);
@@ -52,11 +61,16 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
         }
     }
     
-    Vector origin; // Origin angles which we're seeing
-    pEngine->GetViewAngles(origin);
+    //Vector origin; // Origin angles which we're seeing
+    //pEngine->GetViewAngles(origin);
     
     pInput->m_fCameraInThirdPerson = true;
-    pInput->m_vecCameraOffset.x = origin.x;
-    pInput->m_vecCameraOffset.y = origin.y;
+    //pInput->m_vecCameraOffset.x = origin.x;
+    //pInput->m_vecCameraOffset.y = origin.y;
     pInput->m_vecCameraOffset.z = cameraDistance;
+    }
+    else
+    {
+    pInput->m_fCameraInThirdPerson = false;
+    }
 }

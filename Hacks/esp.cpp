@@ -430,7 +430,7 @@ void DrawPlayerESP()
             
             /* Draw health as text */
             if(vars.visuals.healthtext)
-                draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetHealth()).c_str(), true);
+                draw->drawstring(players.x + players.w + 3, players.y + 1, Color::White(), espfont, std::to_string(entity->GetHealth()).c_str(), true);
             
             /* Draw amour bar */
             if(vars.visuals.armour)
@@ -441,7 +441,7 @@ void DrawPlayerESP()
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
-                draw->drawstring(players.x + players.w + 3, players.y + 1, Color::White(), csgo_icons, active.c_str());
+                draw->drawstring(players.x + players.w / 2, players.y + players.h + 7, Color::White(), csgo_icons, active.c_str());
                 
                 
             }

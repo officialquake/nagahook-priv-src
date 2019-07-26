@@ -25,7 +25,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         {
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
             espfont         = draw->createfont(espfont, "Caviar Dreams", 10, FONTFLAG_ANTIALIAS);
-            csgo_icons         = draw->createfont(csgo_icons, "icomoon", 10, FONTFLAG_ANTIALIAS);
+            csgo_icons         = draw->createfont(csgo_icons, "icomoon", 13, FONTFLAG_ANTIALIAS);
             
             mFont           = draw->createfont(mFont, "Caviar Dreams", 1, FONTFLAG_ANTIALIAS);
             sFont           = draw->createfont(sFont, "BigNoodleTitling", 12, FONTFLAG_ANTIALIAS);     // Used for sliders
