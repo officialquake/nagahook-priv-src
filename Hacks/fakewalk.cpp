@@ -29,7 +29,7 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
     if(!localplayer)
         return;
     
-    if(!pInputSystem->IsButtonDown(MOUSE_4))
+    if(!pInputSystem->IsButtonDown(KEY_BACKSLASH))
         return;
     
     if(vars.aimbot.fakewalktype == 1){
