@@ -51,4 +51,5 @@ void CMovement::FakeLag(CUserCmd *cmd) {
     }
     
     ticks++;
+    
 }

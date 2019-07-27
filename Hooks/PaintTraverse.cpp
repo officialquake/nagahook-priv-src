@@ -186,178 +186,45 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             }
             else if (Tick > 120 && Tick < 150)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-n");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D");
             }
             else if (Tick > 150 && Tick < 180)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-n|");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E ");
             }
             else if (Tick > 180 && Tick < 210)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-na");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A");
             }
             else if (Tick > 210 && Tick < 240)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-na|");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D");
             }
             else if (Tick > 240 && Tick < 270)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nag");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |");
             }
             else if (Tick > 270 && Tick < 300)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nag|");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デ");
             }
             else if (Tick > 300 && Tick < 330)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-naga");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッ");
             }
             else if (Tick > 330 && Tick < 360)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-naga|");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッ|");
             }
             else if (Tick > 360 && Tick < 390)
             {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagah");
+                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッド");
             }
-            else if (Tick > 390 && Tick < 420)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagah|");
-            }
-            else if (Tick > 420 && Tick < 450)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagaho");
-            }
-            else if (Tick > 450 && Tick < 480)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagaho|");
-            }
-            if (Tick > 480 && Tick < 510)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahoo");
-            }
-            else if (Tick > 510 && Tick < 540)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahoo|");
-            }
-            if (Tick > 540 && Tick < 570)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook");
-            }
-            else if (Tick > 570 && Tick < 600)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook|");
-            }
-            //
             
-            if (Tick > 600 && Tick < 630)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook.c");
-            }
-            else if (Tick > 630 && Tick < 660)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook.cc|");
-            }
-            else if (Tick > 660 && Tick < 690)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook.c|");
-            }
-            else if (Tick > 690 && Tick < 720)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook.c");
-            }
-            else if (Tick > 720 && Tick < 750)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahook|");
-            }
-            else if (Tick > 750 && Tick < 780)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahoo");
-            }
-            else if (Tick > 780 && Tick < 810)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagahoo|");
-            }
-            else if (Tick > 810 && Tick < 840)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagaho");
-            }
-            else if (Tick > 840 && Tick < 870)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagaho|");
-            }
-            else if (Tick > 870 && Tick < 900)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagah");
-            }
-            else if (Tick > 900 && Tick < 930)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nagah|");
-            }
-            else if (Tick > 930 && Tick < 960)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-naga");
-            }
-            else if (Tick > 960 && Tick < 990)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-naga|");
-            }
-            else if (Tick > 990 && Tick < 1020)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nag");
-            }
-            else if (Tick > 1020 && Tick < 1050)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-nag|");
-            }
-            else if (Tick > 1050 && Tick < 1080)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-na");
-            }
-            else if (Tick > 1080 && Tick < 1110)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-na|");
-            }
-            else if (Tick > 1110 && Tick < 1140)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-n");
-            }
-            else if (Tick > 1140 && Tick < 1170)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-n|");
-            }
-            else if (Tick > 1170 && Tick < 1200)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-n");
-            }
-            else if (Tick > 1200 && Tick < 1230)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-|");
-            }
-            else if (Tick > 1270 && Tick < 1300)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-");
-            }
-            else if (Tick > 1300 && Tick < 1330)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "");
-            }
-            else if (Tick > 1330 && Tick < 1360)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "|");
-            }
-            else if (Tick > 1360 && Tick < 1390)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "");
-            }
-            else if (Tick > 1390 && Tick < 1420)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "|");
-            }
             
             
             // Reset
-            if(Tick > 1420)
+            if(Tick > 390)
             {
                 Tick = 0;
             }

@@ -18,7 +18,7 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     if(!pEngine->IsInGame())
         return;
     
-    if(localplayer->GetHealth() > 0){
+    if(localplayer->GetHealth() > 0 && vars.misc.thirdperson){
         
     
     QAngle *view = localplayer->GetViewwAngles();

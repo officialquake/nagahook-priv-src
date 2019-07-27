@@ -327,7 +327,7 @@ Vector GetHitboxPosition(C_BaseEntity* pEntity, int Hitbox)
     VectorTransform(hitbox->bbmax, matrix[hitbox->bone], vMax);
     vCenter = (vMin + vMax) *0.5f;
     
-    if(vars.aimbot.pointscale != 101)
+    if(vars.aimbot.enabled && vars.aimbot.pointscale != 101)
     {
         float ptwoz = 50 - vars.aimbot.pointscale;
         float zval  = (ptwoz*vMin.z + vars.aimbot.pointscale*vMax.z) / 50;

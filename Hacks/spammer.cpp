@@ -4,9 +4,8 @@
 
 vector<string> spamMessages =
 {   // Add messages here
-    "nagahook.cc",
-    "fuck y'all niggers get nagahook.cc",
-    "Pasted by nagatoro and tim",
+    "D E A D |  デッド",
+    "fuck y'all niggers get D E A D |  デッド",
     
 };
 

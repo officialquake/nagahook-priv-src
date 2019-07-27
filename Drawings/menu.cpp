@@ -828,7 +828,7 @@ void cMenu::renderMenu() {
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
     draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "-Nagahook", true);
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "-D E A D |  デッド", true);
     
     // Draws tabs
     if(curTab != 0){

@@ -84,7 +84,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     DoSpammer();
     Fakewalk(cmd, local);
-    //movement->FakeLag(cmd);
+    //movement->FakeLag(cmd, sendPacket);
     
 }
 
@@ -163,11 +163,10 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     Global::cmd = cmd;
     
+    *bSendPacket = SendPacket;
+    *bSendPacket = true;
     if(cmd && cmd->command_number)
     {
-        
-        *bSendPacket = SendPacket;
-        *bSendPacket = true;
         
         movement->FakeLag(cmd);
         //movement->FakeWalk(cmd);

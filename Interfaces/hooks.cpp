@@ -125,7 +125,7 @@ void UpdateResolver()
 
 void PrintInfo()
 {
-    pCvar->ConsoleColorPrintf(Color::White(), "[nagahook] Injected successfully!\n");
+    pCvar->ConsoleColorPrintf(Color::White(), "[D E A D |  デッド] Injected successfully!\n");
     pCvar->ConsoleColorPrintf(Color::Red(), "Credits to: \n");
     pCvar->ConsoleColorPrintf(Color::Green(), "Syn/-X making breathless\n");
     pCvar->ConsoleColorPrintf(Color::Yellow(), "ViKiNG making barbossa\n");

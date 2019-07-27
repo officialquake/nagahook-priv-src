@@ -143,39 +143,39 @@ void grenadeESP(C_BaseEntity* entity){
         
         if(strstr(mat->GetName(), "flashbang")){
             color = Color(255, 235, 59, 255);
-            name = "Flashbang";
+            name = "p";
             break;
         }
         if(strstr(mat->GetName(), "smoke")){
             color = Color(97, 97, 97, 255);
-            name = "Smoke";
+            name = "O";
             break;
         }
         if(strstr(mat->GetName(), "decoy")){
             color = Color(97, 97, 97, 255);
-            name = "Decoy";
+            name = "l";
             break;
         }
         if(strstr(mat->GetName(), "m67_grenade") || strstr(mat->GetName(), "hegrenade")){
             color = Color(244, 67, 54, 255);
-            name = "HE Grenade";
+            name = "t";
             break;
         }
         if(strstr(mat->GetName(), "incendiary")){
             color = Color(244, 67, 54, 255);
-            name = "Incendiary";
+            name = "v";
             break;
         }
         if(strstr(mat->GetName(), "molotov")){
             color = Color(244, 67, 54, 255);
-            name = "Molotov";
+            name = "D";
         }
     }
     
     boxstruct nBox;
     
     if(DrawPlayerBox(entity, nBox)){
-        draw->drawstring(nBox.x + nBox.w + 3, nBox.y - (nBox.h/2), Color::Yellow(), espfont, name);
+        draw->drawstring(nBox.x + nBox.w + 3, nBox.y - (nBox.h/2), Color::Yellow(), csgo_icons, name);
         box3d(entity, color);
     }
     
