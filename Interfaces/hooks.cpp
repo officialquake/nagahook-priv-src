@@ -131,6 +131,6 @@ void PrintInfo()
     pCvar->ConsoleColorPrintf(Color::Yellow(), "ViKiNG making barbossa\n");
     pCvar->ConsoleColorPrintf(Color::Blue(), "Akalisch (netvarmanager/patternscanner)\n");
     pCvar->ConsoleColorPrintf(Color::Purple(), "Warlauke (barbossa)\n");
-    pCvar->ConsoleColorPrintf(Color::Avoz(), "Tim (implementing Tp and extra AA's)\n");
+    pCvar->ConsoleColorPrintf(Color::Avoz(), "Tim (idk he's a fat fuck)\n");
 }
 

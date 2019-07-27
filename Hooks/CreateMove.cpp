@@ -13,6 +13,7 @@
 #include "../Hacks/triggerbot.hpp"
 #include "../noduckcooldown.hpp"
 #include "../Hacks/EnginePrediction.h"
+#include "../Hacks/fakelag.hpp"
 
 Vector tpangles;
 
@@ -83,11 +84,13 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     DoSpammer();
     Fakewalk(cmd, local);
+    //movement->FakeLag(cmd);
     
 }
 
 bool bOnce = false;
 bool SendPacket = true;
+Vector CreateMove::lastTickViewAngles = Vector(0, 0, 0);
 bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
     
@@ -158,6 +161,22 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
             cmd->viewangles.ClampAngles();
         }
     }
+    Global::cmd = cmd;
+    
+    if(cmd && cmd->command_number)
+    {
+        
+        *bSendPacket = SendPacket;
+        *bSendPacket = true;
+        
+        movement->FakeLag(cmd);
+        //movement->FakeWalk(cmd);
+        
+        if(*bSendPacket)
+            CreateMove::lastTickViewAngles = cmd->viewangles;
+    }
+    
     return false;
+    
 }
 

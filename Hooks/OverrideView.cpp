@@ -12,11 +12,11 @@ void hkOverrideView(void* thisptr, CViewSetup& setup)
         }
 
     
-    if (!vars.misc.antiscreenshot || !pEngine->IsTakingScreenshot())
+    if (pEngine->IsInGame() && local && local->GetAlive() && local->GetHealth() > 0)
     {   
         ThirdPerson::OverrideView(setup);
     }
     
     createmoveVMT->GetOriginalMethod<tOverrideView>(19)(thisptr, setup);
-}
+    }
 }

@@ -15,6 +15,11 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     
     if(!localplayer || !localplayer->GetAlive())
         return;
+    if(!pEngine->IsInGame())
+        return;
+    
+    if(localplayer->GetHealth() > 0){
+        
     
     QAngle *view = localplayer->GetViewwAngles();
     trace_t tr;
@@ -59,4 +64,5 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     pInput->m_vecCameraOffset.x = origin.x;
     pInput->m_vecCameraOffset.y = origin.y;
     pInput->m_vecCameraOffset.z = cameraDistance;
+}
 }

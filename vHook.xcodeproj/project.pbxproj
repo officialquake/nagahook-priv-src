@@ -53,6 +53,8 @@
 		91BBD44322C0829C006B9EA0 /* moonwalk.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BBD44122C0829C006B9EA0 /* moonwalk.hpp */; };
 		91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */; };
 		91E6831F22E6F6F10040A7D4 /* Paint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E6831E22E6F6F10040A7D4 /* Paint.cpp */; };
+		91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91FF5F7A22EB584E003BDC7D /* fakelag.cpp */; };
+		91FF5F7D22EB584E003BDC7D /* fakelag.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91FF5F7B22EB584E003BDC7D /* fakelag.hpp */; };
 		96E80CAD20BCEE5F00C87050 /* skinchanger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E80CAB20BCEE5F00C87050 /* skinchanger.cpp */; };
 		96E80CAE20BCEE5F00C87050 /* skinchanger.h in Headers */ = {isa = PBXBuildFile; fileRef = 96E80CAC20BCEE5F00C87050 /* skinchanger.h */; };
 		9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A213B261F8660FD00518DE8 /* CreateMove.cpp */; };
@@ -170,6 +172,8 @@
 		91BBD44122C0829C006B9EA0 /* moonwalk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = moonwalk.hpp; sourceTree = "<group>"; };
 		91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IEngineVGui.h; path = SDK/IEngineVGui.h; sourceTree = "<group>"; };
 		91E6831E22E6F6F10040A7D4 /* Paint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Paint.cpp; sourceTree = "<group>"; };
+		91FF5F7A22EB584E003BDC7D /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fakelag.cpp; path = Hacks/fakelag.cpp; sourceTree = "<group>"; };
+		91FF5F7B22EB584E003BDC7D /* fakelag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = fakelag.hpp; path = Hacks/fakelag.hpp; sourceTree = "<group>"; };
 		96E80CAB20BCEE5F00C87050 /* skinchanger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = skinchanger.cpp; path = Hacks/skinchanger.cpp; sourceTree = "<group>"; };
 		96E80CAC20BCEE5F00C87050 /* skinchanger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = skinchanger.h; path = Hacks/skinchanger.h; sourceTree = "<group>"; };
 		9A213B261F8660FD00518DE8 /* CreateMove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CreateMove.cpp; path = Hooks/CreateMove.cpp; sourceTree = "<group>"; };
@@ -370,6 +374,8 @@
 				91BBD44122C0829C006B9EA0 /* moonwalk.hpp */,
 				91216B8F22C777810042172E /* triggerbot.cpp */,
 				91216B9022C777810042172E /* triggerbot.hpp */,
+				91FF5F7A22EB584E003BDC7D /* fakelag.cpp */,
+				91FF5F7B22EB584E003BDC7D /* fakelag.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -545,6 +551,7 @@
 				E1FE19D41E718F020018D409 /* Vector.h in Headers */,
 				B67AE8421F91B1F100ADDCD8 /* utils.h in Headers */,
 				E1FE19CE1E718F020018D409 /* IVModelInfo.h in Headers */,
+				91FF5F7D22EB584E003BDC7D /* fakelag.hpp in Headers */,
 				91346E3322C05861009AAD8E /* index.h in Headers */,
 				E1FE19C41E718F020018D409 /* CUserCmd.h in Headers */,
 				E1FE19C11E718F020018D409 /* C_BaseEntity.h in Headers */,
@@ -631,6 +638,7 @@
 				8F4E12E4200FBE2E000F17A0 /* FireGameEvent.cpp in Sources */,
 				8FB45F1F207FCF79003567EF /* asuswalls.cpp in Sources */,
 				148074D81FA105C5004ED508 /* resolver.cpp in Sources */,
+				91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */,
 				B67AE8591F91D0B200ADDCD8 /* autowall.cpp in Sources */,
 				B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */,
 				9ADC15EC1F8F77F600BBF4A7 /* esp.cpp in Sources */,

@@ -495,7 +495,7 @@ void cMenu::renderAim(int x, int y) {
     Resolve.push_back("Evolution");
     Resolve.push_back("Test");
     Resolve.push_back("Synp1");
-    Resolve.push_back("Synp2");
+    Resolve.push_back("Not P");
 
     
     
@@ -744,6 +744,9 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 120, "No Smoke", &vars.visuals.nosmoke);
     this->renderCheckbox(x + 235, y + 140, "No Duck Cool", &vars.misc.noduckcooldown);
     this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
+    this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
+    this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
+    this->renderSlider(x + 235, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
     vector<string> conf;
     
     conf.push_back("scout");
@@ -768,7 +771,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("T Colours");
     Colors.push_back("Hand/Weapon Colours");
     Colors.push_back("World Colours");
-    Colors.push_back("Hitmarker Colours");
+    //Colors.push_back("Hitmarker Colours");
 
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
@@ -792,10 +795,10 @@ void cMenu::renderColors(int x, int y) {
         this->drawcolorpicker(x, y + 22, "World", vars.colors.world);
         this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
     }
-    if(vars.colors.combo == 4) {
+    /*if(vars.colors.combo == 4) {
         this->drawcolorpicker(x, y + 22, "Hitmarker", vars.colors.hitmarkers);
 
-    }
+    }*/
 
 }
 

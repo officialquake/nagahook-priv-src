@@ -47,3 +47,9 @@ namespace Global
     extern C_BasePlayer* local;
     extern C_BaseCombatWeapon* localWeapon;
 }
+
+namespace CreateMove
+{
+    extern bool sendPacket;
+    extern Vector lastTickViewAngles;
+}
