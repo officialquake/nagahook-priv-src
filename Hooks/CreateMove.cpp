@@ -164,20 +164,21 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     Global::cmd = cmd;
     
+    
     if(cmd && cmd->command_number)
     {
+        
         CreateMove::sendPacket = true;
-        *bSendPacket = CreateMove::sendPacket;
         
         movement->FakeLag(cmd);
+        //movement->FakeWalk(cmd);
+        *bSendPacket = CreateMove::sendPacket;
         
         if(CreateMove::sendPacket){
             CreateMove::lastTickViewAngles = cmd->viewangles;
         }
     }
     
-    
     return false;
     
 }
-
