@@ -295,9 +295,11 @@ void DrawSpread() {
     float flCone = activeWeapon->GetInaccuracy();
     float flSpread = activeWeapon->GetSpread();
     float flRadius = (flCone + flSpread) * 500.0f;
+    auto accuracy = activeWeapon->GetInaccuracy() * 550.f; //3000
     //sprintf(getInaccuracy, "Accuracy: 100.f", activeWeapon->GetInaccuracy());
     
-    draw->Circle(w / 2, h / 2, flRadius, 100, Color::Black());
+    draw->DrawFilledCircle(Vector2D(crX, crY), Color(24, 24, 24, 124), flRadius, 60);
+    //draw->DrawFilledCircle(Vector2D(xs, ys), Color(24, 24, 24, 124), accuracy, 60);
     //draw->drawstring(10, h - 440, Color::Red(), tFont, getInaccuracy);
 }
 

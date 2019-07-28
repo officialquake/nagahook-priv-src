@@ -90,6 +90,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
 
 bool bOnce = false;
 bool SendPacket = true;
+bool CreateMove::sendPacket = true;
 Vector CreateMove::lastTickViewAngles = Vector(0, 0, 0);
 bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
@@ -163,16 +164,19 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     Global::cmd = cmd;
     
-    *bSendPacket = SendPacket;
-    *bSendPacket = true;
+    
     if(cmd && cmd->command_number)
     {
         
+        CreateMove::sendPacket = true;
+        
         movement->FakeLag(cmd);
         //movement->FakeWalk(cmd);
+        *bSendPacket = CreateMove::sendPacket;
         
-        if(*bSendPacket)
+        if(CreateMove::sendPacket){
             CreateMove::lastTickViewAngles = cmd->viewangles;
+        }
     }
     
     return false;

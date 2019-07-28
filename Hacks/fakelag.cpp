@@ -21,17 +21,17 @@ void CMovement::FakeLag(CUserCmd *cmd) {
     
     if (!localplayer || !localplayer->GetAlive())
         return;
-    
     if (localplayer->GetFlags() & FL_ONGROUND && vars.misc.adaptive)
         return;
     
+    
     if (cmd->buttons & IN_ATTACK) {
-        *bSendPacket = true;
+        CreateMove::sendPacket = true;
         return;
     }
     
     if (ticks >= ticksMax) {
-        *bSendPacket = true;
+        CreateMove::sendPacket = true;
         ticks = 0;
     } else {
         if (vars.misc.adaptive) {
@@ -45,9 +45,9 @@ void CMovement::FakeLag(CUserCmd *cmd) {
             } else
                 packetsToChoke = 0;
             
-            *bSendPacket = ticks < 16 - packetsToChoke;
+            CreateMove::sendPacket = ticks < 16 - packetsToChoke;
         } else
-            *bSendPacket = ticks < 16 - vars.misc.fakelagfactor;
+            CreateMove::sendPacket = ticks < 16 - vars.misc.fakelagfactor;
     }
     
     ticks++;
