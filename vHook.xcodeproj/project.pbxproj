@@ -37,6 +37,8 @@
 		8FEBA0332005201200F991CA /* hitmarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBA0312005201200F991CA /* hitmarker.cpp */; };
 		91216B9122C777810042172E /* triggerbot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91216B8F22C777810042172E /* triggerbot.cpp */; };
 		91216B9222C777810042172E /* triggerbot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91216B9022C777810042172E /* triggerbot.hpp */; };
+		91286C1222EE046C00AFBC06 /* autostop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91286C1022EE046C00AFBC06 /* autostop.cpp */; };
+		91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91286C1122EE046C00AFBC06 /* autostop.hpp */; };
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
 		915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */ = {isa = PBXBuildFile; fileRef = 915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */; };
 		915B2EE422EA1ACC000ABA9A /* EnginePrediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */; };
@@ -156,6 +158,8 @@
 		8FEBA0312005201200F991CA /* hitmarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hitmarker.cpp; path = Hacks/hitmarker.cpp; sourceTree = "<group>"; };
 		91216B8F22C777810042172E /* triggerbot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = triggerbot.cpp; path = Hacks/triggerbot.cpp; sourceTree = "<group>"; };
 		91216B9022C777810042172E /* triggerbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = triggerbot.hpp; path = Hacks/triggerbot.hpp; sourceTree = "<group>"; };
+		91286C1022EE046C00AFBC06 /* autostop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autostop.cpp; path = Hacks/autostop.cpp; sourceTree = "<group>"; };
+		91286C1122EE046C00AFBC06 /* autostop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = autostop.hpp; path = Hacks/autostop.hpp; sourceTree = "<group>"; };
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
 		915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnginePrediction.h; path = Hacks/EnginePrediction.h; sourceTree = "<group>"; };
 		915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnginePrediction.cpp; path = Hacks/EnginePrediction.cpp; sourceTree = "<group>"; };
@@ -376,6 +380,8 @@
 				91216B9022C777810042172E /* triggerbot.hpp */,
 				91FF5F7A22EB584E003BDC7D /* fakelag.cpp */,
 				91FF5F7B22EB584E003BDC7D /* fakelag.hpp */,
+				91286C1022EE046C00AFBC06 /* autostop.cpp */,
+				91286C1122EE046C00AFBC06 /* autostop.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 				8FB45F20207FCF79003567EF /* asuswalls.h in Headers */,
 				8F4F524A2037568B00507024 /* checksum_md5.h in Headers */,
 				B6A954691FACAC0900351006 /* prediction.h in Headers */,
+				91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */,
 				915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */,
 				9ADC15ED1F8F77F600BBF4A7 /* esp.h in Headers */,
 				8F4E12EC200FCAEA000F17A0 /* cfg.h in Headers */,
@@ -628,6 +635,7 @@
 				91A48C3322E36541008A0BBA /* nosmoke.cpp in Sources */,
 				B67AE84A1F91B20800ADDCD8 /* bvars.cpp in Sources */,
 				14D91BFD1F99B58700252244 /* spectators.cpp in Sources */,
+				91286C1222EE046C00AFBC06 /* autostop.cpp in Sources */,
 				915B2EE422EA1ACC000ABA9A /* EnginePrediction.cpp in Sources */,
 				B67AE8551F91CE8800ADDCD8 /* antiaim.cpp in Sources */,
 				91A9506222BF11ED007E0CB7 /* thirdperson.cpp in Sources */,

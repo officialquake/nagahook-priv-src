@@ -154,6 +154,7 @@ struct CCSWeaponInfo
     char *m_szHUDName;
     char gap100[64];
     int m_WeaponType;
+    float max_speed_alt; 
     char pad144[36];
     bool m_bIsFullAuto;
     char gap169[3];

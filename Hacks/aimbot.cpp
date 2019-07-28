@@ -7,6 +7,8 @@
 #include "autoshoot.h"
 #include "antiaim.h"
 #include "autowall.h"
+#include "autostop.hpp"
+
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
@@ -156,84 +158,9 @@ int MakeHitscan(C_BaseEntity* entity)
     
 }
 
-/*void velocityhitchance(C_BaseEntity* local, C_BaseCombatWeapon* weapon)
- {
- if(vars.aimbot.hitchance)
- {
- float velocity;
- float Imbored = (1 / weapon->GetInaccuracy());
- if (!weapon) {return __FLT_MAX__; }
- if ((!local->GetFlags()) & FL_ONGROUND)
- {
- if (Imbored >= 50)
- {
- velocity = (vars.aimbot.accuracyhithcance - 1);
- }
- else
- {
- velocity = __FLT_MAX__;
- }
- }
- else
- {
- velocity = local->GetVelocity().Length2D();
- }
- 
- return velocity;
- }
- }*/
-
-//if you are breainded (like me) you'll need this (its for you aimbot enabl
 
 
-/*void hit_chance( C_BaseEntity* local,CUserCmd* cmd,C_BaseCombatWeapon* weapon, C_BaseEntity* target){
- 
- for (int i = 0; i < rays; i++)
- {
- if(!Global::localWeapon)
- continue;
- 
- RandomSeed(i + 1);
- 
- Vector dst = point;
- 
- float a = (float)M_PI * 2.0f * ((float)(rand() % 1000) / 1000.0f);
- float c = (float)M_PI * 2.0f * ((float)(rand() % 1000) / 1000.0f);
- float b = Global::localWeapon->GetSpread() * ((float)(rand() % 1000) / 1000.0f) * 90.0f;
- float d = Global::localWeapon->GetInaccuracy() * ((float)(rand() % 1000) / 1000.0f) * 90.0f;
- 
- Vector  dir, src, dest;
- trace_t tr;
- Ray_t   ray;
- CTraceFilterWorldOnly filter;
- 
- src = Global::local->GetEyePosition();
- Vector angles = CalcAngle(src, dst);
- angles.x += (cos(a) * b) + (cos(c) * d);
- angles.y += (sin(a) * b) + (sin(c) * d);
- AngleVectors(angles, &dir);
- dest = src + (dir * 8192);
- 
- ray.Init(src, dest);
- filter.pSkip = local;
- pEngineTrace->TraceRay(ray, MASK_SHOT, &filter, &tr);
- 
- C_BaseEntity* hitent = (C_BaseEntity*) tr.m_pEnt;
- 
- if(!hitent)
- continue;
- 
- if ( hitent !=Global:: local                &&
- hitent->IsPlayer()             &&
- !hitent->GetDormant()           &&
- !hitent->GetImmune()            &&
- hitent->GetAlive()             &&
- hitent->GetTeam() != local->GetTeam() )
- totalHits ++;
- }
- float percent  = (totalhits / rays) * 100
- return percent >= set.aim.hitchance;
- }*/
+
 
 void Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon)
 {
@@ -260,6 +187,8 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
     
     if(!vars.aimbot.enabled)
         return;
+    
+    
     
     Vector eyepos = local->GetEyePosition();
     
@@ -312,6 +241,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             getdmg = Autowall::GetDamage(vFrom, true, data);
             canHit = getdmg >= vars.aimbot.mindmg;
         }
+    
         
         // FOV HERE
         
@@ -326,6 +256,11 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     //pCmd->buttons |= IN_ATTACK;
                     AutoShoot(local, weapon, pCmd);
                 }
+                if (local->GetVelocity().Length() >= (weapon->GetCSWpnData()->max_speed_alt * .34f) - 5 /*;)*/ && pInputSystem->IsButtonDown(MOUSE_MIDDLE) && vars.aimbot.autostop){
+                    Autostop(pCmd, local);
+                    
+                }
+                
                 
                 /*if(vars.aimbot.autozeus)
                  {
@@ -343,11 +278,11 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     pCmd->buttons |= IN_ATTACK2;
                 }
                 
-                if(vars.aimbot.autostop)
+                /*if(vars.aimbot.autostop)
                 {
                     flForward = 0.f;
                     flSide = 0.f;
-                }
+                }*/
                 
                 if(vars.aimbot.autocrouch)
                 {

@@ -513,6 +513,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
+    //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
     //this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);
 
     this->renderSlider(x + 230, y + 180, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
@@ -722,6 +723,13 @@ void cMenu::renderMisc(int x, int y) {
     CT.push_back("supremacy");//supremacy $
     CT.push_back("gamesense");//gamesense
     CT.push_back("zeus");
+    
+    vector<string> fakeping;
+    // X
+    fakeping.push_back("v1");
+    fakeping.push_back("v2");//xanax moving
+
+    
     this->renderCheckbox(x, y, "Bhop", &vars.misc.bhop);
     this->renderCheckbox(x, y + 20, "Auto strafe", &vars.misc.autostrafe);
     this->renderCheckbox(x, y + 40, "Circle Strafe", &vars.misc.cstrafe);
@@ -747,6 +755,11 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
     this->renderSlider(x + 235, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
+    this->renderCheckbox(x + 235, y + 245, "FakePing", &vars.misc.fakeping);
+    this->renderCombo(x + 235, y + 265,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
+    this->renderSlider(x + 235, y + 290, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    
+
     vector<string> conf;
     
     conf.push_back("scout");

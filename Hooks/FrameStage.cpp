@@ -31,6 +31,25 @@ void RemoveFlash(ClientFrameStage_t stage)
     }
     
 }
+void FakePing()
+{
+    if(!vars.misc.fakeping)
+        return;
+    
+    static auto net_fakelag = pCvar->FindVar("net_fakelag"); // nasa shit
+    if (vars.misc.fakepingtype == 1)
+        net_fakelag->SetValue(vars.misc.fakepingvalue);
+    else if (vars.misc.fakepingtype == 2)
+    {
+        if (pInputSystem->IsButtonDown(KEY_P))
+            net_fakelag->SetValue(vars.misc.fakepingvalue);
+        else net_fakelag->SetValue(0);
+    }
+    else
+    {
+        net_fakelag->SetValue(0);
+    }
+}
 
 void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
 {
@@ -141,7 +160,7 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     {   // Call functions here just so its cleaner
         RemoveFlash(curStage);
-        
+        FakePing();
         
         
         

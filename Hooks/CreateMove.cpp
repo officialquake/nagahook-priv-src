@@ -14,6 +14,7 @@
 #include "../noduckcooldown.hpp"
 #include "../Hacks/EnginePrediction.h"
 #include "../Hacks/fakelag.hpp"
+#include "../Hacks/autostop.hpp"
 
 Vector tpangles;
 
@@ -63,7 +64,6 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     duck->DuckCool(cmd);
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
-    
     CEnginePrediction::Instance()->Start(cmd);
     DoTrigger(cmd);
     backtracking->legitBackTrack(cmd, local);
@@ -80,6 +80,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     Hitchance(local, weapon);
     AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
+    Autostop(cmd, local);
     CEnginePrediction::Instance()->End();
     
     DoSpammer();

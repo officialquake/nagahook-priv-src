@@ -14,6 +14,7 @@ public:
     bool hands_opend;
     bool weapons_opend;
     bool players_opend;
+    bool fakeping_opend;
     // Menu
     bool colors_opend;
     // Misc
@@ -51,6 +52,7 @@ public:
     public:
         
         bool enabled     = true;         // Enable
+        bool autostop     = false;         // Enable
         bool prediction        = false;
         int baimxhp     = 0;         // Enable
         bool baimhp     = false;         // Enable
@@ -71,7 +73,7 @@ public:
         int hitscantype = 0;            // HItscan Types
         bool autoshoot  = false;        // Shoots for you
         bool autoscope  = true;         // Autoscope
-        bool autostop   = false;        // auto stop
+        //bool autostop   = false;        // auto stop
         bool autopistol = true;         // Pistol is like AK
         bool autocock   = true;        // Auto Revovler
         bool autocrouch = false;        // Crouch when something is in fov
@@ -183,7 +185,10 @@ public:
         
         bool fakelag        = false;    // Fake lag enable (WIP)
         int fakelagfactor   = 0;        // Fake Lag (WIP)
-        bool adaptive       = false;    //
+        bool adaptive       = false;
+        bool fakeping        = false;    // Fake lag enable (WIP)
+        int fakepingtype   = 0;        // Fake Lag (WIP)  //
+        int fakepingvalue   = 0;        // Fake Lag (WIP)  //
         
         
         bool nightmode      = false;    // Night Mode
