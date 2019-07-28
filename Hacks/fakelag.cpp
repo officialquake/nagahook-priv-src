@@ -1,10 +1,4 @@
-//
-//  fakelag.cpp
-//  vHook
-//
-//  Created by Timothy Dillan on 26/7/19.
-//  Copyright © 2019 ViKiNG. All rights reserved.
-//
+
 
 #include "fakelag.hpp"
 static int ticks = 0;

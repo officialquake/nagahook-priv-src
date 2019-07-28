@@ -2,7 +2,6 @@
 //  moonwalk.cpp
 //  vHook
 //
-//  Created by Timothy Dillan on 6/24/19.
 //  Copyright © 2019 ViKiNG. All rights reserved.
 //
 

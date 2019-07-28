@@ -2,7 +2,6 @@
 //  nosmoke.cpp
 //  vHook
 //
-//  Created by Timothy Dillan on 14/7/19.
 //  Copyright © 2019 ViKiNG. All rights reserved.
 //
 
