@@ -81,7 +81,7 @@ void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 // Auto Revolver
 void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 {
-    if(!vars.aimbot.autocock)
+    if(!vars.aimbot.autocock && !vars.aimbot.autoshoot)
         return;
     
     //bool shootingRevolver = false;
