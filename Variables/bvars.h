@@ -161,6 +161,7 @@ public:
         
         bool norecoil       = true;
         bool thirdperson    = false;     // Basically RCS without slider
+        bool legitaa    = false;     // Basically RCS without slider
         bool novisual       = true;     // No visual recoil ofc
         bool bhop           = true;     // BunnyHop
         bool autostrafe     = true;     // Strafes for you ofc
@@ -200,7 +201,7 @@ public:
         
         // AntiAim
         bool antiaim        = false;    // Anti aims / "spinbot"
-        bool legitaa        = false;
+        //bool legitaa        = false;
         bool thirdpersonmode= false;    // Thirdperson
         bool attargets      = true;     // AtTargets ofc
         bool fakeaa         = false;    // Fake anti aim

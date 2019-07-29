@@ -56,7 +56,7 @@ string GetLocalName()
 }
 
 
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BasePlayer* player, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
 {
     
     DoAutoStrafe(cmd, local);
@@ -68,17 +68,21 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     DoTrigger(cmd);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
+    if(local->GetLifeState() == LIFE_ALIVE){
+        LegitAA(cmd, sendPacket);
+    }
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
-    Freestand(local, cmd);
+    //Freestand(local, cmd);
     lby_spin(cmd, local);
     tank(cmd, local);
+    doManual(cmd);
     resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
+    DoAim(cmd, local, player, weapon, flForwardmove, flSidemove);
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
-    AutoCock(cmd, weapon);
+    AutoCock(player, cmd, weapon);
     RecoilControl(local, cmd);
     Autostop(cmd, local);
     CEnginePrediction::Instance()->End();
@@ -129,6 +133,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     
     C_BaseCombatWeapon* weapon = GetActiveWeapon(local);
+    C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
     if(!weapon)
         return false;
@@ -146,7 +151,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket);
+        hacks(cmd, local, player, weapon, vOldAngles, forward, sidemove, *bSendPacket);
         
         if(local->GetAlive()){
             *bSendPacket = true;

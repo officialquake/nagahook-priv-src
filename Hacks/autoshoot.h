@@ -9,6 +9,6 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
 
 void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
 
-void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
+void AutoCock(C_BasePlayer* player, CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
 
 

@@ -52,6 +52,7 @@ enum VIEW_ANTIIAIM_AYAW
 };
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
+void LegitAA(CUserCmd *cmd, bool& bSendPacket);
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local);
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local);
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local);
@@ -59,6 +60,7 @@ void tank(CUserCmd* cmd, C_BaseEntity* local);
 void resolverfucker(CUserCmd* cmd, C_BaseEntity* local);
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
 float Freestand(C_BaseEntity* local, CUserCmd* cmd);
+void doManual(CUserCmd* cmd);
 //void GetBestHeadAngle(CUserCmd* cmd, C_BasePlayer* local);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
 

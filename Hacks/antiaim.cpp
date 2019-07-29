@@ -68,9 +68,11 @@ void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
 }
 
 void doManual(CUserCmd* cmd){
+    if(vars.misc.antiaim){
     static bool left = false;
     static bool right = false;
     static bool back = false;
+    float_t pos = cmd->viewangles.y;
     
     bool flip = false;
     
@@ -89,44 +91,16 @@ void doManual(CUserCmd* cmd){
     else if (pInputSystem->IsButtonDown(KEY_DOWN)) {
         left = false; right = false; back = true;
     }
-    if ( left ){
-        
-        if (flip)
-        {
-            cmd->viewangles.y += 90.f - RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y += 90 + RandomFloat(5, vars.aimbot.jitter);
-        }
-        
-    }
+    if (left) // left real
+        return pos + 90.f;
     
-    if ( right ){
-        
-        if (flip)
-        {
-            cmd->viewangles.y -= 90.f + RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y -= 90 - RandomFloat(5, vars.aimbot.jitter);
-        }
-        
-    }
-    if ( back ){
-        
-        if (flip)
-        {
-            cmd->viewangles.y += 180.f - RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y += 180.f + RandomFloat(5, vars.aimbot.jitter);
-        }
-        
-    }
-    flip = !flip;
+    else if (right) // right real
+        return pos - 90.f;
     
+    else if (back) // backwards
+        return pos + 180.f;
 }
-
+}
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
     if(!vars.misc.backjizzer)
@@ -167,6 +141,37 @@ void lby_spin(CUserCmd* cmd, C_BaseEntity* local)
     float factor =  360.0 / M_PHI;
     factor = 2; // Change the value of (2) of what ever or take out “factor = 2;”
     cmd->viewangles.y = local->GetLowerBodyYawTarget() +fmodf(pGlobals->curtime * factor, 360.0);
+}
+
+void LegitAA(CUserCmd *pCmd, bool& bSendPacket)
+{
+    C_BasePlayer* pLocal = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
+    if ((pCmd->buttons & IN_USE) || pLocal->GetMoveType() == MOVETYPE_LADDER)
+        return;
+    
+    //for the memes
+    Vector oldAngle = pCmd->viewangles;
+    float oldForward = pCmd->forwardmove;
+    float oldSideMove = pCmd->sidemove;
+    if (vars.misc.legitaa && !((pCmd->buttons) & IN_ATTACK))
+    {
+        static int ChokedPackets = -1;
+        ChokedPackets++;
+        static bool yFlip;
+        if (ChokedPackets < 1)
+        {
+            bSendPacket = true;
+        }
+        else
+        {
+            bSendPacket = false;
+            yFlip ? pCmd->viewangles.y += 90.f : pCmd->viewangles.y -= 90.f;
+            ChokedPackets = -1;
+        }
+        yFlip != yFlip;
+        
+    }
 }
 
 /*if(!vars.misc.aaY) {
@@ -227,83 +232,6 @@ bool lby_updated( CUserCmd* cmd, C_BaseEntity* local )
 }
 
 
-void do_real2(CUserCmd* cmd, C_BaseEntity* local){
-    
-    static bool side1 = false;
-    static bool side2 = false;
-    static bool back = false;
-    
-    static bool bFlip = false;
-    bFlip = !bFlip;
-    
-#define RandomInt(min, max) (rand() % (max - min + 1) + min)
-    
-    bool IsMovingOnInAir = {
-        //Check if player has a velocity greater than 0 (moving) and if they are onground.
-        !(local->GetFlags() & FL_ONGROUND)
-    };
-    
-    
-    if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
-        side1 = true;    side2 = false;    back = false;
-    }
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
-        side1 = false;    side2 = true;    back = false;
-    }
-    if (pInputSystem->IsButtonDown(KEY_DOWN)) {
-        side1 = false;    side2 = false;    back = true;
-    }
-    
-    if ( side1 ){
-        cmd->viewangles.y += -90.f;
-    }
-    
-    if ( side2 ){
-        cmd->viewangles.y += 90.f;
-    }
-    if ( back ){
-        cmd->viewangles.y += 179.f;
-    }
-    
-    if (lby_updated(cmd, local)) {
-        cmd->viewangles.y += 115.f; // less then 180 to prevent 979 animation, but less then 120 so its harder to predict
-    }
-    else if (lby_updated(cmd, local)){
-        cmd->viewangles.y -= 115.f;
-    }
-    
-    /*if (pInputSystem->IsButtonDown(KEY_X)){ // Should fuck people up trying to resolve you
-     {
-     {
-     
-     //something to do with lby and delta?
-     cmd->viewangles.y += atTargets.y +  30 + RandomInt(-30, 30);
-     
-     
-     static float pDance = 0.0f;
-     pDance += 45.0f;
-     if (pDance > 100)
-     pDance = 0.0f;
-     else if (pDance > 75.f)
-     cmd->viewangles.x = -50.f;
-     else if (pDance < 75.f)
-     cmd->viewangles.x = 50.f;
-     //now do yaw
-     }
-     }
-     }*/
-    
-    /*if(IsMovingOnInAir){
-     float factor;
-     factor =  360.0 / M_PHI;
-     factor *= 1.5;
-     cmd->viewangles.y += -60;
-     cmd->viewangles.y += fmodf(pGlobals->curtime * factor, 180.0);
-     }*/
-    
-    
-}
-
 void do_real(CUserCmd* cmd, C_BaseEntity* local) {
     if (local->GetVelocity().Length2D() > 1.f) { // moving, lby starts updating at > 1.f velocity
         cmd->viewangles.y += 180.0f + rand() % (35 - -35 + 1 ) + -35;
@@ -344,108 +272,6 @@ void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector&
 }
 
 
-float Freestand(C_BaseEntity* local, CUserCmd* cmd)
-{
-    
-    if(vars.aimbot.freestand)
-    {
-        if(vars.aimbot.jitter > 0)
-        {
-        //Vector oldAngle = cmd->viewangles;
-        bool flip = false;
-        float Back, Right, Left;
-        bool no_active = true;
-        Vector src3D, dst3D, forward, right, up, src, dst;
-        trace_t tr;
-        Ray_t backray, rightray, leftray;
-        CTraceFilter filter;
-        
-        Vector angles;
-        pEngine->GetViewAngles(angles);
-        
-        AngleVectors3(angles, forward, right, up);
-        
-        filter.pSkip = local;
-        src3D = local->GetVecOrigin() + local->GetVecViewOffset();
-        dst3D = src3D + (forward * 384.f);
-        
-        backray.Init(src3D, dst3D);
-        pEngineTrace->TraceRay(backray, MASK_SHOT, &filter, &tr);
-        Back = (tr.endpos - tr.startpos).Length();
-        
-        rightray.Init(src3D + right * 35.f, dst3D + right * 35.f);
-        pEngineTrace->TraceRay(rightray, MASK_SHOT, &filter, &tr);
-        Right = (tr.endpos - tr.startpos).Length();
-        
-        leftray.Init(src3D - right * 35.f, dst3D - right * 35.f);
-        pEngineTrace->TraceRay(leftray, MASK_SHOT, &filter, &tr);
-        Left = (tr.endpos - tr.startpos).Length();
-        
-        if (Left > Right){
-            
-            if (flip)
-            {
-                cmd->viewangles.y -= 90.f - RandomFloat(5, vars.aimbot.jitter);
-            }
-            else
-            {
-                cmd->viewangles.y -= 90 + RandomFloat(5, vars.aimbot.jitter);
-            }
-            
-        }else if (Right > Left){
-            
-            if (flip)
-            {
-                cmd->viewangles.y += 90.f - RandomFloat(5, vars.aimbot.jitter);
-            }
-            else
-            {
-                cmd->viewangles.y += 90 + RandomFloat(5, vars.aimbot.jitter);
-            }
-            
-        }else if (Back > Right || Back > Left){
-            
-            if (flip)
-            {
-                cmd->viewangles.y = 180.f - RandomFloat(5, vars.aimbot.jitter);
-            }
-            else
-            {
-                cmd->viewangles.y = 180 + RandomFloat(5, vars.aimbot.jitter);
-            }
-            
-        } else if(no_active){
-            
-            if (flip)
-            {
-                cmd->viewangles.y += 180.f - RandomFloat(5, vars.aimbot.jitter);
-            }
-            else
-            {
-                cmd->viewangles.y += 180 + RandomFloat(5, vars.aimbot.jitter);
-            }
-            
-        }
-        flip = !flip;
-        return 0;
-        
-        if(!vars.misc.antiaim)
-        {
-            
-            if(!vars.aimbot.freestand){
-                doManual(cmd);
-                isManual = true;
-            }
-            else{
-                Freestand(local, cmd);
-                isManual = false;
-            }
-            
-        }
-        cmd->viewangles.ClampAngles();
-    }
-    }
-}
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {

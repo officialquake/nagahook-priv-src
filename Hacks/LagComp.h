@@ -1,75 +1,29 @@
 /*#pragma once
 
-#define MAX_TICKS 16
+#include "../SDK/IInputSystem.h"
+#include "../main.h"
+#include <vector>
 
-#include "main.h"
 
-#include <array>
-
-struct backtrackData
+namespace LagComp
 {
-    int     tick;
-    float   simulationTime;
-    Vector  headPosition;
-    Vector  vecOrigin;
-};
-
-class CBacktrack
-{
-private:
     
+    struct BacktrackRecord
+    {
+        C_BasePlayer* entity;
+        Vector head;
+        Vector origin;
+        matrix3x4_t boneMatrix[128];
+    };
     
+    struct BacktrackTick
+    {
+        int tickcount;
+        float SimulationTime;
+        std::vector<BacktrackRecord> records;
+    };
     
-public:
-    
-    void Store(C_BaseEntity* ent);
-    void Start(C_BaseEntity* local, CUserCmd* cmd);
-    void Reset(int index);
-    
-};
-
-extern CBacktrack*   backtracking;
-extern backtrackData backtrackInfo[64][MAX_TICKS];
-*/
-
-
-
-
-
-
-/*#pragma once
-#include "main.h"
-
-struct lbyRecords
-{
-    int tick_count;
-    float lby;
-    Vector headPosition;
-};
-struct backtrackData
-{
-    float simtime;
-    Vector hitboxPos;
-};
-
-class BackTrack
-{
-    int latest_tick;
-    bool IsTickValid(int tick);
-    void UpdateRecord(int i);
-public:
-    lbyRecords records[64];
-    bool RunLBYBackTrack(int i, CUserCmd* cmd, Vector& aimPoint);
-    void Update(int tick_count);
-    void legitBackTrack(CUserCmd* cmd, C_BaseEntity* pLocal);
-};
-
-extern backtrackData headPositions[64][12];
-
-extern BackTrack* backtracking;
-*/
-
-
-
-
-
+    void FrameStageNotify(ClientFrameStage_t stage);
+    void CreateMove(CUserCmd* cmd);
+    extern std::vector<LagComp::BacktrackTick> ticks;
+};*/

@@ -22,19 +22,11 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
         return;
     
     float nextPrimaryAttack = activeWeapon->GetNextPrimaryAttack();
-    float server_time = player->GetTickBase() * pGlobals->interval_per_tick;
     
-    if (nextPrimaryAttack > server_time)
+    if (!(*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER))
     {
-        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
-            cmd->buttons &= ~IN_ATTACK2;
-        else
+        if (nextPrimaryAttack > pGlobals->curtime)
             cmd->buttons &= ~IN_ATTACK;
-    }
-    else
-    {
-        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
-            cmd->buttons |= IN_ATTACK2;
         else
             cmd->buttons |= IN_ATTACK;
     }
@@ -79,26 +71,35 @@ void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 }
 
 // Auto Revolver
-void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
+void AutoCock(C_BasePlayer* player, CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 {
-    if(!vars.aimbot.autocock && !vars.aimbot.autoshoot)
+    if(!vars.aimbot.autocock && !vars.aimbot.autoshoot && !vars.aimbot.enabled)
         return;
     
     //bool shootingRevolver = false;
-    
-    if ( pCmd->buttons & IN_RELOAD )
-        return;
-    
     if ( *weapon->GetItemDefinitionIndex() != ItemDefinitionIndex::WEAPON_REVOLVER )
         return;
+    
+    if ( weapon->GetAmmo() == 0 )
+        return;
+    
+    if (pCmd->buttons & IN_USE)
+        return;
+    
     static int timer = 0;
     timer++;
     
-    if ( timer <= 15 )
-        pCmd->buttons |= IN_ATTACK;
-    
-    else
-        timer = 0;
+    pCmd->buttons |= IN_ATTACK;
+    float postponeFireReadyTime = weapon->GetPostponeFireReadyTime();
+    if (postponeFireReadyTime > 0)
+    {
+        if (postponeFireReadyTime < pGlobals->curtime)
+        {
+            if (player)
+                return;
+            pCmd->buttons &= ~IN_ATTACK;
+        }
+    }
 }
 
 

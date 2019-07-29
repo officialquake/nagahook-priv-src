@@ -41,10 +41,10 @@ static void ScaleDamage(HitGroups hitgroup, C_BaseEntity* enemy, float weapon_ar
     if (armor > 0) {
         if (hitgroup == (int)HitGroups::HITGROUP_HEAD) {
             if (enemy->HasHelmet()) {
-                current_damage *= (weapon_armor_ratio);
+                current_damage *= weapon_armor_ratio * 0.5f;
             }
         } else {
-            current_damage *= (weapon_armor_ratio);
+            current_damage *= weapon_armor_ratio * 0.5f;
         }
     }
 }

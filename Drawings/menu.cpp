@@ -486,23 +486,9 @@ void cMenu::renderAim(int x, int y) {
     this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
     this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
     
-    vector<string> Resolve;  // Resolver
     
-    
-    Resolve.push_back("Experimental");
-    Resolve.push_back("LBYResolver");
-    Resolve.push_back("Smart");
-    Resolve.push_back("Evolution");
-    Resolve.push_back("Test");
-    Resolve.push_back("Synp1");
-    Resolve.push_back("Not P");
-
-    
-    
-    this->renderCheckbox(x - 15, y + 200, "Yaw Resolver", &vars.aimbot.Yawresolver);
-    this->renderCombo(x + 5, y + 220, 110, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
-    this->renderCheckbox(x - 15, y + 245, "Baim Under x HP", &vars.aimbot.baimhp);
-    this->renderSlider(x - 5, y + 260, 150, "", vars.aimbot.baimxhp, 100, 0);
+    this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
+    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
     
     //Middle
     this->renderCheckbox(x + 235, y, "Auto Scope", &vars.aimbot.autoscope);
@@ -600,16 +586,34 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 100, "AA Tank", &vars.misc.tank);
     this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
     this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
-    this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
+    //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
-    if (!vars.freestand_opend) {
+    this->renderCheckbox(x + 235, y + 50, "Legit AA (idk worc)", &vars.misc.legitaa);
+    
+    /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
-    }
-    this->renderCheckbox(x - 15, y + 200, "Fake", &vars.misc.fakeaa); // 60
-    this->renderCombo(x - 15, y + 240, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    }*/
+    vector<string> Resolve;  // Resolver
+    
+    
+    Resolve.push_back("Experimental");
+    Resolve.push_back("LBYResolver");
+    Resolve.push_back("Smart");
+    Resolve.push_back("Evolution");
+    Resolve.push_back("Test");
+    Resolve.push_back("Synp1");
+    Resolve.push_back("Not P");
+    
+    
+    
+    this->renderCheckbox(x + 235, y + 70, "Yaw Resolver", &vars.aimbot.Yawresolver);
+    this->renderCombo(x + 235, y + 90, 110, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    
+    this->renderCheckbox(x - 15, y + 160, "Fake", &vars.misc.fakeaa); // 60
+    this->renderCombo(x - 15, y + 200, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
     if(!vars.aaX_opend){
-        this->renderCombo(x - 15, y + 270, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+        this->renderCombo(x - 15, y + 230, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
         this->renderCombo(x - 15, y + 300, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
@@ -747,17 +751,17 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 40, "Antiscreenshot", &vars.misc.antiscreenshot);
     this->renderCheckbox(x + 235, y + 60, "Anti untrust", &vars.misc.antiuntrust);
     this->renderCheckbox(x + 235, y + 80, "Asuswall", &vars.misc.asuswalls);
-    this->renderSlider(x + 235, y + 100, 150, "", vars.misc.asusalpha, 1.f, 0.f);
+    this->renderSlider(x + 230, y + 100, 150, "", vars.misc.asusalpha, 1.f, 0.f);
     
     this->renderCheckbox(x + 235, y + 120, "No Smoke", &vars.visuals.nosmoke);
     this->renderCheckbox(x + 235, y + 140, "No Duck Cool", &vars.misc.noduckcooldown);
     this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
     this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
-    this->renderSlider(x + 235, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
+    this->renderSlider(x + 230, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
     this->renderCheckbox(x + 235, y + 245, "FakePing", &vars.misc.fakeping);
     this->renderCombo(x + 235, y + 260,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 235, y + 300, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderSlider(x + 230, y + 300, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
 
     vector<string> conf;

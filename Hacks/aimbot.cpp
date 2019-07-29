@@ -234,7 +234,7 @@ void Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon)
 
 
 
-void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)
+void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BasePlayer* player, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)
 {
     
     if(!vars.aimbot.enabled)
@@ -319,10 +319,10 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                  //pCmd->buttons |= IN_ATTACK;
                  AutoZeus(pCmd, local, weapon);
                  }*/
-                if(vars.aimbot.autocock && vars.aimbot.autoshoot)
+                if(vars.aimbot.autocock && vars.aimbot.autoshoot && vars.aimbot.enabled)
                 {
                     //pCmd->buttons |= IN_ATTACK;
-                    AutoCock(pCmd, weapon);
+                    AutoCock(player, pCmd, weapon);
                 }
                 
                 if (vars.aimbot.autoscope && weapon->IsSnipScope() && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped())
