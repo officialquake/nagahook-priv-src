@@ -756,8 +756,8 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
     this->renderSlider(x + 235, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
     this->renderCheckbox(x + 235, y + 245, "FakePing", &vars.misc.fakeping);
-    this->renderCombo(x + 235, y + 265,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 235, y + 290, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderCombo(x + 235, y + 260,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
+    this->renderSlider(x + 235, y + 300, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
 
     vector<string> conf;

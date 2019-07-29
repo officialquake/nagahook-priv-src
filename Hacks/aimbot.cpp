@@ -11,6 +11,7 @@
 
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
+#define RandomFloat(min, max) (rand() % (max - min + 1) + min)
 
 int MakeHitscan(C_BaseEntity* entity)
 {
@@ -178,6 +179,57 @@ void Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon)
         return hitchance;
     }
 }
+
+/*bool HitChance(Vector bestSpot, C_BasePlayer* player, C_BaseCombatWeapon* activeWeapon)
+{
+    C_BaseEntity* localplayer = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
+    Vector src = localplayer->GetEyePosition();
+    QAngle angle = CalcAngle(src, bestSpot);
+    int hitCount = 0;
+    int NeededHits = static_cast<int>(150.f * (vars.aimbot.accuracyhithcance / 100.f));
+    
+    activeWeapon->UpdateAccuracyPenalty();
+    float weap_spread = activeWeapon->GetSpread();
+    float weap_inaccuracy = activeWeapon->GetInaccuracy();
+    
+    for (int i = 0; i < 150; i++) {
+        RandomSeed(i + 1); // if we can't calculate spread like game does, then at least use same functions XD
+        float a = RandomFloat(0, 2 * (int)M_PI);
+        float b = weap_spread * RandomFloat(0, 1);
+        float c = RandomFloat(0, 2 * (int)M_PI);
+        float d = weap_inaccuracy * RandomFloat(0, 1);
+        
+        Vector dir, dest;
+        
+        QAngle angles = angle;
+        angles.x += (cos(a) * b) + (cos(c) * d);
+        angles.y += (sin(a) * b) + (sin(c) * d);
+        AngleVectors(angles, dir);
+        dest = src + (dir * 8192);
+        
+        trace_t tr;
+        Ray_t ray;
+        CTraceFilter filter;
+        
+        ray.Init(src, dest);
+        filter.pSkip = localplayer;
+        pEngineTrace->TraceRay(ray, MASK_SHOT, &filter, &tr);
+        
+        C_BasePlayer* player = (C_BasePlayer*) tr.m_pEntityHit;
+        
+        if (tr.m_pEntityHit == player)
+            hitCount++;
+        
+        if (static_cast<int>((static_cast<float>(hitCount) / 150.f) * 100.f) >= vars.aimbot.accuracyhithcance)
+            return true;
+        
+        if ((150 - i + hitCount) < NeededHits)
+            return false;
+    }
+    
+    return false;
+}*/
 
 
 

@@ -941,10 +941,18 @@ float AAA_Yaw(C_BaseEntity* entity)
         }
      }
     
+    
     if(vars.aimbot.yresolve == 7){
-        angle = entity->GetLowerBodyYawTarget() + 180;
+        std::string strPitch = std::to_string(entity->GetEyeAngles()->x);
+        
+        if (entity->GetEyeAngles()->x < -179.f) entity->GetEyeAngles()->x += 360.f;
+        else if (entity->GetEyeAngles()->x > 90.0 || entity->GetEyeAngles()->x < -90.0) entity->GetEyeAngles()->x = 89.f;
+        else if (entity->GetEyeAngles()->x > 89.0 && entity->GetEyeAngles()->x < 91.0) entity->GetEyeAngles()->x -= 90.f;
+        else if (entity->GetEyeAngles()->x > 179.0 && entity->GetEyeAngles()->x < 181.0)entity->GetEyeAngles()->x -= 180;
+        else if (entity->GetEyeAngles()->x > -179.0 && entity->GetEyeAngles()->x < -181.0) entity->GetEyeAngles()->x += 180;
+        else if (fabs(entity->GetEyeAngles()->x) == 0) entity->GetEyeAngles()->x = std::copysign(89.0f, entity->GetEyeAngles()->x);
     }
-            return angle;
+           return angle;
 }
 
 void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {

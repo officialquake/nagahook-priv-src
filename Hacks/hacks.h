@@ -52,4 +52,5 @@ namespace CreateMove
 {
     extern bool sendPacket;
     extern Vector lastTickViewAngles;
+    extern QAngle lastTickViewwAngles;
 }

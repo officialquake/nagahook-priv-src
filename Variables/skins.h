@@ -40,7 +40,7 @@ public:
     int p90     = 636;
     int bizon   = 203;
     // Heavys
-    int nova    = 590;
+    int nova    = 537;
     int sawed   = 638;
     int mag7    = 666;
     int xm      = 654;
