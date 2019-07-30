@@ -499,7 +499,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
+    //this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
     //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
     //this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);
 
@@ -617,7 +617,7 @@ void cMenu::renderAntiAim(int x, int y) {
         this->renderCombo(x - 15, y + 230, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
-        this->renderCombo(x - 15, y + 250, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+        this->renderCombo(x - 15, y + 260, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
 }
 
@@ -759,7 +759,7 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
     this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
-    this->renderSlider(x + 230, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 14, 0);
+    this->renderSlider(x + 230, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
     this->renderCheckbox(x + 235, y + 245, "FakePing", &vars.misc.fakeping);
     this->renderCombo(x + 235, y + 260,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
     this->renderSlider(x + 230, y + 300, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);

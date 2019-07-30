@@ -288,9 +288,9 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Visuals", "Vis Only", GetBoolValue(vars.visuals.visonly));
     
     
-    cfg.SetLongValue("Visuals", "Hands Type", GetIntValue(vars.visuals.handsType));
+    cfg.SetLongValue("Visuals", "Hand Type", GetIntValue(vars.visuals.handsType));
     cfg.SetLongValue("Visuals", "Players Type", GetIntValue(vars.visuals.playersType));
-    cfg.SetLongValue("Visuals", "Weapons Type", GetIntValue(vars.visuals.weaponType));
+    cfg.SetLongValue("Visuals", "Weapon Type", GetIntValue(vars.visuals.weaponType));
     
     
     cfg.SetBoolValue("Visuals", "Player Chams", GetBoolValue(vars.visuals.chams));

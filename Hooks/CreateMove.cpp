@@ -48,6 +48,7 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
     
 }
 
+
 string GetLocalName()
 {
     player_info_t localInfo;
@@ -85,6 +86,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
     Autostop(cmd, local);
+    
     CEnginePrediction::Instance()->End();
     
     DoSpammer();
@@ -95,8 +97,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
 
 bool bOnce = false;
 bool SendPacket = true;
+
 bool CreateMove::sendPacket = true;
 Vector CreateMove::lastTickViewAngles = Vector(0, 0, 0);
+
 bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
     
@@ -168,27 +172,21 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
             cmd->viewangles.ClampAngles();
         }
     }
-    Global::cmd = cmd;
-    
     
     if(cmd && cmd->command_number)
     {
-        static int ticks = vars.misc.fakelagfactor;
-        
-        CreateMove::sendPacket = true;
+        uintptr_t rbp;
+        asm volatile("mov %%rbp, %0" : "=r" (rbp));
+        bool *sendPacket = ((*(bool **)rbp) - 0x18);
+        CreateMove::sendPacket =  true;
         
         movement->FakeLag(cmd);
-        //movement->FakeWalk(cmd);
-        *bSendPacket = CreateMove::sendPacket;
+        
+        *sendPacket = CreateMove::sendPacket;
         
         if(CreateMove::sendPacket){
             CreateMove::lastTickViewAngles = cmd->viewangles;
         }
-        if(!CreateMove::sendPacket)
-            ticks++;
-        
-        if(ticks>14)
-            CreateMove::sendPacket = true;
     }
     
     
