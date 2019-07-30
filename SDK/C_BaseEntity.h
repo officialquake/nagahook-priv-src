@@ -154,7 +154,6 @@ struct CCSWeaponInfo
     char *m_szHUDName;
     char gap100[64];
     int m_WeaponType;
-    float max_speed_alt; 
     char pad144[36];
     bool m_bIsFullAuto;
     char gap169[3];
@@ -757,9 +756,11 @@ public:
     {
         switch (*this->GetItemDefinitionIndex())
         {
+            case WEAPON_AUG:
             case WEAPON_AWP:
             case WEAPON_G3SG1:
             case WEAPON_SCAR20:
+            case WEAPON_SG556:
             case WEAPON_SSG08:
                 return true;
             default:

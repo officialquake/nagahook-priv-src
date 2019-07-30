@@ -18,6 +18,19 @@ void AngleVectors(const Vector & angles, Vector * forward)
     forward->z = -sp;
 }
 
+
+void AngleVectors3(const QAngle &angles, Vector& forward)
+{
+    float sp, sy, cp, cy;
+    
+    SinCos(DEG2RAD(angles[YAW]), &sy, &cy);
+    SinCos(DEG2RAD(angles[PITCH]), &sp, &cp);
+    
+    forward.x = cp * cy;
+    forward.y = cp * sy;
+    forward.z = -sp;
+}
+
 void AngleVectors2(const Vector & angles, Vector * forward, Vector * right, Vector * up)
 {
     float angle;
@@ -133,6 +146,29 @@ void VectorAngles(const Vector& forward, Vector &angles)
     angles[0] = pitch;
     angles[1] = yaw;
     angles[2] = 0;
+}
+
+void VectorAngles2(const Vector& forward, QAngle &angles)
+{
+    if (forward[1] == 0.0f && forward[0] == 0.0f)
+    {
+        angles[0] = (forward[2] > 0.0f) ? 270.0f : 90.0f; // Pitch (up/down)
+        angles[1] = 0.0f;  //yaw left/right
+    }
+    else
+    {
+        angles[0] = atan2(-forward[2], forward.Length2D()) * -180 / M_PI;
+        angles[1] = atan2(forward[1], forward[0]) * 180 / M_PI;
+        
+        if (angles[1] > 90)
+            angles[1] -= 180;
+        else if (angles[1] < 90)
+            angles[1] += 180;
+        else if (angles[1] == 90)
+            angles[1] = 0;
+    }
+    
+    angles[2] = 0.0f;
 }
 
 
@@ -479,6 +515,18 @@ Vector CalcAngle(Vector src, Vector dst)
     {
         angles.y += 180.0f;
     }
+    return angles;
+}
+
+QAngle CalccAngle(const Vector &src, const Vector &dst)
+{
+    QAngle angles;
+    Vector delta = src - dst;
+    
+    VectorAngles2(delta, angles);
+    
+    delta.Normalize();
+    
     return angles;
 }
 

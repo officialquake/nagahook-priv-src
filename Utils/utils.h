@@ -5,8 +5,10 @@
 struct boxstruct { int x, y, w, h; };
 
 extern void AngleVectors(const Vector & angles, Vector * forward);
+extern void AngleVectors3(const QAngle &angles, Vector &forward);
 extern void AngleVectors2(const Vector & angles, Vector * forward, Vector * right, Vector * up);
 extern void VectorAngles(const Vector& forward, Vector &angles);
+extern void VectorAngles2(const Vector &forward, QAngle &angles);
 extern void FixMovement(Vector& oang, CUserCmd* cmd);
 extern bool WorldToScreen(Vector& vFrom, Vector& vTo);
 extern bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str);
@@ -19,6 +21,7 @@ extern void NormalizeVector(Vector & vecIn);
 extern C_BaseCombatWeapon* GetActiveWeapon(C_BaseEntity* local);
 extern void MoveFix(CUserCmd *cmd, Vector &realvec);
 extern Vector CalcAngle(Vector src, Vector dst);
+extern QAngle CalccAngle(const Vector &src, const Vector &dst);
 extern float GetFOV(Vector start, Vector src, Vector dst);
 extern void ClampMoves(float& flForward, float& flSide, float& flUp);
 extern void ClampYaw(float& angle);

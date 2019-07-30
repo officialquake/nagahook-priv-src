@@ -9,72 +9,48 @@ static float GetHitgroupDamageMultiplier(HitGroups iHitGroup)
 {
     switch (iHitGroup)
     {
-            
         case HitGroups::HITGROUP_HEAD:
             return 4.0f;
-            
         case HitGroups::HITGROUP_CHEST:
         case HitGroups::HITGROUP_LEFTARM:
         case HitGroups::HITGROUP_RIGHTARM:
             return 1.0f;
-            
         case HitGroups::HITGROUP_STOMACH:
             return 1.25f;
-            
         case HitGroups::HITGROUP_LEFTLEG:
         case HitGroups::HITGROUP_RIGHTLEG:
             return 0.75f;
-            
         default:
             return 1.0f;
-            
     }
-    
 }
 
-static void ScaleDamage(HitGroups hitgroup, C_BaseEntity* enemy, float weapon_armor_ratio, float& current_damage)
+static void ScaleDamage(HitGroups hitgroup, C_BasePlayer* enemy, float weapon_armor_ratio, float& current_damage)
 {
     current_damage *= GetHitgroupDamageMultiplier(hitgroup);
     
-    int armor = enemy->GetArmor();
-    
-    if (armor > 0) {
-        if (hitgroup == (int)HitGroups::HITGROUP_HEAD) {
-            if (enemy->HasHelmet()) {
+    if (enemy->GetArmor() > 0)
+    {
+        if (hitgroup == HitGroups::HITGROUP_HEAD)
+        {
+            if (enemy->HasHelmet())
                 current_damage *= weapon_armor_ratio * 0.5f;
-            }
-        } else {
-            current_damage *= weapon_armor_ratio * 0.5f;
         }
+        else
+            current_damage *= weapon_armor_ratio * 0.5f;
     }
 }
-// Old Scale Damage
-/*current_damage *= GetHitgroupDamageMultiplier(hitgroup);
- float m_flArmor = (float)enemy->GetArmor();
- if (m_flArmor > 0.0f && hitgroup < HITGROUP_LEFTLEG)  //don't do gear, or legs
- {
- if (hitgroup == HITGROUP_HEAD && !enemy->HasHelmet())
- return;
- 
- float armorscaled = (weapon_armor_ratio * 0.5f) * current_damage;
- if ((current_damage - armorscaled) * 0.5f > m_flArmor)
- armorscaled = current_damage - (m_flArmor * 2.0f);
- current_damage = armorscaled;
- }*/
 
 static bool TraceToExit(Vector& end, trace_t* enter_trace, Vector start, Vector dir, trace_t* exit_trace)
 {
     float distance = 0.0f;
-    
-    if(!Aimbot::curTarget)
-        return false;
     
     while (distance <= 90.0f)
     {
         distance += 4.0f;
         end = start + dir * distance;
         
-        auto point_contents = pEngineTrace->GetPointContents(end, MASK_SHOT_HULL | CONTENTS_HITBOX, NULL);
+        auto point_contents = pEngineTrace->GetPointContents(end, MASK_SHOT_HULL | CONTENTS_HITBOX, nullptr);
         
         if (point_contents & MASK_SHOT_HULL && !(point_contents & CONTENTS_HITBOX))
             continue;
@@ -199,7 +175,7 @@ static bool HandleBulletPenetration(CCSWeaponInfo* weaponInfo, Autowall::FireBul
     return true;
 }
 
-static void TraceLine(Vector vecAbsStart, Vector vecAbsEnd, unsigned int mask, C_BaseEntity* ignore, trace_t* ptr)
+static void TraceLine(Vector vecAbsStart, Vector vecAbsEnd, unsigned int mask, C_BasePlayer* ignore, trace_t* ptr)
 {
     Ray_t ray;
     ray.Init(vecAbsStart, vecAbsEnd);
@@ -211,7 +187,7 @@ static void TraceLine(Vector vecAbsStart, Vector vecAbsEnd, unsigned int mask, C
 
 static bool SimulateFireBullet(C_BaseCombatWeapon* pWeapon, bool teamCheck, Autowall::FireBulletData& data)
 {
-    C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     CCSWeaponInfo* weaponInfo = pWeapon->GetCSWpnData();
     
     data.penetrate_count = 4;
@@ -224,7 +200,7 @@ static bool SimulateFireBullet(C_BaseCombatWeapon* pWeapon, bool teamCheck, Auto
         
         Vector end = data.src + data.direction * data.trace_length_remaining;
         
-        data.enter_trace;
+        // data.enter_trace
         TraceLine(data.src, end, MASK_SHOT, localplayer, &data.enter_trace);
         
         Ray_t ray;
@@ -242,7 +218,7 @@ static bool SimulateFireBullet(C_BaseCombatWeapon* pWeapon, bool teamCheck, Auto
             data.trace_length += data.enter_trace.fraction * data.trace_length_remaining;
             data.current_damage *= powf(weaponInfo->m_flRangeModifier, data.trace_length * 0.002f);
             
-            C_BaseEntity* player = (C_BaseEntity*) data.enter_trace.m_pEnt;
+            C_BasePlayer* player = (C_BasePlayer*) data.enter_trace.m_pEnt;
             if (teamCheck && player->GetTeam() == localplayer->GetTeam())
                 return false;
             
@@ -262,17 +238,18 @@ float Autowall::GetDamage(const Vector& point, bool teamCheck, FireBulletData& f
 {
     float damage = 0.f;
     Vector dst = point;
-    C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     FireBulletData data;
     data.src = localplayer->GetEyePosition();
     data.filter.pSkip = localplayer;
     
-    Vector angles = CalcAngle(data.src, dst);
-    AngleVectors(angles, &data.direction);
+    QAngle angles = CalccAngle(data.src, dst);
+    AngleVectors3(angles, data.direction);
     
-    data.direction.NormalizeInPlace();
+    Vector tmp = data.direction;
+    data.direction = tmp.Normalize();
     
-    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
     if (!activeWeapon)
         return -1.0f;
     

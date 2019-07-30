@@ -499,6 +499,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
     //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
     //this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);
 
@@ -616,7 +617,7 @@ void cMenu::renderAntiAim(int x, int y) {
         this->renderCombo(x - 15, y + 230, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
-        this->renderCombo(x - 15, y + 300, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+        this->renderCombo(x - 15, y + 250, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
 }
 
