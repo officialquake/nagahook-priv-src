@@ -173,6 +173,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(cmd && cmd->command_number)
     {
+        static int ticks = vars.misc.fakelagfactor;
         
         CreateMove::sendPacket = true;
         
@@ -183,7 +184,13 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         if(CreateMove::sendPacket){
             CreateMove::lastTickViewAngles = cmd->viewangles;
         }
+        if(!CreateMove::sendPacket)
+            ticks++;
+        
+        if(ticks>14)
+            CreateMove::sendPacket = true;
     }
+    
     
     return false;
     
