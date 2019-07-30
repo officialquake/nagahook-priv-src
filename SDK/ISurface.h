@@ -183,8 +183,11 @@ public:
     void GetTextSize(HFONT font, const wchar_t *text, int &wide, int &tall) {
         typedef void (* oGetTextSize)(void*, HFONT font, const wchar_t *text, int &wide, int &tall);
         return getvfunc<oGetTextSize>(this, 79)(this, font, text, wide, tall);
-        
-        
     }
+    void PlaySound(const char* fileName) {
+        typedef void(* oPlaySound)(void*, const char*);
+        return getvfunc<oPlaySound>(this, 82)(this, fileName);
+    }
+
 };
 

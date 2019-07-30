@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../main.h"
+#include "../SDK/GameEvent.h"
 
 namespace Hitmarkers
 {

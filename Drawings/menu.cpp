@@ -499,6 +499,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
+    //this->renderCheckbox(x + 235, y + 260, "Hitmarker", &vars.visuals.hitmarker);
     //this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
     //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
     //this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);

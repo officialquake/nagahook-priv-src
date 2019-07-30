@@ -254,14 +254,10 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     AutoCock(pCmd, weapon);
                 }
                 
-                if (vars.aimbot.autoscope && weapon->IsSnipScope() && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped())
-                {
-                    pCmd->buttons |= IN_ATTACK2;
-                }
-                
                 if(vars.aimbot.autocrouch)
-                {
-                    pCmd->buttons |= IN_DUCK;
+
+
+                    pCmd->buttons |= IN_BULLRUSH | IN_DUCK;
                 }
 
                 
@@ -290,7 +286,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
         
     }
     
-}
+
 
 
 

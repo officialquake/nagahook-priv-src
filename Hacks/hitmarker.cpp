@@ -1,6 +1,6 @@
 #include "hitmarker.h"
 #include "../Utils/utils.h"
-
+#include "../Interfaces/hooks.h"
 std::vector<std::pair<int, long>> damages;
 long lastHitmarkerTimestamp = 0;
 
@@ -83,6 +83,12 @@ void Hitmarkers::FireGameEvent(IGameEvent* event) {
     
     if (hurt_player->GetTeam() != localplayer->GetTeam() && !vars.visuals.enemyhit)
         return;
+    
+    if(hurt_player_id != pEngine->GetLocalPlayer() && attacker_id == pEngine->GetLocalPlayer())
+    {
+        pCvar->ConsoleColorPrintf(Color::Green(), "[DEAD] Player hurt.");
+        pSurface->PlaySound("buttons\arena_switch_press_02.wav");
+    }
     
     long now = GetEpochTime();
     lastHitmarkerTimestamp = now;

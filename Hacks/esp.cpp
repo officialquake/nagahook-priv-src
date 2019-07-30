@@ -443,7 +443,7 @@ void DrawPlayerESP()
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
-                draw->drawstring(players.x + players.w / 2, players.y + players.h + 7, Color::White(), csgo_icons, active.c_str());
+                draw->drawstring(players.x + players.w / 2, players.y + players.h + 5, Color::White(), csgo_icons, active.c_str());
                 
                 
             }
