@@ -4,6 +4,7 @@ extern Vector tpangles;
 
 typedef void (*tPaintTraverse)(void*, VPANEL panel, bool forceRepaint, bool allowForce);
 typedef bool (*tCreateMove)(void*, float flSampleInput, CUserCmd* cmd);
+typedef bool (*tDrawCrosshair)(void* thisptr);
 typedef int  (*tKeyEvent)(void*, int, int, const char*);
 typedef void (*tOverrideView)(void*, CViewSetup& setup);
 typedef void (*tFrameStage)(void*, ClientFrameStage_t);
@@ -21,7 +22,7 @@ extern int  hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* cur
 extern void hkOverrideView(void* thisptr, CViewSetup& setup);
 extern void hkFrameStage(void* thisptr, ClientFrameStage_t curStage);
 extern void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld);
-extern void Paint_hk(void* thisptr, PaintMode_t mode);
+//extern void Paint_hk(void* thisptr, PaintMode_t mode);
 extern void hkRunCommand(void* thisptr, C_BaseEntity* pLocal, CUserCmd* pCmd, void* pHelper);
 extern void hkBeginFrame(void* thisptr, float frameTime);
 extern bool hkFireEventClientSide(void* thisptr, IGameEvent* event);
@@ -33,6 +34,7 @@ extern void ViewOffsetZProxy(const CRecvProxyData *pData, void *pStruct, void *p
 extern void VelocityProxy0(const CRecvProxyData *pData, void *pStruct, void *pOut);
 extern void VelocityProxy1(const CRecvProxyData *pData, void *pStruct, void *pOut);
 extern void VelocityProxy2(const CRecvProxyData *pData, void *pStruct, void *pOut);
+bool FireEvent_hk(void* thisptr, IGameEvent* event, bool bDontBroadcast);
 extern float AAA_Pitch(C_BaseEntity* entity);
 extern float AAA_Yaw(C_BaseEntity* entity);
 extern void getModule(task_t task, mach_vm_address_t * start, off_t * length, const char * module, Byte * buffer, bool readBuffer);

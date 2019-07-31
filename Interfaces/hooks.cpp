@@ -2,7 +2,7 @@
 #include "skinchanger.h"
 #include "index.h"
 #include "../EventListener.h"
-EventListener* eventlistener = nullptr;
+//static EventListener* eventlistener = nullptr;
 bool* bSendPacket = nullptr;
 
 void InitializeInterfaces()
@@ -26,7 +26,7 @@ void InitializeInterfaces()
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     pGameEventManager = GetInterface<IGameEventManager2>("./bin/osx64/engine.dylib", "GAMEEVENTSMANAGER002", true);
     pInput = *reinterpret_cast<CInput**>(GetAbsoluteAddress(getvfunc<uintptr_t>(pClient, 16) + 4, 3, 7));
-    //eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
+    
 }
 
 void ProtectAddr(void* addr, int prot)
@@ -78,14 +78,14 @@ void InitializeHooks()
         
     createmoveVMT->HookVM((void*)hkCreateMove, 25);
     createmoveVMT->HookVM((void*)hkOverrideView, 19);
+    //createmoveVMT->HookVM((void*)hkSniperCrosshair, 29);
     createmoveVMT->ApplyVMT();
     
     clientVMT->HookVM((void*)hkKeyEvent, 21);
-    
     clientVMT->HookVM((void*)hkFrameStage, FrameStageIndex);
     clientVMT->ApplyVMT();
     
-    engineVGuiVMT->HookVM((void*)Paint_hk, 15);
+    //engineVGuiVMT->HookVM((void*)Paint_hk, 15);
     engineVGuiVMT->ApplyVMT();
     
     modelVMT->HookVM((void*)hkDrawModelExecute, 21);
@@ -97,7 +97,10 @@ void InitializeHooks()
     predVMT->ApplyVMT();
 
     game_event_vmt->HookVM((void*)hkFireEventClientSide, 36);
+    game_event_vmt->HookVM((void*)FireEvent_hk, 9);
     game_event_vmt->ApplyVMT();
+    
+    //eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
     
     g_pSequence = (RecvVarProxyFn)NetVarManager::HookProp("DT_BaseViewModel", "m_nSequence", HSequenceProxyFn);
 }

@@ -121,9 +121,9 @@ public:
         bool aaline = false;     // antiaim idicator
         bool antiaiminfos= true;       // AntiAim Lines
         bool direction = false;         // Enemy Direction
-        bool hitmarker  = false;        // Aimware Hitmarkers
-        bool allieshit  = false;        // Aimware Hitmarkers
-        bool enemyhit  = false;        // Aimware Hitmarkers
+        bool hitmarker  = true;        // Aimware Hitmarkers
+        bool allieshit  = true;        // Aimware Hitmarkers
+        bool enemyhit  = true;        // Aimware Hitmarkers
         int hitinnergap = 5;     // antiaim idicator
         int hitsize = 16;     // antiaim idicator
         int m4a4skin = 309;     // antiaim idicator
@@ -153,6 +153,7 @@ public:
     public:
         
         bool enabled        = true;     // Enabled
+        bool snipercrosshair        = false;     // Enabled
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
         bool radar    = false;
         bool noduckcooldown    = false;
@@ -173,7 +174,7 @@ public:
         bool backtrack = false;
         bool moonwalk = false;
         float tpoffset = 64.f;
-        bool edge           = false;
+        bool freestanding           = false;
         
         // Different Clantags
         bool clantag         = false;    // Enables clantag

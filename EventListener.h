@@ -1,4 +1,4 @@
-#include "main.h"
+/*#include "main.h"
 #include "Hacks/hitmarker.h"
 
  class EventListener : public IGameEventListener2
@@ -15,13 +15,13 @@
  pGameEventManager->RemoveListener(this);
  }
  
- /*void FireGameEvent(IGameEvent* event)
+ void FireGameEvent(IGameEvent* event)
  {
  Hitmarkers::FireGameEvent(event);
- }*/
+ }
  
  int GetEventDebugID() override
  {
  return EVENT_DEBUG_ID_INIT;
  }
- };
+ };*/

@@ -106,7 +106,9 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             
             rCrosshair(local);  // Draws recoil crosshair
             
-            manualaa(local);        // Manual AA idicator
+            manualaa(local, Global::cmd);        // Manual AA idicator
+            
+            hitmarker->PaintTraverse();
             
             Spectatorlist();    // Draws speclist
             DrawAngles(local);

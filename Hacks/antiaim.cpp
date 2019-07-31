@@ -7,6 +7,7 @@
 #include "INetChannelInfo.h"
 #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
 
+
 Vector atTargets;
 
 bool isManual = false;
@@ -28,6 +29,8 @@ void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
         antiResolverFlip = !antiResolverFlip;
     }
 }
+
+
 
 void resolverfucker(CUserCmd* cmd, C_BaseEntity* local)
 {
@@ -248,11 +251,62 @@ void do_real(CUserCmd* cmd, C_BaseEntity* local) {
 }
 
 void do_fake(CUserCmd* cmd) {
-    *bSendPacket = true;
+    //*bSendPacket = true;
     cmd->viewangles.y = rand() % (180 - -180 + 1 ) + -180;
 }
+#define TICK_INTERVAL            (pGlobals->interval_per_tick)
+#define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
 
-
+void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
+    float speed = local->GetVelocity().Length2D();
+    
+    float standing = vars.misc.freestanding;
+    float server_time = local->GetTickBase() * pGlobals->interval_per_tick * 2;
+    float time = TIME_TO_TICKS(server_time);
+    
+    bool jitter = false;
+    float lineRealAngle = vars.misc.aaY;
+    
+    while (time >= server_time)
+        time = 0.f;
+    
+    float idk = rand() % 100;
+    
+    /*if (speed <= 10 && (local->GetFlags() & FL_ONGROUND))
+     {
+     }*/
+    
+    jitter = !jitter;
+    if (time >= server_time / 2)
+    {
+        if (idk < 70)
+        {
+            if (!jitter)
+                cmd->viewangles.y = cmd->viewangles.y + standing;
+            
+        }
+        else
+        {
+            if (!jitter)
+                cmd->viewangles.y = cmd->viewangles.y - standing;
+            
+        }
+    }
+    else
+    {
+        if (idk < 70)
+        {
+            if (jitter)
+                cmd->viewangles.y = cmd->viewangles.y - standing;
+        }
+        else
+        {
+            if (jitter)
+                cmd->viewangles.y = cmd->viewangles.y + standing;
+            
+        }
+    }
+}
 
 
 

@@ -57,7 +57,7 @@ void manualaa(C_BaseEntity* Local, CUserCmd* cmd)
 {
     if ( !vars.visuals.antiaim_indicator )
         return;
-    if(!pEngine->IsInGame() && !pEngine->IsConnected() && Local->GetAlive())
+    if(!pEngine->IsInGame() && !pEngine->IsConnected())
         return;
     
     static bool left = false;
