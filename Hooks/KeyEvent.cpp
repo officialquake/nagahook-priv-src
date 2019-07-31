@@ -24,7 +24,7 @@ int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbind
     
     if(eventcode == 1)  // Key released
     {
-        if(vars.menu && (vars.misc_name || vars.misc_changename))
+        if(vars.menu && (vars.misc.clantag || vars.misc_name || vars.misc_changename))
         {
             draw->handleinput(keynum, draw->m_szCurrentString);
             return 0;

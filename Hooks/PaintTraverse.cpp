@@ -79,7 +79,11 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             vars.colors.scope       = Color::Red();
             vars.colors.world       = Color::Test();
             vars.colors.sky         = Color::Red();
-            //vars.colors.hitmarkers = Color::White();
+            
+            vars.colors.fakelag_a = 125;
+            vars.colors.fakelag_r = 255;
+            vars.colors.fakelag_g = 255;
+            vars.colors.fakelag_b = 255;
         }
         
     }

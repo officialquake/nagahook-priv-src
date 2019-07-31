@@ -15,6 +15,7 @@
 #include "../Hacks/EnginePrediction.h"
 #include "../Hacks/fakelag.hpp"
 #include "../Hacks/autostop.hpp"
+#include "../Hacks/crosshair.h"
 
 Vector tpangles;
 
@@ -72,9 +73,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     if(local->GetLifeState() == LIFE_ALIVE){
         LegitAA(cmd, sendPacket);
     }
+    
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
-    //Freestand(local, cmd);
+    manualaa(local, cmd);
     lby_spin(cmd, local);
     tank(cmd, local);
     doManual(cmd);
@@ -89,12 +91,15 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     CEnginePrediction::Instance()->End();
     
+    
     DoSpammer();
     Fakewalk(cmd, local);
+    if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
+        SetClanTag(draw->m_szChangedValue[3].c_str(), "Xanax");
     //movement->FakeLag(cmd, sendPacket);
     
 }
-
+    
 bool bOnce = false;
 bool SendPacket = true;
 
@@ -164,6 +169,8 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         if(*bSendPacket)
             tpangles = cmd->viewangles;
         
+        
+        
         FixMovement(vOldAngles, cmd);
         ClampMoves(forward, sidemove, upmove);
         
@@ -175,6 +182,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(cmd && cmd->command_number)
     {
+        matrix3x4_t fakelagmatrix[128];
         uintptr_t rbp;
         asm volatile("mov %%rbp, %0" : "=r" (rbp));
         bool *sendPacket = ((*(bool **)rbp) - 0x18);
@@ -183,6 +191,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         movement->FakeLag(cmd);
         
         *sendPacket = CreateMove::sendPacket;
+
         
         if(CreateMove::sendPacket){
             CreateMove::lastTickViewAngles = cmd->viewangles;

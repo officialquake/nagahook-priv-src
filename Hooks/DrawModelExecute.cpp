@@ -58,6 +58,7 @@ IMaterial* CreateMaterial(bool ignorez, bool wireframe, string szType)
 {
     IMaterial* createdMaterial = nullptr;
     
+    
     if(szType == "VertexLitGeneric")
     {
         if(ignorez)
@@ -127,6 +128,8 @@ IMaterial* CreateMaterial(bool ignorez, bool wireframe, string szType)
     createdMaterial->IncrementReferenceCount();
     return createdMaterial;
 }
+
+
 
 void CallOriginalModel(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld)
 {
@@ -265,6 +268,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         {
             auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             auto* entity = pEntList->GetClientEntity(pInfo.entity_index);
+            C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             
             if(entity)
             {
@@ -349,9 +353,20 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                         
                     }
+                    if (vars.misc.fakelag && vars.misc.flagchams)
+                    {
+                        /*matrix3x4_t fakelagmatrix[128];
+                        IMaterial* fakelagmaterial = nullptr;
+                        fakelagmaterial = pMatSystem->FindMaterial("models/inventory_items/dogtags/dogtags_outline", TEXTURE_GROUP_OTHER);
+                        fakelagmaterial->AlphaModulate(vars.colors.fakelag_a / 255.f - 0.1);
+                        fakelagmaterial->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, false);
+                        fakelagmaterial->ColorModulate(vars.colors.fakelag_r / 255.0f, vars.colors.fakelag_g / 255.0f, vars.colors.fakelag_b / 255.0f);
+                        pModelRender->ForcedMaterialOverride(fakelagmaterial);
+                        CallOriginalModel(thisptr, context, state, pInfo, fakelagmatrix);
+                        pModelRender->ForcedMaterialOverride(nullptr);*/
+                    }
                     
                 }
-                
                 
             }
             

@@ -169,7 +169,7 @@ public:
         bool airstuck       = false;    // Airstuck
         bool fovt           = false;    // Fov Changer Enabled
         int fov             = 20;       // FOV changer
-        bool watermark      = true;
+        bool watermark      = false;
         bool backtrack = false;
         bool moonwalk = false;
         float tpoffset = 64.f;
@@ -185,6 +185,7 @@ public:
         bool noscope        = false;     // Noscope
         
         bool fakelag        = false;    // Fake lag enable (WIP)
+        bool flagchams        = false;    // Fake lag enable (WIP)
         int fakelagfactor   = 0;        // Fake Lag (WIP)
         bool adaptive       = false;
         bool fakeping        = false;    // Fake lag enable (WIP)
@@ -228,8 +229,13 @@ public:
     public:
         
         int combo   = 0;
+        int fakelag_r = 0;
+        int fakelag_g = 0;
+        int fakelag_b = 0;
+        int fakelag_a = 0;
         
         Color ctchams;
+        Color fakealgchams;
         Color tchams;
         
         Color ctchams_ign;

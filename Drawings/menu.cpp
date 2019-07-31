@@ -717,6 +717,7 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCombo(x + 235, y + 200, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
     this->renderCheckbox(x + 235, y + 260, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 280, "Angle Line Names", & vars.visuals.anglelinenames);
+    this->renderCheckbox(x + 235, y + 300, "Clantag", & vars.misc.clantag);
 }
 
 
@@ -760,10 +761,11 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
     this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
-    this->renderSlider(x + 230, y + 225, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 235, y + 245, "FakePing", &vars.misc.fakeping);
-    this->renderCombo(x + 235, y + 260,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 230, y + 300, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
+    this->renderSlider(x + 230, y + 245, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
+    this->renderCheckbox(x + 235, y + 265, "FakePing", &vars.misc.fakeping);
+    this->renderCombo(x + 235, y + 280,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
+    this->renderSlider(x + 230, y + 320, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
 
     vector<string> conf;
@@ -790,7 +792,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("T Colours");
     Colors.push_back("Hand/Weapon Colours");
     Colors.push_back("World Colours");
-    //Colors.push_back("Hitmarker Colours");
+    Colors.push_back("FakeLag Colours");
 
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
@@ -814,10 +816,13 @@ void cMenu::renderColors(int x, int y) {
         this->drawcolorpicker(x, y + 22, "World", vars.colors.world);
         this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
     }
-    /*if(vars.colors.combo == 4) {
-        this->drawcolorpicker(x, y + 22, "Hitmarker", vars.colors.hitmarkers);
+    if(vars.colors.combo == 4) {
+        /*this->renderSlider(x, y + 20, 150, "Red", vars.colors.fakelag_r, 255, 0, vars.colors.fakealgchams);
+        this->renderSlider(x, y + 40, 150, "Green", vars.colors.fakelag_g, 255, 0, vars.colors.fakealgchams);
+        this->renderSlider(x, y + 60, 150, "Blue", vars.colors.fakelag_b, 255, 0, vars.colors.fakealgchams);
+        this->renderSlider_c(x, y + 80, 150, "Fake Lag Alpha", vars.colors.fakelag_a, 255, 0, vars.colors.fakealgchams);*/
 
-    }*/
+    }
 
 }
 
