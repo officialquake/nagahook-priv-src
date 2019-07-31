@@ -820,7 +820,7 @@ void cMenu::renderColors(int x, int y) {
         /*this->renderSlider(x, y + 20, 150, "Red", vars.colors.fakelag_r, 255, 0, vars.colors.fakealgchams);
         this->renderSlider(x, y + 40, 150, "Green", vars.colors.fakelag_g, 255, 0, vars.colors.fakealgchams);
         this->renderSlider(x, y + 60, 150, "Blue", vars.colors.fakelag_b, 255, 0, vars.colors.fakealgchams);
-        this->renderSlider_c(x, y + 80, 150, "Fake Lag Alpha", vars.colors.fakelag_a, 255, 0, vars.colors.fakealgchams);*/
+        this->renderSlider_c(x, y + 80, 150, "Fake Lag Alpha", vars.colors.fakelag_a, 255, 0, vars.colors.fakealgchams);s*/
 
     }
 
