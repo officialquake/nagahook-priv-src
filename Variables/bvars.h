@@ -52,6 +52,7 @@ public:
     public:
         
         bool enabled     = true;         // Enable
+        bool autoknife     = false;         // Enable
         bool autostop     = false;         // Enable
         bool prediction        = false;
         int baimxhp     = 0;         // Enable
@@ -131,6 +132,7 @@ public:
         bool grenade = true;
         bool active    = true;
         float edge_distance = 25.f;
+        bool edge    = false;
         
         
         
@@ -168,7 +170,7 @@ public:
         bool autostrafe     = true;     // Strafes for you ofc
         bool cstrafe        = false;    // Circle strafes
         bool airstuck       = false;    // Airstuck
-        bool fovt           = false;    // Fov Changer Enabled
+        bool fovt           = true;    // Fov Changer Enabled
         int fov             = 20;       // FOV changer
         bool watermark      = false;
         bool backtrack = false;

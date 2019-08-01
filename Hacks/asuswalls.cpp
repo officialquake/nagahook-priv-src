@@ -48,7 +48,7 @@ void asuswalls(ClientFrameStage_t stage) {
     }
 }
 
-void PerformNightmode()
+void NightMode()
 {
     static bool nightmode_performed = false, nightmode_lastsetting;
     
@@ -103,7 +103,7 @@ void PerformNightmode()
                 {
                     sv_skyname->SetValue("sky_csgo_night02");
                     mat->SetMaterialVarFlag(MATERIAL_VAR_TRANSLUCENT, false);
-                    mat->ColorModulate(0.05, 0.05, 0.05);
+                    mat->ColorModulate(0.15, 0.15, 0.15);
                 }
                 else
                 {

@@ -156,6 +156,7 @@
 		8FB45F1E207FCF78003567EF /* asuswalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = asuswalls.h; path = Hacks/asuswalls.h; sourceTree = "<group>"; };
 		8FEBA0302005201200F991CA /* hitmarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hitmarker.h; path = Hacks/hitmarker.h; sourceTree = "<group>"; };
 		8FEBA0312005201200F991CA /* hitmarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hitmarker.cpp; path = Hacks/hitmarker.cpp; sourceTree = "<group>"; };
+		911A997D22F27EE4005DE75B /* animstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = animstate.h; path = SDK/animstate.h; sourceTree = "<group>"; };
 		91216B8F22C777810042172E /* triggerbot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = triggerbot.cpp; path = Hacks/triggerbot.cpp; sourceTree = "<group>"; };
 		91216B9022C777810042172E /* triggerbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = triggerbot.hpp; path = Hacks/triggerbot.hpp; sourceTree = "<group>"; };
 		91286C1022EE046C00AFBC06 /* autostop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autostop.cpp; path = Hacks/autostop.cpp; sourceTree = "<group>"; };
@@ -454,6 +455,7 @@
 				8F4CF113200401B90075C822 /* INetChannelInfo.h */,
 				8F4E12E5200FC300000F17A0 /* GameEvent.h */,
 				91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */,
+				911A997D22F27EE4005DE75B /* animstate.h */,
 			);
 			name = SDK;
 			sourceTree = "<group>";

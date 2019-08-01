@@ -1,7 +1,7 @@
 #include "hitmarker.h"
 #include "../Utils/utils.h"
-#include "../Interfaces/hooks.h"
-std::vector<std::pair<int, long>> damages;
+#include "../Hacks/hacks.h"
+/*std::vector<std::pair<int, long>> damages;
 long lastHitmarkerTimestamp = 0;
 
 //CHitmarkers* hitmarker = new CHitmarkers();
@@ -29,10 +29,15 @@ void Hitmarkers::Paint(){
     int w, h;
     pEngine->GetScreenSize(w, h);
     
-    Color color = Color::Red();
+    Color color = Color::White();
     float sc = 1.0f/255.0f;
     color.SetAlpha(min(color.a(), (int)(diff * (color.a() / sc) / duration * 2)) * sc);
-    int sides[4][2] = { {-1, -1}, {1, 1}, {-1, 1}, {1, -1} };
+    int sides[4][2] = {
+        { -1, -1 },
+        { 1,  1 },
+        { -1, 1 },
+        { 1,  -1 }
+    };
     for (auto& it : sides)
         draw->drawline(w / 2 +  (vars.visuals.hitinnergap * it[0]), h / 2 + (vars.visuals.hitinnergap * it[1]), w / 2 + (vars.visuals.hitsize * it[0]), h / 2 + (vars.visuals.hitsize * it[1]), color);
     float textHeight = draw->GetTextSize("[cool]", eFont).y;
@@ -53,7 +58,7 @@ void Hitmarkers::Paint(){
         draw->drawstring(pos, damageStr.c_str(), eFont, color);
         //draw->AddText(w / 2 + vars.visuals.hitsize + 4, h / 2 - vars.visuals.hitsize - textHeight * i + 4, damageStr.c_str(), color);
     }
-}
+}*/
 
 void Hitmarkers::FireGameEvent(IGameEvent* event) {
     
@@ -69,28 +74,15 @@ void Hitmarkers::FireGameEvent(IGameEvent* event) {
     
     if(pEngine->GetPlayerForUserID(hurt_player_id) == pEngine->GetLocalPlayer())
         return;
-    if(pEngine->GetPlayerForUserID(attacker_id) != pEngine->GetLocalPlayer())
-        return;
-    
-    C_BasePlayer* localplayer = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if(!localplayer)
-        return;
-    C_BasePlayer* hurt_player = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetPlayerForUserID(hurt_player_id));
-    if(!hurt_player)
-        return;
-    if (hurt_player->GetTeam() == localplayer->GetTeam() && !vars.visuals.allieshit)
-        return;
-    
-    if (hurt_player->GetTeam() != localplayer->GetTeam() && !vars.visuals.enemyhit)
-        return;
     
     if(hurt_player_id != pEngine->GetLocalPlayer() && attacker_id == pEngine->GetLocalPlayer())
     {
-        pCvar->ConsoleColorPrintf(Color::Green(), "[DEAD] Player hurt.");
+        pCvar->ConsoleColorPrintf(Color::Green(), "Player hurt.");
         pSurface->PlaySound("buttons\arena_switch_press_02.wav");
     }
     
-    long now = GetEpochTime();
+    
+    /*long now = GetEpochTime();
     lastHitmarkerTimestamp = now;
-    damages.insert(damages.begin(), std::pair<int, long>(event->GetInt("dmg_health"), now));
+    damages.insert(damages.begin(), std::pair<int, long>(event->GetInt("dmg_health"), now));*/
 }

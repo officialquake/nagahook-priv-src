@@ -5,6 +5,7 @@
 #include "../Hacks/spectators.h"
 #include "../Hacks/antiaiminfos.h"
 #include "../Hacks/hitmarker.h"
+#include "../Hacks/asuswalls.h"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -106,9 +107,11 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             
             rCrosshair(local);  // Draws recoil crosshair
             
-            manualaa(local, Global::cmd);        // Manual AA idicator
+            manualaa(local);        // Manual AA idicator
             
-            hitmarker->PaintTraverse();
+            NightMode();
+            
+            //Hitmarkers::Paint();
             
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
@@ -125,48 +128,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             draw->drawmouse();
             pCvar->FindVar("cl_mouseenable");
         }
-        
-        //draw->drawstring(10, 15, Color::White(), espfont, "[-zeX Priv]");
-        
-        
-        /* static int Tick = 0;
-         Tick++;
-         
-         if (Tick > 0 && Tick < 30)
-         {
-         draw->drawstring(10, 15, Color::Red(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 30 && Tick < 60)
-         {
-         draw->drawstring(10, 15, Color::Orange(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 60 && Tick < 90)
-         {
-         draw->drawstring(10, 15, Color::Yellow(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 90 && Tick < 120)
-         {
-         draw->drawstring(10, 15, Color::Green(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 120 && Tick < 150)
-         {
-         draw->drawstring(10, 15, Color::LightBlue(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 150 && Tick < 180)
-         {
-         draw->drawstring(10, 15, Color::Purple(), espfont, "[-vape.us]");
-         }
-         else if (Tick > 180 && Tick < 210)
-         {
-         draw->drawstring(10, 15, Color::Pink(), espfont, "[-vape.us]");
-         }
-         
-         
-         // Reset
-         if(Tick > 210)
-         {
-         Tick = 0;
-         } */
+    
         
         if(vars.misc.watermark)
         {
@@ -235,103 +197,6 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
                 Tick = 0;
             }
         }
-        
-        
-        
-        
-        /*{
-         
-         static int Tick = 0;
-         Tick++;
-         
-         if (Tick > 0 && Tick < 30)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "");
-         }
-         else if (Tick > 30 && Tick < 60)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "|");
-         }
-         else if (Tick > 60 && Tick < 90)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-");
-         }
-         else if (Tick > 90 && Tick < 120)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-|");
-         }
-         else if (Tick > 120 && Tick < 150)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-z");
-         }
-         else if (Tick > 150 && Tick < 180)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-z|");
-         }
-         else if (Tick > 180 && Tick < 210)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-ze");
-         }
-         else if (Tick > 210 && Tick < 240)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-ze|");
-         }
-         else if (Tick > 240 && Tick < 270)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-zeX");
-         }
-         else if (Tick > 270 && Tick < 300)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-zeX|");
-         }
-         else if (Tick > 300 && Tick < 330)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-ze|");
-         }
-         else if (Tick > 330 && Tick < 360)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-ze");
-         }
-         else if (Tick > 360 && Tick < 390)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-z|");
-         }
-         else if (Tick > 390 && Tick < 420)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-z");
-         }
-         else if (Tick > 420 && Tick < 450)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-|");
-         }
-         else if (Tick > 450 && Tick < 480)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "-");
-         }
-         if (Tick > 480 && Tick < 510)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "");
-         }
-         else if (Tick > 510 && Tick < 540)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "|");
-         }
-         if (Tick > 540 && Tick < 570)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "");
-         }
-         else if (Tick > 570 && Tick < 600)
-         {
-         draw->drawstring(10, 15, Color::White(), espfont, "|");
-         }
-         
-         
-         // Reset
-         if(Tick > 600)
-         {
-         Tick = 0;
-         }
-         }*/
         
         
     }

@@ -53,7 +53,7 @@ void DrawScope(C_BaseEntity* local)
 
 
 
-void manualaa(C_BaseEntity* Local, CUserCmd* cmd)
+void manualaa(C_BaseEntity* Local)
 {
     if ( !vars.visuals.antiaim_indicator )
         return;
@@ -82,41 +82,6 @@ void manualaa(C_BaseEntity* Local, CUserCmd* cmd)
     }
     
     //float_t pos = Global::cmd->viewangles.y;
-    Vector startangles;
-    pEngine->GetViewAngles(startangles);
-    
-    //bool flip = false;
-    
-    pEngine->GetScreenSize(Height, Width);
-    
-    if (left == true){ // left real
-        cmd->viewangles.y = startangles.y - 90.f;
-    }
-    
-    if (right == true){ // right real
-        cmd->viewangles.y = startangles.y + 90.f;
-    }
-    if (back == true){ // backwards
-        cmd->viewangles.y = startangles.y + 180.f;
-    }
-    
-    if(vars.visuals.indicatorAA_types == 1){
-        
-        if( left )
-        {
-            draw->drawstring(25, 600, Color(255, 0, 0, 255), subtitleFont, ("LBY"));
-        }
-        
-        if( right )
-        {
-            draw->drawstring(25, 600, Color(255, 0, 0, 255), subtitleFont, ("LBY"));
-        }
-        if( back )
-        {
-            draw->drawstring(25, 600, Color(255, 0, 0, 255), subtitleFont, ("LBY"));
-        }
-        
-    }
     
     if(vars.visuals.indicatorAA_types == 2){
         

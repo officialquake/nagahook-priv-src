@@ -12,6 +12,128 @@ Vector atTargets;
 
 bool isManual = false;
 bool Swtich = false;
+static bool jitter2 = false;
+void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector& up)
+{
+    float sr, sp, sy, cr, cp, cy;
+    
+    SinCos(DEG2RAD(angles[1]), &sy, &cy);
+    SinCos(DEG2RAD(angles[0]), &sp, &cp);
+    SinCos(DEG2RAD(angles[2]), &sr, &cr);
+    
+    forward.x = (cp * cy);
+    forward.y = (cp * sy);
+    forward.z = (-sp);
+    right.x = (-1 * sr * sp * cy + -1 * cr * -sy);
+    right.y = (-1 * sr * sp * sy + -1 * cr *  cy);
+    right.z = (-1 * sr * cp);
+    up.x = (cr * sp * cy + -sr * -sy);
+    up.y = (cr * sp * sy + -sr * cy);
+    up.z = (cr * cp);
+}
+void VectorAngles2(const Vector &vecForward, Vector &vecAngles)
+{
+    Vector vecView;
+    if (vecForward[1] == 0.f && vecForward[0] == 0.f)
+    {
+        vecView[0] = 0.f;
+        vecView[1] = 0.f;
+    }
+    else
+    {
+        vecView[1] = atan2(vecForward[1], vecForward[0]) * 180.f / M_PI;
+        
+        if (vecView[1] < 0.f)
+            vecView[1] += 360.f;
+        
+        vecView[2] = sqrt(vecForward[0] * vecForward[0] + vecForward[1] * vecForward[1]);
+        
+        vecView[0] = atan2(vecForward[2], vecView[2]) * 180.f / M_PI;
+    }
+    
+    vecAngles[0] = -vecView[0];
+    vecAngles[1] = vecView[1];
+    vecAngles[2] = 0.f;
+}
+
+
+void AngleVectors2(const Vector& qAngles, Vector& vecForward)
+{
+    float sp, sy, cp, cy;
+    SinCos((float)(qAngles[1] * (M_PI / 180.f)), &sy, &cy);
+    SinCos((float)(qAngles[0] * (M_PI / 180.f)), &sp, &cp);
+    
+    vecForward[0] = cp*cy;
+    vecForward[1] = cp*sy;
+    vecForward[2] = -sp;
+}
+
+bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, float flCornor)
+{
+    Ray_t ray;
+    trace_t tr;
+    
+    CTraceFilter traceFilter;
+    traceFilter.pSkip = pLocalBaseEntity;
+    
+    auto bRetVal = false;
+    auto vecCurPos = pLocalBaseEntity->GetEyePosition();
+    
+    for (float i = 0; i < 360; i++)
+    {
+        Vector vecDummy(10.f, cmd->viewangles.y, 0.f);
+        vecDummy.y += i;
+        
+        NormalizeVector(vecDummy);
+        
+        Vector vecForward;
+        AngleVectors2(vecDummy, vecForward);
+        
+        auto flLength = ((16.f + 3.f) + ((16.f + 3.f) * sin(DEG2RAD(10.f)))) + 7.f;
+        vecForward *= flLength;
+        
+        ray.Init(vecCurPos, (vecCurPos + vecForward));
+        pEngineTrace->TraceRay(ray, MASK_SHOT, (CTraceFilter *)&traceFilter, &tr);
+        
+        if (tr.fraction != 1.0f)
+        {
+            Vector qAngles;
+            auto vecNegate = tr.plane.normal;
+            
+            vecNegate *= -1.f;
+            VectorAngles2(vecNegate, qAngles);
+            
+            vecDummy.y = qAngles.y;
+            NormalizeVector(vecDummy);
+            trace_t leftTrace, rightTrace;
+            
+            Vector vecLeft;
+            AngleVectors2(vecDummy + Vector(0.f, 30.f, 0.f), vecLeft);
+            
+            Vector vecRight;
+            AngleVectors2(vecDummy - Vector(0.f, 30.f, 0.f), vecRight);
+            
+            vecLeft *= (flLength + (flLength * sin(DEG2RAD(30.f))));
+            vecRight *= (flLength + (flLength * sin(DEG2RAD(30.f))));
+            
+            ray.Init(vecCurPos, (vecCurPos + vecLeft));
+            pEngineTrace->TraceRay(ray, MASK_SHOT, (CTraceFilter*)&traceFilter, &leftTrace);
+            
+            ray.Init(vecCurPos, (vecCurPos + vecRight));
+            pEngineTrace->TraceRay(ray, MASK_SHOT, (CTraceFilter*)&traceFilter, &rightTrace);
+            
+            if ((leftTrace.fraction == 1.f) && (rightTrace.fraction != 1.f))
+                vecDummy.y -= flCornor; // left
+            else if ((leftTrace.fraction != 1.f) && (rightTrace.fraction == 1.f))
+                vecDummy.y += flCornor; // right
+            
+            cmd->viewangles.y = vecDummy.y;
+            cmd->viewangles.y -= flWall;
+            bRetVal = true;
+        }
+    }
+    return bRetVal;
+}
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
 {
@@ -234,6 +356,25 @@ bool lby_updated( CUserCmd* cmd, C_BaseEntity* local )
     return false;
 }
 
+bool NextLBYUpdate2( CUserCmd* cmd, C_BaseEntity* local )
+{
+    float server_time = corrected_time(cmd, local);
+    
+    if (local->GetVelocity().Length2D() > 0.1f)
+    {
+        next_lby_update = server_time + 0.22 + pGlobals->interval_per_tick;
+        return false;
+    }
+    
+    if ((next_lby_update < server_time) && (local->GetFlags() & FL_ONGROUND) && local->GetVelocity().Length2D() < 1.f)
+    {
+        next_lby_update = server_time + 1.1 + pGlobals->interval_per_tick;
+        return true;
+    }
+    
+    return false;
+}
+
 
 void do_real(CUserCmd* cmd, C_BaseEntity* local) {
     if (local->GetVelocity().Length2D() > 1.f) { // moving, lby starts updating at > 1.f velocity
@@ -250,10 +391,49 @@ void do_real(CUserCmd* cmd, C_BaseEntity* local) {
     }
 }
 
+void do_real2(CUserCmd* cmd, C_BaseEntity* local){
+    
+    static bool side1 = false;
+    static bool side2 = false;
+    static bool back = false;
+    
+    if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
+        side1 = true;    side2 = false;    back = false;
+    }
+    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
+        side1 = false;    side2 = true;    back = false;
+    }
+    
+    if ( side1 ){ // Right
+        cmd->viewangles.y -= 90.f;
+    }
+    
+    if ( side2 ){ // Left
+        cmd->viewangles.y += 90;
+    }
+    
+    if (NextLBYUpdate2(cmd, local)) {
+        cmd->viewangles.y += vars.misc.delta;
+        //cmd->viewangles.y += 115.f; // less then 180 to prevent 979 animation, but less then 120 so its harder to predict
+    }
+    
+    float factor;
+    if(!(local->GetFlags() & FL_ONGROUND)){
+        factor =  360.0 / M_PHI;
+        factor *= 0.5;
+        cmd->viewangles.y = fmodf(pGlobals->curtime * factor, 180.0);
+    }
+    if(vars.misc.antiaim)
+        
+        if (pInputSystem->IsButtonDown(KEY_X)){ // Should fuck people up trying to resolve you
+            cmd->viewangles.y = rand() % (360 - -360 + 1 ) + -360;
+        }
+}
+
 void do_fake(CUserCmd* cmd) {
-    //*bSendPacket = true;
     cmd->viewangles.y = rand() % (180 - -180 + 1 ) + -180;
 }
+
 #define TICK_INTERVAL            (pGlobals->interval_per_tick)
 #define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
 
@@ -309,7 +489,6 @@ void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
 }
 
 
-
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {
     
@@ -320,6 +499,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         return;
     
     if (weapon->IsGrenade())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
         return;
     
     
@@ -350,6 +535,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 bPacket = true;
         }
         
+        
+        
         if(vars.misc.aaX > 0) {
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Down){
                 cmd->viewangles.x = 89;
@@ -357,6 +544,21 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Up) {
                 cmd->viewangles.x = -89;
             }
+        }
+        if(vars.visuals.edge){
+            auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);
+            
+            if (bEdge)
+                return;
+            
+            if(NextLBYUpdate2(cmd, local)){
+                cmd->viewangles.y += vars.misc.delta;
+            }
+        }
+        cmd->viewangles.x = 89.f;
+        
+        if (!vars.misc.fakelag) {
+            *bSendPacket = cmd->command_number % 2;
         }
         if(vars.misc.aaY > 0) {
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Backwards) {
@@ -479,6 +681,9 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     }
                     counter++;
                 }
+            }
+            if(vars.misc.aaY == VIEW_ANTIAIM_YAW::ManualEdge) {
+                do_real2(cmd, local);
             }
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){

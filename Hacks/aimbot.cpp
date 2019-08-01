@@ -155,26 +155,6 @@ int MakeHitscan(C_BaseEntity* entity)
 
 
 
-
-
-void Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon)
-{
-    if(vars.aimbot.hitchance)
-    {
-        float hitchance = 101;
-        if (!pWeapon) return 0;
-        if(vars.aimbot.accuracyhithcance > 1)
-        {
-            float inaccuracy = pWeapon->GetInaccuracy();
-            if (inaccuracy == 0) inaccuracy = 0.0000001;
-            inaccuracy = 1 / inaccuracy;
-            hitchance = inaccuracy;
-        }
-        return hitchance;
-    }
-}
-
-
 void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)
 {
     
@@ -248,6 +228,10 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     AutoShoot(local, weapon, pCmd);
                 }
                 
+                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0) //&& !local->IsScoped())
+                {
+                    pCmd->buttons |= IN_ATTACK2;
+                }
                 
                 if(vars.aimbot.autocock && vars.aimbot.autoshoot && vars.aimbot.enabled)
                 {

@@ -9,7 +9,6 @@
 void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide);
 //void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& bestDamage, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd);
 //void velocityhitchance(C_BaseEntity* local, C_BaseCombatWeapon* weapon);
-void Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon);
 
 
 namespace Aimbot

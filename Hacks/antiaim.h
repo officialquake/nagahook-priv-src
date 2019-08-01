@@ -26,6 +26,7 @@ enum VIEW_ANTIAIM_YAW {
     SidewaysLeft    = 10,
     SidewaysRight   = 11,
     LBYBreaker      = 12,
+    ManualEdge      = 12,
 };
 
 enum VIEW_ANTIIAIM_FYAW {
@@ -37,6 +38,7 @@ enum VIEW_ANTIIAIM_FYAW {
     FakeJitter      = 6,
     FakeLBY         = 7,
     FakeSideLBY     = 8,
+    
 };
 
 enum VIEW_ANTIIAIM_MYAW
@@ -63,7 +65,8 @@ float Freestand(C_BaseEntity* local, CUserCmd* cmd);
 void doManual(CUserCmd* cmd);
 //void GetBestHeadAngle(CUserCmd* cmd, C_BasePlayer* local);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
-
+void AngleVectors3(const Vector &angles, Vector& forward);
+void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector& up);
 
 
 

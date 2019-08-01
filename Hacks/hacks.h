@@ -56,3 +56,4 @@ namespace CreateMove
     extern Vector lastTickViewAngles;
     extern QAngle lastTickViewwAngles;
 }
+

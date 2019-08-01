@@ -2,7 +2,7 @@
 #include "skinchanger.h"
 #include "index.h"
 #include "../EventListener.h"
-//static EventListener* eventlistener = nullptr;
+EventListener* eventlistener = nullptr;
 bool* bSendPacket = nullptr;
 
 void InitializeInterfaces()
@@ -25,7 +25,8 @@ void InitializeInterfaces()
     pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     pGameEventManager = GetInterface<IGameEventManager2>("./bin/osx64/engine.dylib", "GAMEEVENTSMANAGER002", true);
-    pInput = *reinterpret_cast<CInput**>(GetAbsoluteAddress(getvfunc<uintptr_t>(pClient, 16) + 4, 3, 7));
+    
+    
     
 }
 
@@ -48,6 +49,7 @@ void InitializeVMTs()
 
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     ProtectAddr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
+    pInput = *reinterpret_cast<CInput**>(GetAbsoluteAddress(getvfunc<uintptr_t>(pClient, 16) + 4, 3, 7));
 
     void* handle = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
     RandomInt       = reinterpret_cast<RandomIntFn>(dlsym(handle, "RandomInt"));
@@ -70,6 +72,7 @@ void InitializeVMTs()
     game_event_vmt  = new VMT(pGameEventManager);
     
 }
+
 
 void InitializeHooks()
 {
@@ -100,25 +103,29 @@ void InitializeHooks()
     game_event_vmt->HookVM((void*)FireEvent_hk, 9);
     game_event_vmt->ApplyVMT();
     
-    //eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
+    eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
     
     g_pSequence = (RecvVarProxyFn)NetVarManager::HookProp("DT_BaseViewModel", "m_nSequence", HSequenceProxyFn);
 }
 
 void Unhook()
 {
-    //pEngine->ExecuteClientCmd("cl_mouseenable 1");
+    pEngine->ExecuteClientCmd("cl_mouseenable 1");
     paintVMT        ->ReleaseVMT();
     createmoveVMT   ->ReleaseVMT();
     clientVMT       ->ReleaseVMT();
     modelVMT        ->ReleaseVMT();
     predVMT         ->ReleaseVMT();
+    engineVGuiVMT ->ReleaseVMT();
     
     delete paintVMT;
     delete createmoveVMT;
     delete clientVMT;
     delete modelVMT;
     delete predVMT;
+    delete engineVGuiVMT;
+    
+    pCvar->ConsoleColorPrintf(Color::Green(),"Thank you for using the cheat.\nYou have unloaded successfully.\n");
 }
 
 void UpdateResolver()

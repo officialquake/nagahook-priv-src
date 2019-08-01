@@ -15,7 +15,6 @@
 #include "../Hacks/EnginePrediction.h"
 #include "../Hacks/fakelag.hpp"
 #include "../Hacks/autostop.hpp"
-#include "../Hacks/crosshair.h"
 
 Vector tpangles;
 
@@ -76,7 +75,6 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
-    manualaa(local, cmd);
     lby_spin(cmd, local);
     tank(cmd, local);
     doManual(cmd);
@@ -88,7 +86,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
     Autostop(cmd, local);
-    
+    AutoKnife(local, cmd);
     CEnginePrediction::Instance()->End();
     
     

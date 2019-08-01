@@ -499,6 +499,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 260, "Auto Knife", &vars.aimbot.autoknife);
     //this->renderCheckbox(x + 235, y + 260, "Hitmarker", &vars.visuals.hitmarker);
     //this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
     //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
@@ -560,6 +561,7 @@ void cMenu::renderAntiAim(int x, int y) {
     Yaw.push_back("SidewaysLeft");
     Yaw.push_back("SidewaysRight");
     Yaw.push_back("LBYBreaker");
+    Yaw.push_back("ManualEdge");
     // Fake Yaw
     // Fake Yaw
     FakeYaw.push_back("Off");
@@ -585,7 +587,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 40, "AA Turbo Jitter", &vars.misc.turbojizzer);
     this->renderCheckbox(x - 15, y + 60, "AA Back Jitter", &vars.misc.backjizzer);
     this->renderCheckbox(x - 15, y + 80, "AA LBY Spin", &vars.misc.lby_spin);
-    this->renderCheckbox(x - 15, y + 100, "AA Tank", &vars.misc.tank);
+    this->renderCheckbox(x - 15, y + 100, "AA Edge", &vars.visuals.edge);
     this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
     this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
@@ -749,6 +751,7 @@ void cMenu::renderMisc(int x, int y) {
     this->renderSlider(x - 5, y + 180, 150, "", vars.misc.tpoffset, 200, 0);
     this->renderCheckbox(x, y + 200, "Moonwalk", &vars.misc.moonwalk);
     this->renderCheckbox(x, y + 220, "Watermark", &vars.misc.watermark);
+    this->renderCheckbox(x, y + 240, "Nightmode", &vars.misc.nightmode);
     this->renderCheckbox(x + 235, y, "WorldPaint", &vars.misc.worldpaint);
     this->renderCheckbox(x + 235, y + 20, "Spec List", &vars.misc.showspectators);
     this->renderCheckbox(x + 235, y + 40, "Antiscreenshot", &vars.misc.antiscreenshot);
@@ -776,10 +779,10 @@ void cMenu::renderMisc(int x, int y) {
     conf.push_back("rage");
     conf.push_back("rifles");
     
-    this->renderCombo(x, y + 245,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);
+    this->renderCombo(x, y + 265,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);
     if(!vars.cfg_opend) {
-        this->renderButton(x, y + 265, "Save", &cfg.saveconfig);
-        this->renderButton(x + 85, y + 265, "Load", &cfg.loadconfig);
+        this->renderButton(x, y + 285, "Save", &cfg.saveconfig);
+        this->renderButton(x + 85, y + 285, "Load", &cfg.loadconfig);
     }
     
 }
