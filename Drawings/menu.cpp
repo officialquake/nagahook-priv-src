@@ -720,6 +720,7 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x + 235, y + 260, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 280, "Angle Line Names", & vars.visuals.anglelinenames);
     this->renderCheckbox(x + 235, y + 300, "Clantag", & vars.misc.clantag);
+    //this->renderCheckbox(x + 235, y + 320, "Unload Cheeto", & vars.misc.unload);
 }
 
 
@@ -783,6 +784,7 @@ void cMenu::renderMisc(int x, int y) {
     if(!vars.cfg_opend) {
         this->renderButton(x, y + 285, "Save", &cfg.saveconfig);
         this->renderButton(x + 85, y + 285, "Load", &cfg.loadconfig);
+    
     }
     
 }

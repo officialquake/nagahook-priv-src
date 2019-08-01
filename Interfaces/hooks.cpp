@@ -25,7 +25,7 @@ void InitializeInterfaces()
     pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     pGameEventManager = GetInterface<IGameEventManager2>("./bin/osx64/engine.dylib", "GAMEEVENTSMANAGER002", true);
-    
+    eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
     
     
 }
@@ -47,6 +47,7 @@ void InitializeVMTs()
     uint64_t findMoveData = CPatternScanner::Instance()->GetPointer("client_panorama.dylib", (unsigned char*)"\x48\x8D\x05\x00\x00\x00\x00\x48\x8B\x00\x0F\x57\xC0\x0F\x2E\x40\x00\x73\x00", "xxx????xxxxxxxxx?x?", 0x3) + 0x4;
     uintptr_t predictionSeedPointer = CPatternScanner::Instance()->GetPointer("client_panorama.dylib", (unsigned char*)"\x48\x8D\x0D\x00\x00\x00\x00\x89\x01\x5D\xC3", "xxx????xxxx", 0x3) + 0x4;
 
+    
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     ProtectAddr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
     pInput = *reinterpret_cast<CInput**>(GetAbsoluteAddress(getvfunc<uintptr_t>(pClient, 16) + 4, 3, 7));
@@ -66,7 +67,6 @@ void InitializeVMTs()
     paintVMT        = new VMT(pPanel);
     createmoveVMT   = new VMT(pClientMode);
     clientVMT       = new VMT(pClient);
-    engineVGuiVMT   = new VMT(pEngineGUI);
     modelVMT        = new VMT(pModelRender);
     predVMT         = new VMT(pPrediction);
     game_event_vmt  = new VMT(pGameEventManager);
@@ -81,20 +81,14 @@ void InitializeHooks()
         
     createmoveVMT->HookVM((void*)hkCreateMove, 25);
     createmoveVMT->HookVM((void*)hkOverrideView, 19);
-    //createmoveVMT->HookVM((void*)hkSniperCrosshair, 29);
     createmoveVMT->ApplyVMT();
     
     clientVMT->HookVM((void*)hkKeyEvent, 21);
     clientVMT->HookVM((void*)hkFrameStage, FrameStageIndex);
     clientVMT->ApplyVMT();
     
-    //engineVGuiVMT->HookVM((void*)Paint_hk, 15);
-    engineVGuiVMT->ApplyVMT();
-    
     modelVMT->HookVM((void*)hkDrawModelExecute, 21);
     modelVMT->ApplyVMT();
-    //gameVMT->HookVM((void*)FireEvent_hk, FireEventIndex);
-    //gameVMT->ApplyVMT();
     
     predVMT->HookVM((void*)hkRunCommand, 20);
     predVMT->ApplyVMT();
@@ -103,40 +97,18 @@ void InitializeHooks()
     game_event_vmt->HookVM((void*)FireEvent_hk, 9);
     game_event_vmt->ApplyVMT();
     
-    eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
-    
     g_pSequence = (RecvVarProxyFn)NetVarManager::HookProp("DT_BaseViewModel", "m_nSequence", HSequenceProxyFn);
 }
 
-void Unhook()
-{
-    pEngine->ExecuteClientCmd("cl_mouseenable 1");
-    paintVMT        ->ReleaseVMT();
-    createmoveVMT   ->ReleaseVMT();
-    clientVMT       ->ReleaseVMT();
-    modelVMT        ->ReleaseVMT();
-    predVMT         ->ReleaseVMT();
-    engineVGuiVMT ->ReleaseVMT();
-    
-    delete paintVMT;
-    delete createmoveVMT;
-    delete clientVMT;
-    delete modelVMT;
-    delete predVMT;
-    delete engineVGuiVMT;
-    
-    pCvar->ConsoleColorPrintf(Color::Green(),"Thank you for using the cheat.\nYou have unloaded successfully.\n");
-}
 
 void UpdateResolver()
 {
-    //OldProxy_X = (RecvVarProxyFn)NetVarManager::HookProp("DT_CSPlayer", "m_angEyeAngles[0]", FixPitch);
     OldProxy_Y = (RecvVarProxyFn)NetVarManager::HookProp("DT_CSPlayer", "m_angEyeAngles[1]", FixYaw);
 }
 
 void PrintInfo()
 {
-    pCvar->ConsoleColorPrintf(Color::White(), "[D E A D |  デッド] Injected successfully!\n");
+    pCvar->ConsoleColorPrintf(Color::White(), "[D E A D] Injected successfully!\n");
     pCvar->ConsoleColorPrintf(Color::Red(), "Credits to: \n");
     pCvar->ConsoleColorPrintf(Color::Green(), "Syn/-X making breathless\n");
     pCvar->ConsoleColorPrintf(Color::Yellow(), "ViKiNG making barbossa\n");

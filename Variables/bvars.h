@@ -161,6 +161,7 @@ public:
         bool noduckcooldown    = false;
         bool spreadcrosshair    = false;
         bool dlights        = false;
+        bool unload        = false;
         
         bool norecoil       = true;
         bool thirdperson    = false;     // Basically RCS without slider
@@ -256,7 +257,7 @@ public:
         Color scope;
         Color sky;
         Color world;
-        Color hitmarkers;
+        //Color hitmarkers;
         
         Color asus = Color(255, 255, 255, 150);
         

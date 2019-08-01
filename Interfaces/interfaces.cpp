@@ -42,7 +42,6 @@ VMT* createmoveVMT;
 VMT* clientVMT;
 VMT* modelVMT;
 VMT* predVMT;
-VMT* engineVGuiVMT;
 VMT* materialVMT;
 VMT* game_event_vmt;
 //VMT* gameVMT;

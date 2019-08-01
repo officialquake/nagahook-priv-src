@@ -44,7 +44,6 @@ extern VMT* modelVMT;
 extern VMT* predVMT;
 extern VMT* materialVMT;
 extern VMT* game_event_vmt;
-extern VMT* engineVGuiVMT;;
 extern VMT* gameEventsVMT;
 
 extern RecvVarProxyFn g_pSequence;
