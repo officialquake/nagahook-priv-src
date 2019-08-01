@@ -41,8 +41,6 @@ void DrawScope(C_BaseEntity* local)
     if(!weapon)
         return;
     
-    if(*weapon->GetItemDefinitionIndex() == WEAPON_AUG || *weapon->GetItemDefinitionIndex() == WEAPON_SG556)
-        return;
     
     int w, h;
     pEngine->GetScreenSize(w, h);

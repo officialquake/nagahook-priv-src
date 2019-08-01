@@ -228,7 +228,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     AutoShoot(local, weapon, pCmd);
                 }
                 
-                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0) //&& !local->IsScoped())
+                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped() && (*weapon->GetItemDefinitionIndex() == WEAPON_AUG || *weapon->GetItemDefinitionIndex() == WEAPON_SG556 || *weapon->GetItemDefinitionIndex() == WEAPON_AWP || *weapon->GetItemDefinitionIndex() == WEAPON_SSG08 || *weapon->GetItemDefinitionIndex() == WEAPON_G3SG1 || *weapon->GetItemDefinitionIndex() == WEAPON_SCAR20)) //&& !local->IsScoped())
                 {
                     pCmd->buttons |= IN_ATTACK2;
                 }
