@@ -949,32 +949,32 @@ void cMenu::renderMenu() {
             
             
         case 1:
-            render_section(x + 15, y + 36, 240, h - 60, "Main");
-            render_section(x + 254, y + 36, 240, h - 60, "Other");
+            render_section(x + 15, y + 36, 220, h - 60, "Main");
+            render_section(x + 254, y + 36, 220, h - 60, "Other");
             this->renderAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case 2:
-            render_section(x + 15, y + 36, 240, h - 60, "Main");
-            render_section(x + 254, y + 36, 240, h - 60, "Other");
+            render_section(x + 15, y + 36, 220, h - 60, "Main");
+            render_section(x + 254, y + 36, 220, h - 60, "Other");
             this->renderAntiAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case 3:
-            render_section(x + 15, y + 36, 240, h - 60, "Main");
-            render_section(x + 254, y + 36, 240, h - 60, "Other");
+            render_section(x + 15, y + 36, 220, h - 60, "Main");
+            render_section(x + 254, y + 36, 220, h - 60, "Other");
             this->renderPlayer(x + 35, y + 30 + 20 + 5);
             break;
             
         case 4:
-            render_section(x + 15, y + 36, 240, h - 60, "Main");
-            render_section(x + 254, y + 36, 240, h - 60, "Other");
+            render_section(x + 15, y + 36, 220, h - 60, "Main");
+            render_section(x + 254, y + 36, 220, h - 60, "Other");
             this->renderMisc(x + 35, y + 30 + 20 + 5);
             break;
             
         case 5:
-            render_section(x + 15, y + 36, 240, h - 60, "Main");
-            render_section(x + 254, y + 36, 240, h - 60, "Other");
+            render_section(x + 15, y + 36, 220, h - 60, "Main");
+            render_section(x + 254, y + 36, 220, h - 60, "Other");
             this->renderColors(x + 35, y + 30 + 20 + 5);
             break;
             
