@@ -34,7 +34,12 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     CSWeaponType weaponType = (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType;
     
     if(activeWeapon && activeWeapon->GetCSWpnData() && weaponType == CSWeaponType::WEAPONTYPE_GRENADE){
-        pInput->m_fCameraInThirdPerson = false;
+        //pInput->m_fCameraInThirdPerson = false;
+        if(vars.misc.thirdperson){
+            vars.misc.thirdperson = !vars.misc.thirdperson;
+        }else if (!vars.misc.thirdpersonmode){
+            pCvar->ConsoleColorPrintf(Color::Green(), "Thirdperson is already off");
+        }
         if(vars.misc.thirdpersonmode){
             vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
         }else if (!vars.misc.thirdpersonmode){
