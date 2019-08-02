@@ -498,21 +498,19 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 80, "Backtrack", &vars.aimbot.backtrack);
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
-    this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 260, "Auto Knife", &vars.aimbot.autoknife);
+    this->renderCheckbox(x + 235, y + 170, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 190, "Auto Knife", &vars.aimbot.autoknife);
     
-    this->renderCheckbox(x + 235, y + 280, "Hitmarker", &vars.visuals.hitmarker);
-    this->renderCheckbox(x + 235, y + 300, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
-    this->renderSlider(x + 230, y + 320, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 230, y + 340, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
-    this->renderSlider(x + 230, y + 340, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
-    this->renderCheckbox(x + 235, y + 360, "Hitmarker Allies", &vars.visuals.allieshit);
-    this->renderCheckbox(x + 235, y + 380, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    this->renderCheckbox(x + 235, y + 210, "Hitmarker", &vars.visuals.hitmarker);
+    this->renderCheckbox(x + 235, y + 230, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
+    this->renderSlider(x + 230, y + 250, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 230, y + 270, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
+    this->renderSlider(x + 230, y + 290, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderCheckbox(x + 235, y + 310, "Hitmarker Allies", &vars.visuals.allieshit);
+    this->renderCheckbox(x + 235, y + 330, "Hitmarker Enemies", &vars.visuals.enemyhit);
     
 
-    this->renderSlider(x + 230, y + 180, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 200, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 220, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
+    
     //this->renderCheckbox(x + 235, y + 280, "Auto Stop", &vars.aimbot.autostop);
     
     
@@ -598,7 +596,7 @@ void cMenu::renderAntiAim(int x, int y) {
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
-    this->renderCheckbox(x + 235, y + 50, "Legit AA (idk worc)", &vars.misc.legitaa);
+    this->renderCheckbox(x + 235, y + 50, "Legit AA (no worc)", &vars.misc.legitaa);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
@@ -725,6 +723,9 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderCheckbox(x + 235, y + 260, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 280, "Angle Line Names", & vars.visuals.anglelinenames);
     this->renderCheckbox(x + 235, y + 300, "Clantag", & vars.misc.clantag);
+    this->renderSlider(x + 230, y + 320, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 340, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 360, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
     //this->renderCheckbox(x + 235, y + 320, "Unload Cheeto", & vars.misc.unload);
 }
 
@@ -852,14 +853,14 @@ void cMenu::renderMenu() {
     static int x = 100;
     static int y = 100;
     int w = 489;
-    int h = 500;
+    int h = 560;
     int hh = 22; // The height of the dragable area
     
     
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
     draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "-D E A D |  デッド", true);
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "Boogerware", true);
     
     // Draws tabs
     if(curTab != 0){
@@ -948,32 +949,32 @@ void cMenu::renderMenu() {
             
             
         case 1:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+            render_section(x + 15, y + 36, 240, h - 60, "Main");
+            render_section(x + 254, y + 36, 240, h - 60, "Other");
             this->renderAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case 2:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+            render_section(x + 15, y + 36, 240, h - 60, "Main");
+            render_section(x + 254, y + 36, 240, h - 60, "Other");
             this->renderAntiAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case 3:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+            render_section(x + 15, y + 36, 240, h - 60, "Main");
+            render_section(x + 254, y + 36, 240, h - 60, "Other");
             this->renderPlayer(x + 35, y + 30 + 20 + 5);
             break;
             
         case 4:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+            render_section(x + 15, y + 36, 240, h - 60, "Main");
+            render_section(x + 254, y + 36, 240, h - 60, "Other");
             this->renderMisc(x + 35, y + 30 + 20 + 5);
             break;
             
         case 5:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+            render_section(x + 15, y + 36, 240, h - 60, "Main");
+            render_section(x + 254, y + 36, 240, h - 60, "Other");
             this->renderColors(x + 35, y + 30 + 20 + 5);
             break;
             

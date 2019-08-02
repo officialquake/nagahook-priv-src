@@ -28,7 +28,7 @@ void Hitmarkers::Paint(void){
     int w, h;
     pEngine->GetScreenSize(w, h);
     
-    Color color = vars.colors.hitmarkers;
+    Color color = Color::Red();
     color.SetAlpha(min(color.a(), (int)(diff * color.a() / duration * 2)));
     int sides[4][2] = {
         { -1, -1 },
