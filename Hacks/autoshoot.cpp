@@ -40,9 +40,6 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     if (cmd->buttons & IN_USE)
         return;
     
-    if (cmd->buttons & IN_ATTACK) {
-        cmd->viewangles.y;
-    }
     
     float nextPrimaryAttack = activeWeapon->GetNextPrimaryAttack();
     float server_time = player->GetTickBase() * pGlobals->interval_per_tick;

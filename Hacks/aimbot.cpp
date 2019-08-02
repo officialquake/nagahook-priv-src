@@ -161,6 +161,10 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
     if(!vars.aimbot.enabled)
         return;
     
+    CSWeaponType weaponType = (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType;
+    if (weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE || weaponType == CSWeaponType::WEAPONTYPE_KNIFE)
+        return;
+    
     Vector eyepos = local->GetEyePosition();
     
     for(int i = 0; i < pEntList->GetHighestEntityIndex(); i++)
