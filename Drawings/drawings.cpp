@@ -669,6 +669,30 @@ void cDrawings::textbox(int x, int y, int w, const char* szString, string szValu
 void cDrawings::drawstring(Vector2D pos, const char* szString, HFONT font, Color color) {
     draw->drawstring(pos.x, pos.y, color, font, szString);
 }
+void cDrawings::textW(bool center, int font, int x, int y, Color c, wchar_t *pszString)
+{
+    if (center)
+    {
+        int wide, tall;
+        pSurface->GetTextSize(font, pszString, wide, tall);
+        x -= wide / 2;
+        y -= tall / 2;
+    }
+    pSurface->DrawSetColor(c);
+    pSurface->DrawSetTextFont(font);
+    pSurface->DrawSetTextPos(x, y);
+    pSurface->DrawPrintText(pszString, (int)wcslen(pszString));
+}
+void cDrawings::drawString(int font, bool bCenter, int x, int y, Color c, const char *fmt, ...)
+{
+    wchar_t *pszStringWide = reinterpret_cast< wchar_t* >(malloc((strlen(fmt) + 1) * sizeof(wchar_t)));
+    
+    mbstowcs(pszStringWide, fmt, (strlen(fmt) + 1) * sizeof(wchar_t));
+    
+    textW(bCenter, font, x, y, c, pszStringWide);
+    
+    free(pszStringWide);
+}
 
     
 

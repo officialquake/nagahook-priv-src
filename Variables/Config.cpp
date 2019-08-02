@@ -148,8 +148,13 @@ void Config::LoadConfig() {
     vars.visuals.weaponType       = cfgget_i("Visuals", "Weapon Type");
     vars.visuals.weapons       = cfgget_b("Visuals", "Dropped Weapons");
     
-    
-    
+    vars.visuals.hitmarker       = cfgget_b("Visuals", "Hitmarkers");
+    vars.visuals.hitmarkersounds       = cfgget_b("Visuals", "Hitmarkers Sounds");
+    vars.visuals.hitsize       = cfgget_i("Visuals", "Hitmarker Size");
+    vars.visuals.hitduration       = cfgget_i("Visuals", "Hitmarker Duration");
+    vars.visuals.hitinnergap       = cfgget_i("Visuals", "Hitmarker Inner Gap");
+    vars.visuals.allieshit       = cfgget_b("Visuals", "Hitmarkers Allies");
+    vars.visuals.enemyhit       = cfgget_b("Visuals", "Hitmarkers Enemies");
     
     
     // Misc Left
@@ -310,6 +315,14 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Visuals", "AA Info", GetBoolValue(vars.visuals.antiaiminfos));
     cfg.SetBoolValue("Visuals", "AA Indicator", GetBoolValue(vars.visuals.antiaim_indicator));
     cfg.SetLongValue("Visuals", "AA Indicator Type", GetIntValue(vars.visuals.indicatorAA_types));
+    
+    cfg.SetBoolValue("Visuals", "Hitmarkers", GetBoolValue(vars.visuals.hitmarker));
+    cfg.SetBoolValue("Visuals", "Hitmarkers Sounds", GetBoolValue(vars.visuals.hitmarkersounds));
+    cfg.SetLongValue("Visuals", "Hitmarker Size", GetIntValue(vars.visuals.hitsize));
+    cfg.SetLongValue("Visuals", "Hitmarker Duration", GetIntValue(vars.visuals.hitduration));
+    cfg.SetLongValue("Visuals", "Hitmarker Inner Gap", GetIntValue(vars.visuals.hitinnergap));
+    cfg.SetBoolValue("Visuals", "Hitmarkers Allies", GetBoolValue(vars.visuals.allieshit));
+    cfg.SetBoolValue("Visuals", "Hitmarkers Enemies", GetBoolValue(vars.visuals.enemyhit));
     // Misc
     cfg.SetBoolValue("Misc", "Enabled", GetBoolValue(vars.misc.enabled));
     cfg.SetBoolValue("Misc", "No Recoil", GetBoolValue(vars.misc.norecoil));

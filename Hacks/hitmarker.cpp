@@ -5,7 +5,7 @@ long lastHitmarkerTimestamp = 0;
 
 //CHitmarkers* hitmarker = new CHitmarkers();
 
-void Hitmarkers::Paint(){
+void Hitmarkers::Paint(void){
     
     if(!pEngine->IsInGame())
         return;
@@ -18,7 +18,7 @@ void Hitmarkers::Paint(){
     if(!localplayer->GetAlive())
         return;
     
-    int duration = 2000;
+    int duration = vars.visuals.hitduration;
     long now = GetEpochTime();
     
     long diff = lastHitmarkerTimestamp + duration - now;
@@ -28,13 +28,17 @@ void Hitmarkers::Paint(){
     int w, h;
     pEngine->GetScreenSize(w, h);
     
-    Color color = Color::Red();
-    float sc = 1.0f/255.0f;
-    color.SetAlpha(min(color.a(), (int)(diff * (color.a() / sc) / duration * 2)) * sc);
-    int sides[4][2] = { {-1, -1}, {1, 1}, {-1, 1}, {1, -1} };
+    Color color = vars.colors.hitmarkers;
+    color.SetAlpha(min(color.a(), (int)(diff * color.a() / duration * 2)));
+    int sides[4][2] = {
+        { -1, -1 },
+        { 1,  1 },
+        { -1, 1 },
+        { 1,  -1 }
+    };
     for (auto& it : sides)
         draw->drawline(w / 2 +  (vars.visuals.hitinnergap * it[0]), h / 2 + (vars.visuals.hitinnergap * it[1]), w / 2 + (vars.visuals.hitsize * it[0]), h / 2 + (vars.visuals.hitsize * it[1]), color);
-    float textHeight = draw->GetTextSize("[cool]", eFont).y;
+    float textHeight = draw->GetTextSize("[cool]", espfont).y;
     for (unsigned int i = 0; i < damages.size(); i++) {
         long timestamp = damages[i].second;
         long hitDiff = timestamp + duration - now;
@@ -47,9 +51,9 @@ void Hitmarkers::Paint(){
         
         int damage = damages[i].first;
         std::string damageStr = '-' + std::to_string(damage);
-        color.SetAlpha(min(color.a(), (int)(hitDiff * (color.a() / sc) / duration * 2)) * sc);
+        color.SetAlpha(std::min(color.a(), (int)(diff * color.a() / duration * 2)));
         
-        draw->drawstring(pos, damageStr.c_str(), eFont, color);
+        draw->drawstring(pos, damageStr.c_str(), espfont, color);
         //draw->AddText(w / 2 + vars.visuals.hitsize + 4, h / 2 - vars.visuals.hitsize - textHeight * i + 4, damageStr.c_str(), color);
     }
 }
@@ -91,9 +95,11 @@ void Hitmarkers::FireGameEvent(IGameEvent* event)
     lastHitmarkerTimestamp = now;
     damages.insert(damages.begin(), std::pair<int, long>(event->GetInt("dmg_health"), now));
     
+    if(vars.visuals.hitmarkersounds){
     pCvar->ConsoleColorPrintf(Color::Green(), "[DEAD] Player hurt.");
     pEngine->ExecuteClientCmd("play buttons\\arena_switch_press_02.wav");
-    
-    
+    }
     
 }
+
+

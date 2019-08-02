@@ -19,6 +19,10 @@ int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbind
         {
             vars.misc.thirdperson = !vars.misc.thirdperson;
         }
+        if(keynum == KEY_PERIOD)
+        {
+            vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
+        }
         
     }
     

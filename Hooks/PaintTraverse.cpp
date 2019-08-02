@@ -81,6 +81,9 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             vars.colors.world       = Color::Test();
             vars.colors.sky         = Color::Red();
             
+            vars.colors.hitmarkers = Color::Yellow();
+            
+            
             vars.colors.fakelag_a = 125;
             vars.colors.fakelag_r = 255;
             vars.colors.fakelag_g = 255;
@@ -111,8 +114,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             
             NightMode();
             
-            //Hitmarkers::Paint();
-            
+            Hitmarkers::Paint();
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
             DrawSpread();

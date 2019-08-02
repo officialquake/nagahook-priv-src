@@ -123,11 +123,12 @@ public:
         bool antiaiminfos= true;       // AntiAim Lines
         bool direction = false;         // Enemy Direction
         bool hitmarker  = true;        // Aimware Hitmarkers
+        bool hitmarkersounds  = true;        // Aimware Hitmarkers
         bool allieshit  = true;        // Aimware Hitmarkers
         bool enemyhit  = true;        // Aimware Hitmarkers
         int hitinnergap = 5;     // antiaim idicator
         int hitsize = 16;     // antiaim idicator
-        int m4a4skin = 309;     // antiaim idicator
+        int hitduration = 2000;
         bool spreadcircle = true;
         bool grenade = true;
         bool active    = true;
@@ -241,6 +242,7 @@ public:
         Color ctchams;
         Color fakealgchams;
         Color tchams;
+        Color hitmarkers;
         
         Color ctchams_ign;
         Color tchams_ign;

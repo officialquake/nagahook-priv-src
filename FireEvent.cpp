@@ -1,6 +1,5 @@
 #include "main.h"
 // Hacks
-#include "Hacks/hitmarker.h"
 
 bool FireEvent_hk(void* thisptr, IGameEvent* event, bool bDontBroadcast) {
 

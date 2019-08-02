@@ -25,13 +25,25 @@ void ThirdPerson::OverrideView(CViewSetup& pSetup)
     
     if(!localplayer || !localplayer->GetAlive())
         return;
+    
     if(!pEngine->IsInGame())
         return;
     
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+    
+    CSWeaponType weaponType = (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType;
+    
+    if(activeWeapon && activeWeapon->GetCSWpnData() && weaponType == CSWeaponType::WEAPONTYPE_GRENADE){
+        pInput->m_fCameraInThirdPerson = false;
+        if(vars.misc.thirdpersonmode){
+            vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
+        }else if (!vars.misc.thirdpersonmode){
+            pCvar->ConsoleColorPrintf(Color::Green(), "Show Real Angles is already off");
+        }
+        return;
+    }
+    
     if(localplayer->GetHealth() > 0 && vars.misc.thirdperson){
-        
-        
-        QAngle *view = localplayer->GetViewwAngles();
         trace_t tr;
         Ray_t ray;
         

@@ -500,10 +500,15 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 240, "Radar", &vars.misc.radar);
     this->renderCheckbox(x + 235, y + 260, "Auto Knife", &vars.aimbot.autoknife);
+    
     this->renderCheckbox(x + 235, y + 280, "Hitmarker", &vars.visuals.hitmarker);
-    //this->renderCheckbox(x + 235, y + 260, "Prediction", &vars.aimbot.prediction);
-    //this->renderCheckbox(x + 235, y + 206, "Autostop", &vars.aimbot.autostop);
-    //this->renderCheckbox(x + 235, y + 260, "Auto Cock", &vars.aimbot.autocock);
+    this->renderCheckbox(x + 235, y + 300, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
+    this->renderSlider(x + 230, y + 320, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 230, y + 340, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
+    this->renderSlider(x + 230, y + 340, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderCheckbox(x + 235, y + 360, "Hitmarker Allies", &vars.visuals.allieshit);
+    this->renderCheckbox(x + 235, y + 380, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    
 
     this->renderSlider(x + 230, y + 180, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 200, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
@@ -822,10 +827,7 @@ void cMenu::renderColors(int x, int y) {
         this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
     }
     if(vars.colors.combo == 4) {
-        /*this->renderSlider(x, y + 20, 150, "Red", vars.colors.fakelag_r, 255, 0, vars.colors.fakealgchams);
-        this->renderSlider(x, y + 40, 150, "Green", vars.colors.fakelag_g, 255, 0, vars.colors.fakealgchams);
-        this->renderSlider(x, y + 60, 150, "Blue", vars.colors.fakelag_b, 255, 0, vars.colors.fakealgchams);
-        this->renderSlider_c(x, y + 80, 150, "Fake Lag Alpha", vars.colors.fakelag_a, 255, 0, vars.colors.fakealgchams);s*/
+        this->drawcolorpicker(x, y + 22, "Hitmarkers", vars.colors.hitmarkers);
 
     }
 

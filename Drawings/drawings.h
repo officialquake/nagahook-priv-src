@@ -22,7 +22,7 @@ public:
     wstring wstringtostring(string str);
     wstring StringToWstring(string str);
     HFONT createfont(HFONT font, const char* szFont, int tall, int flags);
-    
+    void textW(bool center, int font, int x, int y, Color c, wchar_t *pszString);
     void drawbox(int x, int y, int w, int h, Color color);
     void drawboxoutline(int x, int y, int w, int h, Color color);
     void fillrgba(int x, int y, int w, int h, Color color);
@@ -30,6 +30,7 @@ public:
     void Line(int x0, int y0, int x1, int y1, Color col);
     void Line(Vector2D start_pos, Vector2D end_pos, Color col);
     void drawstring(int x, int y, Color color, HFONT font, const char* szString, bool bCenter = false);
+    void drawString(int font, bool bCenter, int x, int y, Color c, const char *fmt, ...);
     void drawstring(Vector2D pos, const char* szString, HFONT font, Color color);
     void drawgradient(int x, int y, int w, int h, Color col1, Color col2);
     void GradientH(int x, int y, int width, int height, Color color1, Color color2);
