@@ -184,6 +184,7 @@ void Config::LoadConfig() {
     vars.misc.adaptive = cfgget_b("Misc", "Adaptive");
     // vars.misc.nightmode = cfgget_b("Misc", "Night Mode");
     vars.misc.asuswalls = cfgget_b("Misc", "Asus Walls");
+    
     vars.misc.worldpaint = cfgget_b("Misc", "World Paint");
     vars.misc.antiscreenshot = cfgget_b("Misc", "Anti Screenshot");
     vars.misc.showspectators = cfgget_b("Misc", "Show Spectators");
@@ -368,7 +369,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "Baim", GetBoolValue(vars.aimbot.baimhp));
     cfg.SetLongValue("Aimbot", "Pointscale", GetIntValue(vars.aimbot.pointscale));
     cfg.SetLongValue("Aimbot", "BaimxHP", GetIntValue(vars.aimbot.baimxhp));
-    cfg.SetDoubleValue("Aimbot", "ASUSA", GetFloatValue(vars.misc.asusalpha));
+    cfg.SetDoubleValue("Misc", "ASUSA", GetFloatValue(vars.misc.asusalpha));
     
     
     

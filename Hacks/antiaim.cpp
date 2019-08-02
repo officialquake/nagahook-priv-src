@@ -70,6 +70,8 @@ void AngleVectors2(const Vector& qAngles, Vector& vecForward)
 
 bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, float flCornor)
 {
+    if(!vars.visuals.edge)
+        return;
     Ray_t ray;
     trace_t tr;
     
@@ -192,7 +194,7 @@ void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
     }
 }
 
-void doManual(CUserCmd* cmd){
+/*void doManual(CUserCmd* cmd){
     if(vars.misc.antiaim){
     static bool left = false;
     static bool right = false;
@@ -225,7 +227,7 @@ void doManual(CUserCmd* cmd){
     else if (back) // backwards
         return pos + 180.f;
 }
-}
+}*/
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
     if(!vars.misc.backjizzer)
@@ -437,7 +439,8 @@ void do_fake(CUserCmd* cmd) {
 #define TICK_INTERVAL            (pGlobals->interval_per_tick)
 #define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
 
-void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
+/*void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
+ 
     float speed = local->GetVelocity().Length2D();
     
     float standing = vars.misc.freestanding;
@@ -454,7 +457,7 @@ void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
     
     /*if (speed <= 10 && (local->GetFlags() & FL_ONGROUND))
      {
-     }*/
+     }
     
     jitter = !jitter;
     if (time >= server_time / 2)
@@ -486,7 +489,7 @@ void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
             
         }
     }
-}
+}*/
 
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
