@@ -604,7 +604,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 100, "AA Edge", &vars.visuals.edge);
     this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
     this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
-    this->renderSlider(x - 5, y + 170, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
+    this->renderSlider(x - 15, y + 280, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
@@ -625,8 +625,8 @@ void cMenu::renderAntiAim(int x, int y) {
     
     
     
-    this->renderCheckbox(x + 235, y + 40, "Yaw Resolver", &vars.aimbot.Yawresolver);
-    this->renderCombo(x + 235, y + 90, 60, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    this->renderCheckbox(x + 235, y + 50, "Yaw Resolver", &vars.aimbot.Yawresolver);
+    this->renderCombo(x + 235, y + 70, 90, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
     
     this->renderCheckbox(x - 15, y + 160, "Fake", &vars.misc.fakeaa); // 60
     this->renderCombo(x - 15, y + 200, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
@@ -839,7 +839,7 @@ void cMenu::renderColors(int x, int y) {
         this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
     }
     if(vars.colors.combo == 4) {
-        this->drawcolorpicker(x, y + 22, "Hitmarkers", vars.colors.hitmarkers);
+        this->drawcolorpicker(x, y + 22, "FakeLag", vars.colors.fakelag);
 
     }
 

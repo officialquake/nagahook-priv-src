@@ -263,7 +263,7 @@ public:
         Color ctchams;
         Color fakealgchams;
         Color tchams;
-        Color hitmarkers;
+        Color fakelag;
         
         Color ctchams_ign;
         Color tchams_ign;

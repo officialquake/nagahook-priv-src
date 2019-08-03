@@ -294,6 +294,16 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return vars.colors.ctchams_ign;
                     }();
                     
+                    Color FakeLagColor = [&]() -> Color
+                    {
+                        if(entity->GetTeam() == 2)
+                            return vars.colors.fakelag;
+                        else if(entity->GetTeam() == 3)
+                            return vars.colors.fakelag;
+                        else if(pEngine->GetLocalPlayer() == 3)
+                            return vars.colors.fakelag;
+                    }();
+                    
                     IMaterial* materialCheckFirst = [&]() -> IMaterial*
                     {
                         if(vars.visuals.playersType == 0)
@@ -340,7 +350,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     if (vars.misc.flagchams && local->GetVelocity().Length2D() > 30)
                     {
                         materialCheckFirst->AlphaModulate(vars.visuals.playerchams_alpha / 255.0f - 0.1);
-                        materialCheckFirst->ColorModulate(190, 190, 190);
+                        materialCheckFirst->ColorModulate(FakeLagColor);
                         pModelRender->ForcedMaterialOverride(firstLayer);
                         CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
                         pModelRender->ForcedMaterialOverride(nullptr);

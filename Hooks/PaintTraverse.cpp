@@ -81,7 +81,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             vars.colors.world       = Color::Test();
             vars.colors.sky         = Color::Red();
             
-            vars.colors.hitmarkers = Color::Yellow();
+            vars.colors.fakelag = Color::Red();
             
             
             vars.colors.fakelag_a = 125;
