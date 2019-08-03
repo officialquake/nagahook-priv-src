@@ -1,11 +1,17 @@
 #include "triggerbot.hpp"
-void DoTrigger(CUserCmd *Cmd)
+void DoTrigger(CUserCmd *Cmd, C_BaseCombatWeapon* activeWeapon)
 {
     if(!vars.aimbot.trigger)
         return;
-    
-    if(pInputSystem->IsButtonDown(MOUSE_MIDDLE)) // Change the trigger bot key here
+    CSWeaponType weaponType = (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType;
+    if (weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE)
+        return;
+    if(pEngine->IsInGame() && pEngine->IsConnected())
     {
+        
+        
+       
+        
         C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
         
         if (!LocalPlayer || LocalPlayer->GetHealth() < 0)

@@ -21,6 +21,7 @@ public:
     bool colors_opend;
     // Misc
     bool fakelag_opend;
+     bool tp_opend;
     bool resolver_opend;
     bool hitscan_opend;
     bool fakewalk_opend;
@@ -160,6 +161,7 @@ public:
         int handsType   = 1;            // Hand   Type 0 - Lit 1 - Texture 2 - Wireframe
         int playersType = 1;            // Player Type 0 - Lit 1 - Texture
         int fakelagtype = 1;            // Player Type 0 - Lit 1 - Texture
+        int tptype = 1;
         int weaponchams_alpha   = 255;  // Weapon Chams Alpha / opacity
         int handchams_alpha     = 255;  // Hand   Chams Alpha / opacity
         int playerchams_alpha   = 255;  // Player Chams Alpha / opacity
@@ -172,6 +174,7 @@ public:
     public:
         
         bool enabled        = true;     // Enabled
+        bool transparent        = true;     // Enabled
         bool snipercrosshair        = false;     // Enabled
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
         bool radar    = false;
@@ -188,6 +191,7 @@ public:
 
         
         bool norecoil       = true;
+        bool scopeonly       = true;
         bool thirdperson    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
         bool manualaa    = false;     // Basically RCS without slider
@@ -265,6 +269,7 @@ public:
         
         Color ctchams;
         Color fakealgchams;
+        Color scopedchams;
         Color tchams;
         Color fakelag;
         

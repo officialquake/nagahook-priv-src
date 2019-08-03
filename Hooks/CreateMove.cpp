@@ -67,7 +67,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     CEnginePrediction::Instance()->Start(cmd);
-    DoTrigger(cmd);
+    DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);

@@ -65,6 +65,8 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             vars.colors.ctchams     = Color::White();
             vars.colors.ctchams_ign = Color::Red();
             
+            vars.colors.scopedchams = Color::White();
+            
             vars.colors.tchams      = Color::White();
             vars.colors.tchams_ign  = Color::Red();
             

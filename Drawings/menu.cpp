@@ -657,6 +657,7 @@ void cMenu::renderPlayer(int x, int y) {
     vector<string> Hands;
     vector<string> Weapons;
     vector<string> fakelag;
+    vector<string> tptype;
     
     Players.push_back("Platinum");
     Players.push_back("Texture");
@@ -708,10 +709,12 @@ void cMenu::renderPlayer(int x, int y) {
     fakelag.push_back("Branches");
     fakelag.push_back("Plastic");
     
+    tptype.push_back("Texture");
+    
     this->renderCheckbox(x, y + 240, "Player Chams", &vars.visuals.chams);
     this->renderCheckbox(x, y + 260, "Hand Chams", &vars.visuals.handchams);
     this->renderCheckbox(x, y + 280, "Weapon Chams", &vars.visuals.weaponchams);
-    this->renderCheckbox(x, y + 300, "Fake Lag Chams", &vars.visuals.fakelagchams);
+    this->renderCheckbox(x, y + 300, "Fake Lag Chams", &vars.misc.flagchams);
     if(vars.visuals.chams) {
         this->renderCombo(x + 10, y + 320, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
     }
@@ -723,7 +726,7 @@ void cMenu::renderPlayer(int x, int y) {
         if((!vars.players_opend) && !vars.hands_opend)
             this->renderCombo(x + 10, y + 360, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
     }
-    if(vars.visuals.fakelagchams) {
+    if(vars.misc.flagchams) {
         if(!vars.players_opend)
             this->renderCombo(x + 10, y + 380, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
     }
@@ -802,7 +805,7 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
     this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
-    this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
+    //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
     this->renderSlider(x + 230, y + 245, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
     this->renderCheckbox(x + 235, y + 265, "FakePing", &vars.misc.fakeping);
     this->renderCombo(x + 235, y + 280,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
@@ -835,6 +838,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("Hand/Weapon Colours");
     Colors.push_back("World Colours");
     Colors.push_back("FakeLag Colours");
+    Colors.push_back("TP Colours");
 
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
@@ -861,6 +865,10 @@ void cMenu::renderColors(int x, int y) {
     if(vars.colors.combo == 4) {
         this->drawcolorpicker(x, y + 22, "FakeLag", vars.colors.fakelag);
 
+    }
+    if(vars.colors.combo == 5) {
+        this->drawcolorpicker(x, y + 22, "TP", vars.colors.scopedchams);
+        
     }
 
 }
