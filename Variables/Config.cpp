@@ -78,8 +78,12 @@ void Config::LoadConfig() {
     //vars.aimbot.autostop = cfgget_b("Aimbot", "Auto Stop");
     vars.misc.antiResolverFlip     = cfgget_b("Aimbot", "LBY Flip");
     
-    
-    
+    vars.aimbot.LegitEnabled     = cfgget_b("Aimbot", "Legit Enabled");
+    vars.aimbot.legitFOV = cfgget_f("Aimbot", "Legit FOV");
+    vars.aimbot.smooth     = cfgget_b("Aimbot", "Smoothing");
+    vars.aimbot.smoothf = cfgget_f("Aimbot", "Smoothing FOV");
+    vars.aimbot.legitHitscan     = cfgget_b("Aimbot", "Legit Hitscan");
+    vars.aimbot.legitHitscanType     = cfgget_i("Aimbot", "Legit Hitscan Type");
     //Right Aimbot
     vars.misc.antiaim  = (ButtonCode_t)cfgget_b("Aimbot", "AntiAim Enabled");
     vars.misc.thirdpersonmode     = cfgget_b("Aimbot", "Show Real Angles");
@@ -263,6 +267,13 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "Hitchance", GetBoolValue(vars.aimbot.hitchance));
     cfg.SetBoolValue("Aimbot", "AntiAim Enabled", GetBoolValue(vars.misc.antiaim));
     //cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
+    
+    cfg.SetBoolValue("Aimbot", "Legit Enabled", GetBoolValue(vars.aimbot.LegitEnabled));
+    cfg.SetBoolValue("Aimbot", "Legit FOV", GetFloatValue(vars.aimbot.legitFOV));
+    cfg.SetBoolValue("Aimbot", "Smoothing", GetBoolValue(vars.aimbot.smooth));
+    cfg.SetBoolValue("Aimbot", "Smoothing FOV", GetFloatValue(vars.aimbot.smoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Hitscan", GetBoolValue(vars.aimbot.legitHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Hitscan Type", GetIntValue(vars.aimbot.legitHitscanType));
     
     cfg.SetBoolValue("Misc", "Fake Walk", GetBoolValue(vars.aimbot.fakewalk));
     cfg.SetLongValue("Misc", "FakeWalkT", GetIntValue(vars.aimbot.fakewalktype));

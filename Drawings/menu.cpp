@@ -474,6 +474,12 @@ void cMenu::drawcolorpicker(int x, int y, const char *szString, Color &col) {
 
 void cMenu::renderAim(int x, int y) {
     
+    vector<string> Hitgroup;  // Resolver
+    
+    Hitgroup.push_back("Head");
+    Hitgroup.push_back("Body");
+    Hitgroup.push_back("Legs");
+    
     this->renderCheckbox(x - 15, y, "Enabled", &vars.aimbot.enabled);
     this->renderCheckbox(x - 15, y + 20, "SilentAim", &vars.aimbot.silent);
     //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
@@ -485,10 +491,15 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 140, "Hitchance", &vars.aimbot.hitchance);
     this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
     this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
-    
-    
     this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
     this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
+    
+    this->renderCheckbox(x - 15, y + 240, "Legit Aimbot", &vars.aimbot.LegitEnabled);
+    this->renderSlider(x + 5, y + 260, 150, "Legit FOV", vars.aimbot.legitFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 280, "Smoothing", &vars.aimbot.smooth);
+    this->renderSlider(x + 5, y + 300, 150, "Amount", vars.aimbot.smoothf, 1.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 320, "Target Hitgroup", &vars.aimbot.legitHitscan);
+    this->renderCombo(x + 10, y + 340, 150, 20, "Head", Hitgroup, vars.aimbot.legitHitscanType, &vars.legithitscanpri_opend);
     
     //Middle
     this->renderCheckbox(x + 235, y, "Auto Scope", &vars.aimbot.autoscope);

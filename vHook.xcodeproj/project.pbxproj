@@ -53,6 +53,8 @@
 		91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A9506122BF11ED007E0CB7 /* thirdperson.hpp */; };
 		91BBD44222C0829C006B9EA0 /* moonwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BBD44022C0829C006B9EA0 /* moonwalk.cpp */; };
 		91BBD44322C0829C006B9EA0 /* moonwalk.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BBD44122C0829C006B9EA0 /* moonwalk.hpp */; };
+		91BD7AE322F526EF00CB1BE1 /* legit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BD7AE122F526EF00CB1BE1 /* legit.cpp */; };
+		91BD7AE422F526EF00CB1BE1 /* legit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BD7AE222F526EF00CB1BE1 /* legit.hpp */; };
 		91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */; };
 		91E6831F22E6F6F10040A7D4 /* FireEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */; };
 		91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91FF5F7A22EB584E003BDC7D /* fakelag.cpp */; };
@@ -175,6 +177,8 @@
 		91A9506122BF11ED007E0CB7 /* thirdperson.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = thirdperson.hpp; path = Hacks/thirdperson.hpp; sourceTree = "<group>"; };
 		91BBD44022C0829C006B9EA0 /* moonwalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = moonwalk.cpp; sourceTree = "<group>"; };
 		91BBD44122C0829C006B9EA0 /* moonwalk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = moonwalk.hpp; sourceTree = "<group>"; };
+		91BD7AE122F526EF00CB1BE1 /* legit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = legit.cpp; path = Hacks/legit.cpp; sourceTree = "<group>"; };
+		91BD7AE222F526EF00CB1BE1 /* legit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = legit.hpp; path = Hacks/legit.hpp; sourceTree = "<group>"; };
 		91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IEngineVGui.h; path = SDK/IEngineVGui.h; sourceTree = "<group>"; };
 		91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FireEvent.cpp; sourceTree = "<group>"; };
 		91FF5F7A22EB584E003BDC7D /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fakelag.cpp; path = Hacks/fakelag.cpp; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 				91FF5F7B22EB584E003BDC7D /* fakelag.hpp */,
 				91286C1022EE046C00AFBC06 /* autostop.cpp */,
 				91286C1122EE046C00AFBC06 /* autostop.hpp */,
+				91BD7AE122F526EF00CB1BE1 /* legit.cpp */,
+				91BD7AE222F526EF00CB1BE1 /* legit.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */,
 				915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */,
 				9ADC15ED1F8F77F600BBF4A7 /* esp.h in Headers */,
+				91BD7AE422F526EF00CB1BE1 /* legit.hpp in Headers */,
 				8F4E12EC200FCAEA000F17A0 /* cfg.h in Headers */,
 				9ADC15F11F8F7AFE00BBF4A7 /* spammer.h in Headers */,
 				91BBD44322C0829C006B9EA0 /* moonwalk.hpp in Headers */,
@@ -648,6 +655,7 @@
 				8F4E12E4200FBE2E000F17A0 /* FireGameEvent.cpp in Sources */,
 				8FB45F1F207FCF79003567EF /* asuswalls.cpp in Sources */,
 				148074D81FA105C5004ED508 /* resolver.cpp in Sources */,
+				91BD7AE322F526EF00CB1BE1 /* legit.cpp in Sources */,
 				91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */,
 				B67AE8591F91D0B200ADDCD8 /* autowall.cpp in Sources */,
 				B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */,

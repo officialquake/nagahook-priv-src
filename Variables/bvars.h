@@ -16,6 +16,7 @@ public:
     bool players_opend;
     bool fakeping_opend;
     // Menu
+    bool legithitscanpri_opend;
     bool colors_opend;
     // Misc
     bool fakelag_opend;
@@ -52,6 +53,17 @@ public:
     public:
         
         bool enabled     = true;         // Enable
+        
+        bool LegitEnabled = false;
+        bool legitHitscan = false;
+        float legitFOV = 0.f;
+        bool smooth        = false;
+        float smoothf    = 1.f;
+        bool LegitRCS = false;
+        float LegitRCSx = 0.f;
+        float LegitRCSy = 0.f;
+        int legitHitscanType = 0;
+        
         bool autoknife     = false;         // Enable
         bool autostop     = false;         // Enable
         bool prediction        = false;
@@ -134,6 +146,7 @@ public:
         bool active    = true;
         float edge_distance = 25.f;
         bool edge    = false;
+        
         
         
         
