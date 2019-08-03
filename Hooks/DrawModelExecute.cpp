@@ -331,6 +331,19 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return secondWire;
                     }();
                     
+                    matrix3x4_t localfakelagmatrix[128];
+                    
+                    if (*send_packet == true)
+                        local->SetupBones(localfakelagmatrix, 128, BONE_USED_BY_HITBOX, pGlobals->curtime);
+                    
+                    if (vars.visuals.fakelagchams && local->GetVelocity().Length2D() > 30)
+                    {
+                        materialCheckFirst->AlphaModulate(vars.visuals.playerchams_alpha / 255.0f - 0.1);
+                        materialCheckFirst->ColorModulate(190, 190, 190);
+                        pModelRender->ForcedMaterialOverride(Dogtag);
+                        CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
+                        pModelRender->ForcedMaterialOverride(nullptr);
+                    }
                     
                     if(vars.visuals.enemyonly && local->GetTeam() == entity->GetTeam())
                     {
