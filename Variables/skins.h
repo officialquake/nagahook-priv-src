@@ -1,7 +1,7 @@
 class Skins {
 public:
-    int knifeT      = WEAPON_KNIFE_BUTTERFLY;
-    int knifeCT     = WEAPON_KNIFE_BUTTERFLY;
+    int knifeT      = WEAPON_KNIFE_URSUS;
+    int knifeCT     = WEAPON_KNIFE_URSUS;
     int TknifeID    = 409;  // Ruby
     int CTknifeID   = 409;   // Fade
     
@@ -18,7 +18,7 @@ public:
     int scout   = 222;
     int sg      = 259;
     int aug     = 455;
-    int awp     = 279;
+    int awp     = 662;
     int g3      = 511;
     int scar    = 597;
     // Pistols
