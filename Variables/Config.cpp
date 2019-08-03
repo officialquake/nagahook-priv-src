@@ -138,6 +138,11 @@ void Config::LoadConfig() {
     
     // Right Visual
     vars.visuals.chams= cfgget_b("Visuals", "Player Chams");
+    
+    vars.visuals.fakelagchams= cfgget_b("Visuals", "Fake Lag Chams");
+    vars.visuals.fakelagtype       = cfgget_i("Visuals", "Fake Lag Type");
+    vars.visuals.fakelagchams_alpha       = cfgget_i("Visuals", "Fake Alpha");
+    
     vars.visuals.aaline= cfgget_b("Visuals", "AA Line");
     vars.visuals.anglelinenames= cfgget_b("Visuals", "AA Line Names");
     
@@ -311,6 +316,7 @@ void Config::SaveConfig() {
     
     
     cfg.SetBoolValue("Visuals", "Player Chams", GetBoolValue(vars.visuals.chams));
+    cfg.SetBoolValue("Visuals", "Fake Lag Chams", GetBoolValue(vars.visuals.fakelagchams));
     cfg.SetBoolValue("Visuals", "AA Line", GetBoolValue(vars.visuals.aaline));
     cfg.SetBoolValue("Visuals", "AA Line Names", GetBoolValue(vars.visuals.anglelinenames));
     cfg.SetBoolValue("Visuals", "Hand Chams", GetBoolValue(vars.visuals.handchams));
@@ -321,6 +327,8 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Visuals", "PCA", GetIntValue(vars.visuals.playerchams_alpha));
     cfg.SetLongValue("Visuals", "HCA", GetIntValue(vars.visuals.handchams_alpha));
     cfg.SetLongValue("Visuals", "WCA", GetIntValue(vars.visuals.weaponchams_alpha));
+    cfg.SetLongValue("Visuals", "Fake Alpha", GetIntValue(vars.visuals.fakelagchams_alpha));
+    cfg.SetLongValue("Visuals", "Fake Lag Type", GetIntValue(vars.visuals.fakelagtype));
     
     //cfg.SetBoolValue("Visuals", "Grenade ESP", GetBoolValue(vars.visuals.grenade));
     cfg.SetBoolValue("Visuals", "Direction", GetBoolValue(vars.visuals.direction));

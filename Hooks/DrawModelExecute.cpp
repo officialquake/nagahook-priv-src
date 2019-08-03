@@ -332,6 +332,8 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return Random3;
                     }();
                     
+                    
+                    
                     IMaterial* materialCheckSecond = [&]() -> IMaterial*
                     {
                         if(vars.visuals.playersType == 0)
@@ -342,6 +344,34 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return secondWire;
                     }();
                     
+                    IMaterial* materialFakelag = [&]() -> IMaterial*
+                    {
+                        if(vars.visuals.fakelagtype == 0)
+                            return Random4;
+                        else if(vars.visuals.fakelagtype == 1)
+                            return firstLayer;
+                        else if (vars.visuals.fakelagtype == 2)
+                            return firstWire;
+                        else if(vars.visuals.fakelagtype == 3)
+                            return Plastic;
+                        else if(vars.visuals.fakelagtype == 4)
+                            return Gold;
+                        else if(vars.visuals.fakelagtype == 5)
+                            return crystal;
+                        else if(vars.visuals.fakelagtype == 6)
+                            return Glass;
+                        else if(vars.visuals.fakelagtype == 7)
+                            return Mp3;
+                        else if(vars.visuals.fakelagtype == 8)
+                            return Random;
+                        else if(vars.visuals.fakelagtype == 9)
+                            return Random1;
+                        else if(vars.visuals.fakelagtype == 10)
+                            return Random2;
+                        else if(vars.visuals.fakelagtype == 11)
+                            return Random3;
+                    }();
+                    
                     
                     
                     if (CreateMove::sendPacket == true)
@@ -349,9 +379,9 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     
                     if (vars.misc.flagchams && local->GetVelocity().Length2D() > 30)
                     {
-                        materialCheckFirst->AlphaModulate(vars.visuals.playerchams_alpha / 255.0f - 0.1);
-                        materialCheckFirst->ColorModulate(FakeLagColor);
-                        pModelRender->ForcedMaterialOverride(firstLayer);
+                        materialFakelag->AlphaModulate(vars.visuals.fakelagchams_alpha / 255.0f - 0.1);
+                        materialFakelag->ColorModulate(FakeLagColor);
+                        pModelRender->ForcedMaterialOverride(materialFakelag);
                         CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
                         pModelRender->ForcedMaterialOverride(nullptr);
                     }

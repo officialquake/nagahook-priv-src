@@ -14,6 +14,7 @@ public:
     bool hands_opend;
     bool weapons_opend;
     bool players_opend;
+    
     bool fakeping_opend;
     // Menu
     bool legithitscanpri_opend;
@@ -154,13 +155,15 @@ public:
         bool chams      = true;         // Player Chams
         bool handchams  = false;        // Handchams obv
         bool weaponchams= false;        // Weapon chams obv
+        bool fakelagchams= false;        // Weapon chams obv
         int weaponType  = 1;            // Weapon Type 0 - Lit 1 - Texture 2 - Wireframe
         int handsType   = 1;            // Hand   Type 0 - Lit 1 - Texture 2 - Wireframe
         int playersType = 1;            // Player Type 0 - Lit 1 - Texture
-        
+        int fakelagtype = 1;            // Player Type 0 - Lit 1 - Texture
         int weaponchams_alpha   = 255;  // Weapon Chams Alpha / opacity
         int handchams_alpha     = 255;  // Hand   Chams Alpha / opacity
         int playerchams_alpha   = 255;  // Player Chams Alpha / opacity
+        int fakelagchams_alpha   = 255;  // Player Chams Alpha / opacity
         
     }visuals;
     
