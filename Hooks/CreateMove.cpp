@@ -70,10 +70,6 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     DoTrigger(cmd);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
-    if(local->GetLifeState() == LIFE_ALIVE){
-        LegitAA(cmd, sendPacket);
-    }
-    
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
     lby_spin(cmd, local);
@@ -177,6 +173,53 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
             cmd->viewangles.ClampAngles();
         }
     }
+    
+    if (vars.misc.manualaa)
+    {
+        if (!vars.misc.legitaa)
+            return;
+        
+        if (pInputSystem->IsButtonDown(KEY_LEFT))
+        {
+            vars.misc.AAAngle = -90;
+        }
+        if (pInputSystem->IsButtonDown(KEY_RIGHT))
+        {
+            vars.misc.AAAngle = 90;
+        }
+        if (pInputSystem->IsButtonDown(KEY_DOWN))
+        {
+            vars.misc.AAAngle = 180;
+        }
+        if (pInputSystem->IsButtonDown(KEY_UP))
+        {
+            vars.misc.AAAngle = 0;
+        }
+    }
+    
+    if (vars.misc.legitaa)
+    {
+        if (!local) return;
+        if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE || local->GetMoveType() & MOVETYPE_LADDER) return;
+        if (weapon->IsGrenade())
+            return;
+        {
+            static int ChokedPackets = -1;
+            ChokedPackets++;
+            if (ChokedPackets < 1)
+            {
+                *bSendPacket = true;
+            }
+            else
+            {
+                *bSendPacket = false;
+                cmd->viewangles.y -= vars.misc.AAAngle;
+                ChokedPackets = -1;
+            }
+        }
+    }
+    cmd->viewangles.ClampAngles();
+    normalize_angles;
     
     if(cmd && cmd->command_number)
     {

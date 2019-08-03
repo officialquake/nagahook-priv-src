@@ -177,9 +177,17 @@ public:
         bool dlights        = false;
         bool unload        = false;
         
+        float AAAngle;
+        int Up = 1;
+        int Down = 1;
+        int Left = 1;
+        int Right = 1;
+
+        
         bool norecoil       = true;
         bool thirdperson    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
+        bool manualaa    = false;     // Basically RCS without slider
         bool novisual       = true;     // No visual recoil ofc
         bool bhop           = true;     // BunnyHop
         bool autostrafe     = true;     // Strafes for you ofc

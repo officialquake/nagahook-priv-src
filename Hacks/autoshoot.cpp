@@ -21,7 +21,7 @@ float Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon)
     return hitchance;
 }
 
-void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd)
+/*void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd)
 {
     if (!vars.aimbot.autoshoot)
         return;
@@ -33,18 +33,15 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     
     if (weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE)
         return;
-    
-    auto weapon = GetActiveWeapon(player);
-    
-    
-    
-    
+
     if (cmd->buttons & IN_USE)
         return;
     
     if (cmd->buttons & IN_ATTACK) {
         cmd->viewangles.y;
     }
+    
+    auto weapon = GetActiveWeapon(player);
     
     float nextPrimaryAttack = activeWeapon->GetNextPrimaryAttack();
     float server_time = player->GetTickBase() * pGlobals->interval_per_tick;
@@ -53,7 +50,7 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     {
         if (vars.aimbot.silent)
         {
-            if (vars.aimbot.autoshoot && !(cmd->buttons & IN_ATTACK))
+            if (vars.aimbot.autoshoot && !(cmd->buttons & IN_ATTACK) & !(weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE))
                 
             {
                 cmd->buttons |= IN_ATTACK;
@@ -87,6 +84,62 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     }
     
     
+}*/
+
+void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd)
+{
+    if (!vars.aimbot.autoshoot)
+        return;
+    
+    if (!player || !activeWeapon || activeWeapon->GetAmmo() == 0)
+        return;
+    
+    CSWeaponType weaponType = (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType;
+    
+    if (weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE)
+        return;
+    
+    
+    if (cmd->buttons & IN_USE)
+        return;
+    
+    float nextPrimaryAttack = activeWeapon->GetNextPrimaryAttack();
+    float server_time = player->GetTickBase() * pGlobals->interval_per_tick;
+    
+    
+    if ((vars.aimbot.accuracyhithcance * 1.5 <= Hitchance(player, activeWeapon)) || vars.aimbot.accuracyhithcance == 0 || *activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
+    {
+    if (nextPrimaryAttack > server_time)
+    {
+        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
+            cmd->buttons &= ~IN_ATTACK2;
+        else
+            cmd->buttons &= ~IN_ATTACK;
+    }
+    else
+    {
+        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
+            cmd->buttons |= IN_ATTACK2;
+        else
+            cmd->buttons |= IN_ATTACK;
+    }
+    }
+    
+    if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_TASER ) {
+        float playerDistance = player->GetVecOrigin().DistTo ( player->GetVecOrigin() );
+        
+        Vector zeus_point;
+        zeus_point = GetHitboxPosition(player, (int)HITBOX_BELLY);
+        if ( playerDistance <= 184.f )
+        {
+            //cmd->buttons &= ~IN_ATTACK;
+            cmd->buttons |= IN_ATTACK;
+        }
+    }
+        
+    
+    
+    
 }
 
 
@@ -108,26 +161,6 @@ void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
         pCmd->buttons &= ~IN_ATTACK;
     
 }
-// Auto Revolver
-/*void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
-{
-    if(!vars.aimbot.autocock && !vars.aimbot.autoshoot)
-        return;
-    
-    if ( pCmd->buttons & IN_RELOAD )
-        return;
-    
-    if ( *weapon->GetItemDefinitionIndex() != ItemDefinitionIndex::WEAPON_REVOLVER )
-        return;
-    static int timer = 0;
-    timer++;
-    
-    if ( timer <= 15 )
-        pCmd->buttons |= IN_ATTACK;
-    
-    else
-        timer = 0;
-}*/
 
 void AutoKnife(C_BaseEntity* playerknife, CUserCmd* cmd){
     if (!vars.aimbot.autoknife)

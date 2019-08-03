@@ -54,7 +54,8 @@ enum VIEW_ANTIIAIM_AYAW
 };
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
-void LegitAA(CUserCmd *cmd, bool& bSendPacket);
+
+
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local);
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local);
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local);

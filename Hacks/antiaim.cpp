@@ -304,36 +304,6 @@ void lby_spin(CUserCmd* cmd, C_BaseEntity* local)
     cmd->viewangles.y = local->GetLowerBodyYawTarget() +fmodf(pGlobals->curtime * factor, 360.0);
 }
 
-void LegitAA(CUserCmd *pCmd, bool& bSendPacket)
-{
-    C_BasePlayer* pLocal = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    if ((pCmd->buttons & IN_USE) || pLocal->GetMoveType() == MOVETYPE_LADDER)
-        return;
-    
-    //for the memes
-    Vector oldAngle = pCmd->viewangles;
-    float oldForward = pCmd->forwardmove;
-    float oldSideMove = pCmd->sidemove;
-    if (vars.misc.legitaa && !((pCmd->buttons) & IN_ATTACK))
-    {
-        static int ChokedPackets = -1;
-        ChokedPackets++;
-        static bool yFlip;
-        if (ChokedPackets < 1)
-        {
-            bSendPacket = true;
-        }
-        else
-        {
-            bSendPacket = false;
-            yFlip ? pCmd->viewangles.y += 90.f : pCmd->viewangles.y -= 90.f;
-            ChokedPackets = -1;
-        }
-        yFlip != yFlip;
-        
-    }
-}
 
 
 void do_real(CUserCmd* cmd, C_BaseEntity* local) {

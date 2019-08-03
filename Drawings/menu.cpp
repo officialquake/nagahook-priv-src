@@ -607,7 +607,8 @@ void cMenu::renderAntiAim(int x, int y) {
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
-    this->renderCheckbox(x + 235, y + 50, "Legit AA (no worc)", &vars.misc.legitaa);
+    this->renderCheckbox(x + 235, y + 50, "Legit AA (IDK worc)", &vars.misc.legitaa);
+    this->renderCheckbox(x + 235, y + 130, "Manual AA (IDK worc)", &vars.misc.manualaa);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);

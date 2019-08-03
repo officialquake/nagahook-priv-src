@@ -55,7 +55,7 @@ void DrawScope(C_BaseEntity* local)
 
 void manualaa(C_BaseEntity* Local)
 {
-    if ( !vars.visuals.antiaim_indicator )
+    if (!vars.visuals.antiaim_indicator )
         return;
     if(!pEngine->IsInGame() && !pEngine->IsConnected())
         return;

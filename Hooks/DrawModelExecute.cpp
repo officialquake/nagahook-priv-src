@@ -1,4 +1,5 @@
 #include "main.h"
+#include "DrawModelExecute.h"
 string DirName(string source)
 {
     source.erase(find(source.rbegin(), source.rend(), '/').base(), source.end());
@@ -331,16 +332,16 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return secondWire;
                     }();
                     
-                    matrix3x4_t localfakelagmatrix[128];
                     
-                    if (*send_packet == true)
+                    
+                    if (CreateMove::sendPacket == true)
                         local->SetupBones(localfakelagmatrix, 128, BONE_USED_BY_HITBOX, pGlobals->curtime);
                     
-                    if (vars.visuals.fakelagchams && local->GetVelocity().Length2D() > 30)
+                    if (vars.misc.flagchams && local->GetVelocity().Length2D() > 30)
                     {
                         materialCheckFirst->AlphaModulate(vars.visuals.playerchams_alpha / 255.0f - 0.1);
                         materialCheckFirst->ColorModulate(190, 190, 190);
-                        pModelRender->ForcedMaterialOverride(Dogtag);
+                        pModelRender->ForcedMaterialOverride(crystal);
                         CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
                         pModelRender->ForcedMaterialOverride(nullptr);
                     }
@@ -365,18 +366,6 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(materialCheckFirst);
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                         
-                    }
-                    if (vars.misc.fakelag && vars.misc.flagchams)
-                    {
-                        /*matrix3x4_t fakelagmatrix[128];
-                        IMaterial* fakelagmaterial = nullptr;
-                        fakelagmaterial = pMatSystem->FindMaterial("models/inventory_items/dogtags/dogtags_outline", TEXTURE_GROUP_OTHER);
-                        fakelagmaterial->AlphaModulate(vars.colors.fakelag_a / 255.f - 0.1);
-                        fakelagmaterial->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, false);
-                        fakelagmaterial->ColorModulate(vars.colors.fakelag_r / 255.0f, vars.colors.fakelag_g / 255.0f, vars.colors.fakelag_b / 255.0f);
-                        pModelRender->ForcedMaterialOverride(fakelagmaterial);
-                        CallOriginalModel(thisptr, context, state, pInfo, fakelagmatrix);
-                        pModelRender->ForcedMaterialOverride(nullptr);*/
                     }
                     
                 }

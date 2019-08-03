@@ -164,6 +164,7 @@
 		91286C1022EE046C00AFBC06 /* autostop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autostop.cpp; path = Hacks/autostop.cpp; sourceTree = "<group>"; };
 		91286C1122EE046C00AFBC06 /* autostop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = autostop.hpp; path = Hacks/autostop.hpp; sourceTree = "<group>"; };
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
+		914D20BD22F556B1005B781D /* DrawModelExecute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DrawModelExecute.h; path = Hooks/DrawModelExecute.h; sourceTree = "<group>"; };
 		915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnginePrediction.h; path = Hacks/EnginePrediction.h; sourceTree = "<group>"; };
 		915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnginePrediction.cpp; path = Hacks/EnginePrediction.cpp; sourceTree = "<group>"; };
 		91936B5922E7648D00529F72 /* EventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventListener.h; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 				9A213B2A1F8660FD00518DE8 /* OverrideView.cpp */,
 				9A213B2C1F8660FD00518DE8 /* RunCommand.cpp */,
 				9A213B441F866CCB00518DE8 /* BeginFrame.cpp */,
+				914D20BD22F556B1005B781D /* DrawModelExecute.h */,
 			);
 			name = Hooks;
 			sourceTree = "<group>";
