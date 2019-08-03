@@ -218,6 +218,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 if(vars.aimbot.autoshoot)
                 {
                     AutoShoot(local, weapon, pCmd);
+                    AutoCock(pCmd, weapon);
                 }
                 
                 if(vars.aimbot.autocrouch)

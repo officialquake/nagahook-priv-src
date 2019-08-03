@@ -74,6 +74,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     backjizzer(cmd, local);
     lby_spin(cmd, local);
     tank(cmd, local);
+    AutoCock(cmd, weapon);
     resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
     DoAim(cmd, local, weapon, flForwardmove, flSidemove);

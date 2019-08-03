@@ -300,8 +300,6 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return vars.colors.fakelag;
                         else if(entity->GetTeam() == 3)
                             return vars.colors.fakelag;
-                        else if(pEngine->GetLocalPlayer() == 3)
-                            return vars.colors.fakelag;
                     }();
                     
                     IMaterial* materialCheckFirst = [&]() -> IMaterial*

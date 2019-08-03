@@ -109,20 +109,20 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     
     if ((vars.aimbot.accuracyhithcance * 1.5 <= Hitchance(player, activeWeapon)) || vars.aimbot.accuracyhithcance == 0 || *activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
     {
-    if (nextPrimaryAttack > server_time)
-    {
-        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
-            cmd->buttons &= ~IN_ATTACK2;
+        if (nextPrimaryAttack > server_time)
+        {
+            if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
+                cmd->buttons &= ~IN_ATTACK2;
+            else
+                cmd->buttons &= ~IN_ATTACK;
+        }
         else
-            cmd->buttons &= ~IN_ATTACK;
-    }
-    else
-    {
-        if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
-            cmd->buttons |= IN_ATTACK2;
-        else
-            cmd->buttons |= IN_ATTACK;
-    }
+        {
+            if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER)
+                cmd->buttons |= IN_ATTACK2;
+            else
+                cmd->buttons |= IN_ATTACK;
+        }
     }
     
     if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_TASER ) {
@@ -136,12 +136,30 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
             cmd->buttons |= IN_ATTACK;
         }
     }
-        
-    
-    
     
 }
 
+void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
+{
+    if(!vars.aimbot.autoshoot)
+        return;
+    
+    //bool shootingRevolver = false;
+    
+    if ( pCmd->buttons & IN_RELOAD )
+        return;
+    
+    if ( *weapon->GetItemDefinitionIndex() != ItemDefinitionIndex::WEAPON_REVOLVER )
+        return;
+    static int timer = 0;
+    timer++;
+    
+    if ( timer <= 15 )
+        pCmd->buttons |= IN_ATTACK;
+    
+    else
+        timer = 0;
+}
 
 
 void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
