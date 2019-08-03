@@ -82,7 +82,6 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     DoAim(cmd, local, weapon, flForwardmove, flSidemove);
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
-    AutoCock(cmd, weapon);
     RecoilControl(local, cmd);
     Autostop(cmd, local);
     AutoKnife(local, cmd);

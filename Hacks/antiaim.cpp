@@ -13,6 +13,76 @@ Vector atTargets;
 bool isManual = false;
 bool Swtich = false;
 static bool jitter2 = false;
+
+
+
+
+void inline SinCos(float radians, float* sine, float* cosine)
+{
+    *sine = sin(radians);
+    *cosine = cos(radians);
+}
+
+
+float next_lby_update;
+float old_lby;
+
+float corrected_time( CUserCmd* ucmd, C_BaseEntity* local)
+{
+    static int g_tick = 0;
+    static CUserCmd* g_pLastCmd = nullptr;
+    if ( !g_pLastCmd || g_pLastCmd->hasbeenpredicted ) {
+        g_tick = local->GetTickBase( );
+    } else {
+        // Required because prediction only runs on frames, not ticks
+        // So if your framerate goes below tickrate, m_nTickBase won't update every tick
+        ++g_tick;
+    }
+    g_pLastCmd = ucmd;
+    float curtime = g_tick * pGlobals->interval_per_tick;
+    return curtime;
+}
+
+bool lby_updated( CUserCmd* cmd, C_BaseEntity* local )
+{
+    float server_time = corrected_time(cmd, local);
+    static bool once = true;
+    
+    if ( once && local->GetLowerBodyYawTarget( ) != old_lby ) {
+        old_lby = local->GetLowerBodyYawTarget( );
+        next_lby_update = server_time + 1.1;
+        once = false;
+    }
+    
+    bool on_ground = local->GetFlags( ) & FL_ONGROUND;
+    
+    if ( server_time >= next_lby_update && on_ground ) {
+        next_lby_update = server_time + 1.1;
+        return true;
+    }
+    
+    return false;
+}
+
+bool NextLBYUpdate2( CUserCmd* cmd, C_BaseEntity* local )
+{
+    float server_time = corrected_time(cmd, local);
+    
+    if (local->GetVelocity().Length2D() > 0.1f)
+    {
+        next_lby_update = server_time + 0.22 + pGlobals->interval_per_tick;
+        return false;
+    }
+    
+    if ((next_lby_update < server_time) && (local->GetFlags() & FL_ONGROUND) && local->GetVelocity().Length2D() < 1.f)
+    {
+        next_lby_update = server_time + 1.1 + pGlobals->interval_per_tick;
+        return true;
+    }
+    
+    return false;
+}
+
 void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector& up)
 {
     float sr, sp, sy, cr, cp, cy;
@@ -70,8 +140,6 @@ void AngleVectors2(const Vector& qAngles, Vector& vecForward)
 
 bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, float flCornor)
 {
-    if(!vars.visuals.edge)
-        return;
     Ray_t ray;
     trace_t tr;
     
@@ -194,40 +262,6 @@ void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
     }
 }
 
-/*void doManual(CUserCmd* cmd){
-    if(vars.misc.antiaim){
-    static bool left = false;
-    static bool right = false;
-    static bool back = false;
-    float_t pos = cmd->viewangles.y;
-    
-    bool flip = false;
-    
-    int Height, Width;
-    pEngine->GetScreenSize(Height, Width);
-    
-    int x = Width / 2;
-    int y = Height / 2;
-    
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
-        left = true; right = false; back = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
-        left = false; right = true; back = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_DOWN)) {
-        left = false; right = false; back = true;
-    }
-    if (left) // left real
-        return pos + 90.f;
-    
-    else if (right) // right real
-        return pos - 90.f;
-    
-    else if (back) // backwards
-        return pos + 180.f;
-}
-}*/
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
     if(!vars.misc.backjizzer)
@@ -301,82 +335,6 @@ void LegitAA(CUserCmd *pCmd, bool& bSendPacket)
     }
 }
 
-/*if(!vars.misc.aaY) {
- return;
- 
- static bool turbo = true;
- if (turbo)
- {
- cmd->viewangles.y -= 90.0f;
- turbo =  !turbo;
- }
- else
- {
- cmd->viewangles.y += 90.0f;
- turbo = !turbo;
- } //Pasted by Bellez :)
- 
- */
-
-float next_lby_update;
-float old_lby;
-
-float corrected_time( CUserCmd* ucmd, C_BaseEntity* local)
-{
-    static int g_tick = 0;
-    static CUserCmd* g_pLastCmd = nullptr;
-    if ( !g_pLastCmd || g_pLastCmd->hasbeenpredicted ) {
-        g_tick = local->GetTickBase( );
-    } else {
-        // Required because prediction only runs on frames, not ticks
-        // So if your framerate goes below tickrate, m_nTickBase won't update every tick
-        ++g_tick;
-    }
-    g_pLastCmd = ucmd;
-    float curtime = g_tick * pGlobals->interval_per_tick;
-    return curtime;
-}
-
-bool lby_updated( CUserCmd* cmd, C_BaseEntity* local )
-{
-    float server_time = corrected_time(cmd, local);
-    static bool once = true;
-    
-    if ( once && local->GetLowerBodyYawTarget( ) != old_lby ) {
-        old_lby = local->GetLowerBodyYawTarget( );
-        next_lby_update = server_time + 1.1;
-        once = false;
-    }
-    
-    bool on_ground = local->GetFlags( ) & FL_ONGROUND;
-    
-    if ( server_time >= next_lby_update && on_ground ) {
-        next_lby_update = server_time + 1.1;
-        return true;
-    }
-    
-    return false;
-}
-
-bool NextLBYUpdate2( CUserCmd* cmd, C_BaseEntity* local )
-{
-    float server_time = corrected_time(cmd, local);
-    
-    if (local->GetVelocity().Length2D() > 0.1f)
-    {
-        next_lby_update = server_time + 0.22 + pGlobals->interval_per_tick;
-        return false;
-    }
-    
-    if ((next_lby_update < server_time) && (local->GetFlags() & FL_ONGROUND) && local->GetVelocity().Length2D() < 1.f)
-    {
-        next_lby_update = server_time + 1.1 + pGlobals->interval_per_tick;
-        return true;
-    }
-    
-    return false;
-}
-
 
 void do_real(CUserCmd* cmd, C_BaseEntity* local) {
     if (local->GetVelocity().Length2D() > 1.f) { // moving, lby starts updating at > 1.f velocity
@@ -436,61 +394,6 @@ void do_fake(CUserCmd* cmd) {
     cmd->viewangles.y = rand() % (180 - -180 + 1 ) + -180;
 }
 
-#define TICK_INTERVAL            (pGlobals->interval_per_tick)
-#define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
-
-/*void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
- 
-    float speed = local->GetVelocity().Length2D();
-    
-    float standing = vars.misc.freestanding;
-    float server_time = local->GetTickBase() * pGlobals->interval_per_tick * 2;
-    float time = TIME_TO_TICKS(server_time);
-    
-    bool jitter = false;
-    float lineRealAngle = vars.misc.aaY;
-    
-    while (time >= server_time)
-        time = 0.f;
-    
-    float idk = rand() % 100;
-    
-    /*if (speed <= 10 && (local->GetFlags() & FL_ONGROUND))
-     {
-     }
-    
-    jitter = !jitter;
-    if (time >= server_time / 2)
-    {
-        if (idk < 70)
-        {
-            if (!jitter)
-                cmd->viewangles.y = cmd->viewangles.y + standing;
-            
-        }
-        else
-        {
-            if (!jitter)
-                cmd->viewangles.y = cmd->viewangles.y - standing;
-            
-        }
-    }
-    else
-    {
-        if (idk < 70)
-        {
-            if (jitter)
-                cmd->viewangles.y = cmd->viewangles.y - standing;
-        }
-        else
-        {
-            if (jitter)
-                cmd->viewangles.y = cmd->viewangles.y + standing;
-            
-        }
-    }
-}*/
-
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
 {
@@ -510,6 +413,17 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
         return;
     
+    if(vars.visuals.edge){
+        auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);
+        
+        if (bEdge)
+            return;
+        
+        if(NextLBYUpdate2(cmd, local)){
+            cmd->viewangles.y += vars.misc.delta;
+        }
+    }
+    cmd->viewangles.x = 89.f;
     
     static bool fakeswitch = false;
     static bool bFlip = false;
@@ -538,7 +452,9 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 bPacket = true;
         }
         
-        
+        if (!vars.misc.fakelag) {
+            *bSendPacket = cmd->command_number % 2;
+        }
         
         if(vars.misc.aaX > 0) {
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Down){
@@ -548,21 +464,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 cmd->viewangles.x = -89;
             }
         }
-        if(vars.visuals.edge){
-            auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);
-            
-            if (bEdge)
-                return;
-            
-            if(NextLBYUpdate2(cmd, local)){
-                cmd->viewangles.y += vars.misc.delta;
-            }
-        }
-        cmd->viewangles.x = 89.f;
         
-        if (!vars.misc.fakelag) {
-            *bSendPacket = cmd->command_number % 2;
-        }
+        
         if(vars.misc.aaY > 0) {
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Backwards) {
                 cmd->viewangles.y = 180;
@@ -618,12 +521,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 int random = rand() % 100;
                 if (random < 98)
                     cmd->viewangles.y -= 180;
-                if (random < 15) {
+                if(random < 15) {
                     float change = -70 + (rand() % (int) (140 + 1));
-                    cmd->viewangles.y += change;
-                }
-                if (random == 69) {
-                    float change = -90 + (rand() % (int) ( 180 + 1));
                     cmd->viewangles.y += change;
                 }
             }
@@ -848,4 +747,4 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         
     }
     cmd->viewangles.ClampAngles();
-}
+};

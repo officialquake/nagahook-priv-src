@@ -115,12 +115,7 @@ int MakeHitscan(C_BaseEntity* entity)
             hitboxes.push_back(HITBOX_UPPER_CHEST);
         }
     }
-    
-    
-    
-    
-    
-    
+
     
     if(vars.aimbot.hitscan)
     {
@@ -153,16 +148,10 @@ int MakeHitscan(C_BaseEntity* entity)
     
 }
 
-
-
 void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)
 {
     
     if(!vars.aimbot.enabled)
-        return;
-    
-    CSWeaponType weaponType = (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType;
-    if (weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE || weaponType == CSWeaponType::WEAPONTYPE_KNIFE)
         return;
     
     Vector eyepos = local->GetEyePosition();
@@ -182,6 +171,9 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
         
         if(entity->GetHealth() < 1)
             continue;
+        
+        if(entity->IsGhost()) ///<== Aimbot.cpp
+            continue; // Ghost Fix
         
         if(entity->GetDormant())
             continue;
@@ -217,9 +209,6 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             canHit = getdmg >= vars.aimbot.mindmg;
         }
         
-        
-        // FOV HERE
-        
         atTargets = vTo;
         
         if(canHit || isVISIBLE)
@@ -228,26 +217,18 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             {
                 if(vars.aimbot.autoshoot)
                 {
-                    //pCmd->buttons |= IN_ATTACK;
                     AutoShoot(local, weapon, pCmd);
                 }
                 
-                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped() && (*weapon->GetItemDefinitionIndex() == WEAPON_AUG || *weapon->GetItemDefinitionIndex() == WEAPON_SG556 || *weapon->GetItemDefinitionIndex() == WEAPON_AWP || *weapon->GetItemDefinitionIndex() == WEAPON_SSG08 || *weapon->GetItemDefinitionIndex() == WEAPON_G3SG1 || *weapon->GetItemDefinitionIndex() == WEAPON_SCAR20)) //&& !local->IsScoped())
+                if(vars.aimbot.autocrouch)
+                {
+                    pCmd->buttons |= IN_BULLRUSH | IN_DUCK;
+                }
+                
+                if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0) //&& !local->IsScoped())
                 {
                     pCmd->buttons |= IN_ATTACK2;
                 }
-                
-                if(vars.aimbot.autocock && vars.aimbot.autoshoot && vars.aimbot.enabled)
-                {
-                    AutoCock(pCmd, weapon);
-                }
-                
-                if(vars.aimbot.autocrouch)
-
-
-                    pCmd->buttons |= IN_BULLRUSH | IN_DUCK;
-                }
-
                 
                 bool bAttack = true;
                 
@@ -265,14 +246,14 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     {
                         pCmd->viewangles = vTo;
                     }
-                    
                 }
-                
             }
             
         }
         
     }
+    
+}
     
 
 
