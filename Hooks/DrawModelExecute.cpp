@@ -341,7 +341,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     {
                         materialCheckFirst->AlphaModulate(vars.visuals.playerchams_alpha / 255.0f - 0.1);
                         materialCheckFirst->ColorModulate(190, 190, 190);
-                        pModelRender->ForcedMaterialOverride(crystal);
+                        pModelRender->ForcedMaterialOverride(firstLayer);
                         CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
                         pModelRender->ForcedMaterialOverride(nullptr);
                     }

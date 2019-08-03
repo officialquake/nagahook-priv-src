@@ -604,7 +604,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x - 15, y + 100, "AA Edge", &vars.visuals.edge);
     this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
     this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
-    this->renderSlider(x - 5, y + 170, 150, "Manual Edge Delta", vars.misc.flashalpha, 255, 0);
+    this->renderSlider(x - 5, y + 170, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
