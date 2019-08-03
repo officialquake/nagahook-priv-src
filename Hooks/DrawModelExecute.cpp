@@ -268,7 +268,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         {
             auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             auto* entity = pEntList->GetClientEntity(pInfo.entity_index);
-            C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+        
             
             if(entity)
             {
