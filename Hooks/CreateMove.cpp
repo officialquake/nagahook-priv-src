@@ -63,9 +63,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
-    duck->DuckCool(cmd);
+    
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
+    duck->DuckCool(cmd);
     CEnginePrediction::Instance()->Start(cmd);
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
@@ -186,6 +187,10 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         CreateMove::sendPacket =  true;
         
         movement->FakeLag(cmd);
+        if (local->GetLifeState() == LIFE_ALIVE)
+        {
+            LegitAA(cmd, weapon);
+        }
         
         *sendPacket = CreateMove::sendPacket;
 

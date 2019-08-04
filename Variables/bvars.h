@@ -161,7 +161,9 @@ public:
         int handsType   = 1;            // Hand   Type 0 - Lit 1 - Texture 2 - Wireframe
         int playersType = 1;            // Player Type 0 - Lit 1 - Texture
         int fakelagtype = 1;            // Player Type 0 - Lit 1 - Texture
+        
         int tptype = 1;
+        
         int weaponchams_alpha   = 255;  // Weapon Chams Alpha / opacity
         int handchams_alpha     = 255;  // Hand   Chams Alpha / opacity
         int playerchams_alpha   = 255;  // Player Chams Alpha / opacity
@@ -206,6 +208,7 @@ public:
         bool backtrack = false;
         bool moonwalk = false;
         float tpoffset = 64.f;
+        float bullettracelength = 1500.f;
         bool freestanding           = false;
         
         // Different Clantags
@@ -219,6 +222,7 @@ public:
         
         bool fakelag        = false;    // Fake lag enable (WIP)
         bool flagchams        = false;    // Fake lag enable (WIP)
+         bool scopechamshh        = false;    // Fake lag enable (WIP)
         int fakelagfactor   = 0;        // Fake Lag (WIP)
         bool adaptive       = false;
         bool fakeping        = false;    // Fake lag enable (WIP)

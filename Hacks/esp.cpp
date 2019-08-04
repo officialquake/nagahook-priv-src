@@ -56,6 +56,34 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
     
 }
 
+void BulletTrace(C_BaseEntity* pEntity)
+{
+    if(!vars.visuals.bullett)
+        return;
+    if(pEngine->IsInGame() && pEngine->IsConnected() && pEntity->GetLifeState() == LIFE_ALIVE)
+    {
+    Vector src3D, dst3D, forward, src, dst;
+    trace_t tr;
+    Ray_t ray;
+    CTraceFilter filter;
+    
+    AngleVectors(pEntity->GetEyePosition(), &forward);
+    filter.pSkip = pEntity;
+    src3D = pEntity->GetBonePosition( 8 ) - Vector( 0, 0, 0 );
+    dst3D = src3D + ( forward * vars.misc.bullettracelength );
+    
+    ray.Init(src3D, dst3D);
+    
+    pEngineTrace->TraceRay(ray, MASK_SHOT, &filter, &tr);
+    
+    if (!WorldToScreen(src3D, src) || !WorldToScreen(tr.endpos, dst))
+        return;
+    
+    draw->drawline(src.x, src.y, dst.x, dst.y, Color::Red());
+    draw->fillrgba(dst.x - 3, dst.y - 3, 6, 6, Color::Red());
+    }
+};
+
 void box3d(C_BaseEntity* entity, Color color) {
     
     Vector vOrigin = entity->GetVecOrigin();
@@ -438,6 +466,9 @@ void DrawPlayerESP()
             if(vars.visuals.armour)
                 DrawHealthbar(players.x, players.y + players.h + 3, players.w, 2, entity->GetArmor(), Color(72, 136, 189, 255));
             
+            if (vars.visuals.bullett)
+                BulletTrace(entity);
+            
             /*if(vars.visuals.armortext)
              draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetArmor()).c_str(), true);*/
             
@@ -510,8 +541,10 @@ void DrawPlayerESP()
                 }
             }
         }
+        
     }
 }
+
 
 /* Display menu */
 void pwnmymenu()

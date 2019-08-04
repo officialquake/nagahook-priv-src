@@ -510,7 +510,7 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
     this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 170, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 190, "Auto Knife", &vars.aimbot.autoknife);
+    this->renderCheckbox(x + 235, y + 190, "Head Tracers", &vars.visuals.bullett);
     
     this->renderCheckbox(x + 235, y + 210, "Hitmarker", &vars.visuals.hitmarker);
     this->renderCheckbox(x + 235, y + 230, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
@@ -626,6 +626,7 @@ void cMenu::renderAntiAim(int x, int y) {
     
     
     this->renderCheckbox(x + 235, y + 50, "Yaw Resolver", &vars.aimbot.Yawresolver);
+    this->renderCheckbox(x + 235, y + 100, "Legit AA (prob broken)", &vars.misc.legitaa);
     this->renderCombo(x + 235, y + 70, 90, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
     
     this->renderCheckbox(x - 15, y + 160, "Fake", &vars.misc.fakeaa); // 60
@@ -671,6 +672,7 @@ void cMenu::renderPlayer(int x, int y) {
     Players.push_back("Fishing Net");
     Players.push_back("Branches");
     Players.push_back("Plastic");
+    
     Hands.push_back("Platinum");
     Hands.push_back("Texture");
     Hands.push_back("Wireframe");
@@ -683,6 +685,7 @@ void cMenu::renderPlayer(int x, int y) {
     Hands.push_back("Fishing Net");
     Hands.push_back("Branches");
     Hands.push_back("Plastic");
+    
     Weapons.push_back("Platinum");
     Weapons.push_back("Texture");
     Weapons.push_back("Wireframe");
@@ -709,8 +712,7 @@ void cMenu::renderPlayer(int x, int y) {
     fakelag.push_back("Branches");
     fakelag.push_back("Plastic");
     
-    tptype.push_back("Texture");
-    
+
     this->renderCheckbox(x, y + 240, "Player Chams", &vars.visuals.chams);
     this->renderCheckbox(x, y + 260, "Hand Chams", &vars.visuals.handchams);
     this->renderCheckbox(x, y + 280, "Weapon Chams", &vars.visuals.weaponchams);
@@ -730,6 +732,7 @@ void cMenu::renderPlayer(int x, int y) {
         if(!vars.players_opend)
             this->renderCombo(x + 10, y + 380, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
     }
+    
     
     int iScreenWidth, iScreenHeight;
     pEngine->GetScreenSize(iScreenWidth, iScreenHeight);
@@ -760,6 +763,7 @@ void cMenu::renderPlayer(int x, int y) {
     this->renderSlider(x + 230, y + 340, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 360, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 380, 150, "Fake Lag Chams", vars.visuals.fakelagchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 400, 150, "Head Trace Length", vars.misc.bullettracelength, 3000.f, 0.f);
     //this->renderCheckbox(x + 235, y + 320, "Unload Cheeto", & vars.misc.unload);
 }
 

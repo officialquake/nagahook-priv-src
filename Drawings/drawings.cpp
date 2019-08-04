@@ -231,6 +231,35 @@ void cDrawings::drawboxoutline(int x, int y, int w, int h, Color color) {
     
 }
 
+void cDrawings::DrawCornerBox(int X, int Y, int W, int H, int inr, int ing, int inb, int outr, int otug, int outb) {
+    float lineW = (W / 5);
+    float lineH = (H / 6);
+    float lineT = 1;
+    
+    //outline
+    pSurface->DrawSetColor(inr, ing, inb, 255);
+    pSurface->DrawLine(X - lineT, Y - lineT, X + lineW, Y - lineT); //top left
+    pSurface->DrawLine(X - lineT, Y - lineT, X - lineT, Y + lineH);
+    pSurface->DrawLine(X - lineT, Y + H - lineH, X - lineT, Y + H + lineT); //bot left
+    pSurface->DrawLine(X - lineT, Y + H + lineT, X + lineW, Y + H + lineT);
+    pSurface->DrawLine(X + W - lineW, Y - lineT, X + W + lineT, Y - lineT); // top right
+    pSurface->DrawLine(X + W + lineT, Y - lineT, X + W + lineT, Y + lineH);
+    pSurface->DrawLine(X + W + lineT, Y + H - lineH, X + W + lineT, Y + H + lineT); // bot right
+    pSurface->DrawLine(X + W - lineW, Y + H + lineT, X + W + lineT, Y + H + lineT);
+    
+    //inline
+    pSurface->DrawSetColor(outr, otug, outb, 255);
+    pSurface->DrawLine(X, Y, X, Y + lineH);//top left
+    pSurface->DrawLine(X, Y, X + lineW, Y);
+    pSurface->DrawLine(X + W - lineW, Y, X + W, Y); //top right
+    pSurface->DrawLine(X + W, Y, X + W, Y + lineH);
+    pSurface->DrawLine(X, Y + H - lineH, X, Y + H); //bot left
+    pSurface->DrawLine(X, Y + H, X + lineW, Y + H);
+    pSurface->DrawLine(X + W - lineW, Y + H, X + W, Y + H);//bot right
+    pSurface->DrawLine(X + W, Y + H - lineH, X + W, Y + H);
+    
+}
+
 
 void cDrawings::fillrgba(int x, int y, int w, int h, Color color) {
     

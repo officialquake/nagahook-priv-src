@@ -16,4 +16,5 @@ void CDuck::DuckCool(CUserCmd* cmd)
         return;
     
     cmd->buttons |= IN_BULLRUSH;
+
 }

@@ -1,6 +1,6 @@
 #include "main.h"
 
-void AngleVectors(const Vector & angles, Vector * forward)
+void AngleVectors(const Vector &angles, Vector *forward)
 {
     Assert(s_bMathlibInitialized);
     Assert(forward);

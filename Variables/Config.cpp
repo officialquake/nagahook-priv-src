@@ -274,9 +274,9 @@ void Config::SaveConfig() {
     //cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
     
     cfg.SetBoolValue("Aimbot", "Legit Enabled", GetBoolValue(vars.aimbot.LegitEnabled));
-    cfg.SetBoolValue("Aimbot", "Legit FOV", GetFloatValue(vars.aimbot.legitFOV));
+    cfg.SetDoubleValue("Aimbot", "Legit FOV", GetFloatValue(vars.aimbot.legitFOV));
     cfg.SetBoolValue("Aimbot", "Smoothing", GetBoolValue(vars.aimbot.smooth));
-    cfg.SetBoolValue("Aimbot", "Smoothing FOV", GetFloatValue(vars.aimbot.smoothf));
+    cfg.SetDoubleValue("Aimbot", "Smoothing FOV", GetFloatValue(vars.aimbot.smoothf));
     cfg.SetBoolValue("Aimbot", "Legit Hitscan", GetBoolValue(vars.aimbot.legitHitscan));
     cfg.SetLongValue("Aimbot", "Legit Hitscan Type", GetIntValue(vars.aimbot.legitHitscanType));
     
