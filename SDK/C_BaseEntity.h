@@ -1,6 +1,7 @@
 #pragma once
 #include "AnimLayer.h"
-
+#include "animstate.h"
+#include "../Interfaces/hooks.h"
 class CCSWeaponInfo;
 class KeyValues;
 class CHudTexture;
@@ -266,7 +267,11 @@ public:
     {
         return (IClientNetworkable*)((uintptr_t)this + 0x10);
     }
-    
+    CCSGOAnimState* GetAnimState()
+    {
+        uintptr_t animstateoffset = hooker::FindPlayerAnimStateOffset();
+        return *reinterpret_cast<CCSGOAnimState**>((uintptr_t)this + animstateoffset);
+    }
     int GetId()
     {
         return *(int*)((uintptr_t)this + 0x94);
@@ -492,7 +497,10 @@ public:
     {
         return *(float*)((uintptr_t)this + offsets.DT_BasePlayer.m_flLowerBodyYawTarget);
     }
-    
+    float* GetLowerBodyYaw()
+    {
+        return (float*)((uintptr_t)this + offsets.DT_BasePlayer.m_flLowerBodyYawTarget);
+    }
     Vector GetViewAngles()
     {
         return *(Vector*)((uintptr_t)this + offsets.DT_BasePlayer.deadflag + 0x4);

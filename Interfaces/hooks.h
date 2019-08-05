@@ -1,9 +1,11 @@
 #pragma once
+#include <stdint.h>
 extern void InitializeInterfaces(); //  Handles all interfaces
 extern void InitializeVMTs();       //  Handles all vmt's
 extern void InitializeHooks();      //  Handles all hooks
 extern void UpdateResolver();       //
 extern void PrintInfo();            //  Prints cheat info
+
 
 #define CLIENTMODE_SIG  "\x48\x8B\xB7\x00\x00\x00\x00\x48\x8D\x3D\x00\x00\x00\x00\x5D\xE9"
 #define CLIENTMODE_MASK "xxx????xxx????xx"
@@ -24,3 +26,7 @@ extern void PrintInfo();            //  Prints cheat info
 #define CLANTAG_MASK    "xxx????xxxx????x????"
 
 
+namespace hooker
+{
+    uintptr_t FindPlayerAnimStateOffset();
+}

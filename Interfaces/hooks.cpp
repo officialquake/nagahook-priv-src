@@ -73,6 +73,17 @@ void InitializeVMTs()
     
 }
 
+uintptr_t hooker::FindPlayerAnimStateOffset()
+{
+    static uintptr_t animstateoffset;
+    if(!animstateoffset)
+    {
+        static uintptr_t animstateoffset = *reinterpret_cast<uint32_t*>(CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)"\x48\x8B\xBB\x00\x00\x00\x00\x48\x85\xFF\x74\x41\xE8\x00\x00\x00\x00\x4C", "xxx????xxxxxx????x", 0) +3);
+    }else{
+    }
+    return animstateoffset;
+}
+
 
 void InitializeHooks()
 {

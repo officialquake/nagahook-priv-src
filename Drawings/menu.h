@@ -31,6 +31,7 @@ public:
     void renderMisc(int x, int y);
     void renderColors(int x, int y);
     void renderConfigs(int x, int y);
+    void renderCredits(int x, int y);
     void weaponConfig(int x, int y);
     void renderColorPickers(int x, int y);
     

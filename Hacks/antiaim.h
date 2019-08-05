@@ -26,7 +26,7 @@ enum VIEW_ANTIAIM_YAW {
     SidewaysLeft    = 10,
     SidewaysRight   = 11,
     LBYBreaker      = 12,
-    ManualEdge      = 12,
+    Desync      = 12,
 };
 
 enum VIEW_ANTIIAIM_FYAW {
@@ -55,8 +55,8 @@ enum VIEW_ANTIIAIM_AYAW
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
 
-void LegitAA(CUserCmd* cmd, C_BaseCombatWeapon* weapon);
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local);
+void DesyncAA(CUserCmd* cmd, C_BaseEntity* local);
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local);
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local);
 void tank(CUserCmd* cmd, C_BaseEntity* local);

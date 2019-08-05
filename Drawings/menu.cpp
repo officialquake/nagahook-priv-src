@@ -24,6 +24,7 @@ Color border1           = Color(60, 60, 60, 255);
 Color border2           = Color(40, 40, 40, 255);
 Color black             = Color(0, 0, 0, 255);
 Color Avoz              = Color(163, 12, 224, 255);
+Color greycolor = Color(189, 195, 199, 255);
 Color FontColorDeselect = Color(190, 190, 190, 255);
 
 bool WasPressed, WasReleased;
@@ -480,7 +481,7 @@ void cMenu::renderAim(int x, int y) {
     Hitgroup.push_back("Body");
     Hitgroup.push_back("Legs");
     
-    this->renderCheckbox(x - 15, y, "Enabled", &vars.aimbot.enabled);
+    /*this->renderCheckbox(x - 15, y, "Enabled", &vars.aimbot.enabled);
     this->renderCheckbox(x - 15, y + 20, "SilentAim", &vars.aimbot.silent);
     //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
     this->renderSlider(x + 5, y + 40, 150, "Fov", vars.aimbot.FovToPlayer, 180, 0);
@@ -492,40 +493,29 @@ void cMenu::renderAim(int x, int y) {
     this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
     this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
     this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
-    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
+    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);*/
     
-    this->renderCheckbox(x - 15, y + 240, "Legit Aimbot", &vars.aimbot.LegitEnabled);
-    this->renderSlider(x + 5, y + 260, 150, "Legit FOV", vars.aimbot.legitFOV, 5.0f, 0.0f);
-    this->renderCheckbox(x - 15, y + 280, "Smoothing", &vars.aimbot.smooth);
-    this->renderSlider(x + 5, y + 300, 150, "Amount", vars.aimbot.smoothf, 1.0f, 0.0f);
-    this->renderCheckbox(x - 15, y + 320, "Target Hitgroup", &vars.aimbot.legitHitscan);
-    this->renderCombo(x + 10, y + 340, 150, 20, "Head", Hitgroup, vars.aimbot.legitHitscanType, &vars.legithitscanpri_opend);
+    this->renderCheckbox(x - 15, y + 15, "Legit Aimbot", &vars.aimbot.LegitEnabled);
+    this->renderSlider(x + 5, y + 35, 150, "FOV", vars.aimbot.legitFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 55, "Smoothing", &vars.aimbot.smooth);
+    this->renderSlider(x + 5, y + 75, 150, "Amount", vars.aimbot.smoothf, 1.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 95, "Target Hitgroup", &vars.aimbot.legitHitscan);
+    this->renderCombo(x + 10, y + 115, 150, 20, "Head", Hitgroup, vars.aimbot.legitHitscanType, &vars.legithitscanpri_opend);
     
-    //Middle
-    this->renderCheckbox(x + 235, y, "Auto Scope", &vars.aimbot.autoscope);
-    this->renderCheckbox(x + 235, y + 20, "Auto Pistol", &vars.aimbot.autopistol);
-    this->renderCheckbox(x + 235, y + 40, "Auto Crouch", &vars.aimbot.autocrouch);
-    this->renderCheckbox(x + 235, y + 60, "Auto Shoot", &vars.aimbot.autoshoot);
-    this->renderCheckbox(x + 235, y + 80, "Backtrack", &vars.aimbot.backtrack);
-    this->renderCheckbox(x + 235, y + 100, "Hitscan", &vars.aimbot.hitscan);
-    this->renderCheckbox(x + 235, y + 150, "Triggerbot", &vars.aimbot.trigger);
-    this->renderCheckbox(x + 235, y + 170, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 190, "Head Tracers", &vars.visuals.bullett);
+    this->renderCheckbox(x + 235, y + 15, "Backtrack", &vars.aimbot.backtrack);
+
+    this->renderCheckbox(x + 235, y + 35, "Triggerbot", &vars.aimbot.trigger);
+    this->renderCheckbox(x + 235, y + 55, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 75, "Desync AA (idk if work)", &vars.misc.legitaa);
     
-    this->renderCheckbox(x + 235, y + 210, "Hitmarker", &vars.visuals.hitmarker);
-    this->renderCheckbox(x + 235, y + 230, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
-    this->renderSlider(x + 230, y + 250, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 230, y + 270, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
-    this->renderSlider(x + 230, y + 290, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
-    this->renderCheckbox(x + 235, y + 310, "Hitmarker Allies", &vars.visuals.allieshit);
-    this->renderCheckbox(x + 235, y + 330, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    /**/
     
 
     
     //this->renderCheckbox(x + 235, y + 280, "Auto Stop", &vars.aimbot.autostop);
     
     
-    vector<string> hitscan;
+    /*vector<string> hitscan;
     // X
     hitscan.push_back("off");
     hitscan.push_back("low");//xanax moving
@@ -533,9 +523,9 @@ void cMenu::renderAim(int x, int y) {
     hitscan.push_back("high");//gamesense
     hitscan.push_back("extreme");
     hitscan.push_back("baim");
-    /*CT.push_back("Test 2");
-     CT.push_back("Mixed");*/
-    this->renderCombo(x + 260, y + 120, 150, 20, "Hitscan", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
+    //CT.push_back("Test 2");
+    //CT.push_back("Mixed");
+    this->renderCombo(x + 260, y + 120, 150, 20, "Hitscan", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);*/
     
     
     
@@ -575,7 +565,7 @@ void cMenu::renderAntiAim(int x, int y) {
     Yaw.push_back("SidewaysLeft");
     Yaw.push_back("SidewaysRight");
     Yaw.push_back("LBYBreaker");
-    Yaw.push_back("ManualEdge");
+    Yaw.push_back("Desync");
     // Fake Yaw
     // Fake Yaw
     FakeYaw.push_back("Off");
@@ -596,18 +586,57 @@ void cMenu::renderAntiAim(int x, int y) {
     AY.push_back("Off");
     AY.push_back("Rotate");
     
-    this->renderCheckbox(x - 15, y, "Anti-Aim", &vars.misc.antiaim);
-    this->renderCheckbox(x - 15, y + 20, "Show Real Angles", &vars.misc.thirdpersonmode);
-    this->renderCheckbox(x - 15, y + 40, "AA Turbo Jitter", &vars.misc.turbojizzer);
-    this->renderCheckbox(x - 15, y + 60, "AA Back Jitter", &vars.misc.backjizzer);
-    this->renderCheckbox(x - 15, y + 80, "AA LBY Spin", &vars.misc.lby_spin);
-    this->renderCheckbox(x - 15, y + 100, "AA Edge", &vars.visuals.edge);
-    this->renderCheckbox(x - 15, y + 120, "Resolver Fucker", &vars.misc.resolverfucker);
-    this->renderCheckbox(x - 15, y + 140, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
-    this->renderSlider(x - 20, y + 310, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
+    this->renderCheckbox(x - 15, y + 15, "Ragebot Enabled", &vars.aimbot.enabled);
+    this->renderCheckbox(x - 15, y + 35, "SilentAim", &vars.aimbot.silent);
+    //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
+    this->renderSlider(x + 5, y + 55, 150, "FOV", vars.aimbot.FovToPlayer, 180, 0);
+    // draw->drawstring(x, y + 70, FontColor, mFont, "Hitbox");
+    this->renderSlider(x + 5, y + 75, 150, "Hitbox", vars.aimbot.hitbox, 19, 0);
+    this->renderCheckbox(x - 15, y + 95, "Auto Wall", &vars.aimbot.autowall);
+    this->renderSlider(x + 5, y + 115, 150, "Minimum Damage", vars.aimbot.mindmg, 100, 0);
+    this->renderCheckbox(x - 15, y + 135, "Hitchance", &vars.aimbot.hitchance);
+    this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
+    this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
+    this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
+    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
+    
+    this->renderCheckbox(x + 474, y + 15, "Anti-Aim", &vars.misc.antiaim);
+    this->renderCheckbox(x + 474, y + 35, "Show Real Angles", &vars.misc.thirdpersonmode);
+    this->renderCheckbox(x + 474, y + 55, "AA Turbo Jitter", &vars.misc.turbojizzer);
+    this->renderCheckbox(x + 474, y + 75, "AA Back Jitter", &vars.misc.backjizzer);
+    this->renderCheckbox(x + 474, y + 95, "AA LBY Spin", &vars.misc.lby_spin);
+    this->renderCheckbox(x + 474, y + 115, "AA Edge", &vars.visuals.edge);
+    this->renderCheckbox(x + 474, y + 135, "Resolver Fucker", &vars.misc.resolverfucker);
+    this->renderCheckbox(x + 474, y + 155, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
+    this->renderCheckbox(x + 474, y + 175, "Fake AA", &vars.misc.fakeaa); // 60
+    this->renderCombo(x + 474, y + 205, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    if(!vars.aaX_opend){
+        this->renderCombo(x + 474, y + 235, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+    }
+    if((!vars.aaX_opend) && !vars.aaY_opend) {
+        this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+    }
+    this->renderSlider(x + 469, y + 295, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
-    this->renderCheckbox(x + 235, y, "Fakewalk", &vars.aimbot.fakewalk);
-    this->renderCombo(x + 235, y + 20, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
+    this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
+    this->renderCombo(x + 235, y + 32, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
+    this->renderCheckbox(x + 235, y + 55, "Auto Scope", &vars.aimbot.autoscope);
+    this->renderCheckbox(x + 235, y + 75, "Auto Pistol", &vars.aimbot.autopistol);
+    this->renderCheckbox(x + 235, y + 95, "Auto Crouch", &vars.aimbot.autocrouch);
+    this->renderCheckbox(x + 235, y + 115, "Auto Shoot", &vars.aimbot.autoshoot);
+    this->renderCheckbox(x + 235, y + 135, "Hitscan", &vars.aimbot.hitscan);
+    vector<string> hitscan;
+    // X
+    hitscan.push_back("off");
+    hitscan.push_back("low");//xanax moving
+    hitscan.push_back("normal");//supremacy $
+    hitscan.push_back("high");//gamesense
+    hitscan.push_back("extreme");
+    hitscan.push_back("baim");
+    //CT.push_back("Test 2");
+    //CT.push_back("Mixed");
+    this->renderCombo(x + 235, y + 155, 150, 20, "Off", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
+    this->renderCheckbox(x + 235, y + 185, "Moonwalk", &vars.misc.moonwalk);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
@@ -625,34 +654,14 @@ void cMenu::renderAntiAim(int x, int y) {
     
     
     
-    this->renderCheckbox(x + 235, y + 50, "Yaw Resolver", &vars.aimbot.Yawresolver);
-    this->renderCheckbox(x + 235, y + 100, "Legit AA (prob broken)", &vars.misc.legitaa);
-    this->renderCombo(x + 235, y + 70, 90, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    this->renderCheckbox(x + 235, y + 205, "Yaw Resolver", &vars.aimbot.Yawresolver);
     
-    this->renderCheckbox(x - 15, y + 160, "Fake", &vars.misc.fakeaa); // 60
-    this->renderCombo(x - 15, y + 200, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
-    if(!vars.aaX_opend){
-        this->renderCombo(x - 15, y + 230, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
-    }
-    if((!vars.aaX_opend) && !vars.aaY_opend) {
-        this->renderCombo(x - 15, y + 260, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
-    }
+    this->renderCombo(x + 235, y + 225, 90, 20, "Off", Resolve, vars.aimbot.yresolve, &vars.resolver_opend); // 150
+    
+    
 }
 
-void cMenu::renderPlayer(int x, int y) {
-    
-    this->renderCheckbox(x - 15, y, "Enabled", &vars.visuals.enabled);
-    this->renderCheckbox(x, y + 20, "Enemy only", &vars.visuals.enemyonly);
-    this->renderCheckbox(x, y + 40, "Vis Only", &vars.visuals.visonly);
-    this->renderCheckbox(x, y + 60, "Box", &vars.visuals.box);
-    this->renderCheckbox(x, y + 80, "Name", &vars.visuals.name);
-    this->renderCheckbox(x, y + 100, "Health", &vars.visuals.health);
-    this->renderCheckbox(x, y + 120, "Armour", &vars.visuals.armour);
-    this->renderCheckbox(x, y + 140, "Heath text", &vars.visuals.healthtext);
-    this->renderCheckbox(x, y + 160, "Skeleton", &vars.visuals.skeleton);
-    this->renderCheckbox(x, y + 180, "Snaplines", &vars.visuals.snapline);
-    this->renderCheckbox(x, y + 200, "Grenade ESP", &vars.visuals.grenade);
-    this->renderCheckbox(x, y + 220, "Weapon ESP", &vars.visuals.active);
+void cMenu::renderVis(int x, int y) {
     
     vector<string> Players;
     vector<string> Hands;
@@ -712,25 +721,39 @@ void cMenu::renderPlayer(int x, int y) {
     fakelag.push_back("Branches");
     fakelag.push_back("Plastic");
     
+    this->renderCheckbox(x - 15, y + 15, "Enabled", &vars.visuals.enabled);
+    this->renderCheckbox(x - 15, y + 35, "Enemy only", &vars.visuals.enemyonly);
+    this->renderCheckbox(x - 15, y + 55, "Vis Only", &vars.visuals.visonly);
+    this->renderCheckbox(x - 15, y + 75, "Box", &vars.visuals.box);
+    this->renderCheckbox(x - 15, y + 95, "Name", &vars.visuals.name);
+    this->renderCheckbox(x - 15, y + 115, "Health", &vars.visuals.health);
+    this->renderCheckbox(x - 15, y + 135, "Armour", &vars.visuals.armour);
+    this->renderCheckbox(x - 15, y + 155, "Heath text", &vars.visuals.healthtext);
+    this->renderCheckbox(x - 15, y + 175, "Skeleton", &vars.visuals.skeleton);
+    this->renderCheckbox(x - 15, y + 195, "Snaplines", &vars.visuals.snapline);
+    this->renderCheckbox(x - 15, y + 215, "Grenade ESP", &vars.visuals.grenade);
+    this->renderCheckbox(x - 15, y + 235, "Weapon ESP", &vars.visuals.active);
+    
 
-    this->renderCheckbox(x, y + 240, "Player Chams", &vars.visuals.chams);
-    this->renderCheckbox(x, y + 260, "Hand Chams", &vars.visuals.handchams);
-    this->renderCheckbox(x, y + 280, "Weapon Chams", &vars.visuals.weaponchams);
-    this->renderCheckbox(x, y + 300, "Fake Lag Chams", &vars.misc.flagchams);
+    this->renderCheckbox(x - 15, y + 255, "Player Chams", &vars.visuals.chams);
+    this->renderCheckbox(x - 15, y + 275, "Hand Chams", &vars.visuals.handchams);
+    this->renderCheckbox(x - 15, y + 295, "Weapon Chams", &vars.visuals.weaponchams);
+    this->renderCheckbox(x - 15, y + 315, "Fake Lag Chams", &vars.misc.flagchams);
+    
     if(vars.visuals.chams) {
-        this->renderCombo(x + 10, y + 320, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
+        this->renderCombo(x + 10, y + 335, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
     }
     if(vars.visuals.handchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 340, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
+            this->renderCombo(x + 10, y + 355, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
     }
     if(vars.visuals.weaponchams) {
         if((!vars.players_opend) && !vars.hands_opend)
-            this->renderCombo(x + 10, y + 360, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
+            this->renderCombo(x + 10, y + 375, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
     }
     if(vars.misc.flagchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 380, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
+            this->renderCombo(x + 10, y + 395, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
     }
     
     
@@ -738,33 +761,43 @@ void cMenu::renderPlayer(int x, int y) {
     pEngine->GetScreenSize(iScreenWidth, iScreenHeight);
     
     //Middle
-    this->renderCheckbox(x + 235, y, "SkinChanger", & vars.visuals.skinc);
-    this->renderCheckbox(x + 235, y + 20, "Dropped Weapons", & vars.visuals.weapons);
-    this->renderCheckbox(x + 235, y + 40, "Bomb Timer", & vars.visuals.bombtimer);
-    this->renderCheckbox(x + 235, y + 60, "Defusing", & vars.visuals.defusing);
-    this->renderCheckbox(x + 235, y + 80, "Rescuing", & vars.visuals.rescuing);
-    this->renderCheckbox(x + 235, y + 100, "Scoping", & vars.visuals.scoped);
-    this->renderCheckbox(x + 235, y + 120, "No Flash", & vars.misc.noflash);
-    this->renderSlider(x + 230, y + 140, 150, "", vars.misc.flashalpha, 255, 0);
-    this->renderCheckbox(x + 235, y + 160, "Recoil Crosshair", & vars.visuals.rcrosshair);
-    this->renderCheckbox(x + 235, y + 240, "No Scope", & vars.misc.noscope);
-    this->renderCheckbox(x + 235, y + 180, "AA Indicators", & vars.visuals.antiaim_indicator);
+    this->renderCheckbox(x + 235, y + 15, "SkinChanger", & vars.visuals.skinc);
+    this->renderCheckbox(x + 235, y + 35, "Dropped Weapons", & vars.visuals.weapons);
+    this->renderCheckbox(x + 235, y + 55, "Bomb Timer", & vars.visuals.bombtimer);
+    this->renderCheckbox(x + 235, y + 75, "Defusing", & vars.visuals.defusing);
+    this->renderCheckbox(x + 235, y + 95, "Rescuing", & vars.visuals.rescuing);
+    this->renderCheckbox(x + 235, y + 115, "Scoping", & vars.visuals.scoped);
+    this->renderCheckbox(x + 235, y + 135, "No Flash", & vars.misc.noflash);
+    this->renderSlider(x + 230, y + 155, 150, "", vars.misc.flashalpha, 255, 0);
+    this->renderCheckbox(x + 235, y + 175, "Recoil Crosshair", & vars.visuals.rcrosshair);
+    this->renderCheckbox(x + 235, y + 195, "Spread Crosshair", &vars.misc.spreadcrosshair);
+    this->renderCheckbox(x + 235, y + 215, "No Scope", & vars.misc.noscope);
+    this->renderCheckbox(x + 235, y + 235, "AA Indicators", & vars.visuals.antiaim_indicator);
     std::vector<std::string> Indicator;
     
     Indicator.push_back("Off");
     Indicator.push_back("Words");
     Indicator.push_back("Arrows");
     
-    this->renderCombo(x + 235, y + 200, 125, 20, "Lit", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
-    this->renderCheckbox(x + 235, y + 260, "AA Lines", & vars.visuals.aaline);
-    this->renderCheckbox(x + 235, y + 280, "Angle Line Names", & vars.visuals.anglelinenames);
-    this->renderCheckbox(x + 235, y + 300, "Clantag", & vars.misc.clantag);
-    this->renderSlider(x + 230, y + 320, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 340, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 360, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 380, 150, "Fake Lag Chams", vars.visuals.fakelagchams_alpha, 255, 0);
-    this->renderSlider(x + 230, y + 400, 150, "Head Trace Length", vars.misc.bullettracelength, 3000.f, 0.f);
-    //this->renderCheckbox(x + 235, y + 320, "Unload Cheeto", & vars.misc.unload);
+    this->renderCombo(x + 235, y + 252, 125, 20, "Off", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
+    this->renderCheckbox(x + 235, y + 275, "AA Lines", & vars.visuals.aaline);
+    this->renderCheckbox(x + 235, y + 295, "Angle Line Names", & vars.visuals.anglelinenames);
+    this->renderCheckbox(x + 235, y + 315, "Watermark", &vars.misc.watermark);
+    this->renderCheckbox(x + 235, y + 335, "Nightmode", &vars.misc.nightmode);
+    this->renderSlider(x + 230, y + 355, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 375, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 395, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
+    this->renderSlider(x + 230, y + 415, 150, "Fake Lag Chams", vars.visuals.fakelagchams_alpha, 255, 0);
+    this->renderCheckbox(x + 235, y + 435, "Asuswall", &vars.misc.asuswalls);
+    this->renderSlider(x + 230, y + 455, 150, "", vars.misc.asusalpha, 1.f, 0.f);
+    
+    this->renderCheckbox(x + 474, y + 15, "Hitmarker", &vars.visuals.hitmarker);
+    this->renderCheckbox(x + 474, y + 35, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
+    this->renderSlider(x + 474, y + 55, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 474, y + 75, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
+    this->renderSlider(x + 474, y + 95, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
+    this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
 }
 
 
@@ -784,52 +817,36 @@ void cMenu::renderMisc(int x, int y) {
     fakeping.push_back("v2");//xanax moving
 
     
-    this->renderCheckbox(x, y, "Bhop", &vars.misc.bhop);
-    this->renderCheckbox(x, y + 20, "Auto strafe", &vars.misc.autostrafe);
-    this->renderCheckbox(x, y + 40, "Circle Strafe", &vars.misc.cstrafe);
-    this->renderCheckbox(x, y + 60, "FOV Changer", &vars.misc.fovt);
-    this->renderSlider(x - 5, y + 80, 150, "", vars.misc.fov, 70, 0);
-    this->renderCheckbox(x, y + 100, "No recoil", &vars.misc.norecoil);
-    this->renderCheckbox(x, y + 120, "No visual recoil", &vars.misc.novisual);
-    this->renderCheckbox(x, y + 140, "Chat Spam", &vars.misc.spammer);
-    this->renderCheckbox(x, y + 160, "Thirdperson", &vars.misc.thirdperson);
-    this->renderSlider(x - 5, y + 180, 150, "", vars.misc.tpoffset, 200, 0);
-    this->renderCheckbox(x, y + 200, "Moonwalk", &vars.misc.moonwalk);
-    this->renderCheckbox(x, y + 220, "Watermark", &vars.misc.watermark);
-    this->renderCheckbox(x, y + 240, "Nightmode", &vars.misc.nightmode);
-    this->renderCheckbox(x + 235, y, "WorldPaint", &vars.misc.worldpaint);
-    this->renderCheckbox(x + 235, y + 20, "Spec List", &vars.misc.showspectators);
-    this->renderCheckbox(x + 235, y + 40, "Antiscreenshot", &vars.misc.antiscreenshot);
-    this->renderCheckbox(x + 235, y + 60, "Anti untrust", &vars.misc.antiuntrust);
-    this->renderCheckbox(x + 235, y + 80, "Asuswall", &vars.misc.asuswalls);
-    this->renderSlider(x + 230, y + 100, 150, "", vars.misc.asusalpha, 1.f, 0.f);
+    this->renderCheckbox(x - 15, y + 15, "Bhop", &vars.misc.bhop);
+    this->renderCheckbox(x - 15, y + 35, "Auto strafe", &vars.misc.autostrafe);
+    this->renderCheckbox(x - 15, y + 55, "Circle Strafe", &vars.misc.cstrafe);
+    this->renderCheckbox(x - 15, y + 75, "FOV Changer", &vars.misc.fovt);
+    this->renderSlider(x - 5, y + 95, 150, "", vars.misc.fov, 70, 0);
+    this->renderCheckbox(x - 15, y + 115, "No recoil", &vars.misc.norecoil);
+    this->renderCheckbox(x - 15, y + 135, "No visual recoil", &vars.misc.novisual);
+    this->renderCheckbox(x - 15, y + 155, "Chat Spam", &vars.misc.spammer);
+    this->renderCheckbox(x - 15, y + 175, "Thirdperson", &vars.misc.thirdperson);
+    this->renderSlider(x - 5, y + 195, 150, "", vars.misc.tpoffset, 200, 0);
     
-    this->renderCheckbox(x + 235, y + 120, "No Smoke", &vars.visuals.nosmoke);
-    this->renderCheckbox(x + 235, y + 140, "No Duck Cool", &vars.misc.noduckcooldown);
-    this->renderCheckbox(x + 235, y + 160, "Spread Crosshair", &vars.misc.spreadcrosshair);
-    this->renderCheckbox(x + 235, y + 180, "Fake Lag", &vars.misc.fakelag);
-    this->renderCheckbox(x + 235, y + 200, "Adaptive", &vars.misc.adaptive);
+    this->renderCheckbox(x + 235, y + 15, "WorldPaint", &vars.misc.worldpaint);
+    this->renderCheckbox(x + 235, y + 35, "Spec List", &vars.misc.showspectators);
+    this->renderCheckbox(x + 235, y + 55, "Antiscreenshot", &vars.misc.antiscreenshot);
+    this->renderCheckbox(x + 235, y + 75, "Anti untrust", &vars.misc.antiuntrust);
+    
+    this->renderCheckbox(x + 235, y + 95, "Clantag", & vars.misc.clantag);
+    this->renderCheckbox(x + 235, y + 115, "No Smoke", &vars.visuals.nosmoke);
+    this->renderCheckbox(x + 235, y + 135, "No Duck Cooldown", &vars.misc.noduckcooldown);
+    
+    this->renderCheckbox(x + 474, y + 15, "Fake Lag", &vars.misc.fakelag);
+    this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
-    this->renderSlider(x + 230, y + 245, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 235, y + 265, "FakePing", &vars.misc.fakeping);
-    this->renderCombo(x + 235, y + 280,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 230, y + 320, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderSlider(x + 469, y + 55, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
+    this->renderCheckbox(x + 474, y + 75, "FakePing", &vars.misc.fakeping);
+    this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
+    this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
 
-    vector<string> conf;
-    
-    conf.push_back("scout");
-    conf.push_back("autos");
-    conf.push_back("legit");
-    conf.push_back("rage");
-    conf.push_back("rifles");
-    
-    this->renderCombo(x, y + 265,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);
-    if(!vars.cfg_opend) {
-        this->renderButton(x, y + 285, "Save", &cfg.saveconfig);
-        this->renderButton(x + 85, y + 285, "Load", &cfg.loadconfig);
-    
-    }
+   
     
 }
 
@@ -847,45 +864,78 @@ void cMenu::renderColors(int x, int y) {
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
     if(vars.colors.combo == 0) {
-        this->drawcolorpicker(x, y + 22, "CT Box", vars.colors.ctbox);
-        this->drawcolorpicker(x, y + 150, "CT BoxIgn", vars.colors.ctbox_ign);
-        this->drawcolorpicker(x + 235, y + 22, "CT Chams", vars.colors.ctchams);
-        this->drawcolorpicker(x + 235, y + 150, "CT ChamIgn", vars.colors.ctchams_ign);
+        this->drawcolorpicker(x, y + 30, "CT Box", vars.colors.ctbox);
+        this->drawcolorpicker(x, y + 170, "CT BoxIgn", vars.colors.ctbox_ign);
+        this->drawcolorpicker(x + 235, y + 30, "CT Chams", vars.colors.ctchams);
+        this->drawcolorpicker(x + 235, y + 170, "CT ChamIgn", vars.colors.ctchams_ign);
     }
     if(vars.colors.combo == 1) {
-        this->drawcolorpicker(x, y + 22, "T Box", vars.colors.tbox);
-        this->drawcolorpicker(x, y + 150, "T BoxIgn", vars.colors.tbox_ign);
-        this->drawcolorpicker(x + 235, y + 22, "T Chams", vars.colors.tchams);
-        this->drawcolorpicker(x + 235, y + 150, "T ChamIgn", vars.colors.tchams_ign);
+        this->drawcolorpicker(x, y + 30, "T Box", vars.colors.tbox);
+        this->drawcolorpicker(x, y + 170, "T BoxIgn", vars.colors.tbox_ign);
+        this->drawcolorpicker(x + 235, y + 30, "T Chams", vars.colors.tchams);
+        this->drawcolorpicker(x + 235, y + 170, "T ChamIgn", vars.colors.tchams_ign);
     }
     if(vars.colors.combo == 2) {
-        this->drawcolorpicker(x, y + 22, "Hands", vars.colors.hands);
-        this->drawcolorpicker(x + 235, y + 20, "Weapon", vars.colors.weapon);
+        this->drawcolorpicker(x, y + 30, "Hands", vars.colors.hands);
+        this->drawcolorpicker(x + 235, y + 30, "Weapon", vars.colors.weapon);
     }
     if(vars.colors.combo == 3) {
-        this->drawcolorpicker(x, y + 22, "World", vars.colors.world);
-        this->drawcolorpicker(x + 235, y + 20, "Sky", vars.colors.sky);
+        this->drawcolorpicker(x, y + 30, "World", vars.colors.world);
+        this->drawcolorpicker(x + 235, y + 30, "Sky", vars.colors.sky);
     }
     if(vars.colors.combo == 4) {
-        this->drawcolorpicker(x, y + 22, "FakeLag", vars.colors.fakelag);
+        this->drawcolorpicker(x, y + 30, "FakeLag", vars.colors.fakelag);
 
     }
     if(vars.colors.combo == 5) {
-        this->drawcolorpicker(x, y + 22, "TP", vars.colors.scopedchams);
+        this->drawcolorpicker(x, y + 30, "TP", vars.colors.scopedchams);
         
     }
+
+}
+
+void cMenu::renderConfigs(int x, int y) {
+    vector<string> conf;
+    
+    conf.push_back("scout");
+    conf.push_back("autos");
+    conf.push_back("legit");
+    conf.push_back("rage");
+    conf.push_back("rifles");
+    
+    this->renderCombo(x, y + 265,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);
+    if(!vars.cfg_opend) {
+        this->renderButton(x, y + 285, "Save", &cfg.saveconfig);
+        this->renderButton(x + 85, y + 285, "Load", &cfg.loadconfig);
+        
+    }
+}
+
+void cMenu::renderCredits(int x, int y) {
+    draw->drawstring(x + 15, y + 25, nagatoro, osFont, "ViKiNG", true);
+    draw->drawstring(x + 15, y + 45, nagatoro, osFont, "-X/Syn", true);
+    draw->drawstring(x + 15, y + 65, nagatoro, osFont, "Pwned", true);
+    draw->drawstring(x + 15, y + 85, nagatoro, osFont, "Warlauke", true);
+    draw->drawstring(x + 15, y + 105, nagatoro, osFont, "CreditCode", true);
+    draw->drawstring(x + 15, y + 125, nagatoro, osFont, "Gael", true);
+    draw->drawstring(x + 15, y + 145, nagatoro, osFont, "Tim", true);
+    
+    draw->drawstring(x + 250, y + 25, nagatoro, osFont, "Nagatoro", true);
 
 }
 
 // Menu tabs
 enum mTab
 {
-    Main     = 0,
-    tab_1    = 1,//rage
-    tab_2    = 2,//aa
-    tab_3    = 3,//legit
-    tab_4    = 4,//visuals
-    tab_5    = 5,//visuals
+    Main    = 0,
+    LegitBot  = 1,
+    RageBot   = 2,
+    Visuals  = 3,
+    Misc = 4,
+    ColorsTab = 5,
+    ConfigTab = 6,
+    Credits = 7
+    
 };
 
 static int curTab = mTab::Main;
@@ -895,139 +945,131 @@ void cMenu::renderMenu() {
     
     static int x = 100;
     static int y = 100;
-    int w = 489;
-    int h = 560;
+    int w = 710;
+    int h = 600;
     int hh = 22; // The height of the dragable area
     
     
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
     draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "Boogerware", true);
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "Pasteware", true);
     
     // Draws tabs
-    if(curTab != 0){
+    draw->RectOutlined(x + 2, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 102, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 202, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 302, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 402, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 502, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 602, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    
+    
+    // Handles tabs
+    if(draw->inArea(x + 2, y + 27, 96, 20)) {
         
-        draw->drawline(x + 5, y + h - 10, x + 15, y + h - 13, FontColor);
-        draw->drawline(x + 5, y + h - 10, x + 15, y + h - 7, FontColor);
+        draw->RectOutlined(x + 2, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
         
-        draw->drawline(x + 5, y + h - 10, x + 25, y + h - 10, FontColor);
+        if(WasReleased)
+            curTab = mTab::LegitBot;
         
-        if(draw->inArea(x - 5, y + h - 30, 30, 50)) {
-            if(WasReleased)
-                
-                curTab = 0;
-        }
+    } else if(draw->inArea(x + 102, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 102, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::RageBot;
+        
+    } else if(draw->inArea(x + 202, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 202, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::Visuals;
+        
+    } else if(draw->inArea(x + 302, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 302, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::Misc;
+        
+    } else if(draw->inArea(x + 402, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 402, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::ColorsTab;
+        
+    } else if(draw->inArea(x + 502, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 502, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::ConfigTab;
+            
+    } else if(draw->inArea(x + 602, y + 27, 96, 20)) {
+        
+        draw->RectOutlined(x + 602, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        
+        if(WasReleased)
+            curTab = mTab::Credits;
     }
     
-    if(curTab == 0){
-        
-        if(draw->inArea(x + 15, y + 37, 143, 200)) {
-            if(WasReleased)
-                
-                curTab = 1;
-            
-            
-        } else if(draw->inArea(x + 173, y + 37, 143, 200)) {
-            
-            
-            
-            if(WasReleased)
-                
-                curTab = 2;
-            
-            
-        } else if(draw->inArea(x + 331, y + 37, 143, 200)) {
-            
-            
-            
-            if(WasReleased)
-                
-                curTab = 3;
-            
-        }
-        
-        //bottom
-        
-        else if(draw->inArea(x + 15, y + 262, 143, 200)) {
-            
-            
-            if(WasReleased)
-                
-                curTab = 4;
-            
-        } else if(draw->inArea(x + 173, y + 262, 143, 200)) {
-            
-            
-            if(WasReleased)
-                
-                curTab = 5;
-            
-        }
-    }
+    
     
     switch (curTab) {
             
-        case 0:
-            //top
-            
-            this->render_tab_section(x + 15, y + 37, 143, 200);
-            draw->drawstring(x + 85, y + 135, nagatoro, osFont, "B", true);
-            
-            this->render_tab_section(x + 173, y + 37, 143, 200);
-            draw->drawstring(x + 243, y + 135, nagatoro, osFont, "A", true);
-            
-            this->render_tab_section(x + 331, y + 37, 143, 200);
-            draw->drawstring(x + 401, y + 135, nagatoro, osFont, "F", true);
-            
-            //bottom
-            
-            this->render_tab_section(x + 15, y + 262, 143, 200);
-            draw->drawstring(x + 85, y + 360, nagatoro, osFont, "D", true);
-            
-            this->render_tab_section(x + 173, y + 262, 143, 200);
-            draw->drawstring(x + 243, y + 360, nagatoro, osFont, "C", true);
-            
-            break;
-            
-            
-        case 1:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+        case mTab::LegitBot:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Other");
             this->renderAim(x + 35, y + 30 + 20 + 5);
             break;
             
-        case 2:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+        case mTab::RageBot:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Other");
+            render_section(x + 488, y + 55, 220, h - 62, "Anti-Aim");
             this->renderAntiAim(x + 35, y + 30 + 20 + 5);
             break;
             
-        case 3:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
-            this->renderPlayer(x + 35, y + 30 + 20 + 5);
+        case mTab::Visuals:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Other");
+            render_section(x + 488, y + 55, 220, h - 62, "HvH");
+            this->renderVis(x + 35, y + 30 + 20 + 5);
             break;
             
-        case 4:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+        case mTab::Misc:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Other");
+            render_section(x + 488, y + 55, 220, h - 62, "HvH");
             this->renderMisc(x + 35, y + 30 + 20 + 5);
             break;
             
-        case 5:
-            render_section(x + 15, y + 36, 220, h - 60, "Main");
-            render_section(x + 254, y + 36, 220, h - 60, "Other");
+        case mTab::ColorsTab:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Other");
             this->renderColors(x + 35, y + 30 + 20 + 5);
+
             break;
             
+        case mTab::ConfigTab:
+            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            this->renderConfigs(x + 35, y + 30 + 20 + 5);
+            break;
             
+        case mTab::Credits:
+            render_section(x + 10, y + 55, 220, h - 62, "Main Contributors");
+            render_section(x + 249, y + 55, 220, h - 62, "Others");
+            this->renderCredits(x + 35, y + 30 + 20 + 5);
+            break;
             
         default:
             break;
             
     }
-    
+
     config->getConfig(cfg.cfgcombo);
 
     if(cfg.loadconfig) {
@@ -1038,6 +1080,14 @@ void cMenu::renderMenu() {
     if(cfg.saveconfig) {
         config->SaveConfig();
     }
+    
+    draw->drawstring(x + 50, y + 22 + 16, greycolor, osFont, "LEGITBOT", true);
+    draw->drawstring(x + 150, y + 22 + 17, greycolor, osFont, "RAGEBOT", true);
+    draw->drawstring(x + 250, y + 22 + 16, greycolor, osFont, "VISUALS", true);
+    draw->drawstring(x + 350, y + 22 + 17, greycolor, osFont, "MISC", true);
+    draw->drawstring(x + 450, y + 22 + 15, greycolor, osFont, "COLORS", true);
+    draw->drawstring(x + 550, y + 22 + 15, greycolor, osFont, "CONFIG", true);
+    draw->drawstring(x + 650, y + 22 + 15, greycolor, osFont, "CREDITS", true);
     
     Pressed(MOUSE_LEFT);
     draw->MoveMenu(x, y, w, hh, 1);

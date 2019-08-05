@@ -72,7 +72,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
-    
+    if (local->GetLifeState() == LIFE_ALIVE && pEngine->IsConnected() && pEngine->IsInGame())
+    {
+        DesyncAA(cmd, local);
+    }
     backjizzer(cmd, local);
     lby_spin(cmd, local);
     tank(cmd, local);
@@ -189,10 +192,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         
         movement->FakeLag(cmd);
         
-        if (local->GetLifeState() == LIFE_ALIVE)
-        {
-            LegitAA(cmd, weapon);
-        }
+        
         
         *sendPacket = CreateMove::sendPacket;
 
