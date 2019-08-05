@@ -384,22 +384,23 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     if (CreateMove::sendPacket == true)
                         local->SetupBones(localfakelagmatrix, 128, BONE_USED_BY_HITBOX, pGlobals->curtime);
                     
-                    if (vars.misc.flagchams && local->GetVelocity().Length2D() > 30)
+                    if (vars.misc.flagchams && vars.misc.thirdperson && local->GetVelocity().Length2D() > 30 && !local->IsScoped())
                     {
                         materialFakelag->AlphaModulate(vars.visuals.fakelagchams_alpha / 255.0f - 0.1);
                         materialFakelag->ColorModulate(FakeLagColor);
                         pModelRender->ForcedMaterialOverride(materialFakelag);
                         CallOriginalModel(thisptr, context, state, pInfo, localfakelagmatrix);
                         pModelRender->ForcedMaterialOverride(nullptr);
+                        
                     }
-                    
-                    if(entity && entity->IsScoped() && pInput->m_fCameraInThirdPerson && entity == local){
-                        materialCheckFirst->ColorModulate(ScopedColors);
+                    if(vars.misc.thirdperson && local->IsScoped() && entity == local) {
                         materialCheckFirst->AlphaModulate(25 / 255.f);
-                        pModelRender->ForcedMaterialOverride(firstLayer);
+                        materialCheckFirst->ColorModulate(ScopedColors);
+                        pModelRender->ForcedMaterialOverride(materialCheckFirst);
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
+                        pModelRender->ForcedMaterialOverride(nullptr);
+                        return;
                     }
-                    
                     if(vars.visuals.enemyonly && local->GetTeam() == entity->GetTeam())
                     {
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
@@ -409,10 +410,9 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     {
                         if(!vars.visuals.visonly)
                         {
-                    
-                            materialCheckSecond->ColorModulate(ColorNonIgnorez);
-                            materialCheckSecond->AlphaModulate(vars.visuals.playerchams_alpha / 255.f);
-                            pModelRender->ForcedMaterialOverride(materialCheckSecond);
+                            secondLayer->AlphaModulate(vars.visuals.playerchams_alpha / 255.f);
+                            secondLayer->ColorModulate(ColorNonIgnorez);
+                            pModelRender->ForcedMaterialOverride(secondLayer);
                             CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                         }
                         
@@ -422,17 +422,10 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                     }
                     
+                    
                 }
-                
             }
-            
-            
-            
-            
         }
-        
-
-        
     }
     
     CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);

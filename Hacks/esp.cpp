@@ -58,7 +58,7 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
 
 void BulletTrace(C_BaseEntity* pEntity)
 {
-    if(!vars.visuals.bullett)
+   /* if(!vars.visuals.bullett)
         return;
     if(pEngine->IsInGame() && pEngine->IsConnected() && pEntity->GetLifeState() == LIFE_ALIVE)
     {
@@ -69,7 +69,7 @@ void BulletTrace(C_BaseEntity* pEntity)
     
     AngleVectors(pEntity->GetEyePosition(), &forward);
     filter.pSkip = pEntity;
-    src3D = pEntity->GetBonePosition( 8 ) - Vector( 0, 0, 0 );
+    src3D = pEntity->GetBonePosition( 8 );
     dst3D = src3D + ( forward * vars.misc.bullettracelength );
     
     ray.Init(src3D, dst3D);
@@ -81,7 +81,7 @@ void BulletTrace(C_BaseEntity* pEntity)
     
     draw->drawline(src.x, src.y, dst.x, dst.y, Color::Red());
     draw->fillrgba(dst.x - 3, dst.y - 3, 6, 6, Color::Red());
-    }
+    }*/
 };
 
 void box3d(C_BaseEntity* entity, Color color) {
