@@ -14,6 +14,7 @@ public:
     bool hands_opend;
     bool weapons_opend;
     bool players_opend;
+    bool local_opend;
     
     bool fakeping_opend;
     // Menu
@@ -154,6 +155,7 @@ public:
         
         // Chams
         bool chams      = true;         // Player Chams
+        bool localchams = false;         // Player Chams
         bool handchams  = false;        // Handchams obv
         bool weaponchams= false;        // Weapon chams obv
         bool fakelagchams= false;        // Weapon chams obv
@@ -161,12 +163,13 @@ public:
         int handsType   = 1;            // Hand   Type 0 - Lit 1 - Texture 2 - Wireframe
         int playersType = 1;            // Player Type 0 - Lit 1 - Texture
         int fakelagtype = 1;            // Player Type 0 - Lit 1 - Texture
-        
+        int localchamstype = 1;            // Player Type 0 -
         int tptype = 1;
         
         int weaponchams_alpha   = 255;  // Weapon Chams Alpha / opacity
         int handchams_alpha     = 255;  // Hand   Chams Alpha / opacity
         int playerchams_alpha   = 255;  // Player Chams Alpha / opacity
+        int localchams_alpha   = 255;  // Player Chams Alpha / opacity
         int fakelagchams_alpha   = 255;  // Player Chams Alpha / opacity
         
     }visuals;
@@ -276,7 +279,7 @@ public:
         Color scopedchams;
         Color tchams;
         Color fakelag;
-        
+        Color localchams;
         Color ctchams_ign;
         Color tchams_ign;
         

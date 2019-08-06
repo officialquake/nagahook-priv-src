@@ -207,6 +207,149 @@ bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, fl
     return bRetVal;
 }
 
+void doManual(CUserCmd* cmd){
+    static bool left = false;
+    static bool right = false;
+    static bool back = false;
+    
+    bool flip = false;
+    
+    int Height, Width;
+    pEngine->GetScreenSize(Height, Width);
+    
+    int x = Width / 2;
+    int y = Height / 2;
+    
+    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
+        left = true; right = false; back = false;
+    }
+    else if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
+        left = false; right = true; back = false;
+    }
+    else if (pInputSystem->IsButtonDown(KEY_DOWN)) {
+        left = false; right = false; back = true;
+    }
+    if ( left ){
+        
+        if (flip)
+        {
+            cmd->viewangles.y += 90.f - RandomFloat(5, vars.aimbot.jitter);
+        }else
+        {
+            cmd->viewangles.y += 90 + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }
+    
+    if ( right ){
+        
+        if (flip)
+        {
+            cmd->viewangles.y -= 90.f + RandomFloat(5, vars.aimbot.jitter);
+        }else
+        {
+            cmd->viewangles.y -= 90 - RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }
+    if ( back ){
+        
+        if (flip)
+        {
+            cmd->viewangles.y += 180.f - RandomFloat(5, vars.aimbot.jitter);
+        }else
+        {
+            cmd->viewangles.y += 180.f + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }
+    flip = !flip;
+    
+}
+
+
+float Freestand(C_BaseEntity* local, CUserCmd* cmd, C_BaseCombatWeapon* weapon)
+{
+    
+    bool flip = false;
+    float Back, Right, Left;
+    bool no_active = true;
+    Vector src3D, dst3D, forward, right, up, src, dst;
+    trace_t tr;
+    Ray_t backray, rightray, leftray;
+    CTraceFilter filter;
+    
+    Vector angles;
+    pEngine->GetViewAngles(angles);
+    
+    AngleVectors3(angles, forward, right, up);
+    
+    filter.pSkip = local;
+    src3D = local->GetVecOrigin() + local->GetVecViewOffset();
+    dst3D = src3D + (forward * 384.f);
+    
+    backray.Init(src3D, dst3D);
+    pEngineTrace->TraceRay(backray, MASK_SHOT, &filter, &tr);
+    Back = (tr.endpos - tr.startpos).Length();
+    
+    rightray.Init(src3D + right * 35.f, dst3D + right * 35.f);
+    pEngineTrace->TraceRay(rightray, MASK_SHOT, &filter, &tr);
+    Right = (tr.endpos - tr.startpos).Length();
+    
+    leftray.Init(src3D - right * 35.f, dst3D - right * 35.f);
+    pEngineTrace->TraceRay(leftray, MASK_SHOT, &filter, &tr);
+    Left = (tr.endpos - tr.startpos).Length();
+    
+    if (Left > Right){
+        
+        if (flip)
+        {
+            cmd->viewangles.y -= 90.f - RandomFloat(5, vars.aimbot.jitter);
+        }
+        else
+        {
+            cmd->viewangles.y -= 90 + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }else if (Right > Left){
+        
+        if (flip)
+        {
+            cmd->viewangles.y += 90.f - RandomFloat(5, vars.aimbot.jitter);
+        }
+        else
+        {
+            cmd->viewangles.y += 90 + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }else if (Back > Right || Back > Left){
+        
+        if (flip)
+        {
+            cmd->viewangles.y = 180.f - RandomFloat(5, vars.aimbot.jitter);
+        }
+        else
+        {
+            cmd->viewangles.y = 180 + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    } else if(no_active){
+        
+        if (flip)
+        {
+            cmd->viewangles.y += 180.f - RandomFloat(5, vars.aimbot.jitter);
+        }
+        else
+        {
+            cmd->viewangles.y += 180 + RandomFloat(5, vars.aimbot.jitter);
+        }
+        
+    }
+    flip = !flip;
+    return 0;
+}
+
+
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
 {
     if(!vars.misc.antiResolverFlip)
@@ -418,7 +561,15 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
         return;
     
+    if (!vars.misc.fakelag) {
+        *bSendPacket = cmd->command_number % 2;
+    }
+    if(vars.aimbot.freestand){
+        Freestand(local, cmd, weapon);
+        isManual = false;
+    }
     
+    cmd->viewangles.ClampAngles();
     
     if(vars.visuals.edge){
         auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);

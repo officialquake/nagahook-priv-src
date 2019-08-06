@@ -377,6 +377,35 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         else if(vars.visuals.fakelagtype == 11)
                             return Random3;
                     }();
+                    IMaterial* materialLocal = [&]() -> IMaterial*
+                    {
+                        if(vars.visuals.localchamstype == 0)
+                            return Random4;
+                        else if(vars.visuals.localchamstype == 1)
+                            return firstLayer;
+                        else if (vars.visuals.localchamstype == 2)
+                            return firstWire;
+                        else if(vars.visuals.localchamstype == 3)
+                            return Plastic;
+                        else if(vars.visuals.localchamstype == 4)
+                            return Gold;
+                        else if(vars.visuals.localchamstype == 5)
+                            return crystal;
+                        else if(vars.visuals.localchamstype == 6)
+                            return Glass;
+                        else if(vars.visuals.localchamstype == 7)
+                            return Mp3;
+                        else if(vars.visuals.localchamstype == 8)
+                            return Random;
+                        else if(vars.visuals.localchamstype == 9)
+                            return Random1;
+                        else if(vars.visuals.localchamstype == 10)
+                            return Random2;
+                        else if(vars.visuals.localchamstype == 11)
+                            return Random3;
+                        else if(vars.visuals.localchamstype == 12)
+                            return firstLit;
+                    }();
                     
                     
                     
@@ -397,6 +426,14 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         materialCheckFirst->AlphaModulate(25 / 255.f);
                         materialCheckFirst->ColorModulate(ScopedColors);
                         pModelRender->ForcedMaterialOverride(materialCheckFirst);
+                        CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
+                        pModelRender->ForcedMaterialOverride(nullptr);
+                        return;
+                    }
+                    if(vars.visuals.localchams && entity == local) {
+                        materialLocal->AlphaModulate(vars.visuals.localchams_alpha / 255.f);
+                        materialLocal->ColorModulate(ScopedColors);
+                        pModelRender->ForcedMaterialOverride(materialLocal);
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                         pModelRender->ForcedMaterialOverride(nullptr);
                         return;

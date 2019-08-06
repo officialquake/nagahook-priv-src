@@ -27,6 +27,7 @@ public:
     void textW(bool center, int font, int x, int y, Color c, wchar_t *pszString);
     void drawbox(int x, int y, int w, int h, Color color);
     void drawboxoutline(int x, int y, int w, int h, Color color);
+    void BoxEspShit(int X, int Y, int W, int H, Color Color);
     void DrawCornerBox(int X, int Y, int W, int H, int inr, int ing, int inb, int outr, int otug, int outb);
     void fillrgba(int x, int y, int w, int h, Color color);
     void drawline(int x, int y, int xx, int yy, Color color);

@@ -75,6 +75,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
+    Freestand(local, cmd, weapon);
     lby_spin(cmd, local);
     tank(cmd, local);
     AutoCock(cmd, weapon);

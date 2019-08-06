@@ -633,6 +633,12 @@ void cMenu::renderAntiAim(int x, int y) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
     this->renderSlider(x + 469, y + 295, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
+    this->renderCheckbox(x + 474, y + 315, "Freestand", &vars.aimbot.freestand);
+    if (!vars.freestand_opend) {
+        
+        this->renderSlider(x + 469, y + 335, 150, "Jitter", vars.aimbot.jitter, 180, 0);
+        
+    }
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 32, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
@@ -683,7 +689,7 @@ void cMenu::renderVis(int x, int y) {
     vector<string> Hands;
     vector<string> Weapons;
     vector<string> fakelag;
-    vector<string> tptype;
+    vector<string> localchams;
     
     Players.push_back("Platinum");
     Players.push_back("Texture");
@@ -737,6 +743,20 @@ void cMenu::renderVis(int x, int y) {
     fakelag.push_back("Branches");
     fakelag.push_back("Plastic");
     
+    localchams.push_back("Platinum");
+    localchams.push_back("Texture");
+    localchams.push_back("Wireframe");
+    localchams.push_back("Crystal Blue");
+    localchams.push_back("Mexican Cartel");
+    localchams.push_back("Fading");
+    localchams.push_back("Glass");
+    localchams.push_back("Gold");
+    localchams.push_back("Red Glow");
+    localchams.push_back("Fishing Net");
+    localchams.push_back("Branches");
+    localchams.push_back("Plastic");
+    localchams.push_back("Lit");
+    
     this->renderCheckbox(x - 15, y + 15, "Enabled", &vars.visuals.enabled);
     this->renderCheckbox(x - 15, y + 35, "Enemy only", &vars.visuals.enemyonly);
     this->renderCheckbox(x - 15, y + 55, "Vis Only", &vars.visuals.visonly);
@@ -755,21 +775,26 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x - 15, y + 275, "Hand Chams", &vars.visuals.handchams);
     this->renderCheckbox(x - 15, y + 295, "Weapon Chams", &vars.visuals.weaponchams);
     this->renderCheckbox(x - 15, y + 315, "Fake Lag Chams", &vars.misc.flagchams);
+    this->renderCheckbox(x - 15, y + 335, "Local Player Chams", &vars.visuals.localchams);
     
     if(vars.visuals.chams) {
-        this->renderCombo(x + 10, y + 335, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
+        this->renderCombo(x + 10, y + 355, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
     }
     if(vars.visuals.handchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 355, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
+            this->renderCombo(x + 10, y + 375, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
     }
     if(vars.visuals.weaponchams) {
         if((!vars.players_opend) && !vars.hands_opend)
-            this->renderCombo(x + 10, y + 375, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
+            this->renderCombo(x + 10, y + 395, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
     }
     if(vars.misc.flagchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 395, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
+            this->renderCombo(x + 10, y + 415, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
+    }
+    if(vars.visuals.localchams) {
+        if(!vars.players_opend)
+            this->renderCombo(x + 10, y + 435, 150, 20, "Platinum", localchams, vars.visuals.localchamstype, &vars.local_opend);
     }
     
     
@@ -804,8 +829,9 @@ void cMenu::renderVis(int x, int y) {
     this->renderSlider(x + 230, y + 375, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 395, 150, "Weapon Chams", vars.visuals.weaponchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 415, 150, "Fake Lag Chams", vars.visuals.fakelagchams_alpha, 255, 0);
-    this->renderCheckbox(x + 235, y + 435, "Asuswall", &vars.misc.asuswalls);
-    this->renderSlider(x + 230, y + 455, 150, "", vars.misc.asusalpha, 1.f, 0.f);
+    this->renderSlider(x + 230, y + 435, 150, "Local Player Chams", vars.visuals.localchams_alpha, 255, 0);
+    this->renderCheckbox(x + 235, y + 455, "Asuswall", &vars.misc.asuswalls);
+    this->renderSlider(x + 230, y + 475, 150, "", vars.misc.asusalpha, 1.f, 0.f);
     
     this->renderCheckbox(x + 474, y + 15, "Hitmarker", &vars.visuals.hitmarker);
     this->renderCheckbox(x + 474, y + 35, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
@@ -876,6 +902,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("World Colours");
     Colors.push_back("FakeLag Colours");
     Colors.push_back("TP Colours");
+    Colors.push_back("Local Colours");
 
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
@@ -905,6 +932,10 @@ void cMenu::renderColors(int x, int y) {
     }
     if(vars.colors.combo == 5) {
         this->drawcolorpicker(x, y + 30, "TP", vars.colors.scopedchams);
+        
+    }
+    if(vars.colors.combo == 5) {
+        this->drawcolorpicker(x, y + 30, "Colors", vars.colors.localchams);
         
     }
 

@@ -483,6 +483,104 @@ string GetWeaponName(C_BaseCombatWeapon* pWeapon) {
     }
 }
 
+string GetWeaponName1(C_BaseCombatWeapon* pWeapon) {
+    if(!pWeapon) { return "nullptr"; }
+    short ID = *pWeapon->GetItemDefinitionIndex();
+    
+    switch (ID) {
+            /*pistols*/
+        case 4:
+            return "Glock | ";
+        case 2:
+            return "Dualies | ";
+        case 36:
+            return "P250 | ";
+        case 30:
+            return "Tec 9 | ";
+        case 1:
+            return "Deagle | ";
+        case 32:
+            return "P2000 | ";
+        case 3:
+            return "Five Seven | ";
+        case 64:
+            return "Revolver | ";
+        case 63:
+            return "CZ75 | ";
+        case 61:
+            return "USP | ";
+            /*heavy*/
+        case 35:
+            return "Nova | ";
+        case 25:
+            return "XM1014 | ";
+        case 29:
+            return "Sawed Off | ";
+        case 14:
+            return "M249 | ";
+        case 28:
+            return "Negev | ";
+        case 27:
+            return "Mag 7 | ";
+            /*smgs*/
+        case 17:
+            return "Mac 10 | ";
+        case 33:
+            return "MP7 | ";
+        case 24:
+            return "UMP45 | ";
+        case 19:
+            return "P90 | ";
+        case 26:
+            return "Bizon | ";
+        case 34:
+            return "MP9 | ";
+            /*C4*/
+        case 49:
+            return "C4 | ";
+            /*rifles*/
+        case 10:
+            return "Famas | ";
+        case 16:
+            return "M4A1 | ";
+        case 40:
+            return "Scout | ";
+        case 8:
+            return "AUG | ";
+        case 9:
+            return "AWP | ";
+        case 38:
+            return "Scar 20 | ";
+        case 13:
+            return "Galil | ";
+        case 7:
+            return "AK47 | ";
+        case 39:
+            return "SG553 | ";
+        case 11:
+            return "G3SG1 | ";
+        case 60:
+            return "M4A1-S | ";
+            /*grenades*/
+        case 46:
+        case 48:
+            return "Molotov | ";
+        case 44:
+            return "Grenade | ";
+        case 43:
+            return "Flash | ";
+        case 45:
+            return "Smoke | ";
+        case 47:
+            return "Decoy | ";
+            /*other*/
+        case 31:
+            return "Zeus | ";
+        default:
+            return "Knife | ";
+    }
+}
+
 void MoveFix(CUserCmd *cmd, Vector &realvec)
 {
     Vector vMove(cmd->forwardmove, cmd->sidemove, cmd->upmove);

@@ -400,6 +400,24 @@ void DrawPlayerESP()
     
     auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
+    static int counter = 0;
+    static float colors[3] = { 1.f, 0.f, 0.f };
+    
+    if (colors[counter] >= 1.0f)
+    {
+        colors[counter] = 1.0f;
+        counter += 1;
+        if (counter > 2)
+            counter = 0;
+    }
+    else
+    {
+        int prev = counter - 1;
+        if (prev < 0) prev = 2;
+        colors[prev] -= 0.05f;
+        colors[counter] += 0.05f;
+    }
+    
     for(int i = 0; i < pEntList->GetHighestEntityIndex(); i++)
     {
         auto* entity = pEntList->GetClientEntity(i);
@@ -449,7 +467,7 @@ void DrawPlayerESP()
             /* Draw box */
             
             if(vars.visuals.box)
-                draw->drawboxoutline(players.x, players.y, players.w, players.h, playercolor);
+                draw->BoxEspShit(players.x, players.y, players.w, players.h, playercolor);
             
             /* Draw name */
             if(vars.visuals.name)
@@ -487,7 +505,7 @@ void DrawPlayerESP()
             
             /* Draw skeleton */
             if(vars.visuals.skeleton)
-                DrawSkeleton(entity, Color::Red());
+                DrawSkeleton(entity, Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
             
             
             if(vars.visuals.defusing && entity->IsDefusing())
