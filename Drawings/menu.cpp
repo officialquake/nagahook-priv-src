@@ -969,7 +969,24 @@ void cMenu::renderMenu() {
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
     draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color(255, RainbowR, RainbowG, RainbowB), csgo_icons, "q", true);
+    static int counter = 0;
+    static float colors[3] = { 1.f, 0.f, 0.f };
+    
+    if (colors[counter] >= 1.0f)
+    {
+        colors[counter] = 1.0f;
+        counter += 1;
+        if (counter > 2)
+            counter = 0;
+    }
+    else
+    {
+        int prev = counter - 1;
+        if (prev < 0) prev = 2;
+        colors[prev] -= 0.05f;
+        colors[counter] += 0.05f;
+    }
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255), csgo_icons, "q", true);
     
     // Draws tabs
     draw->RectOutlined(x + 2, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
@@ -1100,7 +1117,7 @@ void cMenu::renderMenu() {
     draw->drawstring(x + 50, y + 22 + 16, Color::White(), osFont, "LEGITBOT", true);
     draw->drawstring(x + 150, y + 22 + 17, Color::White(), osFont, "RAGEBOT", true);
     draw->drawstring(x + 250, y + 22 + 16, Color::White(), osFont, "VISUALS", true);
-    draw->drawstring(x + 350, y + 22 + 17, Color::White(), osFont, "MISC", true);
+    draw->drawstring(x + 350, y + 22 + 16, Color::White(), osFont, "MISC", true);
     draw->drawstring(x + 450, y + 22 + 15, Color::White(), osFont, "COLORS", true);
     draw->drawstring(x + 550, y + 22 + 15, Color::White(), osFont, "CONFIG", true);
     draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "CREDITS", true);
