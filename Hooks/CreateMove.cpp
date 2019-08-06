@@ -67,29 +67,27 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
-    CEnginePrediction::Instance()->Start(cmd);
+   
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
-    if (local->GetLifeState() == LIFE_ALIVE && pEngine->IsConnected() && pEngine->IsInGame())
-    {
-        DesyncAA(cmd, local);
-    }
     backjizzer(cmd, local);
     lby_spin(cmd, local);
     tank(cmd, local);
     AutoCock(cmd, weapon);
     resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
+    CEnginePrediction::Instance()->Start(cmd);
     DoAim(cmd, local, weapon, flForwardmove, flSidemove);
+    CEnginePrediction::Instance()->End();
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     RecoilControl(local, cmd);
     Autostop(cmd, local);
     AutoKnife(local, cmd);
-    CEnginePrediction::Instance()->End();
+    
     
     
     DoSpammer();
@@ -111,6 +109,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     misc->clan_tag();
     createmoveVMT->GetOriginalMethod<tCreateMove>(25)(thisptr, flSampleInput, cmd);
+    
     
     if(!cmd->command_number)
         return false;

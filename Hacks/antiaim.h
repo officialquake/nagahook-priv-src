@@ -13,6 +13,7 @@ enum VIEW_ANTIAIM_PITCH {
     Up          = 2,
 };
 
+
 enum VIEW_ANTIAIM_YAW {
     Backwards       = 1,
     Jitter          = 2,
@@ -26,7 +27,7 @@ enum VIEW_ANTIAIM_YAW {
     SidewaysLeft    = 10,
     SidewaysRight   = 11,
     LBYBreaker      = 12,
-    Desync      = 12,
+    Desync1      = 12,
 };
 
 enum VIEW_ANTIIAIM_FYAW {
@@ -35,7 +36,7 @@ enum VIEW_ANTIIAIM_FYAW {
     FakeTwoStep     = 3,
     FakeLowerBody135= 4,
     FakeInverseRotation = 5,
-    FakeJitter      = 6,
+    Desync      = 6,
     FakeLBY         = 7,
     FakeSideLBY     = 8,
     
@@ -56,7 +57,6 @@ enum VIEW_ANTIIAIM_AYAW
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
 
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local);
-void DesyncAA(CUserCmd* cmd, C_BaseEntity* local);
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local);
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local);
 void tank(CUserCmd* cmd, C_BaseEntity* local);

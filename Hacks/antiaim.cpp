@@ -24,6 +24,8 @@ void inline SinCos(float radians, float* sine, float* cosine)
 }
 
 
+
+
 float next_lby_update;
 float old_lby;
 
@@ -366,60 +368,6 @@ void do_fake(CUserCmd* cmd) {
 
 #define TICK_INTERVAL            (pGlobals->interval_per_tick)
 
-void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
-    if(!vars.misc.legitaa)
-        return;
-    
-    float speed = local->GetVelocity().Length2D();
-    
-    float standing = vars.misc.freestanding;
-    float server_time = local->GetTickBase() * pGlobals->interval_per_tick * 2;
-    float time = TIME_TO_TICKS(server_time);
-    
-    bool jitter = false;
-    float lineRealAngle = vars.misc.aaY;
-    
-    while (time >= server_time)
-        time = 0.f;
-    
-    float idk = rand() % 100;
-    
-    /*if (speed <= 10 && (local->GetFlags() & FL_ONGROUND))
-     {
-     }*/
-    
-    jitter = !jitter;
-    if (time >= server_time / 2)
-    {
-        if (idk < 70)
-        {
-            if (!jitter)
-                cmd->viewangles.y = cmd->viewangles.y + standing;
-            
-        }
-        else
-        {
-            if (!jitter)
-                cmd->viewangles.y = cmd->viewangles.y - standing;
-            
-        }
-    }
-    else
-    {
-        if (idk < 70)
-        {
-            if (jitter)
-                cmd->viewangles.y = cmd->viewangles.y - standing;
-        }
-        else
-        {
-            if (jitter)
-                cmd->viewangles.y = cmd->viewangles.y + standing;
-            
-        }
-    }
-}
-
 void jitter_crooked(CUserCmd* cmd, C_BaseEntity* local)
 {
     float fljit = 78;
@@ -470,6 +418,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
         return;
     
+    
+    
     if(vars.visuals.edge){
         auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);
         
@@ -484,6 +434,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     static bool fakeswitch = false;
     static bool bFlip = false;
+    static bool yFlip;
     static int fakeTick = 0;
     bool bAttack = true;
     bFlip = !bFlip;
@@ -509,11 +460,9 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 bPacket = true;
         }
         
-        if (!vars.misc.fakelag) {
-            *bSendPacket = cmd->command_number % 2;
-        }
         
-        if(vars.misc.aaX > 0) {
+        if(vars.misc.aaX > 0)
+        {
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Down){
                 cmd->viewangles.x = 89;
             }
@@ -609,6 +558,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::SidewaysRight) {
                 fakeswitch ? cmd->viewangles.y = -90 : cmd->viewangles.y = atTargets.y;
+                
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::LBYBreaker) {
                 QAngle angle_for_yaw;
@@ -641,7 +591,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     counter++;
                 }
             }
-            if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync) {
+            if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
                 if(bSendPacket)
                 {
                     cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
@@ -651,6 +601,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     do_real2(cmd, local);
                 }
             }
+        }
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){
                     int random = rand() % 100;
@@ -729,31 +680,37 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         cmd->viewangles.y -= (float)(fmod(server_time / 0.80f * 360.0f, 360.0f));
                     }
                 }
-                if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeJitter) {
-                    static int jitterangle = 0;
+                if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::Desync) {
+                    float last_lby = 0.f;
+                    float last_lby_time = 0.f;
+                    static bool jitter_switch = false;
+                    float outgoing_latency = 0.f; //inetchannel
+                    float current_lby = local->GetLowerBodyYawTarget();
                     
-                    if (jitterangle <= 1) {
-                        cmd->viewangles.y += 135;
-                    } else if (jitterangle > 1 && jitterangle <= 3) {
-                        cmd->viewangles.y += 225;
+                    if (current_lby != last_lby || fabs(local->GetVelocity().Length2D()) > 0.1f)
+                    {
+                        last_lby_time = pGlobals->curtime;
+                        last_lby = current_lby;
                     }
-                    static int iChoked = -1;
-                    iChoked++;
-                    if (iChoked < 1){
-                        *bSendPacket = true;
-                        if (jitterangle <= 1) {
-                            cmd->viewangles.y += 45;
-                            jitterangle += 1;
-                        } else if (jitterangle > 1 && jitterangle <= 3) {
-                            cmd->viewangles.y -= 45;
-                            jitterangle += 1;
-                        } else {
-                            jitterangle = 0;
+                    
+                    if (!bSendPacket)
+                    {
+                        if (fabs(last_lby_time - pGlobals->curtime) > 1.1f - outgoing_latency)
+                        {
+                            cmd->viewangles.y += 90.f;
                         }
-                    } else {
-                        *bSendPacket = false;
-                        iChoked = -1;
+                        else
+                        {
+                            cmd->viewangles.y += 180.f;
+                        }
                     }
+                    else
+                    {
+                        cmd->viewangles.y -= 90.f;
+                    }
+                    
+                    *bSendPacket = jitter_switch;
+                    jitter_switch = !jitter_switch;
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLBY) {
                     static bool flip_lby = false;
@@ -768,9 +725,9 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         cmd->viewangles.y -= local->GetLowerBodyYawTarget() + 180.00f;
                     }
                 }
+                
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSideLBY) {
                     int i = 0; i < pEntList->GetHighestEntityIndex(); ++i;
-                    C_BaseEntity* pEntity = pEntList->GetClientEntity(i);
                     //plocal = (C_BaseEntity*)(pEntList->GetClientEntity(pEngine->GetLocalPlayer()));
                     
                     static bool isMoving;
@@ -810,5 +767,3 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         }
         
     }
-    cmd->viewangles.ClampAngles();
-};

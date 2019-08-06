@@ -506,7 +506,6 @@ void cMenu::renderAim(int x, int y) {
 
     this->renderCheckbox(x + 235, y + 35, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 55, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 75, "Desync AA (idk if work)", &vars.misc.legitaa);
     
     /**/
     
@@ -562,7 +561,7 @@ void cMenu::renderAntiAim(int x, int y) {
     Yaw.push_back("RandomBackJitter");
     Yaw.push_back("BackJitter");
     Yaw.push_back("LowerYaw");
-    Yaw.push_back("SidewaysLeft");
+    Yaw.push_back("LISP");
     Yaw.push_back("SidewaysRight");
     Yaw.push_back("LBYBreaker");
     Yaw.push_back("Desync");
@@ -574,7 +573,7 @@ void cMenu::renderAntiAim(int x, int y) {
     FakeYaw.push_back("FakeTwoStep");
     FakeYaw.push_back("FakeLowerBody135");
     FakeYaw.push_back("FakeInverseRotation");
-    FakeYaw.push_back("FakeJitter");
+    FakeYaw.push_back("Fake Head");
     FakeYaw.push_back("FakeLBY");
     FakeYaw.push_back("FakeSideLBY");
     //Moving Yaw
