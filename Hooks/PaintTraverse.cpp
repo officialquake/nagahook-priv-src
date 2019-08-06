@@ -25,14 +25,14 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         if(strstr(pPanel->GetName(panel), "FocusOverlayPanel"))
         {
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
-            espfont         = draw->createfont(espfont, "Caviar Dreams", 10, FONTFLAG_ANTIALIAS);
-            csgo_icons         = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_ANTIALIAS);
+            espfont         = draw->createfontt(espfont, "Tahoma", 12, FONTFLAG_DROPSHADOW);
+            csgo_icons      = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_ANTIALIAS);
             
             mFont           = draw->createfont(mFont, "Caviar Dreams", 1, FONTFLAG_ANTIALIAS);
             sFont           = draw->createfont(sFont, "BigNoodleTitling", 12, FONTFLAG_ANTIALIAS);     // Used for sliders
             tFont           = draw->createfont(tFont, "BigNoodleTitling", 18, FONTFLAG_ANTIALIAS);     // Used for tabs
             heading         = draw->createfont(heading, "BigNoodleTitling", 21, FONTFLAG_ANTIALIAS);   // Used for headings
-            osFont          = draw->createfont(osFont, "Caviar Dreams", 13, FONTFLAG_ANTIALIAS);
+            osFont          = draw->createfont(osFont, "ProggyCleanTT", 16, FONTFLAG_ANTIALIAS);
             copyright          = draw->createfont(copyright, "Avenir", 45, FONTFLAG_ANTIALIAS);
             cFont           = draw->createfont(cFont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);     // Combos
             titleFont       = draw->createfont(cFont, "BigNoodleTitling", 52, FONTFLAG_ANTIALIAS);     // vlone.cc Title

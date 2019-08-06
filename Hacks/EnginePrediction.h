@@ -25,6 +25,7 @@ private:
     static CEnginePrediction* instance;
     float m_flOldCurtime = 0.f;
     float m_flOldFrametime = 0.f;
+    CMoveData m_MoveData;
     int oldPFlags;
 };
 

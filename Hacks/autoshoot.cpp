@@ -164,19 +164,23 @@ void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 
 void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 {
-    if (!vars.aimbot.autopistol || !vars.aimbot.autoshoot)
+    if(!vars.aimbot.autopistol)
         return;
     
-    CSWeaponType weaponType = (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType;
-    
-    if (!weapon || weaponType != CSWeaponType::WEAPONTYPE_PISTOL)
+    if(!weapon->IsPistol())
         return;
     
-    if (weapon->GetNextPrimaryAttack() < pGlobals->curtime)
-        return;
-    
-    if (*weapon->GetItemDefinitionIndex() != ItemDefinitionIndex::WEAPON_REVOLVER)
-        pCmd->buttons &= ~IN_ATTACK;
+    if (pCmd->buttons & IN_ATTACK)
+    {
+        static bool bAttack = false;
+        
+        if (bAttack)
+            pCmd->buttons |= IN_ATTACK;
+        else
+            pCmd->buttons &= ~IN_ATTACK;
+        
+        bAttack = !bAttack;
+    }
     
 }
 

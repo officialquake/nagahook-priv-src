@@ -6,9 +6,6 @@ CEnginePrediction* CEnginePrediction::instance = nullptr;
 CEnginePrediction::CEnginePrediction() {}
 
 void CEnginePrediction::StartSingle(CUserCmd* cmd, C_BaseCombatWeapon* pWeapon, C_BaseEntity* pLocal) {
-    
-    if (!pMoveHelper)
-        return;
 
     
     float backup = pGlobals->frametime;
@@ -27,37 +24,30 @@ void CEnginePrediction::StartSingle(CUserCmd* cmd, C_BaseCombatWeapon* pWeapon, 
 }
 
 void CEnginePrediction::Start(CUserCmd* cmd) {
+    m_flOldCurtime = pGlobals->curtime;
+    m_flOldFrametime = pGlobals->frametime;
     
-    if (!pMoveHelper)
-        return;
     
     C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     if (!LocalPlayer)
         return;
 
+    pMoveHelper->SetHost(LocalPlayer);
     
     *nPredictionRandomSeed = MD5_PseudoRandom(cmd->command_number) & 0x7FFFFFFF;
     
     oldPFlags = LocalPlayer->GetFlags();
-    
-    m_flOldCurtime = pGlobals->curtime;
-    m_flOldFrametime = pGlobals->frametime;
-    
     pGlobals->curtime = LocalPlayer->GetTickBase() * pGlobals->interval_per_tick;
     pGlobals->frametime = pGlobals->interval_per_tick;
-    
     pGameMovement->StartTrackPredictionErrors(LocalPlayer);
-    
-    pMoveHelper->SetHost(LocalPlayer);
+    memset(&m_MoveData, 0, sizeof(m_MoveData));
     pPrediction->SetupMove(LocalPlayer, cmd, pMoveHelper, MoveData);
     pGameMovement->ProcessMovement(LocalPlayer, MoveData);
     pPrediction->FinishMove(LocalPlayer, cmd, MoveData);
 }
 
 void CEnginePrediction::End() {
-    
-    if (!pMoveHelper)
-        return;
+
     
     C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     if (!LocalPlayer)

@@ -67,7 +67,9 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
-   
+    CEnginePrediction::Instance()->Start(cmd);
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
+    Fakewalk(cmd, local);
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
@@ -78,20 +80,12 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     AutoCock(cmd, weapon);
     resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
-    CEnginePrediction::Instance()->Start(cmd);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
-    CEnginePrediction::Instance()->End();
+    RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
+    CEnginePrediction::Instance()->End();
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
-    RecoilControl(local, cmd);
-    Autostop(cmd, local);
-    AutoKnife(local, cmd);
-    
-    
-    
     DoSpammer();
-    Fakewalk(cmd, local);
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
         SetClanTag(draw->m_szChangedValue[3].c_str(), "Xanax");
     //movement->FakeLag(cmd, sendPacket);

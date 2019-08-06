@@ -21,7 +21,9 @@ public:
     
     wstring wstringtostring(string str);
     wstring StringToWstring(string str);
+    
     HFONT createfont(HFONT font, const char* szFont, int tall, int flags);
+    HFONT createfontt(HFONT font, const char* szFont, int tall, int flags);
     void textW(bool center, int font, int x, int y, Color c, wchar_t *pszString);
     void drawbox(int x, int y, int w, int h, Color color);
     void drawboxoutline(int x, int y, int w, int h, Color color);

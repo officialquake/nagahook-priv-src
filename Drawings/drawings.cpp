@@ -326,6 +326,15 @@ HFONT cDrawings::createfont(HFONT font, const char *szFont, int tall, int flags)
     
 }
 
+HFONT cDrawings::createfontt(HFONT font, const char *szFont, int tall, int flags) {
+    
+    font = pSurface->CreateFont();
+    pSurface->SetFontGlyphSet(font, szFont, tall, 700, 0, 0, flags);
+    
+    return font;
+    
+}
+
 
 void cDrawings::drawstring(int x, int y, Color color, HFONT font, const char *szString, bool bCenter) {
     

@@ -304,6 +304,23 @@ void cMenu::playerbutton(int x, int y, int w, int h, int index, int& playercount
     draw->drawstring(x + w / 2, y + h / 2, FontColor, mFont, szString, true);
 }
 
+int RainbowR= 100;
+int RainbowG= 100;
+int RainbowB= 100;
+float RainbowTexts= 100;
+//--------------------------------------------------------------------
+void DoRainBow(){
+    if(RainbowTexts!=100){
+        RainbowR-=2,RainbowG-=3,RainbowB-=3;
+    }
+    
+    if(RainbowTexts!=255){
+        RainbowR+=2,RainbowG+=3,RainbowB+=4;
+    }
+}
+//--------------------------------------------------------------------
+#define RAINBOW            D3DCOLOR_ARGB(255, RainbowR, RainbowG, RainbowB)
+
 void cMenu::render_section(int x, int y, int w, int h, const char* label)
 {
     
@@ -952,64 +969,64 @@ void cMenu::renderMenu() {
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
     draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "Pasteware", true);
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color(255, RainbowR, RainbowG, RainbowB), csgo_icons, "q", true);
     
     // Draws tabs
-    draw->RectOutlined(x + 2, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 102, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 202, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 302, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 402, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 502, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 602, y + 20 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 2, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 102, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 202, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 302, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 402, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 502, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 605, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
     
     
     // Handles tabs
     if(draw->inArea(x + 2, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 2, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 2, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::LegitBot;
         
     } else if(draw->inArea(x + 102, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 102, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 102, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::RageBot;
         
     } else if(draw->inArea(x + 202, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 202, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 202, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Visuals;
         
     } else if(draw->inArea(x + 302, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 302, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 302, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Misc;
         
     } else if(draw->inArea(x + 402, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 402, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 402, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::ColorsTab;
         
     } else if(draw->inArea(x + 502, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 502, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 502, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::ConfigTab;
             
     } else if(draw->inArea(x + 602, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 602, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), Color::Black());
+        draw->RectOutlined(x + 602, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Credits;
@@ -1035,7 +1052,7 @@ void cMenu::renderMenu() {
         case mTab::Visuals:
             render_section(x + 10, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
-            render_section(x + 488, y + 55, 220, h - 62, "HvH");
+            render_section(x + 488, y + 55, 220, h - 62, "Other2");
             this->renderVis(x + 35, y + 30 + 20 + 5);
             break;
             
@@ -1080,13 +1097,13 @@ void cMenu::renderMenu() {
         config->SaveConfig();
     }
     
-    draw->drawstring(x + 50, y + 22 + 16, greycolor, osFont, "LEGITBOT", true);
-    draw->drawstring(x + 150, y + 22 + 17, greycolor, osFont, "RAGEBOT", true);
-    draw->drawstring(x + 250, y + 22 + 16, greycolor, osFont, "VISUALS", true);
-    draw->drawstring(x + 350, y + 22 + 17, greycolor, osFont, "MISC", true);
-    draw->drawstring(x + 450, y + 22 + 15, greycolor, osFont, "COLORS", true);
-    draw->drawstring(x + 550, y + 22 + 15, greycolor, osFont, "CONFIG", true);
-    draw->drawstring(x + 650, y + 22 + 15, greycolor, osFont, "CREDITS", true);
+    draw->drawstring(x + 50, y + 22 + 16, Color::White(), osFont, "LEGITBOT", true);
+    draw->drawstring(x + 150, y + 22 + 17, Color::White(), osFont, "RAGEBOT", true);
+    draw->drawstring(x + 250, y + 22 + 16, Color::White(), osFont, "VISUALS", true);
+    draw->drawstring(x + 350, y + 22 + 17, Color::White(), osFont, "MISC", true);
+    draw->drawstring(x + 450, y + 22 + 15, Color::White(), osFont, "COLORS", true);
+    draw->drawstring(x + 550, y + 22 + 15, Color::White(), osFont, "CONFIG", true);
+    draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "CREDITS", true);
     
     Pressed(MOUSE_LEFT);
     draw->MoveMenu(x, y, w, hh, 1);
