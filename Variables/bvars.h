@@ -113,6 +113,8 @@ public:
         
         bool enabled    = true;        // Enable
         bool enemyonly  = true;        // Enemy only
+        bool bombanddefusetimer    = true;        // Enable
+        bool lefthandknife    = true;        // Enable
         bool visonly    = false;       // Visual only
         bool bullett    = false;       // Visual only
         bool box        = false;       // Box ESP
@@ -125,6 +127,7 @@ public:
         bool rcrosshair = true;       // Recoil Crosshair (Shows but doesn't move)
         bool scrosshair = false;       // Sniper Crosshair
         bool defusing   = true;        // Defusing ESP
+        bool noscopeaugsg   = true;        // Defusing ESP
         bool rescuing   = false;       // Hostage rescue and carrying esp
         bool scoped     = true;        // Scoped ESP
         bool weapons    = false;       // Dropped Weapons

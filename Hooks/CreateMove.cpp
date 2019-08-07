@@ -57,6 +57,7 @@ string GetLocalName()
     return localInfo.name;
 }
 
+static CEnginePrediction PredictionSystem;
 
 void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
 {
@@ -67,24 +68,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
-    CEnginePrediction::Instance()->Start(cmd);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
-    Fakewalk(cmd, local);
-    DoTrigger(cmd, weapon);
-    backtracking->legitBackTrack(cmd, local);
-    antiResolverFlip(cmd, local);
-    turbojizzer(cmd, local);
-    backjizzer(cmd, local);
-    Freestand(local, cmd, weapon);
-    lby_spin(cmd, local);
-    tank(cmd, local);
-    AutoCock(cmd, weapon);
-    resolverfucker(cmd, local);
     DoAntiaim(cmd, local, weapon, sendPacket);
-    RecoilControl(local, cmd);
-    ContinuousPistols(cmd, weapon);
-    Hitchance(local, weapon);
-    CEnginePrediction::Instance()->End();
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     DoSpammer();
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
@@ -163,6 +147,25 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         if(*bSendPacket)
             tpangles = cmd->viewangles;
         
+        PredictionSystem.Start(cmd);
+        DoAim(cmd, local, weapon, forward, sidemove);
+        Fakewalk(cmd, local);
+        DoTrigger(cmd, weapon);
+        backtracking->legitBackTrack(cmd, local);
+        antiResolverFlip(cmd, local);
+        turbojizzer(cmd, local);
+        backjizzer(cmd, local);
+        if(vars.misc.antiaim && vars.aimbot.freestand){
+            Freestand(local, cmd, weapon);
+        }
+        lby_spin(cmd, local);
+        tank(cmd, local);
+        AutoCock(cmd, weapon);
+        resolverfucker(cmd, local);
+        RecoilControl(local, cmd);
+        ContinuousPistols(cmd, weapon);
+        Hitchance(local, weapon);
+        PredictionSystem.End();
         
         
         FixMovement(vOldAngles, cmd);

@@ -97,8 +97,10 @@ struct COffsets
 	{
 		int m_bBombTicking;
 		int m_flC4Blow;
+        int m_flTimerLength;
 		int m_bBombDefused;
 		int m_hBombDefuser;
+        int m_flDefuseCountDown;
 	} DT_PlantedC4;
 
 	struct

@@ -577,6 +577,10 @@ public:
         return *(float*)((uintptr_t)this + offsets.DT_PlantedC4.m_flC4Blow);
     }
     
+    float GetDefuseTime()
+    {
+        return *(float*)((uintptr_t)this + offsets.DT_PlantedC4.m_flDefuseCountDown);
+    }
     bool IsBombDefused()
     {
         return *(bool*)((uintptr_t)this + offsets.DT_PlantedC4.m_bBombDefused);
@@ -585,6 +589,10 @@ public:
     int GetBombDefuser()
     {
         return *(int*)((uintptr_t)this + offsets.DT_PlantedC4.m_hBombDefuser);
+    }
+    int TimerThing()
+    {
+        return *(int*)((uintptr_t)this + offsets.DT_PlantedC4.m_flTimerLength);
     }
 };
 

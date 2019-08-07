@@ -438,6 +438,14 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(nullptr);
                         return;
                     }
+                    if(vars.visuals.noscopeaugsg && entity == local){
+                    IMaterial *xblur_mat = pMatSystem->FindMaterial("dev/blurfilterx_nohdr", TEXTURE_GROUP_OTHER, true);
+                    IMaterial *yblur_mat = pMatSystem->FindMaterial("dev/blurfiltery_nohdr", TEXTURE_GROUP_OTHER, true);
+                    IMaterial *scope = pMatSystem->FindMaterial("dev/scope_bluroverlay", TEXTURE_GROUP_OTHER, true);
+                    xblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                    yblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                    scope->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                    }
                     if(vars.visuals.enemyonly && local->GetTeam() == entity->GetTeam())
                     {
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);

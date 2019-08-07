@@ -107,6 +107,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             DrawOtherESP();     // Other ESP
             
             DrawPlayerESP();    // Player esp
+        
             
             DrawScope(local);   // Draws the crosshar for noscope
             

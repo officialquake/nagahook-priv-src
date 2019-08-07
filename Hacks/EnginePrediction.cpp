@@ -1,27 +1,8 @@
 #include "EnginePrediction.h"
 #include "../Utils/checksum_md5.h"
 
-CEnginePrediction* CEnginePrediction::instance = nullptr;
 
 CEnginePrediction::CEnginePrediction() {}
-
-void CEnginePrediction::StartSingle(CUserCmd* cmd, C_BaseCombatWeapon* pWeapon, C_BaseEntity* pLocal) {
-
-    
-    float backup = pGlobals->frametime;
-    int oldFlags = pLocal->GetFlags();
-    
-    pGlobals->frametime = pGlobals->interval_per_tick;
-    
-    pWeapon->UpdateAccuracyPenalty();
-    
-    pPrediction->SetupMove(pLocal, cmd, pMoveHelper, MoveData);
-    pGameMovement->ProcessMovement(pLocal, MoveData);
-    pPrediction->FinishMove(pLocal, cmd, MoveData);
-    
-    pGlobals->frametime = backup;
-    *pLocal->pGetFlags() = oldFlags;
-}
 
 void CEnginePrediction::Start(CUserCmd* cmd) {
     m_flOldCurtime = pGlobals->curtime;

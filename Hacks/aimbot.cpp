@@ -226,9 +226,17 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     pCmd->buttons |= IN_BULLRUSH | IN_DUCK;
                 }
                 
+                if(weapon->IsKnife() && local->GetAlive() && vars.visuals.lefthandknife )
+                {
+                    pEngine->ExecuteClientCmd("cl_righthand 0");
+                }else{
+                    pEngine->ExecuteClientCmd("cl_righthand 1");
+                }
+                
                 if (vars.aimbot.autoscope && weapon->GetCSWpnData()->m_iZoomLevels > 0 && !local->IsScoped() && weapon->IsSnipScope()) //&& !local->IsScoped())
                 {
                     pCmd->buttons |= IN_ATTACK2;
+                    return;
                 }
                 
                 bool bAttack = true;

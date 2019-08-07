@@ -840,6 +840,8 @@ void cMenu::renderVis(int x, int y) {
     this->renderSlider(x + 474, y + 95, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
     this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    this->renderCheckbox(x + 474, y + 155, "Bomb Bar Timer", &vars.visuals.bombanddefusetimer);
+    this->renderCheckbox(x + 474, y + 175, "Left Hand Knife", &vars.visuals.lefthandknife);
 }
 
 
@@ -1020,13 +1022,13 @@ void cMenu::renderMenu() {
     draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255), csgo_icons, "q", true);
     
     // Draws tabs
-    draw->RectOutlined(x + 2, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 102, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 202, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 302, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 402, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 502, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
-    draw->RectOutlined(x + 605, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color::Black());
+    draw->RectOutlined(x + 7, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 107, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 207, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 307, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 407, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 507, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    draw->RectOutlined(x + 607, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
     
     
     // Handles tabs

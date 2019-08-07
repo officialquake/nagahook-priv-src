@@ -56,33 +56,46 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
     
 }
 
-void BulletTrace(C_BaseEntity* pEntity)
+void DrawBombBar(C_BaseEntity* ent, C_BasePlantedC4* bomb)
 {
-   /* if(!vars.visuals.bullett)
-        return;
-    if(pEngine->IsInGame() && pEngine->IsConnected() && pEntity->GetLifeState() == LIFE_ALIVE)
-    {
-    Vector src3D, dst3D, forward, src, dst;
-    trace_t tr;
-    Ray_t ray;
-    CTraceFilter filter;
-    
-    AngleVectors(pEntity->GetEyePosition(), &forward);
-    filter.pSkip = pEntity;
-    src3D = pEntity->GetBonePosition( 8 );
-    dst3D = src3D + ( forward * vars.misc.bullettracelength );
-    
-    ray.Init(src3D, dst3D);
-    
-    pEngineTrace->TraceRay(ray, MASK_SHOT, &filter, &tr);
-    
-    if (!WorldToScreen(src3D, src) || !WorldToScreen(tr.endpos, dst))
+    if(!bomb->IsBombTicking())
         return;
     
-    draw->drawline(src.x, src.y, dst.x, dst.y, Color::Red());
-    draw->fillrgba(dst.x - 3, dst.y - 3, 6, 6, Color::Red());
-    }*/
-};
+        int x, y;pEngine->GetScreenSize(x, y);//getscreensize in pixels for width of countdown bars
+        
+        float flblow = bomb->GetBombTime();//the time when the bomb will detonate
+        float ExplodeTimeRemaining = flblow - (ent->GetTickBase() * pGlobals->interval_per_tick);//subtract current time to get time remaining
+        
+        float fldefuse = bomb->GetDefuseTime();//time bomb is expected to defuse. if defuse is cancelled and started again this will be changed to the new value
+        float DefuseTimeRemaining = fldefuse - (ent->GetTickBase() * pGlobals->interval_per_tick);//subtract current time to get time remaining
+        char TimeToExplode[64]; sprintf(TimeToExplode, "Explode in: %.1f", ExplodeTimeRemaining);//Text we gonna display for explosion
+    
+        char TimeToDefuse[64]; sprintf(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
+        
+        if (ExplodeTimeRemaining > 0 && !bomb->IsBombDefused())//there is a period when u cant defuse the bomb and it hasn't exploded. > 0 check stops text showing then
+        {                                    //also need to check if the bomb has been defused, cos otherwise it will just display time remaining when bomb was defused
+            
+            float fraction = ExplodeTimeRemaining / bomb->TimerThing();//the proportion of time remaining, use fltimerlength cos bomb detonation time can vary by gamemode
+            int onscreenwidth = fraction * x;//the width of the bomb timer bar. proportion of time remaining multiplied by width of screen
+            
+            float red = 255 - (fraction * 255);//make our bar fade from complete green to complete red
+            float green = fraction * 255;
+            
+            pSurface->DrawSetColor(red,green,0,255);
+            pSurface->DrawFilledRect(0, 0, onscreenwidth, 10);//rectangle from top left to the width of the bar and down 10 pixels
+        }//could remove the "explode in" but why make things more complicated
+        
+        C_BasePlayer* Defuser = (C_BasePlayer*)pEntList->GetClientEntityFromHandle(bomb->GetBombDefuser());//this is the player whos is defusing the bomben
+        
+        if (Defuser)//if there is a player defusing the bomb. this check is needed or it will continue showing time if a player stops defusing
+        {
+            float fraction = DefuseTimeRemaining / bomb->TimerThing();
+            int onscreenwidth = fraction * x;
+            
+            pSurface->DrawSetColor(0,0,255, 255);//pick any color. lama uses blue so...
+            pSurface->DrawFilledRect(0, 10, onscreenwidth, 20);
+        }
+}
 
 void box3d(C_BaseEntity* entity, Color color) {
     
@@ -278,18 +291,17 @@ void DrawOtherESP() {
         }
         
         // Draw planted bomb
+        
         if(vars.visuals.bombtimer && classID == CPlantedC4)
             DrawBombPlanted(local, pC4);
         
+        if(vars.visuals.bombanddefusetimer && classID == CPlantedC4)
+            DrawBombBar(local, pC4);
+        
+
+        
         if (vars.visuals.grenade)
             grenadeESP(entity);
-        
-        
-        // Manual AA prediction
-        /*if(vars.visuals.manualaa)
-         {
-         manualaa();
-         }*/
         
     }
 }
@@ -486,9 +498,6 @@ void DrawPlayerESP()
             if(vars.visuals.armour)
                 DrawHealthbar(players.x, players.y + players.h + 3, players.w, 2, entity->GetArmor(), Color(72, 136, 189, 255));
             
-            if (vars.visuals.bullett)
-                BulletTrace(entity);
-            
             /*if(vars.visuals.armortext)
              draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetArmor()).c_str(), true);*/
             
@@ -519,7 +528,7 @@ void DrawPlayerESP()
             if(entity->IsRescuing())
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "CARRYING", true);
             
-        
+            
             
             if((vars.visuals.scoped && entity->IsScoped()))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Red(), espfont, "SCOPING", true);
