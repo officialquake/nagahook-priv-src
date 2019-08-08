@@ -65,10 +65,28 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
     
+    PredictionSystem.Start(cmd);
+    DoAntiaim(cmd, local, weapon, sendPacket);
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
+    Fakewalk(cmd, local);
+    DoTrigger(cmd, weapon);
+    backtracking->legitBackTrack(cmd, local);
+    antiResolverFlip(cmd, local);
+    turbojizzer(cmd, local);
+    backjizzer(cmd, local);
+    lby_spin(cmd, local);
+    tank(cmd, local);
+    AutoCock(cmd, weapon);
+    resolverfucker(cmd, local);
+    RecoilControl(local, cmd);
+    ContinuousPistols(cmd, weapon);
+    Hitchance(local, weapon);
+    PredictionSystem.End();
+    DoAntiaim(cmd, local, weapon, sendPacket);
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
-    DoAntiaim(cmd, local, weapon, sendPacket);
+    
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     DoSpammer();
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
@@ -140,6 +158,10 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     {
         hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket);
         
+        
+        FixMovement(vOldAngles, cmd);
+        ClampMoves(forward, sidemove, upmove);
+        
         if(local->GetAlive()){
             *bSendPacket = true;
         }
@@ -147,29 +169,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         if(*bSendPacket)
             tpangles = cmd->viewangles;
         
-        PredictionSystem.Start(cmd);
-        DoAim(cmd, local, weapon, forward, sidemove);
-        Fakewalk(cmd, local);
-        DoTrigger(cmd, weapon);
-        backtracking->legitBackTrack(cmd, local);
-        antiResolverFlip(cmd, local);
-        turbojizzer(cmd, local);
-        backjizzer(cmd, local);
-        if(vars.misc.antiaim && vars.aimbot.freestand){
-            Freestand(local, cmd, weapon);
-        }
-        lby_spin(cmd, local);
-        tank(cmd, local);
-        AutoCock(cmd, weapon);
-        resolverfucker(cmd, local);
-        RecoilControl(local, cmd);
-        ContinuousPistols(cmd, weapon);
-        Hitchance(local, weapon);
-        PredictionSystem.End();
-        
-        
-        FixMovement(vOldAngles, cmd);
-        ClampMoves(forward, sidemove, upmove);
+       
         
         if(vars.misc.enabled && vars.misc.antiuntrust)
         {

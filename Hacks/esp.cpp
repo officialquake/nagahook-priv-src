@@ -56,44 +56,6 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
     
 }
 
-void DrawBombBar(C_BaseEntity* ent, C_BasePlantedC4* bomb)
-{
-    
-        int x, y;pEngine->GetScreenSize(x, y);//getscreensize in pixels for width of countdown bars
-        
-        float flblow = bomb->GetBombTime();//the time when the bomb will detonate
-        float ExplodeTimeRemaining = flblow - (ent->GetTickBase() * pGlobals->interval_per_tick);//subtract current time to get time remaining
-        
-        float fldefuse = bomb->GetDefuseTime();//time bomb is expected to defuse. if defuse is cancelled and started again this will be changed to the new value
-        float DefuseTimeRemaining = fldefuse - (ent->GetTickBase() * pGlobals->interval_per_tick);//subtract current time to get time remaining
-        char TimeToExplode[64]; sprintf(TimeToExplode, "Explode in: %.1f", ExplodeTimeRemaining);//Text we gonna display for explosion
-    
-        char TimeToDefuse[64]; sprintf(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
-        
-        if (ExplodeTimeRemaining > 0 && !bomb->IsBombDefused())//there is a period when u cant defuse the bomb and it hasn't exploded. > 0 check stops text showing then
-        {                                    //also need to check if the bomb has been defused, cos otherwise it will just display time remaining when bomb was defused
-            
-            float fraction = ExplodeTimeRemaining / bomb->TimerThing();//the proportion of time remaining, use fltimerlength cos bomb detonation time can vary by gamemode
-            int onscreenwidth = fraction * x;//the width of the bomb timer bar. proportion of time remaining multiplied by width of screen
-            
-            float red = 255 - (fraction * 255);//make our bar fade from complete green to complete red
-            float green = fraction * 255;
-            
-            pSurface->DrawSetColor(red,green,0,255);
-            pSurface->DrawFilledRect(0, 0, onscreenwidth, 10);//rectangle from top left to the width of the bar and down 10 pixels
-        }//could remove the "explode in" but why make things more complicated
-        
-        C_BasePlayer* Defuser = (C_BasePlayer*)pEntList->GetClientEntityFromHandle(bomb->GetBombDefuser());//this is the player whos is defusing the bomben
-        
-        if (Defuser)//if there is a player defusing the bomb. this check is needed or it will continue showing time if a player stops defusing
-        {
-            float fraction = DefuseTimeRemaining / bomb->TimerThing();
-            int onscreenwidth = fraction * x;
-            
-            pSurface->DrawSetColor(0,0,255, 255);//pick any color. lama uses blue so...
-            pSurface->DrawFilledRect(0, 10, onscreenwidth, 20);
-        }
-}
 
 
 void box3d(C_BaseEntity* entity, Color color) {
@@ -223,7 +185,6 @@ void grenadeESP(C_BaseEntity* entity){
 }
 
 
-
 void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
 {
     if(!bomb->IsBombTicking())
@@ -237,18 +198,40 @@ void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
     float flBlow    = bomb->GetBombTime();
     float bombTimer = flBlow - (pGlobals->interval_per_tick * local->GetTickBase());
     
+    int x, y;
+    pEngine->GetScreenSize(x, y);//getscreensize in pixels for width of countdown bars
+    
+    
+    float fldefuse = bomb->GetDefuseTime();//time bomb is expected to defuse. if defuse is cancelled and started again this will be changed to the new value
+    float DefuseTimeRemaining = fldefuse - (pGlobals->interval_per_tick * local->GetTickBase());//subtract current time to get time remaining
+    char TimeToExplode[64]; sprintf(TimeToExplode, "Explode in: %.1f", bombTimer);//Text we gonna display for explosion
+    
+    char TimeToDefuse[64]; sprintf(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
+    
     char buffer[128];
     
     if((local->HasDefuser() && flBlow < 5.25f) || (!local->HasDefuser() && flBlow < 10.25f))
         sprintf(buffer, "No time %.f", bombTimer);
     
-    if((local->HasDefuser() && flBlow > 5.25f) || (!local->HasDefuser() && flBlow > 10.25f))
+    if((local->HasDefuser() && flBlow > 5.25f) || (!local->HasDefuser() && flBlow > 10.25f)){
         sprintf(buffer, "Bomb %.f", bombTimer);
+        
+        
+    }
     
     if (bomb->IsBombDefused() || !bomb->IsBombTicking() || bombTimer <= 0.f)
-        sprintf(buffer, "Bomb");
+            sprintf(buffer, "Bomb");
     
-    draw->drawstring(Box.x, Box.y, Color(255, 0, 0, 255), espfont, buffer);
+        draw->drawstring(Box.x, Box.y, Color(255, 0, 0, 255), espfont, buffer);
+    
+        float fraction = bombTimer / bomb->TimerThing();//the proportion of time remaining, use fltimerlength cos bomb detonation time can vary by gamemode
+        int onscreenwidth = fraction * x;//the width of the bomb timer bar. proportion of time remaining multiplied by width of screen
+    
+        float red = 255 - (fraction * 255);//make our bar fade from complete green to complete red
+        float green = fraction * 255;
+    
+        pSurface->DrawSetColor(red,green,0,255);
+        pSurface->DrawFilledRect(0, 0, onscreenwidth, 10);
     
 }
 
@@ -293,9 +276,7 @@ void DrawOtherESP() {
         
         if(vars.visuals.bombtimer && classID == CPlantedC4)
             DrawBombPlanted(local, pC4);
-        
-        if(vars.visuals.bombanddefusetimer && classID == CPlantedC4)
-            DrawBombBar(local, pC4);
+    
         
 
         

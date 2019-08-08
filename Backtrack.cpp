@@ -90,7 +90,6 @@ void BackTrack::legitBackTrack(CUserCmd* cmd, C_BaseEntity* pLocal)
     {
         int bestTargetIndex = -1;
         float bestFov = MAXFLOAT;
-        player_info_t info;
         if (!pLocal->GetAlive())
             return;
         

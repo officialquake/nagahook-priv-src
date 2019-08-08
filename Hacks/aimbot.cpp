@@ -236,18 +236,18 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 
                 if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
                     bAttack = false;
+                
                 if(pCmd->buttons & IN_ATTACK)
                 {
-                    
-                if(!vars.aimbot.silent)
-                {
-                    pCmd->viewangles = vTo;
-                    pEngine->SetViewAngles(pCmd->viewangles);
-                }
-                else
-                {
-                    pCmd->viewangles = vTo;
-                }
+                    if(!vars.aimbot.silent)
+                    {
+                        pCmd->viewangles = vTo;
+                        pEngine->SetViewAngles(pCmd->viewangles);
+                    }
+                    else
+                    {
+                        pCmd->viewangles = vTo;
+                    }
                 }
             }
             

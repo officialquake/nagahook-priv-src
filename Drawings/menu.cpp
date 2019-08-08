@@ -633,12 +633,6 @@ void cMenu::renderAntiAim(int x, int y) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
     this->renderSlider(x + 469, y + 295, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
-    this->renderCheckbox(x + 474, y + 315, "Freestand", &vars.aimbot.freestand);
-    if (!vars.freestand_opend) {
-        
-        this->renderSlider(x + 469, y + 335, 150, "Jitter", vars.aimbot.jitter, 180, 0);
-        
-    }
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 32, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
@@ -840,8 +834,6 @@ void cMenu::renderVis(int x, int y) {
     this->renderSlider(x + 474, y + 95, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
     this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
-    this->renderCheckbox(x + 474, y + 155, "Bomb Bar Timer", &vars.visuals.bombanddefusetimer);
-    this->renderCheckbox(x + 474, y + 175, "Left Hand Knife", &vars.visuals.lefthandknife);
 }
 
 
@@ -936,7 +928,7 @@ void cMenu::renderColors(int x, int y) {
         this->drawcolorpicker(x, y + 30, "TP", vars.colors.scopedchams);
         
     }
-    if(vars.colors.combo == 5) {
+    if(vars.colors.combo == 6) {
         this->drawcolorpicker(x, y + 30, "Colors", vars.colors.localchams);
         
     }
@@ -987,7 +979,7 @@ enum mTab
     
 };
 
-static int curTab = mTab::Main;
+static int curTab = mTab::Credits;
 
 // This is where the menu is "put together"
 void cMenu::renderMenu() {
