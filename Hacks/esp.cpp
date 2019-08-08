@@ -58,8 +58,6 @@ void DrawHealthbar(int x, int y, int w, int h, int health, Color color)
 
 void DrawBombBar(C_BaseEntity* ent, C_BasePlantedC4* bomb)
 {
-    if(!bomb->IsBombTicking())
-        return;
     
         int x, y;pEngine->GetScreenSize(x, y);//getscreensize in pixels for width of countdown bars
         
@@ -96,6 +94,7 @@ void DrawBombBar(C_BaseEntity* ent, C_BasePlantedC4* bomb)
             pSurface->DrawFilledRect(0, 10, onscreenwidth, 20);
         }
 }
+
 
 void box3d(C_BaseEntity* entity, Color color) {
     

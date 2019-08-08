@@ -62,6 +62,7 @@ public:
         float legitFOV = 0.f;
         bool smooth        = false;
         float smoothf    = 1.f;
+        bool freestanding           = false;
         bool LegitRCS = false;
         float LegitRCSx = 0.f;
         float LegitRCSy = 0.f;
@@ -102,7 +103,7 @@ public:
         int fakewalktype = 0;         // Fakewalk types
         bool backtrack = false;
         
-        bool freestanding = false;
+        
         
         
     }aimbot;
