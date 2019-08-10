@@ -190,7 +190,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
         }
         
         // Weapon Chams
-        if(pszModel.find("weapons") != string::npos  && vars.visuals.weaponchams)
+        if(pszModel.find("models/weapons/v_") != string::npos  && vars.visuals.weaponchams)
         {
             IMaterial* materialCheckFirst = [&]() -> IMaterial*
             {
@@ -438,7 +438,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(nullptr);
                         return;
                     }
-                    if(vars.visuals.noscopeaugsg && entity == local){
+                    if(vars.misc.noscope && entity == local){
                     IMaterial *xblur_mat = pMatSystem->FindMaterial("dev/blurfilterx_nohdr", TEXTURE_GROUP_OTHER, true);
                     IMaterial *yblur_mat = pMatSystem->FindMaterial("dev/blurfiltery_nohdr", TEXTURE_GROUP_OTHER, true);
                     IMaterial *scope = pMatSystem->FindMaterial("dev/scope_bluroverlay", TEXTURE_GROUP_OTHER, true);

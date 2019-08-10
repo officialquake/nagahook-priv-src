@@ -19,6 +19,16 @@
 
 Vector tpangles;
 
+
+
+
+string GetLocalName()
+{
+    player_info_t localInfo;
+    pEngine->GetPlayerInfo(pEngine->GetLocalPlayer(), &localInfo);
+    return localInfo.name;
+}
+
 void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
 {
     if(!vars.misc.norecoil && !vars.aimbot.rcs)
@@ -49,14 +59,6 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
     
 }
 
-
-string GetLocalName()
-{
-    player_info_t localInfo;
-    pEngine->GetPlayerInfo(pEngine->GetLocalPlayer(), &localInfo);
-    return localInfo.name;
-}
-
 static CEnginePrediction PredictionSystem;
 
 void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
@@ -82,6 +84,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
     PredictionSystem.End();
+    
     DoAntiaim(cmd, local, weapon, sendPacket);
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);

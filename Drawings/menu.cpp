@@ -834,6 +834,7 @@ void cMenu::renderVis(int x, int y) {
     this->renderSlider(x + 474, y + 95, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
     this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
 }
 
 
@@ -872,6 +873,7 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 95, "Clantag", & vars.misc.clantag);
     this->renderCheckbox(x + 235, y + 115, "No Smoke", &vars.visuals.nosmoke);
     this->renderCheckbox(x + 235, y + 135, "No Duck Cooldown", &vars.misc.noduckcooldown);
+    this->renderCheckbox(x + 235, y + 155, "Anti afk-kick", &vars.visuals.antiafkkick);
     
     this->renderCheckbox(x + 474, y + 15, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);

@@ -139,6 +139,8 @@ public:
         bool antiaiminfos= true;       // AntiAim Lines
         bool direction = false;         // Enemy Direction
         bool hitmarker  = true;        // Aimware Hitmarkers
+        bool inverseragdoll  = false;        // Aimware Hitmarkers
+        bool antiafkkick  = false;        // Aimware Hitmarkers
         bool hitmarkersounds  = true;        // Aimware Hitmarkers
         bool allieshit  = true;        // Aimware Hitmarkers
         bool enemyhit  = true;        // Aimware Hitmarkers
