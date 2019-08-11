@@ -603,7 +603,10 @@ public:
     {
         return (short*)((uintptr_t)this + offsets.DT_BaseAttributableItem.m_iItemDefinitionIndex);
     }
-    
+    ItemDefinitionIndex* GetItemDefinitionIndexx()
+    {
+        return (ItemDefinitionIndex*)((uintptr_t)this + offsets.DT_BaseAttributableItem.m_iItemDefinitionIndex);
+    }
     int* GetItemIDHigh()
     {
         return (int*)((uintptr_t)this + offsets.DT_BaseAttributableItem.m_iItemIDHigh);

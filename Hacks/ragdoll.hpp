@@ -9,7 +9,7 @@ private:
     
 public:
     
-    void inverseRagDoll(C_BaseEntity* ent);
+    void inverseRagDoll();
     
 };
 

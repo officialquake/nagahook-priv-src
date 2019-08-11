@@ -6,6 +6,7 @@
 #include "antiaim.h"
 #include "INetChannelInfo.h"
 #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
+static bool manualswitch = true;
 
 
 Vector atTargets;
@@ -270,6 +271,17 @@ void doManual(CUserCmd* cmd){
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
     if(!vars.misc.antiResolverFlip)
         return;
     
@@ -289,6 +301,17 @@ void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
 
 void resolverfucker(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
     if(!vars.misc.resolverfucker)
         return;
     
@@ -310,8 +333,21 @@ void resolverfucker(CUserCmd* cmd, C_BaseEntity* local)
 
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
     if(!vars.misc.turbojizzer)
         return;
+    
+    
     
     static bool turbo = false;
     if (cmd->viewangles.y == local->GetLowerBodyYawTarget())
@@ -327,6 +363,17 @@ void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
 
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
     if(!vars.misc.backjizzer)
         return;
     
@@ -348,7 +395,17 @@ void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 }
 void tank(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
     
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
     if(!vars.misc.tank)
         return;
     static bool up = true;
@@ -360,6 +417,18 @@ void tank(CUserCmd* cmd, C_BaseEntity* local)
 
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local)
 {
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
+    
     if(!vars.misc.lby_spin)
         return;
     float factor =  360.0 / M_PHI;
@@ -431,6 +500,8 @@ void do_fake(CUserCmd* cmd) {
 
 void jitter_crooked(CUserCmd* cmd, C_BaseEntity* local)
 {
+    
+    
     float fljit = 78;
     float flCrookedoffset = -20;
     
@@ -460,8 +531,27 @@ float get_feet_yaw(C_BaseEntity* local)
     return current_feet_yaw;
 }
 
+float GetMaxDelta(CCSGOAnimState *animState ) {
+    
+    float speedFraction = std::max(0.0f, std::min(animState->feetShuffleSpeed, 1.0f));
+    
+    float speedFactor = std::max(0.0f, std::min(1.0f, animState->feetShuffleSpeed2));
+    
+    float unk1 = ((animState->runningAccelProgress * -0.30000001) - 0.19999999) * speedFraction;
+    float unk2 = unk1 + 1.0f;
+    float delta;
+    
+    if (animState->duckProgress > 0)
+    {
+        unk2 += ((animState->duckProgress * speedFactor) * (0.5f - unk2));// - 1.f
+    }
+    
+    delta = *(float*)((uintptr_t)animState + 0x3A4) * unk2;
+    
+    return abs(delta);
+}
 
-void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket)
+void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState)
 {
     
     if (!vars.misc.antiaim)
@@ -476,12 +566,14 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     
-    if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE)))
         return;
     
     if (!vars.misc.fakelag) {
         *bSendPacket = cmd->command_number % 2;
     }
+    
+    
     
     if(vars.visuals.edge){
         auto bEdge = EdgeAntiAim(local,cmd, 360.f, 45.f);
@@ -497,7 +589,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     static bool fakeswitch = false;
     static bool bFlip = false;
-    static bool yFlip;
+    static bool yFlip = false;
+    float maxDelta = GetMaxDelta(animState);
     static int fakeTick = 0;
     bool bAttack = true;
     bFlip = !bFlip;
@@ -664,7 +757,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     do_real2(cmd, local);
                 }
             }
-        }
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){
                     int random = rand() % 100;
@@ -744,37 +836,10 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     }
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::Desync) {
-                    float last_lby = 0.f;
-                    float last_lby_time = 0.f;
-                    static bool jitter_switch = false;
-                    float outgoing_latency = 0.f; //inetchannel
-                    float current_lby = local->GetLowerBodyYawTarget();
-                    
-                    if (current_lby != last_lby || fabs(local->GetVelocity().Length2D()) > 0.1f)
-                    {
-                        last_lby_time = pGlobals->curtime;
-                        last_lby = current_lby;
-                    }
-                    
-                    if (!bSendPacket)
-                    {
-                        if (fabs(last_lby_time - pGlobals->curtime) > 1.1f - outgoing_latency)
-                        {
-                            cmd->viewangles.y += 90.f;
-                        }
-                        else
-                        {
-                            cmd->viewangles.y += 180.f;
-                        }
-                    }
-                    else
-                    {
-                        cmd->viewangles.y -= 90.f;
-                    }
-                    
-                    *bSendPacket = jitter_switch;
-                    jitter_switch = !jitter_switch;
+                    cmd->viewangles.y += yFlip ? maxDelta : -1 * maxDelta;
+                    yFlip = !yFlip;
                 }
+                
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLBY) {
                     static bool flip_lby = false;
                     flip_lby = !flip_lby;
@@ -830,3 +895,59 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         }
         
     }
+}
+
+void AntAimCMove(CUserCmd* cmd){
+    if (!vars.misc.antiaim)
+        return;
+    
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer || !localplayer->GetAlive())
+        return;
+    
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+    if (!activeWeapon)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && *activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER))
+        return;
+    
+    if (localplayer->GetMoveType() == MOVETYPE_LADDER || localplayer->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    bool needToFlick = false;
+    float tempangle = 0.f;
+    static bool lbyBreak = false;
+    static float lastCheck;
+    static float nextUpdate;
+    float vel2D = localplayer->GetVelocity().Length2D();//localplayer->GetAnimState()->verticalVelocity + localplayer->GetAnimState()->horizontalVelocity;
+    if (pInputSystem->IsButtonDown(KEY_LEFT) && !manualswitch)
+        manualswitch = true;
+    
+    if (pInputSystem->IsButtonDown(KEY_RIGHT) && manualswitch)
+        manualswitch = false;
+    
+    
+    if( vars.misc.lbybreaker ){
+        if( CreateMove::sendPacket && (vel2D >= 0.1f || !(localplayer->GetFlags() & FL_ONGROUND) || localplayer->GetFlags() & FL_FROZEN) ){
+            // todo: add first choked tick check
+            lbyBreak = false;
+            lastCheck = pGlobals->curtime;
+            nextUpdate = pGlobals->curtime + 0.22;
+        } else {
+            if( !lbyBreak && ( pGlobals->curtime - lastCheck ) > 0.22 ){
+                tempangle = vars.misc.lbybreakermanual ? manualswitch ? 57.5f + vars.misc.lbybreakeroffset : -57.5f + -vars.misc.lbybreakeroffset : vars.misc.lbybreakeroffset;
+                lbyBreak = true;
+                lastCheck = pGlobals->curtime;
+                nextUpdate = pGlobals->curtime + 1.1;
+                needToFlick = true;
+            } else if( lbyBreak && ( pGlobals->curtime - lastCheck ) > 1.1 ){
+                tempangle = vars.misc.lbybreakermanual ? manualswitch ? 57.5f + vars.misc.lbybreakeroffset : -57.5f + -vars.misc.lbybreakeroffset: vars.misc.lbybreakeroffset;
+                lbyBreak = true;
+                lastCheck = pGlobals->curtime;
+                nextUpdate = pGlobals->curtime + 1.1;
+                needToFlick = true;
+            }
+        }
+    }
+}

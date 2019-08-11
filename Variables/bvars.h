@@ -217,6 +217,10 @@ public:
         float bullettracelength = 1500.f;
         bool freestanding           = false;
         
+        bool lbybreaker           = false;
+        bool lbybreakermanual           = false;
+        float lbybreakeroffset = 180.0f;
+        
         // Different Clantags
         bool clantag         = false;    // Enables clantag
         

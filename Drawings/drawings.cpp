@@ -297,6 +297,58 @@ void cDrawings::fillrgba(int x, int y, int w, int h, Color color) {
     
 }
 
+void cDrawings::FilledRectangle(int x0, int y0, int x1, int y1, Color col)
+{
+    pSurface->DrawSetColor(col);
+    pSurface->DrawFilledRect(x0, y0, x1, y1);
+}
+void cDrawings::Cube3D(float scalar, QAngle angles, Vector middle_origin, Color outline)
+{
+    Vector forward, right, up;
+    AngleVectors4(angles, forward, right, up);
+    
+    Vector points[8];
+    points[0] = middle_origin - (right * scalar) + (up * scalar) - (forward * scalar); // BLT
+    points[1] = middle_origin + (right * scalar) + (up * scalar) - (forward * scalar); // BRT
+    points[2] = middle_origin - (right * scalar) - (up * scalar) - (forward * scalar); // BLB
+    points[3] = middle_origin + (right * scalar) - (up * scalar) - (forward * scalar); // BRB
+    
+    points[4] = middle_origin - (right * scalar) + (up * scalar) + (forward * scalar); // FLT
+    points[5] = middle_origin + (right * scalar) + (up * scalar) + (forward * scalar); // FRT
+    points[6] = middle_origin - (right * scalar) - (up * scalar) + (forward * scalar); // FLB
+    points[7] = middle_origin + (right * scalar) - (up * scalar) + (forward * scalar); // FRB
+    
+    Vector points_screen[8];
+    for (int i = 0; i < 8; i++)
+        if (pOverlay->ScreenPosition(points[i], points_screen[i]))
+            return;
+    
+    pSurface->DrawSetColor(outline);
+    
+    // Back frame
+    pSurface->DrawLine(points_screen[0].x, points_screen[0].y, points_screen[1].x, points_screen[1].y);
+    pSurface->DrawLine(points_screen[0].x, points_screen[0].y, points_screen[2].x, points_screen[2].y);
+    pSurface->DrawLine(points_screen[3].x, points_screen[3].y, points_screen[1].x, points_screen[1].y);
+    pSurface->DrawLine(points_screen[3].x, points_screen[3].y, points_screen[2].x, points_screen[2].y);
+    
+    // Frame connector
+    pSurface->DrawLine(points_screen[0].x, points_screen[0].y, points_screen[4].x, points_screen[4].y);
+    pSurface->DrawLine(points_screen[1].x, points_screen[1].y, points_screen[5].x, points_screen[5].y);
+    pSurface->DrawLine(points_screen[2].x, points_screen[2].y, points_screen[6].x, points_screen[6].y);
+    pSurface->DrawLine(points_screen[3].x, points_screen[3].y, points_screen[7].x, points_screen[7].y);
+    
+    // Front frame
+    pSurface->DrawLine(points_screen[4].x, points_screen[4].y, points_screen[5].x, points_screen[5].y);
+    pSurface->DrawLine(points_screen[4].x, points_screen[4].y, points_screen[6].x, points_screen[6].y);
+    pSurface->DrawLine(points_screen[7].x, points_screen[7].y, points_screen[5].x, points_screen[5].y);
+    pSurface->DrawLine(points_screen[7].x, points_screen[7].y, points_screen[6].x, points_screen[6].y);
+}
+
+
+void cDrawings::FilledRectangle(Vector2D start_pos, Vector2D end_pos, Color col)
+{
+    FilledRectangle(start_pos.x, start_pos.y, end_pos.x, end_pos.y, col);
+}
 
 void cDrawings::drawline(int x, int y, int xx, int yy, Color color) {
     

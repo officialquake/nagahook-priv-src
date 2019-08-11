@@ -61,14 +61,13 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
 
 static CEnginePrediction PredictionSystem;
 
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket)
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState)
 {
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
     
     PredictionSystem.Start(cmd);
-    DoAntiaim(cmd, local, weapon, sendPacket);
     DoAim(cmd, local, weapon, flForwardmove, flSidemove);
     Fakewalk(cmd, local);
     DoTrigger(cmd, weapon);
@@ -83,9 +82,11 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
+    DoAntiaim(cmd, local, weapon, sendPacket, animState);
+    
     PredictionSystem.End();
     
-    DoAntiaim(cmd, local, weapon, sendPacket);
+    
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
@@ -152,6 +153,8 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     Vector vOldAngles = cmd->viewangles;
     Vector viewforward, viewright, viewup, aimforward, aimright, aimup;
     Vector qAimAngles;
+    CCSGOAnimState* animState = local->GetAnimState();
+    
     
     float forward = cmd->forwardmove;
     float sidemove = cmd->sidemove;
@@ -159,7 +162,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket);
+        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket, animState);
         
         
         FixMovement(vOldAngles, cmd);
@@ -192,7 +195,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         
         movement->FakeLag(cmd);
         
-        
+        AntAimCMove(cmd);
         
         *sendPacket = CreateMove::sendPacket;
 

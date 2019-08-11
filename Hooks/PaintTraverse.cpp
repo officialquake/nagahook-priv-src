@@ -6,6 +6,7 @@
 #include "../Hacks/antiaiminfos.h"
 #include "../Hacks/hitmarker.h"
 #include "../Hacks/asuswalls.h"
+#include "../Hacks/snipercrosshair.hpp"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -116,11 +117,11 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             manualaa(local);        // Manual AA idicator
             
             NightMode();
-            
             Hitmarkers::Paint();
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
             DrawSpread();
+            SniperCrosshair::Paint();
             
             
         

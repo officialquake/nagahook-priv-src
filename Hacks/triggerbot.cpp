@@ -9,9 +9,6 @@ void DoTrigger(CUserCmd *Cmd, C_BaseCombatWeapon* activeWeapon)
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
         
-        
-       
-        
         C_BaseEntity* LocalPlayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
         
         if (!LocalPlayer || LocalPlayer->GetHealth() < 0)

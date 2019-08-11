@@ -28,8 +28,11 @@ public:
     void drawbox(int x, int y, int w, int h, Color color);
     void drawboxoutline(int x, int y, int w, int h, Color color);
     void BoxEspShit(int X, int Y, int W, int H, Color Color);
+    void Cube3D(float scalar, QAngle angles, Vector middle_origin, Color outline);
     void DrawCornerBox(int X, int Y, int W, int H, int inr, int ing, int inb, int outr, int otug, int outb);
     void fillrgba(int x, int y, int w, int h, Color color);
+    void FilledRectangle(Vector2D start_pos, Vector2D end_pos, Color col);
+    void FilledRectangle(int x0, int y0, int x1, int y1, Color col);
     void drawline(int x, int y, int xx, int yy, Color color);
     void Line(int x0, int y0, int x1, int y1, Color col);
     void Line(Vector2D start_pos, Vector2D end_pos, Color col);

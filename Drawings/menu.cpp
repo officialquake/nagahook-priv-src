@@ -590,7 +590,7 @@ void cMenu::renderAntiAim(int x, int y) {
     FakeYaw.push_back("FakeTwoStep");
     FakeYaw.push_back("FakeLowerBody135");
     FakeYaw.push_back("FakeInverseRotation");
-    FakeYaw.push_back("Fake Head");
+    FakeYaw.push_back("Desync");
     FakeYaw.push_back("FakeLBY");
     FakeYaw.push_back("FakeSideLBY");
     //Moving Yaw
@@ -632,7 +632,10 @@ void cMenu::renderAntiAim(int x, int y) {
     if((!vars.aaX_opend) && !vars.aaY_opend) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
-    this->renderSlider(x + 469, y + 295, 150, "Manual Edge Delta", vars.misc.delta, 150, 0);
+     this->renderCheckbox(x + 474, y + 295, "LBY Breaker", &vars.misc.lbybreaker); // 60
+    this->renderCheckbox(x + 474, y + 315, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
+    this->renderSlider(x + 474, y + 345, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
     this->renderCombo(x + 235, y + 32, 90, 20, "Fakewalk", fakewalk, vars.aimbot.fakewalktype, &vars.fakewalk_opend);
@@ -666,7 +669,7 @@ void cMenu::renderAntiAim(int x, int y) {
     Resolve.push_back("Evolution");
     Resolve.push_back("Test");
     Resolve.push_back("Synp1");
-    Resolve.push_back("Not P");
+    Resolve.push_back("Best Resolver");
     
     
     
@@ -835,6 +838,7 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
     this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
+    this->renderCheckbox(x + 474, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
 }
 
 
