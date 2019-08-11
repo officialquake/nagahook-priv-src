@@ -7,7 +7,7 @@ void C_Misc::clan_tag()
     if(!vars.misc.clantag)
         return;
 
-    static int ticks = 0; ticks++;
+    /*static int ticks = 0; ticks++;
     
     if(ticks > 0 && ticks < 15)
     {
@@ -115,5 +115,14 @@ void C_Misc::clan_tag()
     }
     
     if (ticks >= 765)
-        ticks = 0;
+        ticks = 0;*/
+
+    std::string clantagText = "killers.cc";
+	size_t clantagSize = clantagText.length();
+	std::string spacesText(clantagSize, ' ');
+	clantagText = spacesText + clantagText + spacesText;
+	for (int i = 0; i < clantagSize * 2; i++)
+		std::cout<<clantagText.substr(i, clantagSize)<<std::endl;
+
+
 }
