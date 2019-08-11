@@ -8,17 +8,22 @@
 
 #include "ragdoll.hpp"
 CRagdoll* doll = new CRagdoll();
-void CRagdoll::inverseRagDoll()
+void CRagdoll::inverseRagDol(CUserCmd* cmd, C_BaseEntity* local,  C_BaseCombatWeapon* weapon)
 {
     if(!vars.visuals.inverseragdoll)
         return;
     
-    C_BasePlayer* localPlayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    C_BaseCombatWeapon *activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(localPlayer->GetActiveWeapon());
-    
-    if (!activeWeapon || (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType != CSWeaponType::WEAPONTYPE_KNIFE)
+    if(!pEngine->IsInGame())
+        return;
+    if(!local->GetAlive())
+        return;
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(local->GetActiveWeapon());
+    if (!activeWeapon)
         return;
     
-    pEngine->ExecuteClientCmd("cl_righthand 0");
+    if ((CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE){
+        pEngine->ClientCmd_Unrestricted("cl_righthand 0");
+    }else{
+        pEngine->ClientCmd_Unrestricted("cl_righthand 1");
+    }
 }

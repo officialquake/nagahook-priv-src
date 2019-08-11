@@ -635,6 +635,7 @@ void cMenu::renderAntiAim(int x, int y) {
      this->renderCheckbox(x + 474, y + 295, "LBY Breaker", &vars.misc.lbybreaker); // 60
     this->renderCheckbox(x + 474, y + 315, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
     this->renderSlider(x + 474, y + 345, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    this->renderCheckbox(x + 474, y + 375, "Legit AA", &vars.misc.legitaa); // 60
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);

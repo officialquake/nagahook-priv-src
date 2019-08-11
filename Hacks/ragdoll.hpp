@@ -9,7 +9,7 @@ private:
     
 public:
     
-    void inverseRagDoll();
+    void inverseRagDol(CUserCmd* cmd, C_BaseEntity* local,  C_BaseCombatWeapon* weapon);
     
 };
 
