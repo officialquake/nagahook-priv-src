@@ -161,6 +161,15 @@ struct COffsets
 		int m_iClip1;
 		int m_bInReload;
 	} DT_BaseCombatWeapon;
+    struct
+    {
+        std::ptrdiff_t m_bRedraw;
+        std::ptrdiff_t m_bIsHeldByPlayer;
+        std::ptrdiff_t m_bPinPulled;
+        std::ptrdiff_t m_fThrowTime;
+        std::ptrdiff_t m_bLoopingSoundPlaying;
+        std::ptrdiff_t m_flThrowStrength;
+    } DT_BaseCSGrenade;
 
 	struct
 	{

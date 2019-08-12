@@ -162,19 +162,12 @@ void Eventlog::FireGameEvent(IGameEvent* event)
         std::string boughtLog = std::string(buyerInformation.name);
         boughtLog += (" bought ");
         
-        std::string deletefromname = "weapon_";
-        std::string deletefromname1 = "item_";
+        
         std::string weaponname = event->GetString("weapon");
         std::string equipment = event->GetString("item");
+    
         
-        std::string::size_type whereisstring = weaponname.find(deletefromname);
-        weaponname.erase(whereisstring, deletefromname.length());
-        
-        std::string::size_type whereisstring1 = equipment.find(deletefromname1);
-        equipment.erase(whereisstring1, deletefromname1.length());
-        
-        boughtLog += weaponname;
-        boughtLog += equipment;
+        boughtLog += weaponname, equipment;
         
         logToShow.insert(logToShow.begin(), std::pair<std::string, long>(boughtLog, now));
         

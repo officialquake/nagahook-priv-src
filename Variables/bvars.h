@@ -252,6 +252,7 @@ public:
         
         
         bool nightmode      = false;    // Night Mode
+         bool grenadepred      = false;    // Night Mode
         bool asuswalls      = false;    // asuswalls - see through walls
         bool worldpaint     = false;    // World Paint
         bool changesky      = false;    // Changes Sky
@@ -298,6 +299,7 @@ public:
         Color tchams;
         Color dlight;
         Color fakelag;
+        Color grenadepred;
         Color localchams;
         Color ctchams_ign;
         Color tchams_ign;

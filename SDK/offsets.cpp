@@ -127,6 +127,13 @@ void Offsets::getOffsets()
 	offsets.DT_BaseCombatWeapon.m_hOwner = NetVarManager::GetOffset(tables, "DT_BaseCombatWeapon", "m_hOwner");
 	offsets.DT_BaseCombatWeapon.m_iClip1 = NetVarManager::GetOffset(tables, "DT_BaseCombatWeapon", "m_iClip1");
 	offsets.DT_BaseCombatWeapon.m_bInReload = offsets.DT_BaseCombatWeapon.m_flNextPrimaryAttack + 113;
+    
+    offsets.DT_BaseCSGrenade.m_bRedraw = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_bRedraw");
+    offsets.DT_BaseCSGrenade.m_bIsHeldByPlayer = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_bIsHeldByPlayer");
+    offsets.DT_BaseCSGrenade.m_bPinPulled = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_bPinPulled");
+    offsets.DT_BaseCSGrenade.m_fThrowTime = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_fThrowTime");
+    offsets.DT_BaseCSGrenade.m_bLoopingSoundPlaying = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_bLoopingSoundPlaying");
+    offsets.DT_BaseCSGrenade.m_flThrowStrength = NetVarManager::GetOffset(tables, "DT_BaseCSGrenade", "m_flThrowStrength");
 
 	offsets.DT_DynamicProp.m_bShouldGlow = NetVarManager::GetOffset(tables, "DT_DynamicProp", "m_bShouldGlow");
     

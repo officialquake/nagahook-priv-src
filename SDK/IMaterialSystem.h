@@ -3,7 +3,19 @@
 typedef unsigned short MaterialHandle_t;
 
 class KeyValues;
-
+class ITexture {
+public:
+    int GetActualWidth( )
+    {
+        typedef int (* oGetActualWidth)( void* );
+        return getvfunc<oGetActualWidth>( this, 3 )( this );
+    }
+    int GetActualHeight( )
+    {
+        typedef int (* oGetActualHeight)( void* );
+        return getvfunc<oGetActualHeight>( this, 4 )( this );
+    }
+};
 class IMaterialSystem
 {
 public:
