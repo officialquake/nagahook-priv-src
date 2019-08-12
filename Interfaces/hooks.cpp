@@ -25,7 +25,7 @@ void InitializeInterfaces()
     pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     pGameEventManager = GetInterface<IGameEventManager2>("./bin/osx64/engine.dylib", "GAMEEVENTSMANAGER002", true);
-    eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death" });
+    eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death", "item_purchase", "item_remove", "item_pickup", "bomb_begindefuse", "enter_bombzone", "bomb_beginplant" });
     
     
 }

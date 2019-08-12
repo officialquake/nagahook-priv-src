@@ -630,19 +630,28 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 474, y + 115, "AA Edge", &vars.visuals.edge);
     this->renderCheckbox(x + 474, y + 135, "Resolver Fucker", &vars.misc.resolverfucker);
     this->renderCheckbox(x + 474, y + 155, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
-    this->renderCheckbox(x + 474, y + 175, "Fake AA", &vars.misc.fakeaa); // 60
+    /*this->renderCheckbox(x + 474, y + 175, "Fake AA", &vars.misc.fakeaa); // 60
     this->renderCombo(x + 474, y + 205, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
     if(!vars.aaX_opend){
         this->renderCombo(x + 474, y + 235, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+    }*/
+     this->renderCheckbox(x + 474, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
+    this->renderCheckbox(x + 474, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
+    this->renderSlider(x + 474, y + 225, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    this->renderCheckbox(x + 474, y + 255, "Legit AA", &vars.misc.legitaa); // 60
+    this->renderCombo(x + 474, y + 275, 150, 20, "Off", LegitAA, vars.aimbot.legitaatype, &vars.legitaa_opend);
+    
+    this->renderCheckbox(x + 474, y + 305, "Fake AA", &vars.misc.fakeaa); // 60
+    this->renderCombo(x + 474, y + 335, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    if(!vars.aaX_opend){
+        this->renderCombo(x + 474, y + 365, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
-     this->renderCheckbox(x + 474, y + 295, "LBY Breaker", &vars.misc.lbybreaker); // 60
-    this->renderCheckbox(x + 474, y + 315, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
-    this->renderSlider(x + 474, y + 345, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
-    this->renderCheckbox(x + 474, y + 375, "Legit AA", &vars.misc.legitaa); // 60
-    this->renderCombo(x + 474, y + 395, 150, 20, "Off", LegitAA, vars.aimbot.legitaatype, &vars.legitaa_opend);
+    if((!vars.aaX_opend) && !vars.aaY_opend) {
+        this->renderCombo(x + 474, y + 395, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+    }
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
@@ -847,11 +856,17 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
     this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
     this->renderCheckbox(x + 474, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
+    
     this->renderCheckbox(x + 474, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
     this->renderCheckbox(x + 474, y + 215, "Show Allies Log", &vars.misc.showallieslog);
-    this->renderSlider(x + 474, y + 245, 130, "Logger Duration", vars.misc.loggerduration, 3000.f, 0.f);
+    this->renderSlider(x + 474, y + 245, 130, "Logger Duration", vars.misc.loggerduration, 5000.f, 0.f);
     this->renderSlider(x + 474, y + 275, 130, "Logger Lines", vars.misc.loggerlines, 15, 0);
     this->renderCheckbox(x + 474, y + 315, "Show local player", &vars.misc.showlocalplayer);
+    
+    this->renderCheckbox(x + 474, y + 335, "Dlights", &vars.misc.dlight);
+    this->renderCheckbox(x + 474, y + 355, "Dlight enemy", &vars.misc.dlightenemy);
+    this->renderCheckbox(x + 474, y + 375, "Dlight allies", &vars.misc.dlightallies);
+    this->renderSlider(x + 474, y + 405, 130, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
 }
 
 
@@ -916,6 +931,7 @@ void cMenu::renderColors(int x, int y) {
     Colors.push_back("FakeLag Colours");
     Colors.push_back("TP Colours");
     Colors.push_back("Local Colours");
+    Colors.push_back("Dlight Colours");
 
     this->renderCombo(x, y + 300 + 14, 125, 20, "CT Colours", Colors, vars.colors.combo, &vars.colors_opend);
     
@@ -949,6 +965,10 @@ void cMenu::renderColors(int x, int y) {
     }
     if(vars.colors.combo == 6) {
         this->drawcolorpicker(x, y + 30, "Colors", vars.colors.localchams);
+        
+    }
+    if(vars.colors.combo == 7) {
+        this->drawcolorpicker(x, y + 30, "Dlight", vars.colors.dlight);
         
     }
 

@@ -8,6 +8,7 @@
 #include "../Hacks/asuswalls.h"
 #include "../Hacks/snipercrosshair.hpp"
 #include "../Hacks/eventlog.hpp"
+#include "../Hacks/dlights.hpp"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -87,6 +88,8 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             
             vars.colors.fakelag = Color::Red();
             
+            vars.colors.dlight = Color::Red();
+            
             
             vars.colors.fakelag_a = 125;
             vars.colors.fakelag_r = 255;
@@ -116,7 +119,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             rCrosshair(local);  // Draws recoil crosshair
             
             manualaa(local);        // Manual AA idicator
-            
+            Dlights::Paint();
             NightMode();
             Hitmarkers::Paint();
             Spectatorlist();    // Draws speclist

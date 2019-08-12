@@ -1,58 +1,60 @@
-#include "../Hacks/dlights.h"
+//
+//  dlights.cpp
+//  vHook
+//
+//  Created by Timothy Dillan on 12/8/19.
+//  Copyright © 2019 ViKiNG. All rights reserved.
+//
 
-// Thanks @rocco (even though it's from aimtux lmao)
+#include "dlights.hpp"
+#include "../main.h"
 
-void DLights()
+/*bool Settings::Dlights::enabled = false;
+float Settings::Dlights::radius = 500.0f;*/
+
+void Dlights::Paint()
 {
-    if (!vars.visuals.dlights)
+    if (!vars.visuals.enabled || !vars.misc.dlight)
+        return;
+    
+    if (!vars.misc.dlightenemy && !vars.misc.dlightallies)
         return;
     
     if (!pEngine->IsInGame())
         return;
     
-    C_BaseEntity* localplayer = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    if (!localplayer || !localplayer->GetAlive())
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer)
         return;
     
-   for (int i = 0; i < pEngine->GetMaxClients(); i++)
+    for (int i = 1; i < pEngine->GetMaxClients(); ++i)
     {
-        C_BaseEntity* player = (C_BaseEntity*) pEntList->GetClientEntity(i);
-        
+        C_BaseEntity* player = pEntList->GetClientEntity(i);
         if (!player)
             continue;
         
         if (player == localplayer)
             continue;
-
-       if (player->GetTeam() != localplayer->GetTeam() && (!vars.visuals.enabled))
-       {
-            dlight_t* eLight = pEffects->CL_AllocElight(i);
-            eLight->origin =  player->GetVecOrigin() + Vector(0.0f, 0.0f, 35.0f);
-            eLight->radius = 100.0f;
-            eLight->color.r = 255;
-            eLight->color.g = 0;
-            eLight->color.b = 0;
-            eLight->color.exponent = 500.0f; //10.f
-            eLight->die = pGlobals->curtime + 0.05f;
-            eLight->decay = eLight->radius / 5.0f;
-            eLight->key = i;
-            
-            dlight_t* dLight = pEffects->CL_AllocDlight(i);
-            dLight->key = i;
-            dLight->color.r = 255;
-            dLight->color.g = 0;
-            dLight->color.b = 0;
-            dLight->color.exponent = 500.0f; //10.f
-            dLight->flags = DLIGHT_NO_MODEL_ILLUMINATION;
-            dLight->m_Direction = player->GetVecOrigin();
-            dLight->origin = player->GetVecOrigin();
-            dLight->radius = 1000.0f; //50
-            dLight->die = pGlobals->curtime + 0.5f;
-            dLight->decay = dLight->radius / 5.0f;
-           
-       }
-
+        
+        if (player->GetTeam() != localplayer->GetTeam() && !vars.misc.dlightenemy)
+            return;
+        
+        if (player->GetTeam() == localplayer->GetTeam() && !vars.misc.dlightallies)
+            return;
+        
+        Color color = vars.colors.dlight;
+        
+        dlight_t* dLight = pEffects->CL_AllocDlight(i);
+        dLight->key = i;
+        dLight->color.r = (unsigned char) color.r();
+        dLight->color.g = (unsigned char) color.g();
+        dLight->color.b = (unsigned char) color.b();
+        dLight->color.exponent = true;
+        dLight->flags = DLIGHT_NO_MODEL_ILLUMINATION;
+        dLight->m_Direction = player->GetVecOrigin();
+        dLight->origin = player->GetVecOrigin();
+        dLight->radius = vars.misc.dlightradius;
+        dLight->die = pGlobals->curtime + 0.1f;
+        dLight->decay = 20.0f;
     }
-    
 }

@@ -201,7 +201,11 @@ public:
         
         bool showenemieslog = false;
         bool showallieslog = false;
+        bool dlight = false;
+        bool dlightenemy = false;
+        bool dlightallies = false;
         float loggerduration = 3000.f;
+        float dlightradius = 500.0f;
         float loggerlines = 10;
         bool showlocalplayer = false;
         
@@ -292,6 +296,7 @@ public:
         Color fakealgchams;
         Color scopedchams;
         Color tchams;
+        Color dlight;
         Color fakelag;
         Color localchams;
         Color ctchams_ign;

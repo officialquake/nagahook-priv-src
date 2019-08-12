@@ -87,6 +87,7 @@ void Config::LoadConfig() {
     //Right Aimbot
     vars.misc.antiaim  = (ButtonCode_t)cfgget_b("Aimbot", "AntiAim Enabled");
     vars.misc.thirdpersonmode     = cfgget_b("Aimbot", "Show Real Angles");
+    vars.misc.thirdperson     = cfgget_b("Aimbot", "Thirdperson");
     vars.misc.fakeaa     = cfgget_b("Aimbot", "Fake aa");
     vars.misc.aaX     = cfgget_i("Misc", "aaX");
     //vars.aimbot.backtrack      = cfgget_i("Aimbot", "Backtrack");
@@ -169,6 +170,11 @@ void Config::LoadConfig() {
     vars.visuals.allieshit       = cfgget_b("Visuals", "Hitmarkers Allies");
     vars.visuals.enemyhit       = cfgget_b("Visuals", "Hitmarkers Enemies");
     
+    vars.misc.showenemieslog       = cfgget_b("Visuals", "Enemy Log");
+    vars.misc.showallieslog       = cfgget_b("Visuals", "Allies Log");
+    vars.misc.loggerduration = cfgget_f("Visuals", "Log Duration");
+     vars.misc.loggerlines = cfgget_f("Visuals", "Log Lines");
+    vars.misc.showlocalplayer       = cfgget_b("Visuals", "Local Log");
     
     // Misc Left
     vars.misc.enabled = cfgget_b("Misc", "Enabled");
@@ -337,6 +343,13 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Visuals", "Local Alpha", GetIntValue(vars.visuals.localchams_alpha));
     cfg.SetLongValue("Visuals", "Local Type", GetIntValue(vars.visuals.localchamstype));
     
+    
+    cfg.SetBoolValue("Visuals", "Enemy Log", GetBoolValue(vars.misc.showenemieslog));
+    cfg.SetBoolValue("Visuals", "Allies Log", GetBoolValue(vars.misc.showallieslog));
+    cfg.SetBoolValue("Visuals", "Local Log", GetBoolValue(vars.misc.showlocalplayer));
+    cfg.SetDoubleValue("Visuals", "Log Lines", GetFloatValue(vars.misc.loggerlines));
+    cfg.SetDoubleValue("Visuals", "Log Duration", GetFloatValue(vars.misc.loggerduration));
+    
     //cfg.SetBoolValue("Visuals", "Grenade ESP", GetBoolValue(vars.visuals.grenade));
     cfg.SetBoolValue("Visuals", "Direction", GetBoolValue(vars.visuals.direction));
     cfg.SetBoolValue("Visuals", "AA Info", GetBoolValue(vars.visuals.antiaiminfos));
@@ -423,6 +436,7 @@ void Config::SaveConfig() {
     
     // AA
     cfg.SetBoolValue("Aimbot", "Show Real Angles", GetBoolValue(vars.misc.thirdpersonmode));
+    cfg.SetBoolValue("Aimbot", "Thirdperson", GetBoolValue(vars.misc.thirdperson));
     cfg.SetBoolValue("Misc", "aa", GetBoolValue(vars.misc.antiaim));
     cfg.SetBoolValue("Misc", "At Target", GetBoolValue(vars.misc.attargets));
     cfg.SetBoolValue("Aimbot", "Fake aa", GetBoolValue(vars.misc.fakeaa));
