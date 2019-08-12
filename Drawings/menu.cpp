@@ -848,10 +848,10 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
     this->renderCheckbox(x + 474, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
     this->renderCheckbox(x + 474, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
-    this->renderCheckbox(x + 474, y + 195, "Show Allies Log", &vars.misc.showallieslog);
-    this->renderSlider(x + 474, y + 225, 130, "Logger Duration", vars.misc.loggerduration, 3000.f, 0.f);
-    this->renderSlider(x + 474, y + 255, 130, "Logger Lines", vars.misc.loggerlines, 15, 0);
-    this->renderCheckbox(x + 474, y + 285, "Show local player", &vars.misc.showlocalplayer);
+    this->renderCheckbox(x + 474, y + 215, "Show Allies Log", &vars.misc.showallieslog);
+    this->renderSlider(x + 474, y + 245, 130, "Logger Duration", vars.misc.loggerduration, 3000.f, 0.f);
+    this->renderSlider(x + 474, y + 275, 130, "Logger Lines", vars.misc.loggerlines, 15, 0);
+    this->renderCheckbox(x + 474, y + 315, "Show local player", &vars.misc.showlocalplayer);
 }
 
 
