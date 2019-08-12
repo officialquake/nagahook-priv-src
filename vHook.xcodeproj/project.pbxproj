@@ -59,6 +59,8 @@
 		91BBD44322C0829C006B9EA0 /* moonwalk.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BBD44122C0829C006B9EA0 /* moonwalk.hpp */; };
 		91BD7AE322F526EF00CB1BE1 /* legit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BD7AE122F526EF00CB1BE1 /* legit.cpp */; };
 		91BD7AE422F526EF00CB1BE1 /* legit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BD7AE222F526EF00CB1BE1 /* legit.hpp */; };
+		91BF9CC42300D9D80060F242 /* eventlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BF9CC22300D9D80060F242 /* eventlog.cpp */; };
+		91BF9CC52300D9D80060F242 /* eventlog.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BF9CC32300D9D80060F242 /* eventlog.hpp */; };
 		91C0D53123000CF400BF63DE /* snipercrosshair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91C0D52F23000CF400BF63DE /* snipercrosshair.cpp */; };
 		91C0D53223000CF400BF63DE /* snipercrosshair.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91C0D53023000CF400BF63DE /* snipercrosshair.hpp */; };
 		91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */; };
@@ -190,6 +192,8 @@
 		91BBD44122C0829C006B9EA0 /* moonwalk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = moonwalk.hpp; sourceTree = "<group>"; };
 		91BD7AE122F526EF00CB1BE1 /* legit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = legit.cpp; path = Hacks/legit.cpp; sourceTree = "<group>"; };
 		91BD7AE222F526EF00CB1BE1 /* legit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = legit.hpp; path = Hacks/legit.hpp; sourceTree = "<group>"; };
+		91BF9CC22300D9D80060F242 /* eventlog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = eventlog.cpp; path = Hacks/eventlog.cpp; sourceTree = "<group>"; };
+		91BF9CC32300D9D80060F242 /* eventlog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = eventlog.hpp; path = Hacks/eventlog.hpp; sourceTree = "<group>"; };
 		91C0D52F23000CF400BF63DE /* snipercrosshair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = snipercrosshair.cpp; path = Hacks/snipercrosshair.cpp; sourceTree = "<group>"; };
 		91C0D53023000CF400BF63DE /* snipercrosshair.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = snipercrosshair.hpp; path = Hacks/snipercrosshair.hpp; sourceTree = "<group>"; };
 		91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IEngineVGui.h; path = SDK/IEngineVGui.h; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 				9181F33122FD96DE00C081E9 /* antiafkkick.hpp */,
 				91C0D52F23000CF400BF63DE /* snipercrosshair.cpp */,
 				91C0D53023000CF400BF63DE /* snipercrosshair.hpp */,
+				91BF9CC22300D9D80060F242 /* eventlog.cpp */,
+				91BF9CC32300D9D80060F242 /* eventlog.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 				B67AE83E1F91B1E600ADDCD8 /* hacks.h in Headers */,
 				B67AE83C1F91B0D800ADDCD8 /* hooks.h in Headers */,
 				B67AE8301F91AED700ADDCD8 /* netvarmanager.h in Headers */,
+				91BF9CC52300D9D80060F242 /* eventlog.hpp in Headers */,
 				E1FE19D21E718F020018D409 /* offsets.h in Headers */,
 				E1FE19D31E718F020018D409 /* Others.h in Headers */,
 				B6A954641FAC9CB600351006 /* CEffects.h in Headers */,
@@ -675,6 +682,7 @@
 				B67AE8511F91CE7D00ADDCD8 /* aimbot.cpp in Sources */,
 				148074EC1FA11AD7004ED508 /* FrameStage.cpp in Sources */,
 				8F94DAA42076AFB100177009 /* autoshoot.cpp in Sources */,
+				91BF9CC42300D9D80060F242 /* eventlog.cpp in Sources */,
 				8F4E12E4200FBE2E000F17A0 /* FireGameEvent.cpp in Sources */,
 				8FB45F1F207FCF79003567EF /* asuswalls.cpp in Sources */,
 				148074D81FA105C5004ED508 /* resolver.cpp in Sources */,

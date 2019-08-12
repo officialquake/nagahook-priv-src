@@ -559,22 +559,81 @@ void LegitAA(CUserCmd* cmd, bool& bSendPacket, C_BaseCombatWeapon* weapon)
     if (!cmd || !local || !local->GetAlive() || (cmd->buttons & IN_USE) || (cmd->buttons & IN_ATTACK) || (cmd->buttons & IN_ATTACK2) || local->GetMoveType() == MOVETYPE_LADDER || (weapon->IsSnipScope()))
         return;
     
-    static int ChokedTicks = 0;
-    static bool Direction = false;
-    
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) Direction = true;
-    if (pInputSystem->IsButtonDown(KEY_RIGHT)) Direction = false;
-    
-    if (ChokedTicks < 1) {
-        bSendPacket = false;
-        cmd->viewangles.y += Direction ? 90 : -90;
+
+    Vector oldAngle = cmd->viewangles;
+    float oldForward = cmd->forwardmove;
+    float oldSideMove = cmd->sidemove;
+    if (vars.misc.legitaa)
+    {
+            if(vars.aimbot.legitaatype == 1)
+            {//you dont need brackets but for some shit you do like statics //wrapzii C++ class 101
+                static bool kFlip = true;
+                static int ChokedPackets = -1;
+                static bool yFlip = true;
+                if (1 > ChokedPackets)
+                {
+                    bSendPacket = true;
+                    ChokedPackets++;
+                }
+                else
+                {
+                    bSendPacket = false;
+                    //pCmd->viewangles.y += yFlip ? 90.f : -90.f;
+                    cmd->viewangles.y += 180.f;
+                    ChokedPackets = -1;
+                }
+            }
+            if(vars.aimbot.legitaatype == 2)
+            {
+                static bool kFlip = true;
+                static int ChokedPackets = -1;
+                static bool yFlip = true;
+                if (1 > ChokedPackets)
+                {
+                    bSendPacket = true;
+                    ChokedPackets++;
+                }
+                else
+                {
+                    bSendPacket = false;
+                    //pCmd->viewangles.y += yFlip ? 90.f : -90.f;
+                    cmd->viewangles.y += 90.f;//to the right im pretty sure
+                    ChokedPackets = -1;
+                }
+            }
         
-        ChokedTicks++;
-    }
-    else {
-        bSendPacket = true;
-        ChokedTicks = 0;
-    }
+            if(vars.aimbot.legitaatype == 3)
+                //Sideways-switch
+            {
+                static int ChokedPackets = -1;//we choking 2 cuz 1 is too main stream
+                if (1> ChokedPackets) {
+                    bSendPacket = false;
+                    static bool dir = false;
+                    static bool dir2 = false;
+                    int i = 0; i < pEntList->GetHighestEntityIndex(); ++i;
+                    IClientEntity *pEntity = pEntList->GetClientEntity(i);
+                    //if (pCmd->forwardmove > 1 || (IsVisible(pLocal, pEntity, 0) && pEntity->GetTeamNum() != pLocal->GetTeamNum()))// was trying to make a vis check to make it -180 if their visible //didnt seem to work
+                    //dir2 = true;
+                    //else {
+                    dir2 = false;
+                    if (cmd->sidemove > 1) dir = true;
+                    else if (cmd->sidemove < -1) dir = false;
+                    cmd->viewangles.y = (dir) ? (cmd->viewangles.y - 180) - 270.f : (cmd->viewangles.y - 180) - 90.f;
+                    //}
+                    //if (dir2 = true)
+                    //pCmd->viewangles.y = pCmd->viewangles.y - 180;
+                    ChokedPackets++;
+                }
+                else
+                {
+                    bSendPacket = true;
+                    ChokedPackets = -1;
+                    
+                }
+            }
+        }
+    else
+        cmd->viewangles.y += 0;
 }
 
 

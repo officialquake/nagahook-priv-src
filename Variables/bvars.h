@@ -25,6 +25,7 @@ public:
      bool tp_opend;
     bool resolver_opend;
     bool hitscan_opend;
+    bool legitaa_opend;
     bool fakewalk_opend;
     bool indicatorAA_opend;
     bool freestand_opend;
@@ -87,6 +88,7 @@ public:
         int accuracyhithcance = 0;     // Hitchance Accuacry
         bool hitscan    = true;         // Hitscan
         int hitscantype = 0;            // HItscan Types
+        int legitaatype = 0;            // HItscan Types
         bool autoshoot  = false;        // Shoots for you
         bool autoscope  = true;         // Autoscope
         //bool autostop   = false;        // auto stop
@@ -196,7 +198,12 @@ public:
         int Down = 1;
         int Left = 1;
         int Right = 1;
-
+        
+        bool showenemieslog = false;
+        bool showallieslog = false;
+        float loggerduration = 3000.f;
+        float loggerlines = 10;
+        bool showlocalplayer = false;
         
         bool norecoil       = true;
         bool scopeonly       = true;

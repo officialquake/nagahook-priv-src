@@ -563,6 +563,7 @@ void cMenu::renderAntiAim(int x, int y) {
     vector<string> FakeYaw; // Fake Yaw
     vector<string> MY; // Ground Yaw
     vector<string> AY; // Air Yaw
+    vector<string> LegitAA; // Air Yaw
     // Pitch
     Pitch.push_back("Off");
     Pitch.push_back("Down");
@@ -602,6 +603,11 @@ void cMenu::renderAntiAim(int x, int y) {
     AY.push_back("Off");
     AY.push_back("Rotate");
     
+    LegitAA.push_back("Off");
+    LegitAA.push_back("Backwards");
+    LegitAA.push_back("Sideways");
+    LegitAA.push_back("Adaptive Side");
+    
     this->renderCheckbox(x - 15, y + 15, "Ragebot Enabled", &vars.aimbot.enabled);
     this->renderCheckbox(x - 15, y + 35, "SilentAim", &vars.aimbot.silent);
     //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
@@ -636,6 +642,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 474, y + 315, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
     this->renderSlider(x + 474, y + 345, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
     this->renderCheckbox(x + 474, y + 375, "Legit AA", &vars.misc.legitaa); // 60
+    this->renderCombo(x + 474, y + 395, 150, 20, "Off", LegitAA, vars.aimbot.legitaatype, &vars.legitaa_opend);
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
@@ -840,6 +847,11 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
     this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
     this->renderCheckbox(x + 474, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
+    this->renderCheckbox(x + 474, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
+    this->renderCheckbox(x + 474, y + 195, "Show Allies Log", &vars.misc.showallieslog);
+    this->renderSlider(x + 474, y + 225, 130, "Logger Duration", vars.misc.loggerduration, 3000.f, 0.f);
+    this->renderSlider(x + 474, y + 255, 130, "Logger Lines", vars.misc.loggerlines, 15, 0);
+    this->renderCheckbox(x + 474, y + 285, "Show local player", &vars.misc.showlocalplayer);
 }
 
 

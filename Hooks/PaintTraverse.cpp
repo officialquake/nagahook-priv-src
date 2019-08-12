@@ -7,6 +7,7 @@
 #include "../Hacks/hitmarker.h"
 #include "../Hacks/asuswalls.h"
 #include "../Hacks/snipercrosshair.hpp"
+#include "../Hacks/eventlog.hpp"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -122,6 +123,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             DrawAngles(local);
             DrawSpread();
             SniperCrosshair::Paint();
+            Eventlog::Paint();
             
             
         

@@ -83,7 +83,9 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
+    if(local->GetAlive()){
     LegitAA(cmd, sendPacket, weapon);
+    }
     PredictionSystem.End();
     
     
