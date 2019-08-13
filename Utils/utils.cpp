@@ -411,94 +411,94 @@ string GetWeaponName(C_BaseCombatWeapon* pWeapon) {
     switch (ID) {
             /*pistols*/
         case 4:
-            return "s";
+            return "Glock";
         case 2:
-            return "m";
+            return "Dualies";
         case 36:
-            return "u";
+            return "P250";
         case 30:
-            return "R";
+            return "Tec 9";
         case 1:
-            return "k";
+            return "Deagle";
         case 32:
-            return "J";
+            return "P2000";
         case 3:
-            return "o";
+            return "Five Seven";
         case 64:
-            return "K";
+            return "Revolver";
         case 63:
-            return "j";
+            return "CZ75";
         case 61:
-            return "T";
+            return "USP";
             /*heavy*/
         case 35:
-            return "H";
+            return "Nova";
         case 25:
-            return "U";
+            return "XM1014";
         case 29:
-            return "L";
+            return "Sawed Off";
         case 14:
-            return "A";
+            return "M249";
         case 28:
-            return "G";
+            return "Negev";
         case 27:
-            return "C";
+            return "Mag 7";
             /*smgs*/
         case 17:
-            return "B";
+            return "Mac 10";
         case 33:
-            return "E";
+            return "MP7";
         case 24:
-            return "S";
+            return "UMP45";
         case 19:
-            return "I";
+            return "P90";
         case 26:
-            return "h";
+            return "Bizon";
         case 34:
-            return "F";
+            return "MP9";
             /*C4*/
         case 49:
-            return "i";
+            return "C4";
             /*rifles*/
         case 10:
-            return "n";
+            return "Famas";
         case 16:
-            return "z";
+            return "M4A1";
         case 40:
-            return "P";
+            return "Scout";
         case 8:
-            return "e";
+            return "AUG";
         case 9:
-            return "f";
+            return "AWP";
         case 38:
-            return "M";
+            return "Scar 20";
         case 13:
-            return "r";
+            return "Galil";
         case 7:
-            return "d";
+            return "AK47";
         case 39:
-            return "N";
+            return "SG553";
         case 11:
-            return "q";
+            return "G3SG1";
         case 60:
-            return "y";
+            return "M4A1-S";
             /*grenades*/
         case 46:
         case 48:
-            return "v";
+            return "Molotov";
         case 44:
-            return "t";
+            return "Grenade";
         case 43:
-            return "p";
+            return "Flash";
         case 45:
-            return "O";
+            return "Smoke";
         case 47:
-            return "l";
+            return "Decoy";
             /*other*/
         case 31:
-            return "Q";
+            return "Zeus";
         default:
-            return "x";
+            return "Knife";
     }
 }
 

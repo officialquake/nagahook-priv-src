@@ -237,7 +237,7 @@ void cDrawings::BoxEspShit(int X, int Y, int W, int H, Color Color) {
     float lineT = 1;
     
     //outline
-    pSurface->DrawSetColor(0, 0, 0, 255);
+    pSurface->DrawSetColor(255, 255, 255, 255);
     pSurface->DrawLine(X - lineT, Y - lineT, X + lineW, Y - lineT); //top left
     pSurface->DrawLine(X - lineT, Y - lineT, X - lineT, Y + lineH);
     pSurface->DrawLine(X - lineT, Y + H - lineH, X - lineT, Y + H + lineT); //bot left
@@ -401,7 +401,7 @@ Vector2D cDrawings::GetTextSize(const char* text, HFONT font) {
 HFONT cDrawings::createfont(HFONT font, const char *szFont, int tall, int flags) {
     
     font = pSurface->CreateFont();
-    pSurface->SetFontGlyphSet(font, szFont, tall, 150, 0, 0, flags);
+    pSurface->SetFontGlyphSet(font, szFont, tall, 0, 0, 0, flags);
     
     return font;
     

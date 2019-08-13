@@ -105,10 +105,15 @@ void DrawDroppedWeapons(C_BaseCombatWeapon* weapon) {
     
     string model = GetWeaponName(weapon);
     
+    if(weapon->GetAmmo() > 0){
+        model += (" | ");
+        model += std::to_string(weapon->GetAmmo());
+    }
+    
     boxstruct wBox;
     
     if(DrawPlayerBox(weapon, wBox)) {
-        draw->drawstring(wBox.x + wBox.w / 2, wBox.y, Color::White(), csgo_icons, model.c_str(), true);
+        draw->drawstring(wBox.x + wBox.w / 2, wBox.y, Color::White(), espfont, model.c_str(), true);
         
         
     }
@@ -504,7 +509,8 @@ void DrawPlayerESP()
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
-                draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), csgo_icons, active.c_str());
+                Vector2D weaponTextSize = draw->GetTextSize( active.c_str(), espfont );
+                draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize.x / 2)), players.y + players.h + 8, Color::White(), espfont, active.c_str());
                 
                 
             }

@@ -834,7 +834,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
+                cmd->viewangles.y += yFlip ? maxDelta : -maxDelta;
+                yFlip = !yFlip;
             }
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){
@@ -869,9 +870,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         cmd->viewangles.y = local->GetLowerBodyYawTarget() - 90.f;
                     } else {
                         *bSendPacket = true;
-                        cmd->viewangles.y = local->GetLowerBodyYawTarget() + 90.f;
+                        cmd->viewangles.y = local->GetLowerBodyYawTarget() + 90.f + maxDelta;
                     }
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeTwoStep) {
                     static bool bFlipYaw;
@@ -882,11 +882,10 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         bFlipYaw = !bFlipYaw;
                     
                     if (bSendPacket)
-                        cmd->viewangles.y += bFlipYaw ? 135.f : -135.f;
+                        cmd->viewangles.y += bFlipYaw ? 135.f : -135.f + maxDelta;
                     else
                         cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? -135.f : 135.f);
                     
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLowerBody135) {
                     int flip = (int)floorf(pGlobals->curtime / 1.1) % 2;
@@ -899,15 +898,14 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     
                     if (bSendPacket) {
                         if (flip){
-                            cmd->viewangles.y += bFlipYaw ? 135.f : -135.f;
+                            cmd->viewangles.y += bFlipYaw ? 135.f : -135.f + maxDelta;
                             
                         } else {
-                            cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 135.f : -135.f);
+                            cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 135.f : -135.f) + + maxDelta;
                         }
                     } else {
-                        cmd->viewangles.y += 180.f;
+                        cmd->viewangles.y += 180.f + + maxDelta;
                     }
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeInverseRotation) {
                     float server_time = local->GetTickBase() * pGlobals->interval_per_tick;
@@ -915,7 +913,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     if (bSendPacket) {
                         cmd->viewangles.y += (float)(fmod(server_time / 0.80f * 360.0f, 360.0f));
                     } else {
-                        cmd->viewangles.y -= (float)(fmod(server_time / 0.80f * 360.0f, 360.0f));
+                        cmd->viewangles.y -= (float)(fmod(server_time / 0.80f * 360.0f, 360.0f)) + maxDelta;
                     }
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::Desync) {
@@ -944,12 +942,11 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     }
                     else
                     {
-                        cmd->viewangles.y -= 90.f;
+                        cmd->viewangles.y -= 90.f + maxDelta;
                     }
                     
                     *bSendPacket = jitter_switch;
                     jitter_switch = !jitter_switch;
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
                 
                 
@@ -963,11 +960,17 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         cmd->viewangles.y += (float)(fmod(server_time / 0.50f * 360.0f, 360.0f));
                     } else {
                         *bSendPacket = true;
-                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + 180.00f;
+                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + 180.00f + maxDelta;
                     }
-                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
-                
+                if (local->GetFlags() & FL_ONGROUND && cmd->sidemove < 3 && cmd->sidemove > -3) {
+                    static bool switch_ = false;
+                    if (switch_)
+                        cmd->sidemove = 2;
+                    else
+                        cmd->sidemove = -2;
+                    switch_ = !switch_;
+                }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSideLBY) {
                     int i = 0; i < pEntList->GetHighestEntityIndex(); ++i;
                     //plocal = (C_BaseEntity*)(pEntList->GetClientEntity(pEngine->GetLocalPlayer()));
@@ -990,10 +993,10 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                             cmd->viewangles.y += 180.f;
                         } else {
                             if (flip) {
-                                cmd->viewangles.y += bFlipYaw ? 90.f : -90.f;
+                                cmd->viewangles.y += bFlipYaw ? 90.f : -90.f + maxDelta;
                                 
                             } else {
-                                cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 90.f : -90.f);
+                                cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 90.f : -90.f) + maxDelta;
                             }
                         }
                     }
@@ -1001,7 +1004,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         if (bSendPacket) {
                             cmd->viewangles.y -= 90.f;
                         } else {
-                            cmd->viewangles.y += 90.f;
+                            cmd->viewangles.y += 90.f + maxDelta;
                         }
                     }
                 }

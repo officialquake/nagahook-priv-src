@@ -28,8 +28,8 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         if(strstr(pPanel->GetName(panel), "FocusOverlayPanel"))
         {
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
-            espfont         = draw->createfontt(espfont, "Tahoma", 12, FONTFLAG_DROPSHADOW);
-            csgo_icons      = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_DROPSHADOW);
+            espfont         = draw->createfont(espfont, "Segoe UI", 11, FONTFLAG_OUTLINE | FONTFLAG_DROPSHADOW | FONTFLAG_ANTIALIAS);
+            csgo_icons      = draw->createfont(csgo_icons, "icomoon", 14, FONTFLAG_ANTIALIAS);
             
             mFont           = draw->createfont(mFont, "Caviar Dreams", 1, FONTFLAG_ANTIALIAS);
             sFont           = draw->createfont(sFont, "BigNoodleTitling", 12, FONTFLAG_ANTIALIAS);     // Used for sliders
