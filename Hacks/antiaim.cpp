@@ -834,8 +834,10 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                cmd->viewangles.y += yFlip ? maxDelta : -maxDelta;
-                yFlip = !yFlip;
+                if(!animState)
+                    return;
+                
+                cmd->viewangles.y -= maxDelta;
             }
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){

@@ -253,6 +253,7 @@ public:
         
         bool nightmode      = false;    // Night Mode
          bool grenadepred      = false;    // Night Mode
+        bool desynchams      = false;    // Night Mode
         bool asuswalls      = false;    // asuswalls - see through walls
         bool worldpaint     = false;    // World Paint
         bool changesky      = false;    // Changes Sky

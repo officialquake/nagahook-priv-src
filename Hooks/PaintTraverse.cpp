@@ -28,7 +28,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         if(strstr(pPanel->GetName(panel), "FocusOverlayPanel"))
         {
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
-            espfont         = draw->createfont(espfont, "Segoe UI", 11, FONTFLAG_OUTLINE | FONTFLAG_DROPSHADOW | FONTFLAG_ANTIALIAS);
+            espfont         = draw->createfont(espfont, "Segoe UI", 11,  FONTFLAG_ANTIALIAS);
             csgo_icons      = draw->createfont(csgo_icons, "icomoon", 14, FONTFLAG_ANTIALIAS);
             
             mFont           = draw->createfont(mFont, "Caviar Dreams", 1, FONTFLAG_ANTIALIAS);

@@ -867,6 +867,8 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 474, y + 355, "Dlight enemy", &vars.misc.dlightenemy);
     this->renderCheckbox(x + 474, y + 375, "Dlight allies", &vars.misc.dlightallies);
     this->renderSlider(x + 474, y + 405, 130, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
+    
+    this->renderCheckbox(x + 474, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
 }
 
 
