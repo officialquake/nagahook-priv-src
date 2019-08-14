@@ -552,16 +552,13 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(nullptr);
                         
                     }
-                    if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson){
-                        
-                        Vector EyeAngles = *entity->GetEyeAngles();
+                    if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson && !local->IsScoped()){
                         //float lowerbody = local->GetLowerBodyYaw();
                         //auto aa_angle = QAngle(0, cmd->viewangles.y, 0);
                         
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
-                        float fake[2];
                         matrix3x4_t BoneMatrix[128];
                         for (int i = 0; i < 128; i++)
                         {
