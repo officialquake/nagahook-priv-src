@@ -10,12 +10,11 @@ static bool manualswitch = true;
 
 
 Vector atTargets;
-
 bool isManual = false;
+static bool FreestandingSide = false;
 bool Swtich = false;
 static bool jitter2 = false;
-
-
+static float SentYaw;
 
 
 void inline SinCos(float radians, float* sine, float* cosine)
@@ -208,64 +207,83 @@ bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, fl
     return bRetVal;
 }
 
-void doManual(CUserCmd* cmd){
-    static bool left = false;
-    static bool right = false;
-    static bool back = false;
+#define TICK_INTERVAL            (pGlobals->interval_per_tick)
+//#define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
+void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
+    float speed = local->GetVelocity().Length2D();
     
-    bool flip = false;
+    float standing = 115.f;
+    float server_time = local->GetTickBase() * pGlobals->interval_per_tick * 2;
+    float time = TIME_TO_TICKS(server_time);
     
-    int Height, Width;
-    pEngine->GetScreenSize(Height, Width);
+    bool jitter = false;
+    //float lineRealAngle = vars.misc.aaY;
     
-    int x = Width / 2;
-    int y = Height / 2;
+    while (time >= server_time)
+        time = 0.f;
     
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
-        left = true; right = false; back = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
-        left = false; right = true; back = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_DOWN)) {
-        left = false; right = false; back = true;
-    }
-    if ( left ){
-        
-        if (flip)
+    float idk = rand() % 100;
+    
+    /*if (speed <= 10 && (local->GetFlags() & FL_ONGROUND))
+     {
+     }*/
+    
+    jitter = !jitter;
+    if (time >= server_time / 2)
+    {
+        if (idk < 70)
         {
-            cmd->viewangles.y += 90.f - RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y += 90 + RandomFloat(5, vars.aimbot.jitter);
+            if (!jitter)
+                cmd->viewangles.y = cmd->viewangles.y + standing;
+            
         }
-        
-    }
-    
-    if ( right ){
-        
-        if (flip)
+        else
         {
-            cmd->viewangles.y -= 90.f + RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y -= 90 - RandomFloat(5, vars.aimbot.jitter);
+            if (!jitter)
+                cmd->viewangles.y = cmd->viewangles.y - standing;
+            
         }
-        
     }
-    if ( back ){
-        
-        if (flip)
+    else
+    {
+        if (idk < 70)
         {
-            cmd->viewangles.y += 180.f - RandomFloat(5, vars.aimbot.jitter);
-        }else
-        {
-            cmd->viewangles.y += 180.f + RandomFloat(5, vars.aimbot.jitter);
+            if (jitter)
+                cmd->viewangles.y = cmd->viewangles.y - standing;
         }
-        
+        else
+        {
+            if (jitter)
+                cmd->viewangles.y = cmd->viewangles.y + standing;
+            
+        }
     }
-    flip = !flip;
+}
+
+void doManual(CUserCmd* cmd, C_BaseEntity* local){
+    if(!vars.misc.manualaa)
+        return;
     
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+        return;
+    
+    static int ChokedTicks = 0;
+    static bool Direction = false;
+    if (pInputSystem->IsButtonDown(KEY_LEFT)) Direction = true;
+    if (pInputSystem->IsButtonDown(KEY_RIGHT)) Direction = false;
+    
+    if (ChokedTicks < 1) {
+        cmd->viewangles.y += Direction ? 90 : -90;
+        ChokedTicks++;
+    }else {
+        ChokedTicks = 0;
+    }
 }
 
 
@@ -475,7 +493,7 @@ void do_real2(CUserCmd* cmd, C_BaseEntity* local){
     }
     
     if (NextLBYUpdate2(cmd, local)) {
-        cmd->viewangles.y += vars.misc.delta;
+        cmd->viewangles.y += 115.f;
         //cmd->viewangles.y += 115.f; // less then 180 to prevent 979 animation, but less then 120 so its harder to predict
     }
     
@@ -550,6 +568,59 @@ float GetMaxDelta(CCSGOAnimState *animState ) {
     
     return abs(delta);
 }
+
+
+float AntiAim::GetMaxxDelta(CCSGOAnimState *animState ) {
+    
+    float speedFraction = std::max(0.0f, std::min(animState->feetShuffleSpeed, 1.0f));
+    
+    float speedFactor = std::max(0.0f, std::min(1.0f, animState->feetShuffleSpeed2));
+    
+    float unk1 = ((animState->runningAccelProgress * -0.30000001) - 0.19999999) * speedFraction;
+    float unk2 = unk1 + 1.0f;
+    float delta;
+    
+    if (animState->duckProgress > 0)
+    {
+        unk2 += ((animState->duckProgress * speedFactor) * (0.5f - unk2));// - 1.f
+    }
+    
+    delta = *(float*)((uintptr_t)animState + 0x3A4) * unk2;
+    
+    return abs(delta);
+}
+
+float GetMaxDesyncDelta(CCSGOAnimState *animState)
+{
+    float speedfactor = animState->feetShuffleSpeed;
+    
+    if (animState->feetShuffleSpeed > 1.f)
+        speedfactor = 1.f;
+    else if (animState->feetShuffleSpeed < 0.f)
+        speedfactor = 0.f;
+    
+    float unk1 = ((animState->runningAccelProgress * -.3f) - .2f) * speedfactor;
+    float unk2 = unk1 + 1.f;
+    float delta;
+    
+    if (animState->duckProgress > 0.0f)
+    {
+        float max_velocity = animState->feetShuffleSpeed2;
+        
+        if (animState->feetShuffleSpeed2 > 1.f)
+            max_velocity = 1.f;
+        else if (animState->feetShuffleSpeed2 < 0.f)
+            max_velocity = 0.f;
+        
+        float duck_speed = animState->duckProgress * max_velocity;
+        unk2 += (duck_speed * (0.5f - unk2));
+    }
+    
+    delta = *(float*)((uintptr_t)animState + 0x3A4) * unk2;
+    
+    return abs(delta);
+}
+
 
 void LegitAA(CUserCmd* cmd, bool& bSendPacket, C_BaseCombatWeapon* weapon)
 {
@@ -636,6 +707,73 @@ void LegitAA(CUserCmd* cmd, bool& bSendPacket, C_BaseCombatWeapon* weapon)
         cmd->viewangles.y += 0;
 }
 
+bool LBYUpdate()
+{
+    C_BaseEntity* local = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    static float NextUpdate = 0;
+    float Curtime = pGlobals->curtime;
+    auto* AnimState = local->GetAnimState();
+    
+    if (!AnimState || !(local->GetFlags() & FL_ONGROUND))
+        return false;
+    
+    if (AnimState->speed > 0.1f)
+        NextUpdate = Curtime + 0.22f;
+    
+    if (NextUpdate < Curtime)
+    {
+        NextUpdate = Curtime + 1.1f;
+        return true;
+    }
+    
+    return false;
+}
+
+float Freestand(C_BaseEntity* local, CUserCmd* cmd)
+{
+    //Vector oldAngle = cmd->viewangles;
+    
+    float Back, Right, Left;
+    
+    Vector src3D, dst3D, forward, right, up, src, dst;
+    trace_t tr;
+    Ray_t backray, rightray, leftray;
+    CTraceFilter filter;
+    
+    Vector angles;
+    pEngine->GetViewAngles(angles);
+    
+    AngleVectors3(angles, forward, right, up);
+    
+    filter.pSkip = local;
+    src3D = local->GetVecOrigin() + local->GetVecViewOffset();
+    dst3D = src3D + (forward * 384.f);
+    
+    backray.Init(src3D, dst3D);
+    pEngineTrace->TraceRay(backray, MASK_SHOT, &filter, &tr);
+    Back = (tr.endpos - tr.startpos).Length();
+    
+    rightray.Init(src3D + right * 35.f, dst3D + right * 35.f);
+    pEngineTrace->TraceRay(rightray, MASK_SHOT, &filter, &tr);
+    Right = (tr.endpos - tr.startpos).Length();
+    
+    leftray.Init(src3D - right * 35.f, dst3D - right * 35.f);
+    pEngineTrace->TraceRay(leftray, MASK_SHOT, &filter, &tr);
+    Left = (tr.endpos - tr.startpos).Length();
+    
+    if (Left > Right){
+        cmd->viewangles.y -= 90.f;
+    }else if (Right > Left){
+        cmd->viewangles.y += 90.f;
+    }else if (Back > Right || Back > Left){
+        cmd->viewangles.y = 180.f;
+    }if (NextLBYUpdate2(cmd, local)) {
+        cmd->viewangles.y += 115.f;
+        //cmd->viewangles.y += 115.f; // less then 180 to prevent 979 animation, but less then 120 so its harder to predict
+    }
+    return 0;
+}
+
 
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState)
 {
@@ -652,7 +790,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     
-    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE)))
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_C4)))
         return;
     
     if (!vars.misc.fakelag) {
@@ -668,7 +806,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             return;
         
         if(NextLBYUpdate2(cmd, local)){
-            cmd->viewangles.y += vars.misc.delta;
+            cmd->viewangles.y += 115.f;
         }
     }
     cmd->viewangles.x = 89.f;
@@ -677,6 +815,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     static bool bFlip = false;
     static bool yFlip = false;
     float maxDelta = GetMaxDelta(animState);
+    float getmaxdelta = GetMaxDesyncDelta(animState);
     static int fakeTick = 0;
     bool bAttack = true;
     bFlip = !bFlip;
@@ -737,7 +876,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 
                 if (!f_flip) {
                     *bSendPacket = true;
-                    cmd->viewangles.y += 212.000000f;;
+                    cmd->viewangles.y += 212.000000f;
                 } else if (!f_flip) {
                     *bSendPacket = true;
                     cmd->viewangles.y -= 180.000000f;
@@ -772,6 +911,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 if(random < 15) {
                     float change = -70 + (rand() % (int) (140 + 1));
                     cmd->viewangles.y += change;
+                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::LowerYaw) { // Twist
@@ -789,18 +929,21 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                             fakeTick = 0;
                         
                     } else {
+                        
                         cmd->viewangles.y += 180.f;
                     }
                 } else {
                     cmd->viewangles.y += 180.f;
                 }
+                cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::SidewaysLeft) {
                 fakeswitch ? cmd->viewangles.y = 90 : cmd->viewangles.y = atTargets.y;
+                cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::SidewaysRight) {
                 fakeswitch ? cmd->viewangles.y = -90 : cmd->viewangles.y = atTargets.y;
-                
+                cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::LBYBreaker) {
                 QAngle angle_for_yaw;
@@ -834,11 +977,19 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                if(!animState)
-                    return;
+                //bool LBYUpdateb = LBYUpdate();
+                bool lbyupdatec = NextLBYUpdate2(cmd, local);
+                if (bSendPacket)
+                    cmd->viewangles.y += maxDelta * 1;
+                else
+                    Freestand(local, cmd);
+                if (lbyupdatec){
+                    cmd->viewangles.y += (180 - maxDelta - 7) * 1;
+                }
                 
-                cmd->viewangles.y -= maxDelta;
+                Global::fake_angle = cmd->viewangles.y;
             }
+            
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeSpin){
                     int random = rand() % 100;
@@ -861,19 +1012,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     }
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLBYHook) {
-                    static bool ySwitch;
-                    static bool jbool;
-                    static bool jboolt;
-                    ySwitch = !ySwitch;
-                    jbool = !jbool;
-                    jboolt = !jbool;
-                    if (jboolt) {
-                        *bSendPacket = true;
-                        cmd->viewangles.y = local->GetLowerBodyYawTarget() - 90.f;
-                    } else {
-                        *bSendPacket = true;
-                        cmd->viewangles.y = local->GetLowerBodyYawTarget() + 90.f + maxDelta;
-                    }
+                    DesyncAA(cmd, local);
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeTwoStep) {
                     static bool bFlipYaw;
@@ -883,10 +1022,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     if (std::fmod(flTime, 1) == 0.f)
                         bFlipYaw = !bFlipYaw;
                     
-                    if (bSendPacket)
+                    if (bSendPacket){
                         cmd->viewangles.y += bFlipYaw ? 135.f : -135.f + maxDelta;
-                    else
-                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? -135.f : 135.f);
+                        //AntiAim::fakeangle = cmd->viewangles;
+                    }else{
+                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? -135.f : 135.f) + maxDelta;
+                    }
                     
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeLowerBody135) {
@@ -899,23 +1040,26 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         bFlipYaw = !bFlipYaw;
                     
                     if (bSendPacket) {
+                        
                         if (flip){
-                            cmd->viewangles.y += bFlipYaw ? 135.f : -135.f + maxDelta;
+                            cmd->viewangles.y += bFlipYaw ? 135.f : -135.f - maxDelta;
                             
                         } else {
-                            cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 135.f : -135.f) + + maxDelta;
+                            cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 135.f : -135.f) + maxDelta;
                         }
+                        //AntiAim::fakeangle = cmd->viewangles;
                     } else {
-                        cmd->viewangles.y += 180.f + + maxDelta;
+                        cmd->viewangles.y += 180.f + maxDelta;
                     }
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeInverseRotation) {
                     float server_time = local->GetTickBase() * pGlobals->interval_per_tick;
                     
                     if (bSendPacket) {
-                        cmd->viewangles.y += (float)(fmod(server_time / 0.80f * 360.0f, 360.0f));
+                        cmd->viewangles.y += (float)(fmod(server_time / 0.80f * 360.0f, 360.0f)) + maxDelta;
+                        //AntiAim::fakeangle = cmd->viewangles;
                     } else {
-                        cmd->viewangles.y -= (float)(fmod(server_time / 0.80f * 360.0f, 360.0f)) + maxDelta;
+                        cmd->viewangles.y -= (float)(fmod(server_time / 0.80f * 360.0f, 360.0f));
                     }
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::Desync) {
@@ -939,16 +1083,18 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         }
                         else
                         {
-                            cmd->viewangles.y += 180.f;
+                            cmd->viewangles.y += 180.f ;
                         }
                     }
                     else
                     {
                         cmd->viewangles.y -= 90.f + maxDelta;
+                        //AntiAim::fakeangle = cmd->viewangles;
                     }
-                    
+                    cmd->viewangles.y += jitter2 ? get_feet_yaw(local) + 50 : get_feet_yaw(local) - 50;
                     *bSendPacket = jitter_switch;
                     jitter_switch = !jitter_switch;
+                    
                 }
                 
                 
@@ -992,29 +1138,32 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     
                     if (PlayerIsMoving <= 0.1) {
                         if (bSendPacket) {
-                            cmd->viewangles.y += 180.f;
+                            cmd->viewangles.y += 180.f + maxDelta;
+                           //AntiAim::fakeangle = cmd->viewangles;
                         } else {
                             if (flip) {
-                                cmd->viewangles.y += bFlipYaw ? 90.f : -90.f + maxDelta;
+                                cmd->viewangles.y += bFlipYaw ? 90.f : -90.f;
                                 
                             } else {
                                 cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? 90.f : -90.f) + maxDelta;
                             }
+    
                         }
                     }
                     else if (PlayerIsMoving > 0.1) {
                         if (bSendPacket) {
-                            cmd->viewangles.y -= 90.f;
+                            cmd->viewangles.y -= 90.f - maxDelta;
                         } else {
-                            cmd->viewangles.y += 90.f + maxDelta;
+                            cmd->viewangles.y += 90.f ;
                         }
                     }
                 }
                 
             } // End Of FakeAA Yaw
         }
-        
     }
+        
+    cmd->viewangles.ClampAngles();
 }
 
 void AntAimCMove(CUserCmd* cmd){

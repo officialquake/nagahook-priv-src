@@ -13,7 +13,7 @@ float Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon);
 
 void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
 
-void AutoKnife(C_BaseEntity* playerknife, CUserCmd* cmd);
+void AutoKnife(CUserCmd* cmd);
 
 bool IsPlayerBehind(C_BaseEntity* localplayer, C_BaseEntity* player);
 int GetLeftKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player);

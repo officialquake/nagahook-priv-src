@@ -4,6 +4,28 @@
 #include "LagComp.h"
 #include "../Backtrack.hpp"
 #include "../Hacks/nosmoke.hpp"
+#include "../Hacks/antiaim.h"
+#include "../Hacks/resolver.h"
+
+float GetMaxxDelta(CCSGOAnimState *animState ) {
+    
+    float speedFraction = std::max(0.0f, std::min(animState->feetShuffleSpeed, 1.0f));
+    
+    float speedFactor = std::max(0.0f, std::min(1.0f, animState->feetShuffleSpeed2));
+    
+    float unk1 = ((animState->runningAccelProgress * -0.30000001) - 0.19999999) * speedFraction;
+    float unk2 = unk1 + 1.0f;
+    float delta;
+    
+    if (animState->duckProgress > 0)
+    {
+        unk2 += ((animState->duckProgress * speedFactor) * (0.5f - unk2));// - 1.f
+    }
+    
+    delta = *(float*)((uintptr_t)animState + 0x3A4) * unk2;
+    
+    return abs(delta);
+}
 
 void RemoveFlash(ClientFrameStage_t stage)
 {
@@ -171,30 +193,29 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     
     
-    if(vars.aimbot.enabled && vars.aimbot.Yawresolver && curStage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
+    if(pEngine->IsInGame() && vars.aimbot.enabled && vars.aimbot.Yawresolver && curStage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START && vars.aimbot.yresolve > 0)
     {
-        for(int i = 1; i < 64; i++)
+        for(int i = 1; i < pEngine->GetMaxClients(); i++)
         {
+            C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(i);
             auto* entity = pEntList->GetClientEntity(i);
+            //auto local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+            C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             
-            if(!entity)
+            if (!player
+                || player == localplayer
+                || player->GetDormant()
+                || !player->GetAlive()
+                || player->GetImmune()
+                || player->GetTeam() == localplayer->GetTeam())
                 continue;
-            
-            if(!entity->GetAlive())
-                continue;
-            
-            if(entity->GetImmune())
-                continue;
-            
-            if(entity->GetDormant())
-                continue;
-            
-            if(entity == local)
-                continue;
-            
+        
             //backtracking->Store(entity);
             
             //*(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation1) = AAA_Pitch(entity);
+            if(vars.aimbot.backtrack){
+                backtracking->Update(pGlobals->tickcount);
+            }
             *(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation2) = AAA_Yaw(entity);
         }
         
@@ -205,5 +226,7 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
         *PointerPunch   = VecPunch;
         *PointerView    = VecView;
     }
+    
+
     
 }

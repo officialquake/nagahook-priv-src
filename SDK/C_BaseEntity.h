@@ -145,6 +145,8 @@ public:
     CHudTexture* iconZoomedCrosshair;
     CHudTexture* iconZoomedAutoaim;
     CHudTexture* iconSmall;
+    
+    
 };
 
 struct CCSWeaponInfo
@@ -161,7 +163,6 @@ struct CCSWeaponInfo
     int m_iDamage;
     float m_flArmorRatio;
     int m_iBulletsPerShot;
-    float m_flPenetration;
     char pad17C[8];
     float m_flRange;
     float m_flRangeModifier;
@@ -174,10 +175,67 @@ struct CCSWeaponInfo
     int m_iZoomFOV2;        //
     float m_flZoomTime[3];
     char pad258[152];
+    float m_flPenetration;
     bool m_bHasBurstMode;
     bool m_bIsRevolver;
     bool m_bCanShootUnderwater;
+    
 };
+    
+    class CCSSWeaponInfo : public FileWeaponInfo_t {
+    public:
+        char* GetConsoleName() {
+            return *( char** ) ( ( uintptr_t )this + 0x8);
+        }
+        
+        int GetClipSize() {
+            return *( int* ) ( ( uintptr_t )this + 0x20);
+        }
+        
+        CSWeaponType GetWeaponType() {
+            return *( CSWeaponType* ) ( ( uintptr_t )this + 0x140);
+        }
+        
+        void SetWeaponType( CSWeaponType type ) {
+            *( CSWeaponType* ) ( ( uintptr_t )this + 0x140) = type;
+        }
+        
+        int GetDamage() {
+            return *( int* ) ( ( uintptr_t )this + 0x16C);
+        }
+        
+        float GetWeaponArmorRatio() {
+            return *( float* ) ( ( uintptr_t )this + 0x170);
+        }
+        
+        float GetPenetration() {
+            return *( float* ) ( ( uintptr_t )this + 0x178);
+        }
+        
+        float GetRange() {
+            return *( float* ) ( ( uintptr_t )this + 0x184);
+        }
+        
+        float GetRangeModifier() {
+            return *( float* ) ( ( uintptr_t )this + 0x188);
+        }
+        
+        float GetMaxPlayerSpeed() {
+            return *( float* ) ( ( uintptr_t )this + 0x1B0);
+        }
+        
+        int GetZoomLevels() { // Doesn't work correctly on some weapons.
+            return *( int* ) ( ( uintptr_t )this + 0x23C); // DT_WeaponCSBaseGun.m_zoomLevel ?
+        }
+        
+        char* GetTracerEffect() {
+            return *( char** ) ( ( uintptr_t )this + 0x280);
+        }
+        
+        int* GetTracerFrequency() {
+            return ( int* ) ( ( uintptr_t )this + 0x288);
+        }
+    };
 
 class ICollideable
 {
@@ -272,6 +330,7 @@ public:
         uintptr_t animstateoffset = hooker::FindPlayerAnimStateOffset();
         return *reinterpret_cast<CCSGOAnimState**>((uintptr_t)this + animstateoffset);
     }
+    
     int GetId()
     {
         return *(int*)((uintptr_t)this + 0x94);
@@ -323,6 +382,10 @@ public:
     Vector* GetEyeAngles()
     {
         return (Vector*)((uintptr_t)this + offsets.DT_CSPlayer.m_angEyeAngles[0]);
+    }
+    QAngle* GetEyeAngless()
+    {
+        return (QAngle*)((uintptr_t)this + offsets.DT_CSPlayer.m_angEyeAngles[0]);
     }
     
     int HasHelmet()
@@ -492,7 +555,9 @@ public:
     {
         return *(float*)((uintptr_t)this + offsets.DT_BasePlayer.m_angRotation2);
     }
-    
+    bool isMoving() {
+        return GetVelocity().Length() > 0.1f;
+    }
     float GetLowerBodyYawTarget()
     {
         return *(float*)((uintptr_t)this + offsets.DT_BasePlayer.m_flLowerBodyYawTarget);
@@ -590,10 +655,10 @@ public:
     {
         return *(int*)((uintptr_t)this + offsets.DT_PlantedC4.m_hBombDefuser);
     }
-    int TimerThing()
+    /*int TimerThing()
     {
-        return *(int*)((uintptr_t)this + offsets.DT_PlantedC4.m_flTimerLength);
-    }
+        return *(float_t*)((uintptr_t)this + offsets.DT_PlantedC4.m_flTimerLength);
+    }*/
 };
 
 class C_BaseAttributableItem : public C_BaseEntity
@@ -842,6 +907,12 @@ public:
        CCSWeaponInfo* GetCSWpnData()
     {
         typedef CCSWeaponInfo* (* oGetCSWpnData)(void*);
+        return getvfunc<oGetCSWpnData>(this, 522)(this);
+    }
+    
+    CCSSWeaponInfo* GetCSWpnData1()
+    {
+        typedef CCSSWeaponInfo* (* oGetCSWpnData)(void*);
         return getvfunc<oGetCSWpnData>(this, 522)(this);
     }
     

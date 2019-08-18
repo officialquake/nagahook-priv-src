@@ -103,6 +103,7 @@ public:
         bool fakewalk   = true;        // Fake Walk
         int fakewalktype = 0;         // Fakewalk types
         bool backtrack = false;
+        bool autoslow = false;
         
         bool freestanding = false;
         
@@ -225,7 +226,6 @@ public:
         bool backtrack = false;
         bool moonwalk = false;
         float tpoffset = 64.f;
-        float bullettracelength = 1500.f;
         bool freestanding           = false;
         
         bool lbybreaker           = false;
@@ -237,6 +237,7 @@ public:
         
         bool showrank       = true;     // Show everyboys rank in MM
         bool spammer        = false;    // Chat spammer
+        bool fullbright        = false;    // Chat spammer
         bool noflash        = true;     // Disabled flashbangs
         int flashalpha      = 255.f;    // How "flashed" you are
         bool noscope        = false;     // Noscope

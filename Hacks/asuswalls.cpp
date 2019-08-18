@@ -41,13 +41,29 @@ void asuswalls(ClientFrameStage_t stage) {
             }
         }
         
+        
+        
         if (strstr(pMat->GetTextureGroupName(), "Particle textures"))
         {
             pMat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, vars.misc.asuswalls);
         }
     }
 }
-
+void FullBright(){
+    
+    if (!pEngine->IsConnected() || !pEngine->IsInGame())
+        return;
+    
+    static ConVar* fullbright = pCvar->FindVar("mat_fullbright");
+    fullbright->nFlags &= ~FCVAR_CHEAT;
+    
+    if (vars.misc.fullbright) {
+        fullbright->SetValue(1);
+    }
+    else{
+        fullbright->SetValue(0);
+    }
+}
 void NightMode()
 {
     static bool nightmode_performed = false, nightmode_lastsetting;

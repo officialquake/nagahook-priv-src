@@ -587,11 +587,11 @@ void cMenu::renderAntiAim(int x, int y) {
     // Fake Yaw
     FakeYaw.push_back("Off");
     FakeYaw.push_back("FakeSpin");
-    FakeYaw.push_back("FakeLBYHook");
+    FakeYaw.push_back("Desync?");
     FakeYaw.push_back("FakeTwoStep");
     FakeYaw.push_back("FakeLowerBody135");
     FakeYaw.push_back("FakeInverseRotation");
-    FakeYaw.push_back("Desync");
+    FakeYaw.push_back("Fake Head");
     FakeYaw.push_back("FakeLBY");
     FakeYaw.push_back("FakeSideLBY");
     //Moving Yaw
@@ -641,17 +641,17 @@ void cMenu::renderAntiAim(int x, int y) {
      this->renderCheckbox(x + 474, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
     this->renderCheckbox(x + 474, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
     this->renderSlider(x + 474, y + 225, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
-    this->renderCheckbox(x + 474, y + 255, "Legit AA", &vars.misc.legitaa); // 60
-    this->renderCombo(x + 474, y + 275, 150, 20, "Off", LegitAA, vars.aimbot.legitaatype, &vars.legitaa_opend);
+    this->renderCheckbox(x + 474, y + 255, "Manual AA", &vars.misc.manualaa); // 60
     
-    this->renderCheckbox(x + 474, y + 305, "Fake AA", &vars.misc.fakeaa); // 60
-    this->renderCombo(x + 474, y + 335, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    this->renderCheckbox(x + 474, y + 275, "Fake AA", &vars.misc.fakeaa); // 60
+    this->renderCombo(x + 474, y + 305, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
     if(!vars.aaX_opend){
-        this->renderCombo(x + 474, y + 365, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+        this->renderCombo(x + 474, y + 325, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
-        this->renderCombo(x + 474, y + 395, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+        this->renderCombo(x + 474, y + 345, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
+    
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
@@ -669,26 +669,30 @@ void cMenu::renderAntiAim(int x, int y) {
     hitscan.push_back("high");//gamesense
     hitscan.push_back("extreme");
     hitscan.push_back("baim");
+    hitscan.push_back("head");
+    hitscan.push_back("upperbody");
+    hitscan.push_back("lowerbody");
+    hitscan.push_back("arms");
+    hitscan.push_back("legs");
     //CT.push_back("Test 2");
     //CT.push_back("Mixed");
     this->renderCombo(x + 235, y + 155, 150, 20, "Off", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
-    this->renderCheckbox(x + 235, y + 185, "Moonwalk", &vars.misc.moonwalk);
+    this->renderCheckbox(x + 235, y + 185, "AutoStop", &vars.aimbot.autostop);
+    this->renderCheckbox(x + 235, y + 255, "Moonwalk", &vars.misc.moonwalk);
+    this->renderCheckbox(x + 235, y + 275, "Autoslow", &vars.aimbot.autoslow);
+    //this->renderCheckbox(x + 235, y + 295, "Autoknife", &vars.aimbot.autoknife);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
     }*/
     vector<string> Resolve;  // Resolver
     
-    
-    Resolve.push_back("Experimental");
-    Resolve.push_back("LBYResolver");
-    Resolve.push_back("Smart");
-    Resolve.push_back("Evolution");
-    Resolve.push_back("Test");
-    Resolve.push_back("Synp1");
-    Resolve.push_back("Best Resolver");
-    
-    
+    Resolve.push_back("Off");
+    Resolve.push_back("Raizoh00k1");
+    Resolve.push_back("Raizoh00k2");
+    Resolve.push_back("Brute");
+    Resolve.push_back("Ayyware");
+    //Resolve.push_back("Fuzion");
     
     this->renderCheckbox(x + 235, y + 205, "Yaw Resolver", &vars.aimbot.Yawresolver);
     
@@ -869,6 +873,8 @@ void cMenu::renderVis(int x, int y) {
     this->renderSlider(x + 474, y + 405, 130, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
     
     this->renderCheckbox(x + 474, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
+    this->renderCheckbox(x + 474, y + 455, "Bullet Tracers", &vars.visuals.bullett);
+    this->renderCheckbox(x + 474, y + 475, "Full-Bright", &vars.misc.fullbright);
 }
 
 

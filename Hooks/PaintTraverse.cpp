@@ -27,40 +27,51 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
     {
         if(strstr(pPanel->GetName(panel), "FocusOverlayPanel"))
         {
-            framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
-            espfont         = draw->createfont(espfont, "Segoe UI", 11,  FONTFLAG_ANTIALIAS);
-            csgo_icons      = draw->createfont(csgo_icons, "icomoon", 14, FONTFLAG_ANTIALIAS);
+            espfont = pSurface->CreateFont();
+            pSurface->SetFontGlyphSet(espfont, "Smallest Pixel-7", 12, 300, 0, 0, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);
             
-            mFont           = draw->createfont(mFont, "Caviar Dreams", 1, FONTFLAG_ANTIALIAS);
+            
+            mFont = pSurface->CreateFont();
+            pSurface->SetFontGlyphSet(mFont, "Consolas", 12, 400, 0, 0, FONTFLAG_ANTIALIAS);
+            
+            
+            bombfont = pSurface->CreateFont();
+            pSurface->SetFontGlyphSet(bombfont, "Verdana", 45, 1000, 0, 0, FONTFLAG_ANTIALIAS);
+            
+            framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
+            //espfont         = draw->createfont(espfont, "Segoe UI", 11,  FONTFLAG_ANTIALIAS);
+            csgo_icons      = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_ANTIALIAS);
+            
+           // mFont           = draw->createfont(mFont, "Verdana", 1, FONTFLAG_ANTIALIAS);
             sFont           = draw->createfont(sFont, "BigNoodleTitling", 12, FONTFLAG_ANTIALIAS);     // Used for sliders
             tFont           = draw->createfont(tFont, "BigNoodleTitling", 18, FONTFLAG_ANTIALIAS);     // Used for tabs
             heading         = draw->createfont(heading, "BigNoodleTitling", 21, FONTFLAG_ANTIALIAS);   // Used for headings
             osFont          = draw->createfont(osFont, "ProggyCleanTT", 16, FONTFLAG_ANTIALIAS);
-            copyright          = draw->createfont(copyright, "Avenir", 45, FONTFLAG_ANTIALIAS);
+            copyright       =  draw->createfont(copyright, "Segoe UI", 25,  FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW | FONTFLAG_OUTLINE);
             cFont           = draw->createfont(cFont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);     // Combos
             titleFont       = draw->createfont(cFont, "BigNoodleTitling", 52, FONTFLAG_ANTIALIAS);     // vlone.cc Title
             // vlone.cc Subtitle
             o4Font_03       = draw->createfont(o4Font_03, "04b03", 12, FONTFLAG_ANTIALIAS);
             o4Font_11       = draw->createfont(o4Font_11, "04b11", 12, FONTFLAG_ANTIALIAS);
             o4Font_20       = draw->createfont(o4Font_20, "04b_20", 12, FONTFLAG_ANTIALIAS);
-            eFont       = draw->createfont(eFont, "Caviar Dreams", 12, FONTFLAG_DROPSHADOW);  // ESP font // v
+            eFont       = draw->createfont(eFont, "Verdana", 12, FONTFLAG_DROPSHADOW);  // ESP font // v
             //       sFont       = draw->createfont(sFont, "Verdana", 11, FONTFLAG_OUTLINE);     // Used for sliders
             xFont          = draw->createfont(xFont, "osmiummenufont", 60, FONTFLAG_ANTIALIAS);
-            xFontGay          = draw->createfont(xFontGay, "Caviar Dreams", 60, FONTFLAG_ANTIALIAS);
-            lbyfont         = draw->createfont(lbyfont, "Caviar Dreams", 30, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);
-            pFont           = draw->createfont(pFont, "Caviar Dreams", 50, FONTFLAG_ANTIALIAS);
-            supremacy           = draw->createfont(supremacy, "Caviar Dreams", 12, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     // Used for sliders // v
-            slider           = draw->createfont(slider, "Caviar Dreams", 12, FONTFLAG_ANTIALIAS);     // Used for sliders // v // fontflag_none
-            subtitleFont    = draw->createfont(cFont, "Caviar Dreams", 30, FONTFLAG_ANTIALIAS);     // vlone.cc Subtitle
-            indicatorFont    = draw->createfont(indicatorFont, "Caviar Dreams", 22, FONTFLAG_ANTIALIAS);    
-            iFont    = draw->createfont(cFont, "Caviar Dreams", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     // skrrt
-            mSection    = draw->createfont(cFont, "Caviar Dreams", 14, FONTFLAG_ANTIALIAS);     // vlone.cc Subtitle
-            iFont2    = draw->createfont(cFont, "Caviar Dreams", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     //
-            iFont3    = draw->createfont(cFont, "Caviar Dreams", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     //skrrt
+            xFontGay          = draw->createfont(xFontGay, "Verdana", 60, FONTFLAG_ANTIALIAS);
+            lbyfont         = draw->createfont(lbyfont, "Verdana", 30, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);
+            pFont           = draw->createfont(pFont, "Verdana", 50, FONTFLAG_ANTIALIAS);
+            supremacy           = draw->createfont(supremacy, "Verdana", 12, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     // Used for sliders // v
+            slider           = draw->createfont(slider, "Verdana", 12, FONTFLAG_ANTIALIAS);     // Used for sliders // v // fontflag_none
+            subtitleFont    = draw->createfont(cFont, "Verdana", 30, FONTFLAG_ANTIALIAS);     // vlone.cc Subtitle
+            indicatorFont    = draw->createfont(indicatorFont, "Glyphter", 22, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);    
+            iFont    = draw->createfont(cFont, "Verdana", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     // skrrt
+            mSection    = draw->createfont(cFont, "Verdana", 14, FONTFLAG_ANTIALIAS);     // vlone.cc Subtitle
+            iFont2    = draw->createfont(cFont, "Verdana", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     //
+            iFont3    = draw->createfont(cFont, "Verdana", 90, FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW);     //skrrt
             
-            weapfont        = draw->createfont(cFont, "Caviar Dreams", 20,FONTFLAG_ANTIALIAS);                              // Weapon Font
-            test        = draw->createfont(cFont, "Caviar Dreams", 20,FONTFLAG_ANTIALIAS);                              // Weapon Font
-            LBY        = draw->createfont(LBY, "Caviar Dreams", 37,FONTFLAG_ANTIALIAS);
+            weapfont        = draw->createfont(cFont, "Verdana", 20,FONTFLAG_ANTIALIAS);                              // Weapon Font
+            test        = draw->createfont(cFont, "Verdana", 20,FONTFLAG_ANTIALIAS);                              // Weapon Font
+            LBY        = draw->createfont(LBY, "Verdana", 37,FONTFLAG_ANTIALIAS);
             last = panel;
         }
         
@@ -121,13 +132,14 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             manualaa(local);        // Manual AA idicator
             Dlights::Paint();
             NightMode();
+            FullBright();
             Hitmarkers::Paint();
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
             DrawSpread();
             SniperCrosshair::Paint();
             Eventlog::Paint();
-            
+            BulletTracers::Paint();
             
         
             //aw_hitmarker->initilisze();

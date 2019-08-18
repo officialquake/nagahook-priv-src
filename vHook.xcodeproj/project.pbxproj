@@ -42,11 +42,13 @@
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
 		915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */ = {isa = PBXBuildFile; fileRef = 915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */; };
 		915B2EE422EA1ACC000ABA9A /* EnginePrediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */; };
+		9181811A2307346F009A67D1 /* resolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 918181192307346F009A67D1 /* resolver.h */; };
 		9181F32E22FD957A00C081E9 /* ragdoll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9181F32C22FD957A00C081E9 /* ragdoll.cpp */; };
 		9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9181F32D22FD957A00C081E9 /* ragdoll.hpp */; };
 		9181F33222FD96DE00C081E9 /* antiafkkick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9181F33022FD96DE00C081E9 /* antiafkkick.cpp */; };
 		9181F33322FD96DE00C081E9 /* antiafkkick.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9181F33122FD96DE00C081E9 /* antiafkkick.hpp */; };
 		91936B5A22E7648D00529F72 /* EventListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 91936B5922E7648D00529F72 /* EventListener.h */; };
+		919D5CDA2304352D00BC7CD0 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 919D5CD92304352C00BC7CD0 /* Singleton.h */; };
 		91A48C3222E36541008A0BBA /* nosmoke.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3022E36541008A0BBA /* nosmoke.hpp */; };
 		91A48C3322E36541008A0BBA /* nosmoke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A48C3122E36541008A0BBA /* nosmoke.cpp */; };
 		91A48C3622E36553008A0BBA /* Backtrack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3422E36553008A0BBA /* Backtrack.hpp */; };
@@ -177,11 +179,13 @@
 		914D20BD22F556B1005B781D /* DrawModelExecute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DrawModelExecute.h; path = Hooks/DrawModelExecute.h; sourceTree = "<group>"; };
 		915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnginePrediction.h; path = Hacks/EnginePrediction.h; sourceTree = "<group>"; };
 		915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnginePrediction.cpp; path = Hacks/EnginePrediction.cpp; sourceTree = "<group>"; };
+		918181192307346F009A67D1 /* resolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resolver.h; path = Hacks/resolver.h; sourceTree = "<group>"; };
 		9181F32C22FD957A00C081E9 /* ragdoll.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ragdoll.cpp; path = Hacks/ragdoll.cpp; sourceTree = "<group>"; };
 		9181F32D22FD957A00C081E9 /* ragdoll.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ragdoll.hpp; path = Hacks/ragdoll.hpp; sourceTree = "<group>"; };
 		9181F33022FD96DE00C081E9 /* antiafkkick.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = antiafkkick.cpp; path = Hacks/antiafkkick.cpp; sourceTree = "<group>"; };
 		9181F33122FD96DE00C081E9 /* antiafkkick.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = antiafkkick.hpp; path = Hacks/antiafkkick.hpp; sourceTree = "<group>"; };
 		91936B5922E7648D00529F72 /* EventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventListener.h; sourceTree = "<group>"; };
+		919D5CD92304352C00BC7CD0 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		91A48C3022E36541008A0BBA /* nosmoke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nosmoke.hpp; path = Hacks/nosmoke.hpp; sourceTree = "<group>"; };
 		91A48C3122E36541008A0BBA /* nosmoke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nosmoke.cpp; path = Hacks/nosmoke.cpp; sourceTree = "<group>"; };
 		91A48C3422E36553008A0BBA /* Backtrack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Backtrack.hpp; sourceTree = "<group>"; };
@@ -454,6 +458,7 @@
 		E1FE19AB1E718EF70018D409 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				919D5CD92304352C00BC7CD0 /* Singleton.h */,
 				E1FE19AC1E718F020018D409 /* C_BaseEntity.h */,
 				8614F617209CCB2300C49CE0 /* CBaseAnimating.h */,
 				86EB4C13209CCBEC00C493D8 /* AnimLayer.h */,
@@ -522,6 +527,7 @@
 		E1FE19E41E71911B0018D409 /* Hacks */ = {
 			isa = PBXGroup;
 			children = (
+				918181192307346F009A67D1 /* resolver.h */,
 				148074D71FA105C4004ED508 /* resolver.cpp */,
 				E181BB151E74661D00D1CCED /* Hacks */,
 				B67AE83D1F91B1E600ADDCD8 /* hacks.h */,
@@ -538,6 +544,7 @@
 			files = (
 				8FAEFEB82014046F0057A419 /* antiaiminfos.h in Headers */,
 				B67AE8561F91CE8800ADDCD8 /* antiaim.h in Headers */,
+				9181811A2307346F009A67D1 /* resolver.h in Headers */,
 				8F5AAA151FF278A0003787BA /* fakewalk.h in Headers */,
 				8F4CF114200401BA0075C822 /* INetChannelInfo.h in Headers */,
 				B67AE8521F91CE7D00ADDCD8 /* aimbot.h in Headers */,
@@ -575,6 +582,7 @@
 				8614F618209CCB2400C49CE0 /* CBaseAnimating.h in Headers */,
 				E1FE19C21E718F020018D409 /* Color.h in Headers */,
 				E1FE19C81E718F020018D409 /* IEngineClient.h in Headers */,
+				919D5CDA2304352D00BC7CD0 /* Singleton.h in Headers */,
 				91A48C3E22E3669E008A0BBA /* noduckcooldown.hpp in Headers */,
 				91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */,
 				E1FE19C31E718F020018D409 /* common.h in Headers */,
@@ -736,7 +744,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -783,7 +791,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

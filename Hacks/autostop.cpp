@@ -8,7 +8,7 @@
 
 #include "autostop.hpp"
 
-void Autostop(CUserCmd* pCmd, C_BaseEntity* pLocal)
+/*void Autostop(CUserCmd* pCmd, C_BaseEntity* pLocal)
 {
     if (!vars.aimbot.autostop)
         return;
@@ -30,4 +30,4 @@ void Autostop(CUserCmd* pCmd, C_BaseEntity* pLocal)
     pCmd->sidemove = NegativeDirection.y;
     
     
-}
+}*/

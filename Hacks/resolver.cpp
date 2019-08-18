@@ -1,4 +1,6 @@
 #include "main.h"
+#include "antiaim.h"
+#include "resolver.h"
 RecvVarProxyFn OldProxy_Y; //OldProxy_X;
 
 // Pitch Resolver
@@ -40,6 +42,7 @@ float AAA_Yaw(C_BaseEntity* entity)
     int index = entity->GetIndex();
     float angle = gCorrections[index].y;
     
+    
     bool LBYbreak;
     for (int i = 0; i < 13; i++)
     {
@@ -74,886 +77,624 @@ float AAA_Yaw(C_BaseEntity* entity)
     };
     
     int shotmissed = 0;
-    bool shots = 1;
+    int shots = 1;
     bool bLowerBodyUpdated;
     
     if (vars.aimbot.yresolve == 1)
     { // rev(testing)
         
-#define RandomFloat(min, max) (rand() % (max - min + 1) + min)
-        
-        auto index = entity->GetIndex();
-        
-        
-        static float LatestLowerBodyYaw[65];
-        static float LatestLowerBodyYawUpdateTime[65];
-        static float lbyproxytime;
-        static float enemyLBYTimer[65];
-        static float oldlowerbodyyawTest;
+        static float old_simtime[65];// Using fake angles?
+        static float lbybreakshit[65];// Using fake angles?
+        static float storedhealth[65];
         
         
-        static int missedLogHits[65];
-        static float saveLastHeadshotFloat[65];
-        static float saveLastBaimFloat[65];
-        static float saveLastBaim30Float[65];
-        static float enemysLastProxyTimer[65];
-        static bool shotFakeHeadOnce[65];
-        static int fakeshotMissedLast[65];
-        static int ResolverStage[65];
-        static int deltas[65];
+        bool badresolverlmao;
         
-        
-        float deltadif = abs(angle - entity->GetLowerBodyYawTarget());
-        lbyproxytime = enemysLastProxyTimer[entity->GetIndex()] + 0.2f;
-        
-        
-        
-        auto new_yaw = angle;
-        int vel = entity->GetVelocity().Length2D();
-        float cur = pGlobals->curtime;
-        float CurrentLowerbody = entity->GetLowerBodyYawTarget();
-        bool is_fakewalk = entity->GetVelocity().Length2D() > 0 && entity->GetVelocity().Length2D() < 50;
-        bool is_moving = entity->GetVelocity().Length2D() >= 50;
-        bool is_standing = entity->GetVelocity().Length2D() == 0;
-        bool is_onground = entity->GetFlags() & FL_ONGROUND;
-        bool is_nospread = entity->GetVelocity().Length2D() > 250;
-        
-        
-        if (is_onground)
+        if (shots >= 4)
         {
+            if (entity->GetHealth() >= storedhealth[entity->GetIndex()] - 10) // lets compensate for nades n shit ghetto style
+                badresolverlmao = true;
+        }
+        
+        
+        float last_simtime[64] = { 0.f };
+        bool bFirstUpdate[64] = { false };
+        float last_lby[64] = { 0.f };
+        float last_lby_delta[64] = { 0.f };
+        float large_lby_delta[64] = { 0.f };
+        float moving_lby[64] = { 0.f };
+        bool bSawUpdate[64] = { false };
+        bool  was_moving[64] = { false };
+        float flLbyFlickTime[64] = { 0.f };
+        bool predLbyRecords[64] = { false };
+        bool lbyRecords[64] = { false };
+        
+        
+        
+        for (auto i = 0; i < pEngine->GetMaxClients(); ++i) {
+            const auto player = const_cast <C_BaseEntity*>(pEntList->GetClientEntity(i));
+            
+            auto local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
             
             
-            
-            if (entity->GetLowerBodyYawTarget() != LatestLowerBodyYaw[index] || (is_moving && !is_fakewalk && !is_standing))
-            {
-                LatestLowerBodyYaw[index] = entity->GetLowerBodyYawTarget();
-                ResolverStage[index] = 1;
-                LatestLowerBodyYawUpdateTime[index] = pGlobals->curtime;
-                
-                return (entity->GetLowerBodyYawTarget());
-                
+            if (!player || local == player || player->GetTeam() == local->GetTeam() || player->GetImmune() || player->GetDormant()) {
+                last_simtime[i] = 0.f;
+                bFirstUpdate[i] = false;
+                last_lby[i] = 0.f;
+                last_lby_delta[i] = 0.f;
+                large_lby_delta[i] = 0.f;
+                bSawUpdate[i] = false;
+                was_moving[i] = false;
+                flLbyFlickTime[i] = 0.f;
+                predLbyRecords[i] = false;
+                lbyRecords[i] = false;
+                continue;
             }
-            else
+            
+            
+            
+            if (entity->GetSimulationTime() != old_simtime[entity->GetIndex()])
             {
-                if (is_fakewalk)
+                if (entity->GetLowerBodyYawTarget() != old_simtime[i]) //checking if cur lby is different to previous simrecord
                 {
-                    
-                    if (deltadif && (cur, 10))
-                    {
-                        new_yaw = entity->GetLowerBodyYawTarget() - 40;
-                        //Delta Changes
-                        ResolverStage[index] = 2;
-                    }
-                    else if (entity->GetLowerBodyYawTarget() && (cur, 10))
-                    {
-                        new_yaw = entity->GetLowerBodyYawTarget() + 40;
-                        //Lowerbody Changes
-                        ResolverStage[index] = 3;
-                    }
-                    else {
-                        new_yaw = angle + 180;
-                        ResolverStage[index] = 21;
-                    }
-                    
-                    
-                }
-                if (is_standing)
-                {
-                    
-                    if (missedLogHits[index] <= 4) {
-                        
-                        switch (shots % 5)//5
-                        {
-                           case 1:
-                                new_yaw = oldlowerbodyyawTest - 45;
-                                break;
-                            case 2:
-                                new_yaw = CurrentLowerbody + 45;
-                                break;
-                            case 3:
-                                new_yaw = oldlowerbodyyawTest;
-                                break;
-                            case 4:
-                                new_yaw = CurrentLowerbody + 90;
-                                break;
-                            case 5:
-                                new_yaw = CurrentLowerbody - 90;
-                                break;
-                        }
-                        
-                    }
-                    
-                    // Predict it only once a Round
-                    if (shotFakeHeadOnce[index] == false) {
-                        
-                        if (((pGlobals->curtime - LatestLowerBodyYawUpdateTime[index]) >= 1.1))
-                        {
-                            new_yaw = CurrentLowerbody + RandomFloat(-35, 35);
-                            ResolverStage[index] = 4;
-                            shotFakeHeadOnce[index] = true;
-                        }
-                        
-                    }
+                    if (!bFirstUpdate[i]) // skip adding the first "change" after entity has been dormant/non-existant
+                        bFirstUpdate[i] = true;
                     else
                     {
-                        if (std::abs(LatestLowerBodyYaw[index] - CurrentLowerbody) <= 10)
-                        {
-                            int random = rand() % 10;
-                            if (random < 6)
-                            {
-                                new_yaw = CurrentLowerbody + RandomFloat(-10, 10);
-                                ResolverStage[index] = 1;
-                            }
-                            else
-                            {
-                                new_yaw = CurrentLowerbody;
-                                ResolverStage[index] = 6;
-                            }
-                        }
-                        else
-                        {
-                            if (deltadif && (cur, 10))
-                            {
-                                new_yaw = deltas[entity->GetIndex()];
-                                ResolverStage[index] = 2;
-                            }
-                            else if (entity->GetLowerBodyYawTarget() && (cur, 10))
-                            {
-                                new_yaw = entity->GetLowerBodyYawTarget() - deltadif;
-                                ResolverStage[index] = 3;
-                            }
-                        }
-                    }
-                    
-                }
-            }
-            
-            
-            if (missedLogHits[index] == 3 || missedLogHits[index] == 4) {
-                // Try Database Log Hits
-                ResolverStage[index] = 9;
-                
-                if (saveLastHeadshotFloat[index] != 0) {
-                    new_yaw = saveLastHeadshotFloat[index];
-                    
-                }
-                else if (saveLastBaimFloat[index] != 0) {
-                    new_yaw = saveLastBaimFloat[index];
-                    
-                }
-                else if (saveLastBaim30Float[index] != 0) {
-                    new_yaw = saveLastBaim30Float[index];
-                    
-                }
-                else {
-                    
-                    new_yaw = deltadif;
-                    
-                }
-                
-            }
-            else if (missedLogHits[index] == 5 || missedLogHits[index] == 6 || missedLogHits[index] == 7) {
-                
-                ResolverStage[index] = 11;
-                
-                if (missedLogHits[index] == 5) {
-                    new_yaw = deltadif - entity->GetLowerBodyYawTarget();
-                }
-                
-                if (missedLogHits[index] == 6 || missedLogHits[index] == 7) {
-                    if (lbyproxytime != enemyLBYTimer[entity->GetIndex()] && abs(lbyproxytime - enemyLBYTimer[entity->GetIndex()]) > 0.8f) {
-                        enemyLBYTimer[entity->GetIndex()] = lbyproxytime;
-                        new_yaw = entity->GetLowerBodyYawTarget();
-                        oldlowerbodyyawTest = entity->GetLowerBodyYawTarget();
-                        
-                    }
-                    else {
-                        
-                        new_yaw = oldlowerbodyyawTest + deltadif;
+                        angle = entity->GetLowerBodyYawTarget();
+                        lbyRecords[i];
+                        predLbyRecords[i];
+                        flLbyFlickTime[i] = old_simtime[i] + pGlobals->interval_per_tick; // previous simtime + 1 tick should give us the tick where they actually flicked. (Only first tick of a choke cycle gets used in anims)
+                        bSawUpdate[i] = true; // we saw the update, we are good to add "predicted" updates, (didn't break when dormant)
                     }
                 }
+                //    simRecords[i].push_front(LagRecord(pEnt));
                 
-            }
-            else if (missedLogHits[index] == 8) {
-                // Try Database Log Hits
-                ResolverStage[index] = 9;
-                
-                if (saveLastHeadshotFloat[index] != 0) {
+                // now comes predicting next lby update times, keeping in mind how an lby breaker works..
+                if (old_simtime[i] - flLbyFlickTime[i] > 1.1 && bSawUpdate[i]) // previous sim update lby time delta over 1.1, meaning that next choked will be the break tick and -> the current sim is the next simupdate after that, we can shoot lby
+                {
+                    flLbyFlickTime[i] = old_simtime[i] + pGlobals->interval_per_tick; // save off the time where they actually did the break
+                    predLbyRecords[i]; // save the actual current record, as this is the one we can shoot
+                    angle = predLbyRecords[i];
                     
-                    new_yaw = saveLastHeadshotFloat[index];
-                    
-                }
-                else if (saveLastBaimFloat[index] != 0) {
-                    
-                    new_yaw = saveLastBaimFloat[index];
-                    
-                }
-                else if (saveLastBaim30Float[index] != 0) {
-                    
-                    new_yaw = saveLastBaim30Float[index];
-                    
-                }
-                else {
-                    new_yaw = abs(entity->GetLowerBodyYawTarget() - angle);
-                }
-                
-            }
-            
-            
-            
-            if (fakeshotMissedLast[index] <= 3) {
-                
-                if (abs(entity->GetLowerBodyYawTarget() - angle) > 35) {
-                    // Enemy is using FakeAngle
-                    new_yaw = angle - abs(entity->GetLowerBodyYawTarget() - angle);
-                    ResolverStage[index] = 13;
-                    fakeshotMissedLast[index] = missedLogHits[index];
                 }
             }
-            
-            
-        }
-        else
-        {
-            if (is_nospread)
-            {
-                
-                if (missedLogHits[index] <= 10) {
-                    
-                    switch (shots % 5)
-                    {
-                        case 1:
-                            new_yaw = oldlowerbodyyawTest - 45;
-                            break;
-                        case 2:
-                            new_yaw = CurrentLowerbody + 45;
-                            break;
-                        case 3:
-                            new_yaw = oldlowerbodyyawTest;
-                            break;
-                        case 4:
-                            new_yaw = CurrentLowerbody + 90;
-                            break;
-                        case 5:
-                            new_yaw = CurrentLowerbody - 90;
-                            break;
-                    }
-                    
-                }
-                else {
-                    
-                    new_yaw = RandomFloat(-35, 35);
-                    
-                }
-                
-            }
-            else
-            {
-                new_yaw = entity->GetLowerBodyYawTarget();
-                ResolverStage[index] = 7;
-                
-            }
-            
-            if(IsMovingOnInAir)
-            {
+            else{
                 angle = entity->GetLowerBodyYawTarget();
+                
             }
-            
         }
-        
-        
-        new_yaw = (new_yaw);
-        return new_yaw;
     }
 
     if(vars.aimbot.yresolve == 2){//lby(same as rev pre much)
         
-        #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
+        //Check if player has a velocity greater than 0 (moving) and if they are onground.
+        float IsMovingOnInAir = (!(entity->GetFlags() & FL_ONGROUND));
         
-        auto index = entity->GetIndex();
+        //Check if player has a velocity greater than 0 (moving) and if they are onground.
+        float OnGround = (entity->GetFlags() & FL_ONGROUND);
         
+        //Check if player has a velocity greater than 0 (moving) and if they are onground.
+        bool MovingOnGround = (entity->GetVelocity().Length2D() > 45.f && entity->GetFlags() & FL_ONGROUND);
         
-        static float LatestLowerBodyYaw[65];
-        static float LatestLowerBodyYawUpdateTime[65];
-        static float lbyproxytime;
-        static float enemyLBYTimer[65];
-        static float oldlowerbodyyawTest;
+        // Fake Walk dectection
+        float maybeFakeWalking = (MovingOnGround && entity->GetVelocity().Length2D() < 36.0f);
         
+        //*lby should update if distance from *lby to eye angles exceeds 35 degrees
+        float HasFakeHead = (abs(angle - entity->GetLowerBodyYawTarget()) > 35);
         
-        static int missedLogHits[65];
-        static float saveLastHeadshotFloat[65];
-        static float saveLastBaimFloat[65];
-        static float saveLastBaim30Float[65];
-        static float enemysLastProxyTimer[65];
-        static bool shotFakeHeadOnce[65];
-        static int fakeshotMissedLast[65];
-        static int ResolverStage[65];
-        static int deltas[65];
+        //*lby should update if distance from *lby to eye angles less than 35 degrees
+        float lbywithin35 = (abs(angle - entity->GetLowerBodyYawTarget()) < 35);
         
         
-        float deltadif = abs(angle - entity->GetLowerBodyYawTarget());
-        lbyproxytime = enemysLastProxyTimer[entity->GetIndex()] + 0.2f;
-        
-        
-        
-        auto new_yaw = angle;
-        int vel = entity->GetVelocity().Length2D();
-        float cur = pGlobals->curtime;
-        float CurrentLowerbody = entity->GetLowerBodyYawTarget();
-        bool is_fakewalk = entity->GetVelocity().Length2D() > 0 && entity->GetVelocity().Length2D() < 50;
-        bool is_moving = entity->GetVelocity().Length2D() >= 50;
-        bool is_standing = entity->GetVelocity().Length2D() == 0;
-        bool is_onground = entity->GetFlags() & FL_ONGROUND;
-        bool is_nospread = entity->GetVelocity().Length2D() > 250;
-        
-        
-        if (is_onground)
+        if (IsMovingOnInAir)
         {
-            
-            
-            
-            if (entity->GetLowerBodyYawTarget() != LatestLowerBodyYaw[index] || (is_moving && !is_fakewalk && !is_standing))
+            switch (shots % 4)//logging hits for everyhitgroup//not anymore
             {
-                LatestLowerBodyYaw[index] = entity->GetLowerBodyYawTarget();
-                ResolverStage[index] = 1;
-                LatestLowerBodyYawUpdateTime[index] = pGlobals->curtime;
+                case 1:
+                    angle = entity->GetLowerBodyYawTarget() - 45;
+                    break;
+                case 2:
+                    angle = entity->GetLowerBodyYawTarget() + 45;
+                    break;
+                case 3:
+                    angle = entity->GetLowerBodyYawTarget() + 90;
+                    break;
+                case 4:
+                    angle = entity->GetLowerBodyYawTarget() - 90;
+                    break;
+                    //continue;
+            }
+        }
+        else//NOT MOVING
+        {
+            if (HasFakeHead)//*lby and eye angles arent synced eZ resolve
+            {
+                angle = angle - entity->GetLowerBodyYawTarget();
+            }
+            else {
+                if (lbywithin35) //if *lby and eye angles subtracted < 35 then we assume that theyre using an *lby breaker
+                {
+                    switch (shotmissed % 5)
+                    {
+                            
+                        case 0:
+                            angle = entity->GetLowerBodyYawTarget() - 180;
+                            break;
+                        case 1:
+                            angle = entity->GetLowerBodyYawTarget() - 180;
+                            break;
+                        case 2:
+                            angle = entity->GetLowerBodyYawTarget() - 45;
+                            break;
+                        case 3:
+                            angle = entity->GetLowerBodyYawTarget() + 45;
+                            break;
+                        case 4:
+                            angle = entity->GetLowerBodyYawTarget() + 90;
+                            break;
+                        case 5:
+                            angle = entity->GetLowerBodyYawTarget() - 90;
+                            break;
+                    }
+                    
+                    static float StoredYaw = 0;
+                    static bool bLowerBodyIsUpdated = false;
+                    if (entity->GetLowerBodyYawTarget() != StoredYaw) bLowerBodyIsUpdated = true;
+                    else bLowerBodyIsUpdated = false;
+                    if (bLowerBodyIsUpdated) StoredYaw = entity->GetLowerBodyYawTarget();
+                    if (entity->GetFlags() & FL_ONGROUND && entity->GetVelocity().Length2D() != 0) angle = entity->GetLowerBodyYawTarget();
+                    else
+                    {
+                        
+                        {       // Yaw Resolver
+                            // int num = Globals::Shots % 4 is a meme
+                            int num = shotmissed % 4;
+                            switch (num)
+                            {
+                                case 0:angle = angle + 180;
+                                    break;
+                                case 1:angle = angle - 90;
+                                    break;
+                                case 2:angle = angle + 90;
+                                    break;
+                                case 3:angle = angle + 179.95;
+                                    break;
+                                case 4:angle = angle - 179.95;
+                                    break;
+                                case 5:angle = angle + 40;
+                                    break;
+                                case 6:angle = angle - 40;
+                                    break;
+                                case 7:angle = angle + 30;
+                                    break;
+                                case 8:angle = angle - 30;
+                                    break;
+                                case 9:angle = angle + 15;
+                                    break;
+                                case 10:angle = angle - 15;
+                                    break;
+                            }
+                        }
+                    }
+                }
                 
-                return (entity->GetLowerBodyYawTarget());
-                
+            }
+            
+            if (OnGround) {
+                if (maybeFakeWalking)
+                {
+                    
+                    vector<int> hitboxes;
+                    
+                    //Baim
+                    hitboxes.push_back(HITBOX_LOWER_CHEST);
+                    hitboxes.push_back(HITBOX_BELLY);
+                    hitboxes.push_back(HITBOX_PELVIS);
+                    hitboxes.push_back(HITBOX_UPPER_CHEST);
+                    // Feet
+                    hitboxes.push_back(HITBOX_RIGHT_FOOT);
+                    hitboxes.push_back(HITBOX_LEFT_FOOT);
+                    hitboxes.push_back(HITBOX_RIGHT_CALF);
+                    hitboxes.push_back(HITBOX_LEFT_CALF);
+                    
+                }
+                angle = entity->GetLowerBodyYawTarget();
             }
             else
             {
-                if (is_fakewalk)
+                static bool isMoving;
+                float PlayerIsMoving = abs(entity->GetVelocity().Length());
+                if (PlayerIsMoving > 0.1) isMoving = true;
+                else if (PlayerIsMoving <= 0.1) isMoving = false;
+                
+                static float oldlby = 0.0f;
+                static bool bLowerBodyIsUpdated;
+                float delta = angle - entity->GetLowerBodyYawTarget();
+                if (entity->GetLowerBodyYawTarget() != oldlby) bLowerBodyIsUpdated = true;
+                else bLowerBodyIsUpdated = false;
+                
+                if (bLowerBodyIsUpdated || isMoving || fabsf(delta) >= 35.0f)
                 {
-                    
-                    if (deltadif && (cur, 10))
-                    {
-                        new_yaw = entity->GetLowerBodyYawTarget();
-                        //Delta Changes
-                        ResolverStage[index] = 2;
-                    }
-                    else if (entity->GetLowerBodyYawTarget() && (cur, 10))
-                    {
-                        new_yaw = entity->GetLowerBodyYawTarget();
-                        //Lowerbody Changes
-                        ResolverStage[index] = 3;
-                    }
-                    else {
-                        new_yaw = angle + 180;
-                        ResolverStage[index] = 21;
-                    }
-                    
-                    
+                    angle = entity->GetLowerBodyYawTarget();
+                    entity->oldlby = entity->GetLowerBodyYawTarget();
                 }
-                if (is_standing)
+                
+                else
                 {
-                    // Predict it only once a Round
-                    if (shotFakeHeadOnce[index] == false) {
-                        
-                        if (((pGlobals->curtime - LatestLowerBodyYawUpdateTime[index]) >= 1.1))
+                    if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
+                        angle = entity->GetLowerBodyYawTarget() + delta;
+                }
+                return angle;
+            }
+            
+            static bool bLowerBodyIsUpdated;
+            {
+                
+                if (shotmissed > 3 && shotmissed < 21)
+                {
+                    if (!bLowerBodyIsUpdated)
+                    {
+                        angle = entity->GetLowerBodyYawTarget();
+                    }
+                    else if (!bLowerBodyIsUpdated)
+                    {
+                        switch (shots % 4)
                         {
-                            new_yaw = CurrentLowerbody + 180;
-                            ResolverStage[index] = 4;
-                            shotFakeHeadOnce[index] = true;
+                            case 1: angle = - 30 + rand() % 45 - rand() % 51;
+                                break;
+                            case 2: angle = entity->GetLowerBodyYawTarget() + 20 - rand() % 35;
+                                break;
+                            case 3: angle = entity->GetLowerBodyYawTarget() + 45 % 30 - rand() % 90;
+                                break;
+                            case 4: angle = entity->GetLowerBodyYawTarget() - 90 - rand() % 90 - rand() % 40;
+                                break;
+                            case 5: angle = 160 - rand() % 90 - rand() % 40;
+                                break;
                         }
-                        
+                    }
+                    else
+                        angle = rand() % 180 - rand() % 45;
+                }
+                
+                else if (shotmissed >= 2 && shotmissed <= 3)
+                    
+                {
+                    if (bLowerBodyIsUpdated)
+                    {
+                        angle = entity->GetLowerBodyYawTarget();
+                    }
+                    else
+                        angle = entity->GetLowerBodyYawTarget();
+                }
+                else
+                {
+                    if (bLowerBodyIsUpdated)
+                    {
+                        bool timer = false;
+                        if (timer){
+                            angle = entity->GetLowerBodyYawTarget() + rand() % 20;
+                            timer = !timer;
+                        }else {
+                            angle = entity->GetLowerBodyYawTarget() - rand() % 100;
+                        }
                     }
                     else
                     {
-                        if (std::abs(LatestLowerBodyYaw[index] - CurrentLowerbody) <= 10)
+                        bool timer = false;
+                        if (timer){
+                            angle = entity->GetLowerBodyYawTarget() + rand() % 20;
+                            timer = !timer;
+                        } else {
+                            angle = entity->GetLowerBodyYawTarget() - rand() % 20;
+                        }
+                    }
+                }
+            }
+        }
+        if(vars.aimbot.yresolve == 3){//lby(same as rev pre much)
+            
+#define RandomFloat(min, max) (rand() % (max - min + 1) + min)
+            
+            auto index = entity->GetIndex();
+            
+            
+            static float LatestLowerBodyYaw[65];
+            static float LatestLowerBodyYawUpdateTime[65];
+            static float lbyproxytime;
+            static float enemyLBYTimer[65];
+            static float oldlowerbodyyawTest;
+            
+            
+            static int missedLogHits[65];
+            static float saveLastHeadshotFloat[65];
+            static float saveLastBaimFloat[65];
+            static float saveLastBaim30Float[65];
+            static float enemysLastProxyTimer[65];
+            static bool shotFakeHeadOnce[65];
+            static int fakeshotMissedLast[65];
+            static int ResolverStage[65];
+            static int deltas[65];
+            
+            
+            float deltadif = abs(angle - entity->GetLowerBodyYawTarget());
+            lbyproxytime = enemysLastProxyTimer[entity->GetIndex()] + 0.2f;
+            
+            
+            
+            auto new_yaw = angle;
+            int vel = entity->GetVelocity().Length2D();
+            float cur = pGlobals->curtime;
+            float CurrentLowerbody = entity->GetLowerBodyYawTarget();
+            bool is_fakewalk = entity->GetVelocity().Length2D() > 0 && entity->GetVelocity().Length2D() < 50;
+            bool is_moving = entity->GetVelocity().Length2D() >= 50;
+            bool is_standing = entity->GetVelocity().Length2D() == 0;
+            bool is_onground = entity->GetFlags() & FL_ONGROUND;
+            bool is_nospread = entity->GetVelocity().Length2D() > 250;
+            
+            
+            if (is_onground)
+            {
+                
+                
+                
+                if (entity->GetLowerBodyYawTarget() != LatestLowerBodyYaw[index] || (is_moving && !is_fakewalk && !is_standing))
+                {
+                    LatestLowerBodyYaw[index] = entity->GetLowerBodyYawTarget();
+                    ResolverStage[index] = 1;
+                    LatestLowerBodyYawUpdateTime[index] = pGlobals->curtime;
+                    
+                    return (entity->GetLowerBodyYawTarget());
+                    
+                }
+                else
+                {
+                    if (is_fakewalk)
+                    {
+                        
+                        if (deltadif && (cur, 10))
                         {
-                            int random = rand() % 10;
-                            if (random < 6)
+                            new_yaw = entity->GetLowerBodyYawTarget();
+                            //Delta Changes
+                            ResolverStage[index] = 2;
+                        }
+                        else if (entity->GetLowerBodyYawTarget() && (cur, 10))
+                        {
+                            new_yaw = entity->GetLowerBodyYawTarget();
+                            //Lowerbody Changes
+                            ResolverStage[index] = 3;
+                        }
+                        else {
+                            new_yaw = angle + 180;
+                            ResolverStage[index] = 21;
+                        }
+                        
+                        
+                    }
+                    if (is_standing)
+                    {
+                        // Predict it only once a Round
+                        if (shotFakeHeadOnce[index] == false) {
+                            
+                            if (((pGlobals->curtime - LatestLowerBodyYawUpdateTime[index]) >= 1.1))
                             {
-                                new_yaw = CurrentLowerbody + RandomFloat(-10, 10);
-                                ResolverStage[index] = 1;
+                                new_yaw = CurrentLowerbody + 180;
+                                ResolverStage[index] = 4;
+                                shotFakeHeadOnce[index] = true;
                             }
-                            else
-                            {
-                                new_yaw = CurrentLowerbody;
-                                ResolverStage[index] = 6;
-                            }
+                            
                         }
                         else
                         {
-                            if (deltadif && (cur, 10))
+                            if (std::abs(LatestLowerBodyYaw[index] - CurrentLowerbody) <= 10)
                             {
-                                new_yaw = deltas[entity->GetIndex()];
-                                ResolverStage[index] = 2;
+                                int random = rand() % 10;
+                                if (random < 6)
+                                {
+                                    new_yaw = CurrentLowerbody + RandomFloat(-10, 10);
+                                    ResolverStage[index] = 1;
+                                }
+                                else
+                                {
+                                    new_yaw = CurrentLowerbody;
+                                    ResolverStage[index] = 6;
+                                }
                             }
-                            else if (entity->GetLowerBodyYawTarget() && (cur, 10))
+                            else
                             {
-                                new_yaw = entity->GetLowerBodyYawTarget();
-                                ResolverStage[index] = 3;
+                                if (deltadif && (cur, 10))
+                                {
+                                    new_yaw = deltas[entity->GetIndex()];
+                                    ResolverStage[index] = 2;
+                                }
+                                else if (entity->GetLowerBodyYawTarget() && (cur, 10))
+                                {
+                                    new_yaw = entity->GetLowerBodyYawTarget();
+                                    ResolverStage[index] = 3;
+                                }
                             }
                         }
+                        
                     }
-                    
-                }
-            }
-            
-            
-            if (missedLogHits[index] == 3 || missedLogHits[index] == 4) {
-                // Try Database Log Hits
-                ResolverStage[index] = 9;
-                
-                if (saveLastHeadshotFloat[index] != 0) {
-                    new_yaw = saveLastHeadshotFloat[index];
-                    
-                }
-                else if (saveLastBaimFloat[index] != 0) {
-                    new_yaw = saveLastBaimFloat[index];
-                    
-                }
-                else if (saveLastBaim30Float[index] != 0) {
-                    new_yaw = saveLastBaim30Float[index];
-                    
-                }
-                else {
-                    
-                    new_yaw = deltadif;
-                    
                 }
                 
-            }
-            else if (missedLogHits[index] == 5 || missedLogHits[index] == 6 || missedLogHits[index] == 7) {
                 
-                ResolverStage[index] = 11;
-                
-                if (missedLogHits[index] == 5) {
-                    new_yaw = deltadif - entity->GetLowerBodyYawTarget();
-                }
-                
-                if (missedLogHits[index] == 6 || missedLogHits[index] == 7) {
-                    if (lbyproxytime != enemyLBYTimer[entity->GetIndex()] && abs(lbyproxytime - enemyLBYTimer[entity->GetIndex()]) > 0.8f) {
-                        enemyLBYTimer[entity->GetIndex()] = lbyproxytime;
-                        new_yaw = entity->GetLowerBodyYawTarget();
-                        oldlowerbodyyawTest = entity->GetLowerBodyYawTarget();
+                if (missedLogHits[index] == 3 || missedLogHits[index] == 4) {
+                    // Try Database Log Hits
+                    ResolverStage[index] = 9;
+                    
+                    if (saveLastHeadshotFloat[index] != 0) {
+                        new_yaw = saveLastHeadshotFloat[index];
+                        
+                    }
+                    else if (saveLastBaimFloat[index] != 0) {
+                        new_yaw = saveLastBaimFloat[index];
+                        
+                    }
+                    else if (saveLastBaim30Float[index] != 0) {
+                        new_yaw = saveLastBaim30Float[index];
                         
                     }
                     else {
                         
-                        new_yaw = oldlowerbodyyawTest + deltadif;
-                    }
-                }
-                
-            }
-            else if (missedLogHits[index] == 8) {
-                // Try Database Log Hits
-                ResolverStage[index] = 9;
-                
-                if (saveLastHeadshotFloat[index] != 0) {
-                    
-                    new_yaw = saveLastHeadshotFloat[index];
-                    
-                }
-                else if (saveLastBaimFloat[index] != 0) {
-                    
-                    new_yaw = saveLastBaimFloat[index];
-                    
-                }
-                else if (saveLastBaim30Float[index] != 0) {
-                    
-                    new_yaw = saveLastBaim30Float[index];
-                    
-                }
-                else {
-                    new_yaw = abs(entity->GetLowerBodyYawTarget() - angle);
-                }
-                
-            }
-            
-            
-            
-            if (fakeshotMissedLast[index] <= 3) {
-                
-                if (abs(entity->GetLowerBodyYawTarget() - angle) > 35) {
-                    // Enemy is using FakeAngle
-                    new_yaw = angle - abs(entity->GetLowerBodyYawTarget() - angle);
-                    ResolverStage[index] = 13;
-                    fakeshotMissedLast[index] = missedLogHits[index];
-                }
-            }
-            
-            
-        }
-        else
-        {
-            if (is_nospread)
-            {
-                
-                if (missedLogHits[index] <= 10) {
-                    
-                    switch (shots % 4)
-                    {
-                        case 1:
-                            new_yaw = CurrentLowerbody - 15;
-                            break;
-                        case 2:
-                            new_yaw = CurrentLowerbody + 40;
-                            break;
-                        case 3:
-                            new_yaw = CurrentLowerbody + 15;
-                            break;
-                        case 4:
-                            new_yaw = CurrentLowerbody - 40;
-                            break;
+                        new_yaw = deltadif;
+                        
                     }
                     
                 }
-                else {
+                else if (missedLogHits[index] == 5 || missedLogHits[index] == 6 || missedLogHits[index] == 7) {
                     
-                    new_yaw = RandomFloat(-180, 180);
+                    ResolverStage[index] = 11;
                     
-                }
-                
-            }
-            else
-            {
-                new_yaw = entity->GetLowerBodyYawTarget();
-                ResolverStage[index] = 7;
-                
-            }
-            
-            if(IsMovingOnInAir)
-            {
-                angle = entity->GetLowerBodyYawTarget();
-            }
-            
-        }
-        
-        
-        new_yaw = (new_yaw);
-        return new_yaw;
-    }
-    
-    if(vars.aimbot.yresolve == 3)
-    {
-        //evolution
-        static float oldlby = 0.0f;
-        static bool bLowerBodyIsUpdated;
-        float delta = angle - entity->GetLowerBodyYawTarget();
-        if (entity->GetLowerBodyYawTarget() != oldlby) bLowerBodyIsUpdated = true;
-        else bLowerBodyIsUpdated = false;
-        
-        if (bLowerBodyIsUpdated || fabsf(delta) >= 35.0f)
-        {
-            angle = entity->GetLowerBodyYawTarget();
-            entity->oldlby = entity->GetLowerBodyYawTarget();
-        }
-        
-        else
-        {
-            if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
-                angle = entity->GetLowerBodyYawTarget() + delta;
-        }
-    }
-    
-    
-    {
-        static bool bLowerBodyIsUpdated;
-        if (shotmissed > 3 && shotmissed < 21)
-        {
-            if (!bLowerBodyIsUpdated)
-            {
-                angle = entity->GetLowerBodyYawTarget();
-            }
-            else if (!bLowerBodyIsUpdated)
-            {
-                switch (shotmissed % 4)
-                {
-                    case 0: angle = entity->GetLowerBodyYawTarget(); break;
-                    case 1: angle = entity->oldlby; break;
-                    case 2: angle = entity->GetLowerBodyYawTarget() - 25; break;
-                    case 3: angle = entity->oldlby + 25; break;
-                }
-
-            }
-            else
-                switch (shotmissed % 4)
-            {
-                case 0: angle = entity->oldlby; break;
-                case 1: angle = entity->GetLowerBodyYawTarget() - 45; break;
-                case 2: angle = entity->GetLowerBodyYawTarget() - 180; break;
-                case 3: angle = entity->GetLowerBodyYawTarget() + 135; break;
-            }
-
-        }
-        
-        else if (shotmissed >= 2 && shotmissed <= 3)
-            
-        {
-            if (bLowerBodyIsUpdated)
-            {
-                angle = entity->GetLowerBodyYawTarget();
-            }
-            else
-                angle = entity->GetLowerBodyYawTarget();
-        }
-        else
-        {
-            if (bLowerBodyIsUpdated)
-            {
-                bool timer = false;
-                if (timer){
-                    angle = entity->GetLowerBodyYawTarget(); + rand() % 20;
-                }else{
-                    angle = entity->GetLowerBodyYawTarget(); - rand() % 100;
-                }
-            }
-            else
-                if (Lbywithin35)
-                {
+                    if (missedLogHits[index] == 5) {
+                        new_yaw = deltadif - entity->GetLowerBodyYawTarget();
+                    }
                     
-                    if (HasFakeHead)
-                    {
-                        {
-                            switch (shotmissed % 7)
-                            {
-                                case 0: angle = entity->oldlby + 15; break;
-                                case 1: angle = entity->oldlby - 45; break;
-                                case 2: angle = entity->oldlby + 65; break;
-                                case 3: angle = angle - entity->GetLowerBodyYawTarget(); break;
-                                case 4: angle = (angle + entity->GetLowerBodyYawTarget()) - 120; break;
-                                case 5: angle = (angle + entity->GetLowerBodyYawTarget()) + 120; break;
-                                case 6: angle = (angle - entity->GetLowerBodyYawTarget()) - (150 - rand() % 30); break;
-                            }
+                    if (missedLogHits[index] == 6 || missedLogHits[index] == 7) {
+                        if (lbyproxytime != enemyLBYTimer[entity->GetIndex()] && abs(lbyproxytime - enemyLBYTimer[entity->GetIndex()]) > 0.8f) {
+                            enemyLBYTimer[entity->GetIndex()] = lbyproxytime;
+                            new_yaw = entity->GetLowerBodyYawTarget();
+                            oldlowerbodyyawTest = entity->GetLowerBodyYawTarget();
+                            
                         }
-                    }
-                    else
-                    {
-                        {
-                            switch (shotmissed % 7)
-                            {
-                                case 0: angle = entity->oldlby - 15; break;
-                                case 1: angle = entity->oldlby + 15; break;
-                                case 2: angle = entity->GetLowerBodyYawTarget() - 119; break;
-                                case 3: angle = angle - 90; break;
-                                case 4: angle = angle - 60; break;
-                                case 5: angle = (angle + entity->GetLowerBodyYawTarget()) + 120; break;
-                                case 6: angle = (angle - entity->GetLowerBodyYawTarget()) - (150 - rand() % 30); break;
-                            }
+                        else {
+                            
+                            new_yaw = oldlowerbodyyawTest + deltadif;
                         }
                     }
                     
                 }
-
-        }
-        if (maybeFakeWalking)
-        {
-            vector<int> hitboxes;
-            
-            hitboxes.push_back(HITBOX_LOWER_CHEST);
-            hitboxes.push_back(HITBOX_BELLY);
-            hitboxes.push_back(HITBOX_PELVIS);
-            hitboxes.push_back(HITBOX_UPPER_CHEST);
-            
-            angle = entity->oldlby - 30;
-        }
-        
-        
-        // Breaking LBY
-        static float current_layer_activity = entity->GetAnimTime();
-        static float previous_layer_activity = 0;
-        
-        if (current_layer_activity == 979){ // the current layer must be triggering 979
-            {
-                if (previous_layer_activity == 979) // the previous layer must be trigerring 979
-                {
-                    switch (shots % 3){
-                        case 1: angle = entity->GetLowerBodyYawTarget() + 110;
-                            break;
-                        case 2: angle = entity->GetLowerBodyYawTarget() + 180;
-                            break;
-                        case 3: angle = entity->GetLowerBodyYawTarget() - 110;
-                            break;
+                else if (missedLogHits[index] == 8) {
+                    // Try Database Log Hits
+                    ResolverStage[index] = 9;
+                    
+                    if (saveLastHeadshotFloat[index] != 0) {
+                        
+                        new_yaw = saveLastHeadshotFloat[index];
+                        
                     }
-                    // we can tell now that he is surely breaking lby in some sort
-                    angle = entity->GetLowerBodyYawTarget() - 180.f; // for the resolver it's enough here to just flip him, because we will backtrack him | unless u dont have backtrack
+                    else if (saveLastBaimFloat[index] != 0) {
+                        
+                        new_yaw = saveLastBaimFloat[index];
+                        
+                    }
+                    else if (saveLastBaim30Float[index] != 0) {
+                        
+                        new_yaw = saveLastBaim30Float[index];
+                        
+                    }
+                    else {
+                        new_yaw = abs(entity->GetLowerBodyYawTarget() - angle);
+                    }
+                    
                 }
+                
+                
+                
+                if (fakeshotMissedLast[index] <= 3) {
+                    
+                    if (abs(entity->GetLowerBodyYawTarget() - angle) > 35) {
+                        // Enemy is using FakeAngle
+                        new_yaw = angle - abs(entity->GetLowerBodyYawTarget() - angle);
+                        ResolverStage[index] = 13;
+                        fakeshotMissedLast[index] = missedLogHits[index];
+                    }
+                }
+                
+                
             }
+            else
+            {
+                if (is_nospread)
+                {
+                    
+                    if (missedLogHits[index] <= 10) {
+                        
+                        switch (shots % 4)
+                        {
+                            case 1:
+                                new_yaw = CurrentLowerbody - 15;
+                                break;
+                            case 2:
+                                new_yaw = CurrentLowerbody + 40;
+                                break;
+                            case 3:
+                                new_yaw = CurrentLowerbody + 15;
+                                break;
+                            case 4:
+                                new_yaw = CurrentLowerbody - 40;
+                                break;
+                        }
+                        
+                    }
+                    else {
+                        
+                        new_yaw = RandomFloat(-180, 180);
+                        
+                    }
+                    
+                }
+                else
+                {
+                    new_yaw = entity->GetLowerBodyYawTarget();
+                    ResolverStage[index] = 7;
+                    
+                }
+                
+                if(IsMovingOnInAir)
+                {
+                    angle = entity->GetLowerBodyYawTarget();
+                }
+                
+            }
+            
+            
+            new_yaw = (new_yaw);
+            return new_yaw;
         }
     }
-    
-    if(vars.aimbot.yresolve == 4)
-    {
-        //evolution
-        static float oldlby = 0.0f;
-        static bool bLowerBodyIsUpdated;
-        float delta = angle - entity->GetLowerBodyYawTarget();
-        if (entity->GetLowerBodyYawTarget() != oldlby) bLowerBodyIsUpdated = true;
-        else bLowerBodyIsUpdated = false;
-        
-        if (bLowerBodyIsUpdated || fabsf(delta) >= 35.0f)
-        {
-            angle = entity->GetLowerBodyYawTarget();
-            entity->oldlby = entity->GetLowerBodyYawTarget();
-        }
-        
-        else
-        {
-            if (fabsf(delta) < 35.f && fabsf(delta) > 0.f)
-                angle = entity->GetLowerBodyYawTarget() + delta;
-        }
-                                  }
-                                      
-        
-    {
-        static bool bLowerBodyIsUpdated;
-        if (shotmissed > 3 && shotmissed < 21)
-        {
-            if (!bLowerBodyIsUpdated)
-            {
-                angle = entity->GetLowerBodyYawTarget();
-            }
-            else if (!bLowerBodyIsUpdated)
-            {
-                switch (shots % 4)
-                {
-                    case 1: angle = - 30 + rand() % 45 - rand() % 51;
-                        break;
-                    case 2: angle = entity->GetLowerBodyYawTarget() + 20 - rand() % 35;
-                        break;
-                    case 3: angle = entity->GetLowerBodyYawTarget() + 45 % 30 - rand() % 90;
-                        break;
-                    case 4: angle = entity->GetLowerBodyYawTarget() - 90 - rand() % 90 - rand() % 40;
-                        break;
-                    case 5: angle = 160 - rand() % 90 - rand() % 40;
-                        break;
-                }
-            }
-            else
-                angle = rand() % 180 - rand() % 45;
-        }
-        
-        else if (shotmissed >= 2 && shotmissed <= 3)
-            
-        {
-            if (bLowerBodyIsUpdated)
-            {
-                angle = entity->GetLowerBodyYawTarget();
-            }
-            else
-                angle = entity->GetLowerBodyYawTarget();
-        }
-        else
-        {
-            if (bLowerBodyIsUpdated)
-            {
-                bool timer = false;
-                if (timer){
-                    angle = entity->GetLowerBodyYawTarget(); + rand() % 20;
-                }else{
-                    angle = entity->GetLowerBodyYawTarget(); - rand() % 100;
-                }
-            }
-            else
-            {
-                bool timer = false;
-                if (timer){
-                    angle = entity->GetLowerBodyYawTarget(); + rand() % 20;
-                }else
-                    angle = entity->GetLowerBodyYawTarget(); - rand() % 20;
-            }
-        }
-        if (maybeFakeWalking)
-        {
-            vector<int> hitboxes;
-            
-            hitboxes.push_back(HITBOX_LOWER_CHEST);
-            hitboxes.push_back(HITBOX_BELLY);
-            hitboxes.push_back(HITBOX_PELVIS);
-            hitboxes.push_back(HITBOX_UPPER_CHEST);
-            
-            angle = entity->oldlby - 30;
-        }
-        
-        
-        // Breaking LBY
-        static float current_layer_activity = entity->GetAnimTime();
-        static float previous_layer_activity = 0;
-        
-        if (current_layer_activity == 979){ // the current layer must be triggering 979
-            {
-                if (previous_layer_activity == 979) // the previous layer must be trigerring 979
-                {
-                    switch (shots % 3){
-                        case 1: angle = entity->GetLowerBodyYawTarget() + 110;
-                            break;
-                        case 2: angle = entity->GetLowerBodyYawTarget() + 180;
-                            break;
-                        case 3: angle = entity->GetLowerBodyYawTarget() - 110;
-                            break;
-                    }
-                    // we can tell now that he is surely breaking lby in some sort
-                    angle = entity->GetLowerBodyYawTarget() - 180.f; // for the resolver it's enough here to just flip him, because we will backtrack him | unless u dont have backtrack
-                }
-            }
-        }
-    }
-    if(vars.aimbot.yresolve == 5)
-    {
-        static float last_moving_lby [ 65 ];
-        
-        bool Movingg = entity->GetVelocity( ).Length2D( ) > 1.f && ( entity->GetFlags() & FL_ONGROUND);
-        
-        bool Fakewalkk = Movingg && entity->GetVelocity().Length2D() < 45.f && !( entity->GetFlags( ) & FL_DUCKING );
-        
-        if ( Movingg ) {
-            if ( Fakewalkk ) {
-                angle = rand() % 2 ? 
-                entity->GetLowerBodyYawTarget( ) - 125.f :
-                entity->GetLowerBodyYawTarget( ) + 125.f ;
-            }
-            else
-            {
-                angle = entity->GetLowerBodyYawTarget( );
-                last_moving_lby [ entity->GetIndex() ] = entity->GetLowerBodyYawTarget( );
-            }
-        }
-        else
-        {
-            #define RandomFloat(min, max) (rand() % (max - min + 1) + min)
-            angle = last_moving_lby[ entity->GetIndex() ] + rand( ) % ( 25 - -25 + 1 ) + -25;
-        }
-        
-    } // end of resolver 5
-    
-    if(vars.aimbot.yresolve == 6){
-        //test
-        static float stored_lby[65];
-        static bool bLowerBodyIsUpdated;
-        if (entity->GetLowerBodyYawTarget() != stored_lby[entity->GetIndex()]){
-            bLowerBodyIsUpdated = true;
-            stored_lby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
-        }
-        else bLowerBodyIsUpdated = false;
-     
-        if(bLowerBodyIsUpdated){
-            angle = rand() % 2 ? 
-            stored_lby[entity->GetIndex()] - 15 :
-            stored_lby[entity->GetIndex()] + 15 ;
-        }
-        else {
-            angle = rand() % 2 ? 
-            entity->GetLowerBodyYawTarget() - 30 :
-            entity->GetLowerBodyYawTarget() + 30 ;
-        }
-     }
-    
-    
-    if(vars.aimbot.yresolve == 7){
+    if(vars.aimbot.yresolve == 4){
         std::string strPitch = std::to_string(entity->GetEyeAngles()->x);
         
         if (entity->GetEyeAngles()->x < -179.f) entity->GetEyeAngles()->x += 360.f;
         else if (entity->GetEyeAngles()->x > 90.0 || entity->GetEyeAngles()->x < -90.0) entity->GetEyeAngles()->x = 89.f;
         else if (entity->GetEyeAngles()->x > 89.0 && entity->GetEyeAngles()->x < 91.0) entity->GetEyeAngles()->x -= 90.f;
-        else if (entity->GetEyeAngles()->x > 179.0 && entity->GetEyeAngles()->x < 181.0)entity->GetEyeAngles()->x -= 180;
+        else if (entity->GetEyeAngles()->x > 179.0 && entity->GetEyeAngles()->x < 181.0) entity->GetEyeAngles()->x -= 180;
         else if (entity->GetEyeAngles()->x > -179.0 && entity->GetEyeAngles()->x < -181.0) entity->GetEyeAngles()->x += 180;
         else if (fabs(entity->GetEyeAngles()->x) == 0) entity->GetEyeAngles()->x = std::copysign(89.0f, entity->GetEyeAngles()->x);
     }
-           return angle;
+    if(vars.aimbot.yresolve == 5){
+        entity->GetEyeAngles()->y = (rand() % 2) ?
+        entity->GetEyeAngles()->y + (AntiAim::GetMaxxDelta(entity->GetAnimState()) * 0.66f) :
+        entity->GetEyeAngles()->y - (AntiAim::GetMaxxDelta(entity->GetAnimState()) * 0.66f);
+    }
+    
+    
+
+    /*if(vars.aimbot.yresolve == 3){
+        for (int i = 1; i < pEngine->GetMaxClients(); ++i) {
+            C_BaseEntity *pClient = (C_BaseEntity*)pEntList->GetClientEntity(i);
+            if (pClient->IsPlayer()) {
+                    if (!pClient->isMoving()) {
+                        pClient->GetEyeAngles()->y = *pClient->GetLowerBodyYaw();
+                        int angle = rand() % 5;
+                        switch (angle) {
+                            case 0:pClient->GetEyeAngles()->y += 135; break;
+                            case 2:pClient->GetEyeAngles()->y += 155; break;
+                            case 3:pClient->GetEyeAngles()->y += 165; break;
+                            case 4:pClient->GetEyeAngles()->y += 175; break;
+                            case 5:pClient->GetEyeAngles()->y += 185; break;
+                        }
+                    }
+                    else {
+                        pClient->GetEyeAngles()->y = *(float*)pClient->GetLowerBodyYaw();
+                        pClient->GetEyeAngles()->y += 180;
+                    }
+            }
+        }
+    }*/
 }
+
 
 void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {
     float flYaw = pData->m_Value.m_Float;
@@ -964,3 +705,73 @@ void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {
     
     OldProxy_Y(pData, pStruct, pOut);
 }
+
+/*std::vector<int64_t> Resolver::Players = { };
+
+std::vector<std::pair<C_BasePlayer*, QAngle>> player_data;
+
+void Resolver::FrameStageNotify(ClientFrameStage_t stage)
+{
+    if (!pEngine->IsInGame())
+        return;
+    
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer)
+        return;
+    
+    if (stage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
+    {
+        for (int i = 1; i < pEngine->GetMaxClients(); ++i)
+        {
+            C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(i);
+            
+            if (!player
+                || player == localplayer
+                || player->GetDormant()
+                || !player->GetAlive()
+                || player->GetImmune()
+                || player->GetTeam() == localplayer->GetTeam())
+                continue;
+            
+            player_info_t entityInformation;
+            pEngine->GetPlayerInfo(i, &entityInformation);
+            
+            if (vars.aimbot.yresolve != 3)
+                continue;
+            
+            //player->GetEyeAngles()->y = *player->GetLowerBodyYawTarget();
+            player->GetEyeAngles()->y = (rand() % 2) ?
+            player->GetEyeAngles()->y + (AntiAim::GetMaxxDelta(player->GetAnimState()) * 0.66f) :
+            player->GetEyeAngles()->y - (AntiAim::GetMaxxDelta(player->GetAnimState()) * 0.66f);
+        }
+    }
+    else if (stage == ClientFrameStage_t::FRAME_RENDER_END)
+    {
+        for (unsigned long i = 0; i < player_data.size(); i++)
+        {
+            std::pair<C_BasePlayer*, QAngle> player_aa_data = player_data[i];
+            *player_aa_data.first->GetEyeAngless() = player_aa_data.second;
+        }
+        
+        player_data.clear();
+    }
+}
+
+void Resolver::PostFrameStageNotify(ClientFrameStage_t stage)
+{
+}
+
+void Resolver::FireGameEvent(IGameEvent* event)
+{
+    if (!event)
+        return;
+    
+    if (strcmp(event->GetName(), ("player_connect_full")) != 0 && strcmp(event->GetName(), ("cs_game_disconnected")) != 0)
+        return;
+    
+    if (event->GetInt("userid") && pEngine->GetPlayerForUserID(event->GetInt("userid")) != pEngine->GetLocalPlayer())
+        return;
+    
+    Resolver::Players.clear();
+}*/
+

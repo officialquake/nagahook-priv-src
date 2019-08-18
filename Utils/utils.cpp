@@ -106,6 +106,12 @@ void SinCos(float a, float* s, float*c)
     *s = sin(a);
     *c = cos(a);
 }
+void marquee(std::string& panicova_zlomena_noha)
+{
+    std::string temp_string = panicova_zlomena_noha;
+    panicova_zlomena_noha.erase(0, 1);
+    panicova_zlomena_noha += temp_string[0];
+}
 
 void ClampAngles(Vector& angle)
 {
@@ -509,94 +515,94 @@ string GetWeaponName1(C_BaseCombatWeapon* pWeapon) {
     switch (ID) {
             /*pistols*/
         case 4:
-            return "Glock | ";
+            return "s";
         case 2:
-            return "Dualies | ";
+            return "m";
         case 36:
-            return "P250 | ";
+            return "u";
         case 30:
-            return "Tec 9 | ";
+            return "R";
         case 1:
-            return "Deagle | ";
+            return "k";
         case 32:
-            return "P2000 | ";
+            return "J";
         case 3:
-            return "Five Seven | ";
+            return "o";
         case 64:
-            return "Revolver | ";
+            return "K";
         case 63:
-            return "CZ75 | ";
+            return "j";
         case 61:
-            return "USP | ";
+            return "T";
             /*heavy*/
         case 35:
-            return "Nova | ";
+            return "H";
         case 25:
-            return "XM1014 | ";
+            return "U";
         case 29:
-            return "Sawed Off | ";
+            return "L";
         case 14:
-            return "M249 | ";
+            return "A";
         case 28:
-            return "Negev | ";
+            return "G";
         case 27:
-            return "Mag 7 | ";
+            return "C";
             /*smgs*/
         case 17:
-            return "Mac 10 | ";
+            return "B";
         case 33:
-            return "MP7 | ";
+            return "E";
         case 24:
-            return "UMP45 | ";
+            return "S";
         case 19:
-            return "P90 | ";
+            return "I";
         case 26:
-            return "Bizon | ";
+            return "h";
         case 34:
-            return "MP9 | ";
+            return "F";
             /*C4*/
         case 49:
-            return "C4 | ";
+            return "i";
             /*rifles*/
         case 10:
-            return "Famas | ";
+            return "n";
         case 16:
-            return "M4A1 | ";
+            return "z";
         case 40:
-            return "Scout | ";
+            return "P";
         case 8:
-            return "AUG | ";
+            return "e";
         case 9:
-            return "AWP | ";
+            return "f";
         case 38:
-            return "Scar 20 | ";
+            return "M";
         case 13:
-            return "Galil | ";
+            return "r";
         case 7:
-            return "AK47 | ";
+            return "d";
         case 39:
-            return "SG553 | ";
+            return "N";
         case 11:
-            return "G3SG1 | ";
+            return "q";
         case 60:
-            return "M4A1-S | ";
+            return "y";
             /*grenades*/
         case 46:
         case 48:
-            return "Molotov | ";
+            return "v";
         case 44:
-            return "Grenade | ";
+            return "t";
         case 43:
-            return "Flash | ";
+            return "p";
         case 45:
-            return "Smoke | ";
+            return "O";
         case 47:
-            return "Decoy | ";
+            return "l";
             /*other*/
         case 31:
-            return "Zeus | ";
+            return "Q";
         default:
-            return "Knife | ";
+            return "x";
     }
 }
 
@@ -804,6 +810,8 @@ void ClampMoves(float& flForward, float& flSide, float& flUp)
     if(flSide < -450) flSide = -450;
     if(flUp < -450) flUp = -450;
 }
+
+
 
 void ClampYaw(float& angle)
 {

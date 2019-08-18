@@ -13,6 +13,14 @@ enum VIEW_ANTIAIM_PITCH {
     Up          = 2,
 };
 
+namespace AntiAim{
+   float GetMaxxDelta( CCSGOAnimState *animState );
+    
+}
+
+namespace fake{
+    //
+}
 
 enum VIEW_ANTIAIM_YAW {
     Backwards       = 1,
@@ -64,7 +72,8 @@ void resolverfucker(CUserCmd* cmd, C_BaseEntity* local);
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState);
 void AntAimCMove(CUserCmd* cmd);
 void LegitAA(CUserCmd* cmd, bool& bSendPacket, C_BaseCombatWeapon* weapon);
-//void doManual(CUserCmd* cmd);
+void doManual(CUserCmd* cmd, C_BaseEntity* local);
+//float last_fake;
 //void GetBestHeadAngle(CUserCmd* cmd, C_BasePlayer* local);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
 void AngleVectors3(const Vector &angles, Vector& forward);

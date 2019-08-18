@@ -39,6 +39,7 @@ float   get_fov(const QAngle& viewAngle, const QAngle& aimAngle);
 void normalize_angles(QAngle& angle);
 void NormalizeAngles(Vector& angle);
 void angle_vectors(const Vector& angles, Vector& forward);
+void marquee(std::string& panicova_zlomena_noha);
 void angle_vectors(const Vector& angles, Vector& forward, Vector& right, Vector& up);
 void vector_angles(const Vector& forward, QAngle& angles);
 

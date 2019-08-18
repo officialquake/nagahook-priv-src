@@ -2,7 +2,7 @@
 
 #define PI 3.14159265358979323846f
 
-extern HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, framefont, espfont, mFont, osFont, sFont, tFont, cFont, titleFont, subtitleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont;
+extern HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, framefont, espfont, mFont, osFont, sFont, tFont, cFont, titleFont, subtitleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont, bombfont;
 // if you want to add more
 
 typedef int ViVec_t;
@@ -21,7 +21,7 @@ public:
     
     wstring wstringtostring(string str);
     wstring StringToWstring(string str);
-    
+    HFONT createfonttt(HFONT font, const char* szFont, int tall, int flags);
     HFONT createfont(HFONT font, const char* szFont, int tall, int flags);
     HFONT createfontt(HFONT font, const char* szFont, int tall, int flags);
     void textW(bool center, int font, int x, int y, Color c, wchar_t *pszString);

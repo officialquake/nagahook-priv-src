@@ -17,6 +17,7 @@
 #include "../Hacks/autostop.hpp"
 #include "../Hacks/legit.hpp"
 
+
 Vector tpangles;
 
 
@@ -61,15 +62,13 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
 
 static CEnginePrediction PredictionSystem;
 
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState)
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState, float &bestdmg, C_BasePlayer* player)
 {
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
-    
     PredictionSystem.Start(cmd);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove);
-    Fakewalk(cmd, local);
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove, bestdmg, player);
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
@@ -77,15 +76,15 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     backjizzer(cmd, local);
     lby_spin(cmd, local);
     tank(cmd, local);
-    AutoCock(cmd, weapon);
     resolverfucker(cmd, local);
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
     Hitchance(local, weapon);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
     if(local->GetAlive()){
-    LegitAA(cmd, sendPacket, weapon);
+    doManual(cmd, local);
     }
+    
     PredictionSystem.End();
     
     
@@ -144,7 +143,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     }
     
     C_BaseCombatWeapon* weapon = GetActiveWeapon(local);
-    //C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
     if(!weapon)
         return false;
@@ -161,10 +160,11 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     float forward = cmd->forwardmove;
     float sidemove = cmd->sidemove;
     float upmove = cmd->upmove;
+    float bestdmg;
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket, animState);
+        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket, animState, bestdmg, player);
         
         
         FixMovement(vOldAngles, cmd);
@@ -196,7 +196,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         CreateMove::sendPacket =  true;
         
         movement->FakeLag(cmd);
-        
+        Fakewalk(cmd, local);
         AntAimCMove(cmd);
         
         *sendPacket = CreateMove::sendPacket;
@@ -206,6 +206,8 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
             CreateMove::lastTickViewAngles = cmd->viewangles;
         }
     }
+    
+    
     
     
     return false;

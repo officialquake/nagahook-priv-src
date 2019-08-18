@@ -1,13 +1,14 @@
-//
-//  resolver.h
-//  vHook
-//
-//  Created by Harrison Aguilera on 6/2/18.
-//  Copyright © 2018 ViKiNG. All rights reserved.
-//
+#include <vector>
+#include <cstdint>
+#include "../SDK/Others.h"
+#include "../SDK/GameEvent.h"
 
-#pragma once
-
-#include "main.h"
-
-
+namespace Resolver
+{
+    extern std::vector<int64_t> Players;
+    
+    //Hooks
+    void FrameStageNotify(ClientFrameStage_t stage);
+    void PostFrameStageNotify(ClientFrameStage_t stage);
+    void FireGameEvent(IGameEvent* event);
+}

@@ -6,6 +6,7 @@ namespace Global
     CUserCmd*     cmd;
     C_BasePlayer* local;
     C_BaseCombatWeapon* localWeapon;
+    float fake_angle;
 }
 
 int __attribute__((constructor)) Init()

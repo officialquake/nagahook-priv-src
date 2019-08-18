@@ -62,8 +62,6 @@ void manualaa(C_BaseEntity* Local)
     
     static bool left = false;
     static bool right = false;
-    static bool back = false;
-    
     
     int Height, Width;
     pEngine->GetScreenSize(Height, Width);
@@ -72,45 +70,43 @@ void manualaa(C_BaseEntity* Local)
     int y = Height / 2;
     
     if (pInputSystem->IsButtonDown(KEY_LEFT)) {
-        left = true; right = false; back = false;
+        left = true; right = false;
     }
     else if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
-        left = false; right = true; back = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_DOWN)) {
-        left = false; right = false; back = true;
+        left = false; right = true;
     }
     
     //float_t pos = Global::cmd->viewangles.y;
+    
+    if(vars.visuals.indicatorAA_types == 1){
+        
+        if( left )
+        {
+            draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("LEFT"));
+        }
+        
+        if( right )
+        {
+            draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("RIGHT"));
+        }
+    }
     
     if(vars.visuals.indicatorAA_types == 2){
         
         
         if( right ) {
-            draw->drawstring(y + 40, x - 5, Color(255, 0, 0, 255), indicatorFont, (">")); // Green
-            draw->drawstring(y - 50, x - 5, Color(255, 255, 255, 255), indicatorFont, ("<")); // White
-            draw->drawstring(y - 4, x + 50, Color(255, 255, 255, 255), indicatorFont, ("v")); // White
-            
+            draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
+            draw->drawstring(y - 60, x, Color(255, 255, 255, 125), indicatorFont, ("A")); // White
         }
         
         if( left ){
-            draw->drawstring(y + 40, x - 5, Color(255, 255, 255, 255), indicatorFont, (">")); // White
-            draw->drawstring(y - 50, x - 5, Color(255, 0, 0, 255), indicatorFont, ("<")); // Green
-            draw->drawstring(y - 4, x + 50, Color(255, 255, 255, 255), indicatorFont, ("v")); // White
+            draw->drawstring(y + 40, x, Color(255, 255, 255, 125), indicatorFont, ("B")); // White
+            draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }
-        
-        if( back ){
-            draw->drawstring(y + 40, x - 5, Color(255, 255, 255, 255), indicatorFont, (">")); // White
-            draw->drawstring(y - 50, x - 5, Color(255, 255, 255, 255), indicatorFont, ("<")); // White
-            draw->drawstring(y - 4, x + 50, Color(255, 0, 0, 255), indicatorFont, ("v")); // Green
-        }
-        
-        
-        
     }
     
     
-    }
+}
 
     // number order
     // y

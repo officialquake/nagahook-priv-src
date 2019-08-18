@@ -48,6 +48,7 @@ namespace Global
     extern CUserCmd*     cmd;
     extern C_BasePlayer* local;
     extern C_BaseCombatWeapon* localWeapon;
+    extern float fake_angle;
 }
 
 namespace CreateMove

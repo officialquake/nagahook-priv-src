@@ -1,6 +1,7 @@
 #include "main.h"
 #include "Hacks/hitmarker.h"
 #include "Hacks/eventlog.hpp"
+#include "Hacks/resolver.h"
 class EventListener : public IGameEventListener2
 {
 public:
@@ -19,6 +20,7 @@ public:
     {
         Hitmarkers::FireGameEvent(event);
         Eventlog::FireGameEvent(event);
+        BulletTracers::FireGameEvent(event);
     }
     
     int GetEventDebugID() override

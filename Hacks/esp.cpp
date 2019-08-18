@@ -190,7 +190,7 @@ void grenadeESP(C_BaseEntity* entity){
 }
 
 void DrawBombBar(C_BaseEntity* local, C_BasePlantedC4* bomb){
-    if(!bomb->IsBombTicking())
+    /*if(!bomb->IsBombTicking())
         return;
     float flBlow    = bomb->GetBombTime();
     float bombTimer = flBlow - (pGlobals->interval_per_tick * local->GetTickBase());
@@ -205,7 +205,7 @@ void DrawBombBar(C_BaseEntity* local, C_BasePlantedC4* bomb){
     char TimeToExplode[64]; sprintf(TimeToExplode, "Explode in: %.1f", bombTimer);//Text we gonna display for explosion
     
     char TimeToDefuse[64]; sprintf(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
-    if(bombTimer > 0 && !bomb->IsBombDefused())
+    if((local->HasDefuser() && flBlow > 5.25f) || (!local->HasDefuser() && flBlow > 10.25f))
     {
     float fraction = bombTimer / bomb->TimerThing();//the proportion of time remaining, use fltimerlength cos bomb detonation time can vary by gamemode
     int onscreenwidth = fraction * x;//the width of the bomb timer bar. proportion of time remaining multiplied by width of screen
@@ -215,7 +215,7 @@ void DrawBombBar(C_BaseEntity* local, C_BasePlantedC4* bomb){
     
     pSurface->DrawSetColor(red,green,0,255);
     pSurface->DrawFilledRect(0, 0, onscreenwidth, 10);
-    }
+    }*/
 }
 
 void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
@@ -302,7 +302,7 @@ void DrawOtherESP() {
         
         if(vars.visuals.bombtimer && classID == CPlantedC4)
             DrawBombPlanted(local, pC4);
-    
+            //DrawBombBar(local, pC4);
         
 
         
@@ -353,7 +353,6 @@ void DrawSpread() {
 
 void DrawAngles(C_BaseEntity* local)
 {
-    //if (!pEngine->IsConnected() || !pEngine->IsInGame()) {
     
     if(!pEngine->IsInGame())
         return;
@@ -509,8 +508,11 @@ void DrawPlayerESP()
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
+                string active1 = GetWeaponName1(getWeapon(entity));
                 Vector2D weaponTextSize = draw->GetTextSize( active.c_str(), espfont );
+                Vector2D weaponTextSize1 = draw->GetTextSize( active1.c_str(), csgo_icons );
                 draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize.x / 2)), players.y + players.h + 8, Color::White(), espfont, active.c_str());
+                 draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize1.x / 2)), players.y + players.h + 15, Color::White(), csgo_icons, active1.c_str());
                 
                 
             }

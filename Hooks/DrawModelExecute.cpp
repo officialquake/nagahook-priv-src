@@ -208,8 +208,7 @@ IMaterial* CreateMaterial(bool ignorez, bool wireframe, string szType)
             createdMaterial = pMatSystem->FindMaterial("barbossa_chamsmat_textured", TEXTURE_GROUP_MODEL);
         }
     }
-    
-    
+
     if(szType == "UnlitGeneric")
     {
         if(ignorez)
@@ -543,6 +542,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     if (CreateMove::sendPacket == true)
                         local->SetupBones(localfakelagmatrix, 128, BONE_USED_BY_HITBOX, pGlobals->curtime);
                     
+                    
                     if (vars.misc.flagchams && vars.misc.thirdperson && local->GetVelocity().Length2D() > 30 && !local->IsScoped())
                     {
                         materialFakelag->AlphaModulate(vars.visuals.fakelagchams_alpha / 255.0f - 0.1);
@@ -553,27 +553,28 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         
                     }
                     if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson && !local->IsScoped()){
-                        //float lowerbody = local->GetLowerBodyYaw();
-                        //auto aa_angle = QAngle(0, cmd->viewangles.y, 0);
-                        
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
+                        
                         matrix3x4_t BoneMatrix[128];
                         for (int i = 0; i < 128; i++)
                         {
                             
-                            AngleMatrix(Vector(0, *local->GetLowerBodyYaw(), 0), BoneMatrix[i]);
+                            AngleMatrix(Vector(0, Global::fake_angle, 0), BoneMatrix[i]);
                             MatrixMultiply(BoneMatrix[i], pCustomBoneToWorld[i]);
                             BonePos = Vector(pCustomBoneToWorld[i][0][3], pCustomBoneToWorld[i][1][3], pCustomBoneToWorld[i][2][3]) - pInfo.origin;
-                            VectorRotate(BonePos, Vector(0, *local->GetLowerBodyYaw(), 0), OutPos);
+                            VectorRotate(BonePos, Vector(0, Global::fake_angle, 0), OutPos);
                             OutPos += pInfo.origin;
                             BoneMatrix[i][0][3] = OutPos.x;
                             BoneMatrix[i][1][3] = OutPos.y;
                             BoneMatrix[i][2][3] = OutPos.z;
                         }
-                        pModelRender->ForcedMaterialOverride(firstLayer);
+                        firstLit->AlphaModulate(155 / 255.f);
+                        firstLit->ColorModulate(Color::Red());
+                        pModelRender->ForcedMaterialOverride(firstLit);
                         CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
+                        pModelRender->ForcedMaterialOverride(nullptr);
 
                     }
                     if(vars.misc.thirdperson && local->IsScoped() && entity == local) {

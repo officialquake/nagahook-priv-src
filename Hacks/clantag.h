@@ -11,6 +11,7 @@ public:
     
     void clan_tag();
     
+    
 };
 
 extern C_Misc* misc;

@@ -38,12 +38,12 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
         
         if (iChoked < 3)
         {
-            *bSendPacket = false;
+            CreateMove::sendPacket = false;
             cmd->tick_count += 10;
             cmd += 7 + cmd->tick_count % 2 ? 0 : 1;
             cmd->forwardmove = cmd->sidemove = 0.f;
         }else{
-            *bSendPacket = true;
+            CreateMove::sendPacket = true;
             iChoked = -1;
             pGlobals->frametime *= (local->GetVelocity().Length2D()) / 1.f;
             cmd->buttons |= local->GetMoveType() == IN_FORWARD;
@@ -57,7 +57,7 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
         cmd->forwardmove = iChoked < 2 || iChoked > 5 ? 0 : cmd->forwardmove;
         cmd->sidemove = iChoked < 2 || iChoked > 5 ? 0 : cmd->sidemove;
         
-        *bSendPacket = iChoked < 1;
+        CreateMove::sendPacket = iChoked < 1;
     }
     
     if(vars.aimbot.fakewalktype == 3){
@@ -66,14 +66,14 @@ void Fakewalk(CUserCmd* cmd, C_BaseEntity* local)
         
         if (iChoked < 1)
         {
-            *bSendPacket = false;
+            CreateMove::sendPacket = false;
             cmd->tick_count += 555;
             cmd->command_number += 7 + cmd->tick_count % 10 ? 0 : 1; // 5
             cmd->forwardmove = cmd->sidemove = 0.f;
         }
         else
         {
-            *bSendPacket = true;
+            CreateMove::sendPacket = true;
             iChoked = -1;
             pGlobals->frametime *= (local->GetVelocity().Length2D()) / 5.f; // 10
             cmd->buttons |= local->GetMoveType() == IN_FORWARD;

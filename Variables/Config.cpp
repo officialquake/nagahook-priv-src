@@ -73,6 +73,7 @@ void Config::LoadConfig() {
     vars.aimbot.autowall     = cfgget_b("Aimbot", "Auto Wall");
     vars.aimbot.mindmg     = cfgget_i("Aimbot", "Mindmg");
     vars.aimbot.Yawresolver     = cfgget_b("Aimbot", "Yaw Resolver");
+    vars.aimbot.yresolve     = cfgget_i("Aimbot", "Yresolve");
     vars.aimbot.autoshoot     = cfgget_b("Aimbot", "Auto Shoot");
     vars.aimbot.trigger = cfgget_b("Aimbot", "Triggerbot");
     //vars.aimbot.autostop = cfgget_b("Aimbot", "Auto Stop");
@@ -123,6 +124,8 @@ void Config::LoadConfig() {
     vars.visuals.scrosshair       = cfgget_b("Visuals", "SC");
     vars.visuals.active       = cfgget_b("Visuals", "Weapon");
     vars.visuals.grenade       = cfgget_b("Visuals", "Grenade");
+    vars.aimbot.autostop       = cfgget_b("Aimbot", "Autostop");
+     vars.aimbot.autoslow       = cfgget_b("Aimbot", "Autoslow");
     //vars.mi       = cfgget_b("Visuals", "SC");
     
     
@@ -153,6 +156,12 @@ void Config::LoadConfig() {
     
     vars.visuals.handchams       = cfgget_b("Visuals", "Hand Chams");
     vars.visuals.weaponchams       = cfgget_b("Visuals", "Weapon Chams");
+    
+    vars.misc.desynchams    = cfgget_b("Visuals", "Desync Chams");
+    vars.misc.lbybreaker =  cfgget_b("Misc", "LBY Breaker");
+    vars.misc.lbybreakermanual =  cfgget_b("Misc", "LBY Breaker Manual");
+    vars.misc.lbybreakeroffset = cfgget_f("Misc", "LBY Breaker Offset");
+    
     vars.visuals.playerchams_alpha       = cfgget_i("Visuals", "PCA");
     vars.visuals.handchams_alpha       = cfgget_i("Visuals", "HCA");
     vars.visuals.weaponchams_alpha       = cfgget_i("Visuals", "WCA");
@@ -219,6 +228,7 @@ void Config::LoadConfig() {
     vars.aimbot.baimhp = cfgget_b("Aimbot", "Baim");
     vars.aimbot.baimxhp = cfgget_i("Aimbot", "BaimxHP");
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
+    vars.visuals.bullett = cfgget_b("Misc", "Bullet");
     
     
     //Colours
@@ -281,6 +291,8 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "LBY Spin", GetBoolValue(vars.misc.lby_spin));
     cfg.SetBoolValue("Aimbot", "Hitchance", GetBoolValue(vars.aimbot.hitchance));
     cfg.SetBoolValue("Aimbot", "AntiAim Enabled", GetBoolValue(vars.misc.antiaim));
+    cfg.SetBoolValue("Aimbot", "Autostop", GetBoolValue(vars.aimbot.autostop));
+    cfg.SetBoolValue("Aimbot", "Autoslow", GetBoolValue(vars.aimbot.autoslow));
     //cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
     
     cfg.SetBoolValue("Aimbot", "Legit Enabled", GetBoolValue(vars.aimbot.LegitEnabled));
@@ -297,6 +309,7 @@ void Config::SaveConfig() {
     //cfg.SetBoolValue("Aimbot", "Backtrack", GetBoolValue(vars.misc.backtrack));
     cfg.SetLongValue("Aimbot", "ACHC", GetIntValue(vars.aimbot.accuracyhithcance));
     cfg.SetLongValue("Aimbot", "HT", GetIntValue(vars.aimbot.hitscantype));
+     cfg.SetLongValue("Aimbot", "Yresolve", GetIntValue(vars.aimbot.yresolve));
     
     // Visuals
     cfg.SetBoolValue("Visuals", "Enabled", GetBoolValue(vars.visuals.enabled));
@@ -306,6 +319,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Visuals", "Health text", GetBoolValue(vars.visuals.healthtext));
     cfg.SetBoolValue("Visuals", "Snap Line", GetBoolValue(vars.visuals.snapline));
     cfg.SetBoolValue("Visuals", "Hand Chams", GetBoolValue(vars.visuals.handchams));
+    
     cfg.SetBoolValue("Visuals", "Weapon Chams", GetBoolValue(vars.visuals.weaponchams));
     cfg.SetBoolValue("Visuals", "Weapons", GetBoolValue(vars.visuals.weapons));
     cfg.SetBoolValue("Visuals", "Skeleton", GetBoolValue(vars.visuals.skeleton));
@@ -328,6 +342,10 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Visuals", "Player Chams", GetBoolValue(vars.visuals.chams));
     cfg.SetBoolValue("Visuals", "Fake Lag Chams", GetBoolValue(vars.misc.flagchams));
     cfg.SetBoolValue("Visuals", "Local Chams", GetBoolValue(vars.visuals.localchams));
+    cfg.SetBoolValue("Visuals", "Desync Chams", GetBoolValue(vars.misc.desynchams));
+    cfg.SetBoolValue("Misc", "LBY Breaker", GetBoolValue(vars.misc.lbybreaker));
+    cfg.SetBoolValue("Misc", "LBY Breaker Manual", GetBoolValue(vars.misc.lbybreakermanual));
+    cfg.SetDoubleValue("Misc", "LBY Breaker Offset", GetFloatValue(vars.misc.lbybreakeroffset));
     cfg.SetBoolValue("Visuals", "AA Line", GetBoolValue(vars.visuals.aaline));
     cfg.SetBoolValue("Visuals", "AA Line Names", GetBoolValue(vars.visuals.anglelinenames));
     cfg.SetBoolValue("Visuals", "Hand Chams", GetBoolValue(vars.visuals.handchams));
@@ -384,6 +402,7 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Misc", "TPOff", GetIntValue(vars.misc.tpoffset));
     cfg.SetBoolValue("Misc", "FOV", GetBoolValue(vars.misc.fovt));
     cfg.SetBoolValue("Misc", "Moonwalk", GetBoolValue(vars.misc.moonwalk));
+    cfg.SetBoolValue("Misc", "Bullet", GetBoolValue(vars.visuals.bullett));
     cfg.SetBoolValue("Misc", "Watermark", GetBoolValue(vars.misc.watermark));
     cfg.SetBoolValue("Misc", "No Scope", GetBoolValue(vars.misc.noscope));
     cfg.SetBoolValue("Misc", "Spread", GetBoolValue(vars.misc.spreadcrosshair));

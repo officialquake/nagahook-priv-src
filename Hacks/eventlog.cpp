@@ -199,7 +199,7 @@ void Eventlog::FireGameEvent(IGameEvent* event)
         lastLogTimestamp = now;
         
         std::string bombLog = std::string(bomberInformation.name);
-        bombLog += " enter bomb-site with bomb";
+        bombLog += " entering bomb-site with bomb";
         
         logToShow.insert(logToShow.begin(), std::pair<std::string, long>(bombLog, now));
         
@@ -228,7 +228,7 @@ void Eventlog::FireGameEvent(IGameEvent* event)
         lastLogTimestamp = now;
         
         std::string defuseLog = std::string(defuserInformation.name);
-        defuseLog += " defuse bomb ";
+        defuseLog += " is defusing the bomb ";
         
         if (event->GetBool("haskit")){
             defuseLog += "with defuse-kit";

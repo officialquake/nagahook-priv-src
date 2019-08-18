@@ -7,6 +7,7 @@ namespace Global
     extern CUserCmd*            cmd;
     extern C_BasePlayer*        local;
     extern C_BaseCombatWeapon*  weapon;
+    extern float fake_angle;
 }
 extern ISurface*            pSurface;
 extern CEffects*            pEffects;
@@ -14,7 +15,6 @@ extern IPanel*              pPanel;
 extern ICvar*               pCvar;
 extern IBaseClientDLL*      pClient;
 extern IClientEntityList*   pEntList;
-extern IVDebugOverlay*      pOverlay;
 extern IEngineVGui*         pEngineGUI;
 extern IEngineClient*       pEngine;
 extern IVModelInfo*         pModelInfo;

@@ -12,6 +12,44 @@
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
+void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& bestDamage, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd)
+{
+    bool goingtoslow = false;
+    
+    if (!vars.aimbot.autostop){
+        goingtoslow = false;
+        return;
+    }
+    
+    if (!player){
+        goingtoslow = false;
+        return;
+    }
+    
+    float nextPrimaryAttack = active_weapon->GetNextPrimaryAttack();
+    
+    if (nextPrimaryAttack > pGlobals->curtime){
+        goingtoslow = false;
+        return;
+    }
+    
+    goingtoslow = true;
+    
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
+    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+    if (!activeWeapon || activeWeapon->GetAmmo() == 0)
+        return;
+    
+    if( localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData1()->GetMaxPlayerSpeed() / 3) ) //https://youtu.be/ZgjYxBRuagA
+    {
+        cmd->buttons |= IN_WALK;
+        forward = -forward;
+        sideMove = -sideMove;
+        cmd->upmove = 0;
+    }
+}
+
 int MakeHitscan(C_BaseEntity* entity)
 {
     vector<int> hitboxes;
@@ -114,6 +152,45 @@ int MakeHitscan(C_BaseEntity* entity)
             hitboxes.push_back(HITBOX_LOWER_CHEST);
             hitboxes.push_back(HITBOX_UPPER_CHEST);
         }
+        if (vars.aimbot.hitscantype == HITSCAN::head){
+            hitboxes.push_back(HITBOX_HEAD);
+        }
+        if (vars.aimbot.hitscantype == HITSCAN::upperbody){
+            hitboxes.push_back(HITBOX_HEAD);
+             hitboxes.push_back(HITGROUP_STOMACH);
+             hitboxes.push_back(HITBOX_PELVIS);
+        }
+        if (vars.aimbot.hitscantype == HITSCAN::lowerbody){
+            hitboxes.push_back(HITBOX_NECK);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            hitboxes.push_back(HITGROUP_STOMACH);
+            hitboxes.push_back(HITBOX_PELVIS);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_FOOT);
+            hitboxes.push_back(HITBOX_LEFT_FOOT);
+            hitboxes.push_back(HITBOX_RIGHT_UPPER_ARM);
+            hitboxes.push_back(HITBOX_LEFT_UPPER_ARM);
+            hitboxes.push_back(HITBOX_RIGHT_FOREARM);
+            hitboxes.push_back(HITBOX_LEFT_FOREARM);
+            hitboxes.push_back(HITBOX_RIGHT_HAND);
+            hitboxes.push_back(HITBOX_LEFT_HAND);
+        }
+        if (vars.aimbot.hitscantype == HITSCAN::arms){
+            hitboxes.push_back(HITBOX_RIGHT_UPPER_ARM);
+            hitboxes.push_back(HITBOX_LEFT_UPPER_ARM);
+            hitboxes.push_back(HITBOX_RIGHT_FOREARM);
+            hitboxes.push_back(HITBOX_LEFT_FOREARM);
+            hitboxes.push_back(HITBOX_RIGHT_HAND);
+            hitboxes.push_back(HITBOX_LEFT_HAND);
+        }
+        if (vars.aimbot.hitscantype == HITSCAN::legs){
+            hitboxes.push_back(HITBOX_PELVIS);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_FOOT);
+            hitboxes.push_back(HITBOX_LEFT_FOOT);
+        }
     }
 
     
@@ -148,7 +225,7 @@ int MakeHitscan(C_BaseEntity* entity)
     
 }
 
-void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)
+void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide, float& bestdamage, C_BasePlayer* player)
 {
     
     if(!vars.aimbot.enabled)
@@ -231,7 +308,18 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                     pCmd->buttons |= IN_ATTACK2;
                     return;
                 }
+                if (vars.aimbot.autostop){
+                    pCmd->forwardmove = 0.f;
+                    pCmd->sidemove = 0.f;
+                    pCmd->upmove = 0.f;
                 
+                }
+                if(vars.aimbot.autoslow){
+                    AutoSlow(player, flForward, flSide, bestdamage, weapon, pCmd);
+                }
+                if(vars.aimbot.autoknife){
+                    AutoKnife(pCmd);
+                }
                 bool bAttack = true;
                 
                 if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)

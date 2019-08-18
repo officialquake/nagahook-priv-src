@@ -83,7 +83,7 @@ void Offsets::getOffsets()
 
 	offsets.DT_PlantedC4.m_bBombTicking = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_bBombTicking");
 	offsets.DT_PlantedC4.m_flC4Blow = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_flC4Blow");
-    offsets.DT_PlantedC4.m_flTimerLength = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_flTimerLength");
+    //offsets.DT_PlantedC4.m_flTimerLength = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_flTimerLength");
 	offsets.DT_PlantedC4.m_bBombDefused = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_bBombDefused");
 	offsets.DT_PlantedC4.m_hBombDefuser = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_hBombDefuser");
     offsets.DT_PlantedC4.m_flDefuseCountDown = NetVarManager::GetOffset(tables, "DT_PlantedC4", "m_flDefuseCountDown");

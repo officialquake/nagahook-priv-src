@@ -5,7 +5,7 @@ int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbind
 {
     if(eventcode == 0)   // Key pressed
     {
-        if(keynum == KEY_INSERT)
+        if(keynum == KEY_INSERT || keynum == KEY_RALT)
         {
             vars.menu = !vars.menu;
             
