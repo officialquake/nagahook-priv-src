@@ -72,7 +72,7 @@ void resolverfucker(CUserCmd* cmd, C_BaseEntity* local);
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState);
 void AntAimCMove(CUserCmd* cmd);
 //void LegitAA(CUserCmd *pCmd, bool& bSendPacket, C_BaseCombatWeapon* weapon);
-void doManual(CUserCmd* cmd, C_BaseEntity* local);
+void doManual(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon);
 //float last_fake;
 //void GetBestHeadAngle(CUserCmd* cmd, C_BasePlayer* local);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
