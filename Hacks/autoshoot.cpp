@@ -89,6 +89,7 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     
 }
 
+
 void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
 {
     if(!vars.aimbot.autoshoot)

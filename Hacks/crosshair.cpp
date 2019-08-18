@@ -1,9 +1,6 @@
 #include "crosshair.h"
 #include "C_BaseEntity.h"
 
-// Thanks @pwned
-// Draw crosshair functions here
-
 void rCrosshair(C_BaseEntity* local)
 {
     if(!vars.visuals.rcrosshair)
@@ -63,6 +60,12 @@ void manualaa(C_BaseEntity* Local)
     static bool left = false;
     static bool right = false;
     
+    static bool switchside = false;
+    if (pInputSystem->IsButtonDown(KEY_SLASH))
+    {
+        switchside = !switchside;
+    }
+    
     int Height, Width;
     pEngine->GetScreenSize(Height, Width);
     
@@ -80,12 +83,12 @@ void manualaa(C_BaseEntity* Local)
     
     if(vars.visuals.indicatorAA_types == 1){
         
-        if( left )
+        if( !switchside )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("LEFT"));
         }
         
-        if( right )
+        if( switchside )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("RIGHT"));
         }
@@ -94,12 +97,12 @@ void manualaa(C_BaseEntity* Local)
     if(vars.visuals.indicatorAA_types == 2){
         
         
-        if( right ) {
+        if( !switchside ) {
             draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
             draw->drawstring(y - 60, x, Color(255, 255, 255, 125), indicatorFont, ("A")); // White
         }
         
-        if( left ){
+        if( switchside ){
             draw->drawstring(y + 40, x, Color(255, 255, 255, 125), indicatorFont, ("B")); // White
             draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }
@@ -107,68 +110,3 @@ void manualaa(C_BaseEntity* Local)
     
     
 }
-
-    // number order
-    // y
-    // x
-
-
-/*void DrawDirection(const Vector& origin) //monarch is the NIGGA
-{
-    constexpr float radius = 360.0f;
-    int width, height;
-    pEngine->GetScreenSize(width, height);
-    
-    Vector vRealAngles;
-    pEngine->GetViewAngles(vRealAngles);
-    
-    Vector vForward, vRight, vUp(0.0f, 0.0f, 1.0f);
-    
-    AngleVectors(vRealAngles, &vForward);
-    
-    vForward.z = 0.0f;
-    NormalizeAngle(vForward);
-    CrossProduct(vUp, vForward, vRight);
-    
-    float flFront = DotProduct(origin, vForward);
-    float flSide = DotProduct(origin, vRight);
-    float flXPosition = radius * -flSide;
-    float flYPosition = radius * -flFront;
-    
-    float rotation = cmd->viewangles.y + 180;
-    
-    rotation = atan2(flXPosition, flYPosition) + M_PI;
-    rotation *= 180.0f / M_PI;
-    
-    float flYawRadians = -(rotation)* M_PI / 180.0f;
-    float flCosYaw = cos(flYawRadians);
-    float flSinYaw = sin(flYawRadians);
-    
-    flXPosition = (int)((width / 2.0f) + (radius * flSinYaw));
-    flYPosition = (int)((height / 2.0f) - (radius * flCosYaw));
-    
-    draw->drawline(flXPosition, flYPosition, 10, 50, Color(255, 0, 255, 120));
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

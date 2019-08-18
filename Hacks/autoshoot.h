@@ -15,6 +15,7 @@ void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
 
 void AutoKnife(CUserCmd* cmd);
 
+
 bool IsPlayerBehind(C_BaseEntity* localplayer, C_BaseEntity* player);
 int GetLeftKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player);
 int GetRightKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player);

@@ -680,7 +680,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 185, "AutoStop", &vars.aimbot.autostop);
     this->renderCheckbox(x + 235, y + 255, "Moonwalk", &vars.misc.moonwalk);
     this->renderCheckbox(x + 235, y + 275, "Autoslow", &vars.aimbot.autoslow);
-    //this->renderCheckbox(x + 235, y + 295, "LegitAA", &vars.misc.legitaa);
+    this->renderCheckbox(x + 235, y + 295, "AutoKnife", &vars.aimbot.autoknife);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);

@@ -79,7 +79,10 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     resolverfucker(cmd, local);
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
+    AutoSlow(player, flForwardmove, flSidemove, bestdmg, weapon, cmd);
+    AutoCock(cmd, weapon);
     Hitchance(local, weapon);
+    AutoKnife(cmd);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
     doManual(cmd, local, weapon);
     
