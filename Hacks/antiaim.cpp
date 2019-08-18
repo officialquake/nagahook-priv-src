@@ -260,32 +260,65 @@ void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
     }
 }
 
-void doManual(CUserCmd* cmd, C_BaseEntity* local){
+void doManual(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon){
     if(!vars.misc.manualaa)
         return;
     
     if (!local || !local->GetAlive())
         return;
     
-    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+    if ((cmd->buttons & IN_USE) || local->GetMoveType() == MOVETYPE_LADDER)
         return;
     
-    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+    if (weapon->IsGrenade())
         return;
     
-    static int ChokedTicks = 0;
-    static bool Direction = false;
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) Direction = true;
-    if (pInputSystem->IsButtonDown(KEY_RIGHT)) Direction = false;
+    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_C4)))
+        return;
     
-    if (ChokedTicks < 1) {
-        cmd->viewangles.y += Direction ? 90 : -90;
-        ChokedTicks++;
-    }else {
-        ChokedTicks = 0;
+    static bool switchside = false;
+    static float resttime;
+    //int SwitchSideKey = KEY_SLASH;
+    if (pInputSystem->IsButtonDown(KEY_SLASH) && abs(resttime - pGlobals->curtime) > 0.5)
+    {
+        switchside = !switchside;
+        resttime = pGlobals->curtime;
     }
+    cmd->viewangles.y += (switchside) ? -90 : 90;
 }
-
+void LegitAA(CUserCmd *pCmd, bool& bSendPacket, C_BaseCombatWeapon* weapon)
+{
+  /* C_BaseEntity* pLocal = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    
+    if ((pCmd->buttons & IN_USE) || pLocal->GetMoveType() == MOVETYPE_LADDER)
+        return;
+    
+    if (weapon->IsGrenade())
+        return;
+    
+    if (pCmd->buttons & IN_USE || pCmd->buttons & IN_ATTACK || (pCmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_C4)))
+        return;
+    
+    if (vars.misc.legitaa)
+    {
+        static int ChokedPackets = -1;
+        ChokedPackets++;
+        static bool yFlip;
+        if (ChokedPackets < 1)
+        {
+            bSendPacket = true;
+            pCmd->viewangles.y += 0;
+        }
+        else
+        {
+            bSendPacket = false;
+            yFlip ? pCmd->viewangles.y += 90.f : pCmd->viewangles.y -= 90.f;
+            ChokedPackets = -1;
+        }
+        yFlip != yFlip;
+        
+    }*/
+}
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local)
 {
@@ -621,91 +654,6 @@ float GetMaxDesyncDelta(CCSGOAnimState *animState)
     return abs(delta);
 }
 
-
-void LegitAA(CUserCmd* cmd, bool& bSendPacket, C_BaseCombatWeapon* weapon)
-{
-    if(!vars.misc.legitaa)
-        return;
-    C_BaseEntity* local = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!cmd || !local || !local->GetAlive() || (cmd->buttons & IN_USE) || (cmd->buttons & IN_ATTACK) || (cmd->buttons & IN_ATTACK2) || local->GetMoveType() == MOVETYPE_LADDER || (weapon->IsSnipScope()))
-        return;
-    
-
-    Vector oldAngle = cmd->viewangles;
-    float oldForward = cmd->forwardmove;
-    float oldSideMove = cmd->sidemove;
-    if (vars.misc.legitaa)
-    {
-            if(vars.aimbot.legitaatype == 1)
-            {//you dont need brackets but for some shit you do like statics //wrapzii C++ class 101
-                static bool kFlip = true;
-                static int ChokedPackets = -1;
-                static bool yFlip = true;
-                if (1 > ChokedPackets)
-                {
-                    bSendPacket = true;
-                    ChokedPackets++;
-                }
-                else
-                {
-                    bSendPacket = false;
-                    //pCmd->viewangles.y += yFlip ? 90.f : -90.f;
-                    cmd->viewangles.y += 180.f;
-                    ChokedPackets = -1;
-                }
-            }
-            if(vars.aimbot.legitaatype == 2)
-            {
-                static bool kFlip = true;
-                static int ChokedPackets = -1;
-                static bool yFlip = true;
-                if (1 > ChokedPackets)
-                {
-                    bSendPacket = true;
-                    ChokedPackets++;
-                }
-                else
-                {
-                    bSendPacket = false;
-                    //pCmd->viewangles.y += yFlip ? 90.f : -90.f;
-                    cmd->viewangles.y += 90.f;//to the right im pretty sure
-                    ChokedPackets = -1;
-                }
-            }
-        
-            if(vars.aimbot.legitaatype == 3)
-                //Sideways-switch
-            {
-                static int ChokedPackets = -1;//we choking 2 cuz 1 is too main stream
-                if (1> ChokedPackets) {
-                    bSendPacket = false;
-                    static bool dir = false;
-                    static bool dir2 = false;
-                    int i = 0; i < pEntList->GetHighestEntityIndex(); ++i;
-                    IClientEntity *pEntity = pEntList->GetClientEntity(i);
-                    //if (pCmd->forwardmove > 1 || (IsVisible(pLocal, pEntity, 0) && pEntity->GetTeamNum() != pLocal->GetTeamNum()))// was trying to make a vis check to make it -180 if their visible //didnt seem to work
-                    //dir2 = true;
-                    //else {
-                    dir2 = false;
-                    if (cmd->sidemove > 1) dir = true;
-                    else if (cmd->sidemove < -1) dir = false;
-                    cmd->viewangles.y = (dir) ? (cmd->viewangles.y - 180) - 270.f : (cmd->viewangles.y - 180) - 90.f;
-                    //}
-                    //if (dir2 = true)
-                    //pCmd->viewangles.y = pCmd->viewangles.y - 180;
-                    ChokedPackets++;
-                }
-                else
-                {
-                    bSendPacket = true;
-                    ChokedPackets = -1;
-                    
-                }
-            }
-        }
-    else
-        cmd->viewangles.y += 0;
-}
 
 bool LBYUpdate()
 {

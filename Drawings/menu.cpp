@@ -587,7 +587,7 @@ void cMenu::renderAntiAim(int x, int y) {
     // Fake Yaw
     FakeYaw.push_back("Off");
     FakeYaw.push_back("FakeSpin");
-    FakeYaw.push_back("Desync?");
+    FakeYaw.push_back("Desync AA");
     FakeYaw.push_back("FakeTwoStep");
     FakeYaw.push_back("FakeLowerBody135");
     FakeYaw.push_back("FakeInverseRotation");
@@ -680,7 +680,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 185, "AutoStop", &vars.aimbot.autostop);
     this->renderCheckbox(x + 235, y + 255, "Moonwalk", &vars.misc.moonwalk);
     this->renderCheckbox(x + 235, y + 275, "Autoslow", &vars.aimbot.autoslow);
-    //this->renderCheckbox(x + 235, y + 295, "Autoknife", &vars.aimbot.autoknife);
+    //this->renderCheckbox(x + 235, y + 295, "LegitAA", &vars.misc.legitaa);
     
     /*if (!vars.freestand_opend) {
         this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
@@ -919,9 +919,9 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
     this->renderSlider(x + 469, y + 55, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 474, y + 75, "FakePing", &vars.misc.fakeping);
+    /*this->renderCheckbox(x + 474, y + 75, "FakePing", &vars.misc.fakeping);
     this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);*/
     
 
    
@@ -988,7 +988,7 @@ void cMenu::renderConfigs(int x, int y) {
     conf.push_back("scout");
     conf.push_back("autos");
     conf.push_back("legit");
-    conf.push_back("rage");
+    conf.push_back("smg");
     conf.push_back("rifles");
     
     this->renderCombo(x, y + 265,  150, 20, "scout", conf, cfg.cfgcombo, &vars.cfg_opend);

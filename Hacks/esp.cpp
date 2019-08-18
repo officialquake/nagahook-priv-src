@@ -483,6 +483,10 @@ void DrawPlayerESP()
             
             /* Draw box */
             
+            std::string health = std::to_string(entity->GetHealth()).c_str();
+            std::string hp = "HP: ";
+            hp += health;
+            
             if(vars.visuals.box)
                 draw->BoxEspShit(players.x, players.y, players.w, players.h, playercolor);
             
@@ -497,7 +501,7 @@ void DrawPlayerESP()
             
             /* Draw health as text */
             if(vars.visuals.healthtext)
-                draw->drawstring(players.x + players.w + 3, players.y + 1, Color::White(), espfont, std::to_string(entity->GetHealth()).c_str(), true);
+                draw->drawstring((players.x + 2) + players.w + 3, players.y + 1, Color::White(), espfont, hp.c_str(), true);
             
             /* Draw amour bar */
             if(vars.visuals.armour)
@@ -512,7 +516,7 @@ void DrawPlayerESP()
                 Vector2D weaponTextSize = draw->GetTextSize( active.c_str(), espfont );
                 Vector2D weaponTextSize1 = draw->GetTextSize( active1.c_str(), csgo_icons );
                 draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize.x / 2)), players.y + players.h + 8, Color::White(), espfont, active.c_str());
-                 draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize1.x / 2)), players.y + players.h + 15, Color::White(), csgo_icons, active1.c_str());
+                 draw->drawstring((players.x +  (players.w / 2) - (weaponTextSize1.x / 2)), players.y + players.h + 17, Color::White(), csgo_icons, active1.c_str());
                 
                 
             }

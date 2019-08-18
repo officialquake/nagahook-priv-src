@@ -47,6 +47,8 @@
 		9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9181F32D22FD957A00C081E9 /* ragdoll.hpp */; };
 		9181F33222FD96DE00C081E9 /* antiafkkick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9181F33022FD96DE00C081E9 /* antiafkkick.cpp */; };
 		9181F33322FD96DE00C081E9 /* antiafkkick.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9181F33122FD96DE00C081E9 /* antiafkkick.hpp */; };
+		918B1ED2230996BC00A10D54 /* MemoryProtection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 918B1ED0230996BC00A10D54 /* MemoryProtection.cpp */; };
+		918B1ED3230996BC00A10D54 /* MemoryProtection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 918B1ED1230996BC00A10D54 /* MemoryProtection.hpp */; };
 		91936B5A22E7648D00529F72 /* EventListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 91936B5922E7648D00529F72 /* EventListener.h */; };
 		919D5CDA2304352D00BC7CD0 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 919D5CD92304352C00BC7CD0 /* Singleton.h */; };
 		91A48C3222E36541008A0BBA /* nosmoke.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A48C3022E36541008A0BBA /* nosmoke.hpp */; };
@@ -184,6 +186,8 @@
 		9181F32D22FD957A00C081E9 /* ragdoll.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ragdoll.hpp; path = Hacks/ragdoll.hpp; sourceTree = "<group>"; };
 		9181F33022FD96DE00C081E9 /* antiafkkick.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = antiafkkick.cpp; path = Hacks/antiafkkick.cpp; sourceTree = "<group>"; };
 		9181F33122FD96DE00C081E9 /* antiafkkick.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = antiafkkick.hpp; path = Hacks/antiafkkick.hpp; sourceTree = "<group>"; };
+		918B1ED0230996BC00A10D54 /* MemoryProtection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryProtection.cpp; path = SDK/MemoryProtection.cpp; sourceTree = "<group>"; };
+		918B1ED1230996BC00A10D54 /* MemoryProtection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MemoryProtection.hpp; path = SDK/MemoryProtection.hpp; sourceTree = "<group>"; };
 		91936B5922E7648D00529F72 /* EventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventListener.h; sourceTree = "<group>"; };
 		919D5CD92304352C00BC7CD0 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		91A48C3022E36541008A0BBA /* nosmoke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = nosmoke.hpp; path = Hacks/nosmoke.hpp; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 				8F4E12E5200FC300000F17A0 /* GameEvent.h */,
 				91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */,
 				911A997D22F27EE4005DE75B /* animstate.h */,
+				918B1ED0230996BC00A10D54 /* MemoryProtection.cpp */,
+				918B1ED1230996BC00A10D54 /* MemoryProtection.hpp */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -560,6 +566,7 @@
 				B6A954691FACAC0900351006 /* prediction.h in Headers */,
 				91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */,
 				915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */,
+				918B1ED3230996BC00A10D54 /* MemoryProtection.hpp in Headers */,
 				9ADC15ED1F8F77F600BBF4A7 /* esp.h in Headers */,
 				91BD7AE422F526EF00CB1BE1 /* legit.hpp in Headers */,
 				8F4E12EC200FCAEA000F17A0 /* cfg.h in Headers */,
@@ -730,6 +737,7 @@
 				B67AE84D1F91CD8200ADDCD8 /* menu.cpp in Sources */,
 				E1FE19DA1E718F230018D409 /* main.cpp in Sources */,
 				9A213B2D1F8660FD00518DE8 /* CreateMove.cpp in Sources */,
+				918B1ED2230996BC00A10D54 /* MemoryProtection.cpp in Sources */,
 				91C0D53123000CF400BF63DE /* snipercrosshair.cpp in Sources */,
 				B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */,
 				9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */,

@@ -20,7 +20,7 @@ string fdr      = "/Users/" + user + "/Desktop/Nagahook";
 string scout    = "/Users/" + user + "/Desktop/Nagahook/scout.ini";
 string autos    = "/Users/" + user + "/Desktop/Nagahook/autos.ini";
 string legit    = "/Users/" + user + "/Desktop/Nagahook/legit.ini";
-string rage    = "/Users/" + user + "/Desktop/Nagahook/rage.ini";
+string smg    = "/Users/" + user + "/Desktop/Nagahook/smg.ini";
 string rifles    = "/Users/" + user + "/Desktop/Nagahook/rifles.ini";
 string skins    = "/Users/" + user + "/Desktop/Nagahook/skins.ini";
 
@@ -43,7 +43,7 @@ void Config::getConfig(int ConfigNo) {
     if(ConfigNo == 0) ConfigName = scout.c_str();
     else if (ConfigNo == 1) ConfigName = autos.c_str();
     else if (ConfigNo == 2) ConfigName = legit.c_str();
-    else if (ConfigNo == 3) ConfigName = rage.c_str();
+    else if (ConfigNo == 3) ConfigName = smg.c_str();
     else if (ConfigNo == 4) ConfigName = rifles.c_str();
 }
 
