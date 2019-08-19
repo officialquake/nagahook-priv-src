@@ -149,38 +149,38 @@ public:
     
 };
 
-struct CCSWeaponInfo
-{
-    char gap0[8];
-    char *m_szConsoleName;
-    char gap1C[232];
-    char *m_szHUDName;
-    char gap100[64];
-    int m_WeaponType;
-    char pad144[36];
-    bool m_bIsFullAuto;
-    char gap169[3];
-    int m_iDamage;
-    float m_flArmorRatio;
-    int m_iBulletsPerShot;
-    char pad17C[8];
-    float m_flRange;
-    float m_flRangeModifier;
-    float m_flThrowVelocity;
-    char pad190[12];
-    bool m_bHasSilencer;
-    char pad19D[163];
-    int m_iZoomLevels;      // 0x1B0
-    int m_iZoomFOV1;        //
-    int m_iZoomFOV2;        //
-    float m_flZoomTime[3];
-    char pad258[152];
-    float m_flPenetration;
-    bool m_bHasBurstMode;
-    bool m_bIsRevolver;
-    bool m_bCanShootUnderwater;
+    struct CCSWeaponInfo
+    {
+        char gap0[8];
+        char *m_szConsoleName;
+        char gap1C[232];
+        char *m_szHUDName;
+        char gap100[64];
+        int m_WeaponType;
+        char pad144[36];
+        bool m_bIsFullAuto;
+        char gap169[3];
+        int m_iDamage;
+        float m_flArmorRatio;
+        int m_iBulletsPerShot;
+        float m_flPenetration;
+        char pad17C[8];
+        float m_flRange;
+        float m_flRangeModifier;
+        float m_flThrowVelocity;
+        char pad190[12];
+        bool m_bHasSilencer;
+        char pad19D[163];
+        int m_iZoomLevels;      // 0x1B0
+        int m_iZoomFOV1;        //
+        int m_iZoomFOV2;        //
+        float m_flZoomTime[3];
+        char pad258[152];
+        bool m_bHasBurstMode;
+        bool m_bIsRevolver;
+        bool m_bCanShootUnderwater;
+    };
     
-};
     
     class CCSSWeaponInfo : public FileWeaponInfo_t {
     public:

@@ -574,8 +574,6 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         firstLit->ColorModulate(Color::Red());
                         pModelRender->ForcedMaterialOverride(firstLit);
                         CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
-                        pModelRender->ForcedMaterialOverride(nullptr);
-                        return;
 
                     }
                     if(vars.misc.thirdperson && local->IsScoped() && entity == local) {

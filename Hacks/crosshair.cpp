@@ -60,10 +60,14 @@ void manualaa(C_BaseEntity* Local, int keynum)
     static bool left = false;
     static bool right = false;
     
+    
     static bool switchside = false;
-    if (pInputSystem->IsButtonDown(KEY_SLASH))
+    static float resttime;
+    //int SwitchSideKey = KEY_SLASH;
+    if (pInputSystem->IsButtonDown(KEY_SLASH) && abs(resttime - pGlobals->curtime) > 0.5)
     {
         switchside = !switchside;
+        resttime = pGlobals->curtime;
     }
     
     int Height, Width;
@@ -72,12 +76,11 @@ void manualaa(C_BaseEntity* Local, int keynum)
     int x = Width / 2;
     int y = Height / 2;
     
-    if (pInputSystem->IsButtonDown(KEY_LEFT)) {
-        left = true; right = false;
-    }
-    else if (pInputSystem->IsButtonDown(KEY_RIGHT)) {
-        left = false; right = true;
-    }
+     //cmd->viewangles.y += (switchside) ? -90 : 90;
+    
+    left = (switchside) ?  false : true;
+    right = (switchside) ? true : false;
+
     
     if(keynum == KEY_SLASH)
     {
@@ -88,12 +91,12 @@ void manualaa(C_BaseEntity* Local, int keynum)
     
     if(vars.visuals.indicatorAA_types == 1){
         
-        if( vars.misc.manualcrosshair  )
+        if( left  )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("LEFT"));
         }
         
-        if( !vars.misc.manualcrosshair )
+        if( right )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("RIGHT"));
         }
@@ -102,12 +105,12 @@ void manualaa(C_BaseEntity* Local, int keynum)
     if(vars.visuals.indicatorAA_types == 2){
         
         
-        if( !vars.misc.manualcrosshair  ) {
+        if( right  ) {
             draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
             draw->drawstring(y - 60, x, Color(255, 255, 255, 125), indicatorFont, ("A")); // White
         }
         
-        if( vars.misc.manualcrosshair ){
+        if( left ){
             draw->drawstring(y + 40, x, Color(255, 255, 255, 125), indicatorFont, ("B")); // White
             draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }
