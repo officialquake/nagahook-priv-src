@@ -501,7 +501,7 @@ void DrawPlayerESP()
             
             /* Draw health as text */
             if(vars.visuals.healthtext)
-                draw->drawstring((players.x + 6) + players.w + 3, players.y + 1, Color::White(), espfont, hp.c_str(), true);
+                draw->drawstring((players.x + 3) + players.w + 3, players.y + 1, Color::White(), espfont, health.c_str(), true);
             
             /* Draw amour bar */
             if(vars.visuals.armour)

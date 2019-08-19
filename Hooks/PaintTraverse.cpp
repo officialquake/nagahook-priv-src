@@ -19,7 +19,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
     paintVMT->GetOriginalMethod<tPaintTraverse>(42)(thisptr, panel, forceRepaint, allowForce);
     
     C_BaseEntity* local = (C_BaseEntity*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-
+    int keynum = 0;
     
     static VPANEL last = 0;
     
@@ -129,7 +129,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             
             rCrosshair(local);  // Draws recoil crosshair
             
-            manualaa(local);        // Manual AA idicator
+            manualaa(local, keynum);        // Manual AA idicator
             Dlights::Paint();
             NightMode();
             FullBright();

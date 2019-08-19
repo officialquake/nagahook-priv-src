@@ -39,6 +39,8 @@
 		91216B9222C777810042172E /* triggerbot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91216B9022C777810042172E /* triggerbot.hpp */; };
 		91286C1222EE046C00AFBC06 /* autostop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91286C1022EE046C00AFBC06 /* autostop.cpp */; };
 		91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91286C1122EE046C00AFBC06 /* autostop.hpp */; };
+		9129912C230A6C380053DE3F /* grenadeprediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9129912A230A6C380053DE3F /* grenadeprediction.cpp */; };
+		9129912D230A6C380053DE3F /* grenadeprediction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9129912B230A6C380053DE3F /* grenadeprediction.hpp */; };
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
 		915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */ = {isa = PBXBuildFile; fileRef = 915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */; };
 		915B2EE422EA1ACC000ABA9A /* EnginePrediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */; };
@@ -177,6 +179,8 @@
 		91216B9022C777810042172E /* triggerbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = triggerbot.hpp; path = Hacks/triggerbot.hpp; sourceTree = "<group>"; };
 		91286C1022EE046C00AFBC06 /* autostop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autostop.cpp; path = Hacks/autostop.cpp; sourceTree = "<group>"; };
 		91286C1122EE046C00AFBC06 /* autostop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = autostop.hpp; path = Hacks/autostop.hpp; sourceTree = "<group>"; };
+		9129912A230A6C380053DE3F /* grenadeprediction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = grenadeprediction.cpp; path = Hacks/grenadeprediction.cpp; sourceTree = "<group>"; };
+		9129912B230A6C380053DE3F /* grenadeprediction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = grenadeprediction.hpp; path = Hacks/grenadeprediction.hpp; sourceTree = "<group>"; };
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
 		914D20BD22F556B1005B781D /* DrawModelExecute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DrawModelExecute.h; path = Hooks/DrawModelExecute.h; sourceTree = "<group>"; };
 		915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnginePrediction.h; path = Hacks/EnginePrediction.h; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 				91BF9CC32300D9D80060F242 /* eventlog.hpp */,
 				91B170AD23011837003AF2E2 /* dlights.cpp */,
 				91B170AE23011837003AF2E2 /* dlights.hpp */,
+				9129912A230A6C380053DE3F /* grenadeprediction.cpp */,
+				9129912B230A6C380053DE3F /* grenadeprediction.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -590,6 +596,7 @@
 				E1FE19C21E718F020018D409 /* Color.h in Headers */,
 				E1FE19C81E718F020018D409 /* IEngineClient.h in Headers */,
 				919D5CDA2304352D00BC7CD0 /* Singleton.h in Headers */,
+				9129912D230A6C380053DE3F /* grenadeprediction.hpp in Headers */,
 				91A48C3E22E3669E008A0BBA /* noduckcooldown.hpp in Headers */,
 				91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */,
 				E1FE19C31E718F020018D409 /* common.h in Headers */,
@@ -741,6 +748,7 @@
 				91C0D53123000CF400BF63DE /* snipercrosshair.cpp in Sources */,
 				B67AE8411F91B1F100ADDCD8 /* utils.cpp in Sources */,
 				9A213B331F8660FD00518DE8 /* RunCommand.cpp in Sources */,
+				9129912C230A6C380053DE3F /* grenadeprediction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

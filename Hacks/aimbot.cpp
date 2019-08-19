@@ -12,7 +12,7 @@
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
-void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& bestDamage, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd)
+void AutoSlow(C_BasePlayer* player, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd)
 {
     bool goingtoslow = false;
     
@@ -26,13 +26,6 @@ void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& best
         return;
     }
     
-    float nextPrimaryAttack = active_weapon->GetNextPrimaryAttack();
-    
-    if (nextPrimaryAttack > pGlobals->curtime){
-        goingtoslow = false;
-        return;
-    }
-    
     goingtoslow = true;
     
     C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
@@ -41,11 +34,11 @@ void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& best
     if (!activeWeapon || activeWeapon->GetAmmo() == 0)
         return;
     
-    if( localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData1()->GetMaxPlayerSpeed() / 3) ) //https://youtu.be/ZgjYxBRuagA
+    if( localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData1()->GetMaxPlayerSpeed() / 3) )
     {
         cmd->buttons |= IN_WALK;
-        forward = -forward;
-        sideMove = -sideMove;
+        cmd->forwardmove = -cmd->forwardmove;
+        cmd->sidemove =  -cmd->sidemove;
         cmd->upmove = 0;
     }
 }
@@ -225,7 +218,7 @@ int MakeHitscan(C_BaseEntity* entity)
     
 }
 
-void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide, float& bestdamage, C_BasePlayer* player)
+void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide, C_BasePlayer* player)
 {
     
     if(!vars.aimbot.enabled)
@@ -315,7 +308,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 
                 }
                 if(vars.aimbot.autoslow){
-                    AutoSlow(player, flForward, flSide, bestdamage, weapon, pCmd);
+                    AutoSlow(player, weapon, pCmd);
                 }
                 if(vars.aimbot.autoknife){
                     AutoKnife(pCmd);

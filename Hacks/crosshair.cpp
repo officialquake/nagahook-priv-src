@@ -50,7 +50,7 @@ void DrawScope(C_BaseEntity* local)
 
 
 
-void manualaa(C_BaseEntity* Local)
+void manualaa(C_BaseEntity* Local, int keynum)
 {
     if (!vars.visuals.antiaim_indicator )
         return;
@@ -79,16 +79,21 @@ void manualaa(C_BaseEntity* Local)
         left = false; right = true;
     }
     
+    if(keynum == KEY_SLASH)
+    {
+        vars.misc.manualcrosshair = !vars.misc.manualcrosshair;
+    }
+    
     //float_t pos = Global::cmd->viewangles.y;
     
     if(vars.visuals.indicatorAA_types == 1){
         
-        if( !switchside )
+        if( vars.misc.manualcrosshair  )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("LEFT"));
         }
         
-        if( switchside )
+        if( !vars.misc.manualcrosshair )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("RIGHT"));
         }
@@ -97,12 +102,12 @@ void manualaa(C_BaseEntity* Local)
     if(vars.visuals.indicatorAA_types == 2){
         
         
-        if( !switchside ) {
+        if( !vars.misc.manualcrosshair  ) {
             draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
             draw->drawstring(y - 60, x, Color(255, 255, 255, 125), indicatorFont, ("A")); // White
         }
         
-        if( switchside ){
+        if( vars.misc.manualcrosshair ){
             draw->drawstring(y + 40, x, Color(255, 255, 255, 125), indicatorFont, ("B")); // White
             draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }

@@ -62,13 +62,13 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
 
 static CEnginePrediction PredictionSystem;
 
-void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState, float &bestdmg, C_BasePlayer* player)
+void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState, C_BasePlayer* player)
 {
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
     PredictionSystem.Start(cmd);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove, bestdmg, player);
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove, player);
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
     antiResolverFlip(cmd, local);
@@ -79,7 +79,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     resolverfucker(cmd, local);
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
-    AutoSlow(player, flForwardmove, flSidemove, bestdmg, weapon, cmd);
+    AutoSlow(player, weapon, cmd);
     AutoCock(cmd, weapon);
     Hitchance(local, weapon);
     AutoKnife(cmd);
@@ -161,11 +161,11 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     float forward = cmd->forwardmove;
     float sidemove = cmd->sidemove;
     float upmove = cmd->upmove;
-    float bestdmg;
+    float bestdmg = 0.0f;
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {
-        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket, animState, bestdmg, player);
+        hacks(cmd, local, weapon, vOldAngles, forward, sidemove, *bSendPacket, animState, player);
         
         
         FixMovement(vOldAngles, cmd);

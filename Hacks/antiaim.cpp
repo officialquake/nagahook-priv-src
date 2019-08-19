@@ -270,10 +270,10 @@ void doManual(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon){
     if ((cmd->buttons & IN_USE) || local->GetMoveType() == MOVETYPE_LADDER)
         return;
     
-    if (weapon->IsGrenade())
+    if (weapon->IsGrenade() || weapon->IsBomb())
         return;
     
-    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_C4)))
+    if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK2)
         return;
     
     static bool switchside = false;
@@ -732,14 +732,14 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (!local || !local->GetAlive())
         return;
     
-    if (weapon->IsGrenade())
+    if (weapon->IsGrenade() || weapon->IsBomb())
         return;
     
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     
-    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK || (cmd->buttons & IN_ATTACK2 && (*weapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_REVOLVER || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_KNIFE || (CSWeaponType)weapon->GetCSWpnData()->m_WeaponType == CSWeaponType::WEAPONTYPE_C4)))
-        return;
+     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
+         return;
     
     if (!vars.misc.fakelag) {
         *bSendPacket = cmd->command_number % 2;
@@ -963,18 +963,11 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     DesyncAA(cmd, local);
                 }
                 if(vars.misc.FaaY == VIEW_ANTIIAIM_FYAW::FakeTwoStep) {
-                    static bool bFlipYaw;
-                    float flInterval = pGlobals->interval_per_tick;
-                    float flTickcount = cmd->tick_count;
-                    float flTime = flInterval * flTickcount;
-                    if (std::fmod(flTime, 1) == 0.f)
-                        bFlipYaw = !bFlipYaw;
-                    
-                    if (bSendPacket){
-                        cmd->viewangles.y += bFlipYaw ? 135.f : -135.f + maxDelta;
-                        //AntiAim::fakeangle = cmd->viewangles;
-                    }else{
-                        cmd->viewangles.y -= local->GetLowerBodyYawTarget() + (bFlipYaw ? -135.f : 135.f) + maxDelta;
+                    if (!bSendPacket) {
+                        cmd->viewangles.y += 180.f;
+                    }
+                    else {
+                        cmd->viewangles.y += 180.f + maxDelta;// - maxDelta; works too
                     }
                     
                 }

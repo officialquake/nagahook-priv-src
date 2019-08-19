@@ -587,8 +587,8 @@ void cMenu::renderAntiAim(int x, int y) {
     // Fake Yaw
     FakeYaw.push_back("Off");
     FakeYaw.push_back("FakeSpin");
-    FakeYaw.push_back("Desync AA");
-    FakeYaw.push_back("FakeTwoStep");
+    FakeYaw.push_back("Desync AA (Raizo)");
+    FakeYaw.push_back("Desync Maybe");
     FakeYaw.push_back("FakeLowerBody135");
     FakeYaw.push_back("FakeInverseRotation");
     FakeYaw.push_back("Fake Head");

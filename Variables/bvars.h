@@ -213,6 +213,7 @@ public:
         bool norecoil       = true;
         bool scopeonly       = true;
         bool thirdperson    = false;     // Basically RCS without slider
+         bool manualcrosshair    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
         bool manualaa    = false;     // Basically RCS without slider
         bool novisual       = true;     // No visual recoil ofc
