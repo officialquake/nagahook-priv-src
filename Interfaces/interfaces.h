@@ -21,6 +21,7 @@ extern IVModelInfo*         pModelInfo;
 extern IEngineTrace*        pEngineTrace;
 extern IClientMode*         pClientMode;
 extern CGlobalVarsBase*     pGlobals;
+//extern CViewRender*         viewRender;
 extern IInputSystem*        pInputSystem;
 extern CInput*              pInput;
 extern IMaterialSystem*     pMatSystem;
@@ -45,6 +46,7 @@ extern VMT* predVMT;
 extern VMT* materialVMT;
 extern VMT* game_event_vmt;
 extern VMT* gameEventsVMT;
+//extern VMT* viewRenderVMT;
 
 extern RecvVarProxyFn g_pSequence;
 extern int* nPredictionRandomSeed;

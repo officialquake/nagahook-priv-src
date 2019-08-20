@@ -245,6 +245,8 @@ bool WorldToScreen(Vector& vFrom, Vector& vTo)
     return (pOverlay->ScreenPosition(vFrom, vTo) != 1);
 }
 
+//bool World
+
 bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str) // Credit's to dude719 & keybode.
 {
     if (!pEntity)

@@ -16,6 +16,54 @@ public:
         return getvfunc<oGetActualHeight>( this, 4 )( this );
     }
 };
+class IMatRenderContext {
+public:
+    void *GetThisPtr( ){
+        return this;
+    }
+    int Release( ) {
+        typedef int (* oRelease)( void* );
+        return getvfunc<oRelease>( this, 1 )( this );
+    }
+    void SetRenderTarget( ITexture *pTexture ) {
+        typedef void (* oSetRenderTarget)( void*, ITexture* );
+        return getvfunc<oSetRenderTarget>( this, 6 )( this, pTexture );
+    }
+    // 14? - SetAmbientLight()
+    void FogColor( float r, float g, float b ){
+        typedef void (* oFogColor)( void*, float ,float ,float );
+        return getvfunc<oFogColor>( this, 54 )( this, r, g, b );
+    }
+    void GetFogColor( unsigned char *rgb ){
+        typedef void (* oGetFogColor)( void*, unsigned char * );
+        return getvfunc<oGetFogColor>( this, 58 )( this, rgb );
+    }
+    
+    void PushRenderTargetAndViewport( ) {
+        typedef void (* oPushRenderTargetAndViewport)( void* );
+        return getvfunc<oPushRenderTargetAndViewport>( this, 115 )( this );
+    }
+    void PopRenderTargetAndViewport( ) {
+        typedef void (* oPopRenderTargetAndViewport)( void* );
+        return getvfunc<oPopRenderTargetAndViewport>( this, 119 )( this );
+    }
+    
+    void DrawScreenSpaceRectangle( IMaterial* pMaterial,
+                                  int destX, int destY, int width, int height,
+                                  float srcTextureX0, float srcTextureY0, float srcTextureX1, float srcTextureY1,
+                                  int srcTextureWidth, int srcTextureHeight,
+                                  void* pClientRenderable, int nXDice, int nYDice ) {
+        typedef void (* oDrawScreenSpaceRectangle)( void*, IMaterial* ,
+                                                   int , int , int , int ,
+                                                   float , float , float , float ,
+                                                   int , int ,
+                                                   void* , int , int  );
+        return getvfunc<oDrawScreenSpaceRectangle>( this, 113 )( this, pMaterial, destX, destY, width, height,
+                                                                srcTextureX0, srcTextureY0, srcTextureX1, srcTextureY1,
+                                                                srcTextureWidth, srcTextureHeight, pClientRenderable,
+                                                                nXDice, nYDice );
+    }
+};
 class IMaterialSystem
 {
 public:

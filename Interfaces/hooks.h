@@ -25,6 +25,8 @@ extern void PrintInfo();            //  Prints cheat info
 #define CLANTAG_SIG     "\x48\x8D\x3D\x00\x00\x00\x00\x48\x89\xFE\xE8\x00\x00\x00\x00\xE9\x00\x00\x00\x00"
 #define CLANTAG_MASK    "xxx????xxxx????x????"
 
+#define VIEWRENDER_SIG "\xE8\x00\x00\x00\x00\x48\x89\xDF\x48\x89\xC6\x41\xFF\xD7\xE8\x00\x00\x00\x00\x48"
+#define VIEWREDNER_MASK "x????xxxxxxxxxx????x"
 
 namespace hooker
 {

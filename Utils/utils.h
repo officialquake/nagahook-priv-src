@@ -12,6 +12,7 @@ extern void VectorAngles(const Vector& forward, Vector &angles);
 extern void VectorAngles2(const Vector &forward, QAngle &angles);
 extern void FixMovement(Vector& oang, CUserCmd* cmd);
 extern bool WorldToScreen(Vector& vFrom, Vector& vTo);
+//extern bool WorldToScreen1( const Vector &origin, ImVec2 * const screen );
 extern bool DrawPlayerBox(C_BaseEntity* pEntity, boxstruct& str);
 extern void CorrectMovement(Vector vOldAngles, CUserCmd* pCmd, float fOldForward, float fOldSidemove);
 extern long GetEpochTime();

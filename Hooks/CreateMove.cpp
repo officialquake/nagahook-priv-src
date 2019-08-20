@@ -16,7 +16,7 @@
 #include "../Hacks/fakelag.hpp"
 #include "../Hacks/autostop.hpp"
 #include "../Hacks/legit.hpp"
-
+#include "../Hacks/logshots.hpp"
 
 Vector tpangles;
 
@@ -79,10 +79,11 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     resolverfucker(cmd, local);
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
-    AutoSlow(player, weapon, cmd);
+    //AutoSlow(player, weapon, cmd);
     AutoCock(cmd, weapon);
     Hitchance(local, weapon);
     AutoKnife(cmd);
+    LogShots::CreateMove(cmd);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
     doManual(cmd, local, weapon);
     

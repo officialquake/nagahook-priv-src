@@ -2,6 +2,7 @@
 #include "Hacks/hitmarker.h"
 #include "Hacks/eventlog.hpp"
 #include "Hacks/resolver.h"
+#include "Hacks/logshots.hpp"
 class EventListener : public IGameEventListener2
 {
 public:
@@ -19,6 +20,7 @@ public:
     void FireGameEvent(IGameEvent* event)
     {
         Hitmarkers::FireGameEvent(event);
+        LogShots::FireGameEvent(event);
         Eventlog::FireGameEvent(event);
         BulletTracers::FireGameEvent(event);
     }

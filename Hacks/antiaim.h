@@ -63,7 +63,7 @@ enum VIEW_ANTIIAIM_AYAW
 };
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
-
+void DoAntAimFake(CCSGOAnimState* animState, Vector &angle);
 void turbojizzer(CUserCmd* cmd, C_BaseEntity* local);
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local);
 void lby_spin(CUserCmd* cmd, C_BaseEntity* local);

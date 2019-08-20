@@ -73,6 +73,9 @@
 		91C0D53223000CF400BF63DE /* snipercrosshair.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91C0D53023000CF400BF63DE /* snipercrosshair.hpp */; };
 		91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */; };
 		91E6831F22E6F6F10040A7D4 /* FireEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */; };
+		91E88036230B8C56008B93D8 /* RenderView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E88035230B8C56008B93D8 /* RenderView.cpp */; };
+		91E88039230B9304008B93D8 /* logshots.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E88037230B9304008B93D8 /* logshots.cpp */; };
+		91E8803A230B9304008B93D8 /* logshots.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91E88038230B9304008B93D8 /* logshots.hpp */; };
 		91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91FF5F7A22EB584E003BDC7D /* fakelag.cpp */; };
 		91FF5F7D22EB584E003BDC7D /* fakelag.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91FF5F7B22EB584E003BDC7D /* fakelag.hpp */; };
 		96E80CAD20BCEE5F00C87050 /* skinchanger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96E80CAB20BCEE5F00C87050 /* skinchanger.cpp */; };
@@ -214,6 +217,9 @@
 		91C0D53023000CF400BF63DE /* snipercrosshair.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = snipercrosshair.hpp; path = Hacks/snipercrosshair.hpp; sourceTree = "<group>"; };
 		91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IEngineVGui.h; path = SDK/IEngineVGui.h; sourceTree = "<group>"; };
 		91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FireEvent.cpp; sourceTree = "<group>"; };
+		91E88035230B8C56008B93D8 /* RenderView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RenderView.cpp; path = Hooks/RenderView.cpp; sourceTree = "<group>"; };
+		91E88037230B9304008B93D8 /* logshots.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logshots.cpp; path = Hacks/logshots.cpp; sourceTree = "<group>"; };
+		91E88038230B9304008B93D8 /* logshots.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = logshots.hpp; path = Hacks/logshots.hpp; sourceTree = "<group>"; };
 		91FF5F7A22EB584E003BDC7D /* fakelag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fakelag.cpp; path = Hacks/fakelag.cpp; sourceTree = "<group>"; };
 		91FF5F7B22EB584E003BDC7D /* fakelag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = fakelag.hpp; path = Hacks/fakelag.hpp; sourceTree = "<group>"; };
 		96E80CAB20BCEE5F00C87050 /* skinchanger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = skinchanger.cpp; path = Hacks/skinchanger.cpp; sourceTree = "<group>"; };
@@ -333,6 +339,7 @@
 				9A213B2C1F8660FD00518DE8 /* RunCommand.cpp */,
 				9A213B441F866CCB00518DE8 /* BeginFrame.cpp */,
 				914D20BD22F556B1005B781D /* DrawModelExecute.h */,
+				91E88035230B8C56008B93D8 /* RenderView.cpp */,
 			);
 			name = Hooks;
 			sourceTree = "<group>";
@@ -435,6 +442,8 @@
 				91B170AE23011837003AF2E2 /* dlights.hpp */,
 				9129912A230A6C380053DE3F /* grenadeprediction.cpp */,
 				9129912B230A6C380053DE3F /* grenadeprediction.hpp */,
+				91E88037230B9304008B93D8 /* logshots.cpp */,
+				91E88038230B9304008B93D8 /* logshots.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -590,6 +599,7 @@
 				E1FE19CC1E718F020018D409 /* ISurface.h in Headers */,
 				E1FE19C61E718F020018D409 /* IClientEntityList.h in Headers */,
 				E1FE19C51E718F020018D409 /* IBaseClientDLL.h in Headers */,
+				91E8803A230B9304008B93D8 /* logshots.hpp in Headers */,
 				9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */,
 				86BB1A6E20A4E13500383EF9 /* LagComp.h in Headers */,
 				8614F618209CCB2400C49CE0 /* CBaseAnimating.h in Headers */,
@@ -717,6 +727,7 @@
 				148074D81FA105C5004ED508 /* resolver.cpp in Sources */,
 				91BD7AE322F526EF00CB1BE1 /* legit.cpp in Sources */,
 				91FF5F7C22EB584E003BDC7D /* fakelag.cpp in Sources */,
+				91E88036230B8C56008B93D8 /* RenderView.cpp in Sources */,
 				9181F32E22FD957A00C081E9 /* ragdoll.cpp in Sources */,
 				B67AE8591F91D0B200ADDCD8 /* autowall.cpp in Sources */,
 				B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */,
@@ -734,6 +745,7 @@
 				91A48C3722E36553008A0BBA /* Backtrack.cpp in Sources */,
 				8FAEFEB92014046F0057A419 /* antiaiminfos.cpp in Sources */,
 				B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */,
+				91E88039230B9304008B93D8 /* logshots.cpp in Sources */,
 				9A213B311F8660FD00518DE8 /* OverrideView.cpp in Sources */,
 				8F4E12F2200FCB8D000F17A0 /* ConvertUTF.c in Sources */,
 				9A213B361F86611C00518DE8 /* bhop.cpp in Sources */,

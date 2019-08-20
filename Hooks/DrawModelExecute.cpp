@@ -552,7 +552,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(nullptr);
                         
                     }
-                    if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson && !local->IsScoped()){
+                    if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson && !local->IsScoped() && vars.visuals.localchams){
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
@@ -570,10 +570,10 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             BoneMatrix[i][1][3] = OutPos.y;
                             BoneMatrix[i][2][3] = OutPos.z;
                         }
-                        firstLit->AlphaModulate(155 / 255.f);
-                        firstLit->ColorModulate(Color::Red());
                         pModelRender->ForcedMaterialOverride(firstLit);
                         CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
+                        pModelRender->ForcedMaterialOverride(nullptr);
+                        return;
 
                     }
                     if(vars.misc.thirdperson && local->IsScoped() && entity == local) {
@@ -593,12 +593,12 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         return;
                     }
                     if(vars.misc.noscope && entity == local && vars.misc.thirdperson){
-                    IMaterial *xblur_mat = pMatSystem->FindMaterial("dev/blurfilterx_nohdr", TEXTURE_GROUP_OTHER, true);
-                    IMaterial *yblur_mat = pMatSystem->FindMaterial("dev/blurfiltery_nohdr", TEXTURE_GROUP_OTHER, true);
-                    IMaterial *scope = pMatSystem->FindMaterial("dev/scope_bluroverlay", TEXTURE_GROUP_OTHER, true);
-                    xblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
-                    yblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
-                    scope->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                        IMaterial *xblur_mat = pMatSystem->FindMaterial("dev/blurfilterx_nohdr", TEXTURE_GROUP_OTHER, true);
+                        IMaterial *yblur_mat = pMatSystem->FindMaterial("dev/blurfiltery_nohdr", TEXTURE_GROUP_OTHER, true);
+                        IMaterial *scope = pMatSystem->FindMaterial("dev/scope_bluroverlay", TEXTURE_GROUP_OTHER, true);
+                        xblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                        yblur_mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
+                        scope->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
                     }
                     if(vars.visuals.enemyonly && local->GetTeam() == entity->GetTeam())
                     {
@@ -620,8 +620,6 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(materialCheckFirst);
                         CallOriginalModel(thisptr, context, state, pInfo, pCustomBoneToWorld);
                     }
-                    
-                    
                 }
             }
         }

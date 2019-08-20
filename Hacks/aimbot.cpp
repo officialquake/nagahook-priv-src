@@ -8,39 +8,24 @@
 #include "antiaim.h"
 #include "autowall.h"
 #include "autostop.hpp"
-
+#include "logshots.hpp"
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
+
 void AutoSlow(C_BasePlayer* player, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd)
 {
-    bool goingtoslow = false;
     
-    if (!vars.aimbot.autostop){
-        goingtoslow = false;
+    if (!vars.aimbot.autoslow){
         return;
     }
     
     if (!player){
-        goingtoslow = false;
         return;
     }
     
-    goingtoslow = true;
     
-    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
-    if (!activeWeapon || activeWeapon->GetAmmo() == 0)
-        return;
-    
-    if( localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData1()->GetMaxPlayerSpeed() / 3) )
-    {
-        cmd->buttons |= IN_WALK;
-        cmd->forwardmove = -cmd->forwardmove;
-        cmd->sidemove =  -cmd->sidemove;
-        cmd->upmove = 0;
-    }
+   
 }
 
 int MakeHitscan(C_BaseEntity* entity)
@@ -308,11 +293,28 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 
                 }
                 if(vars.aimbot.autoslow){
-                    AutoSlow(player, weapon, pCmd);
+                    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+                    
+                    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
+                    if (!activeWeapon || activeWeapon->GetAmmo() == 0)
+                        return;
+                    
+                    if( localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData1()->GetMaxPlayerSpeed() / 3) )
+                    {
+                        pCmd->buttons |= IN_WALK;
+                        pCmd->forwardmove = -pCmd->forwardmove;
+                        pCmd->sidemove =  -pCmd->sidemove;
+                        pCmd->upmove = 0.f;
+                    }
                 }
                 if(vars.aimbot.autoknife){
                     AutoKnife(pCmd);
                 }
+                if (pCmd->buttons & IN_ATTACK && vars.misc.logshots && player){
+                    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+                    LogShots::shots.push_back(Shots(player, localplayer->GetEyePosition(), pGlobals->curtime));
+                }
+                
                 bool bAttack = true;
                 
                 if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)

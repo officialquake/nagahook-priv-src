@@ -9,6 +9,7 @@
 #include "../Hacks/snipercrosshair.hpp"
 #include "../Hacks/eventlog.hpp"
 #include "../Hacks/dlights.hpp"
+#include "../Hacks/logshots.hpp"
 
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
@@ -128,7 +129,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             DrawScope(local);   // Draws the crosshar for noscope
             
             rCrosshair(local);  // Draws recoil crosshair
-            
+            LogShots::Paint();
             manualaa(local, keynum);        // Manual AA idicator
             Dlights::Paint();
             NightMode();

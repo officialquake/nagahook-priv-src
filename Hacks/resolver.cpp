@@ -1,5 +1,6 @@
 #include "main.h"
 #include "antiaim.h"
+#include <array>
 #include "resolver.h"
 RecvVarProxyFn OldProxy_Y; //OldProxy_X;
 
@@ -663,36 +664,6 @@ float AAA_Yaw(C_BaseEntity* entity)
         else if (entity->GetEyeAngles()->x > -179.0 && entity->GetEyeAngles()->x < -181.0) entity->GetEyeAngles()->x += 180;
         else if (fabs(entity->GetEyeAngles()->x) == 0) entity->GetEyeAngles()->x = std::copysign(89.0f, entity->GetEyeAngles()->x);
     }
-    if(vars.aimbot.yresolve == 5){
-        entity->GetEyeAngles()->y = (rand() % 2) ?
-        entity->GetEyeAngles()->y + (AntiAim::GetMaxxDelta(entity->GetAnimState()) * 0.66f) :
-        entity->GetEyeAngles()->y - (AntiAim::GetMaxxDelta(entity->GetAnimState()) * 0.66f);
-    }
-    
-    
-
-    /*if(vars.aimbot.yresolve == 3){
-        for (int i = 1; i < pEngine->GetMaxClients(); ++i) {
-            C_BaseEntity *pClient = (C_BaseEntity*)pEntList->GetClientEntity(i);
-            if (pClient->IsPlayer()) {
-                    if (!pClient->isMoving()) {
-                        pClient->GetEyeAngles()->y = *pClient->GetLowerBodyYaw();
-                        int angle = rand() % 5;
-                        switch (angle) {
-                            case 0:pClient->GetEyeAngles()->y += 135; break;
-                            case 2:pClient->GetEyeAngles()->y += 155; break;
-                            case 3:pClient->GetEyeAngles()->y += 165; break;
-                            case 4:pClient->GetEyeAngles()->y += 175; break;
-                            case 5:pClient->GetEyeAngles()->y += 185; break;
-                        }
-                    }
-                    else {
-                        pClient->GetEyeAngles()->y = *(float*)pClient->GetLowerBodyYaw();
-                        pClient->GetEyeAngles()->y += 180;
-                    }
-            }
-        }
-    }*/
 }
 
 
@@ -706,11 +677,7 @@ void FixYaw(const CRecvProxyData *pData, void *pStruct, void *pOut) {
     OldProxy_Y(pData, pStruct, pOut);
 }
 
-/*std::vector<int64_t> Resolver::Players = { };
-
-std::vector<std::pair<C_BasePlayer*, QAngle>> player_data;
-
-void Resolver::FrameStageNotify(ClientFrameStage_t stage)
+void Resolver::FrameStageNotify(ClientFrameStage_t stage, C_BaseEntity* entity)
 {
     if (!pEngine->IsInGame())
         return;
@@ -718,8 +685,10 @@ void Resolver::FrameStageNotify(ClientFrameStage_t stage)
     C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     if (!localplayer)
         return;
-    
-    if (stage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
+ 
+    static std::array<int, 64> oldMissedShots = { 0 };
+    extern std::array<int, 64> missedShots;
+    if (vars.aimbot.enabled && vars.aimbot.Yawresolver && vars.aimbot.yresolve > 0 && stage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
     {
         for (int i = 1; i < pEngine->GetMaxClients(); ++i)
         {
@@ -733,27 +702,43 @@ void Resolver::FrameStageNotify(ClientFrameStage_t stage)
                 || player->GetTeam() == localplayer->GetTeam())
                 continue;
             
-            player_info_t entityInformation;
-            pEngine->GetPlayerInfo(i, &entityInformation);
+            CCSGOAnimState* animState = player->GetAnimState();
+            if (!animState)
+                continue;
+            if(vars.aimbot.yresolve != 5)
+                continue;
             
-            if (vars.aimbot.yresolve != 3)
+            float maxDelta = AntiAim::GetMaxxDelta(animState);
+            int missedShot = LogShots::missedShots[player->GetIndex() - 1];
+            int oldMissedShot = oldMissedShots[player->GetIndex() - 1];
+            
+            if (missedShot <= oldMissedShot)
                 continue;
             
             //player->GetEyeAngles()->y = *player->GetLowerBodyYawTarget();
-            player->GetEyeAngles()->y = (rand() % 2) ?
-            player->GetEyeAngles()->y + (AntiAim::GetMaxxDelta(player->GetAnimState()) * 0.66f) :
-            player->GetEyeAngles()->y - (AntiAim::GetMaxxDelta(player->GetAnimState()) * 0.66f);
+            switch (missedShot % 5)
+            {
+                case 0:
+                    entity->GetEyeAngless()->y -= 0;
+                    break;
+                case 1:
+                    entity->GetEyeAngless()->y -= maxDelta;
+                    break;
+                case 2:
+                    entity->GetEyeAngless()->y += maxDelta;
+                    break;
+                case 3:
+                    entity->GetEyeAngless()->y -= maxDelta / 2;
+                    break;
+                case 4:
+                    entity->GetEyeAngless()->y += maxDelta / 2;
+                    break;
+            }
         }
     }
     else if (stage == ClientFrameStage_t::FRAME_RENDER_END)
     {
-        for (unsigned long i = 0; i < player_data.size(); i++)
-        {
-            std::pair<C_BasePlayer*, QAngle> player_aa_data = player_data[i];
-            *player_aa_data.first->GetEyeAngless() = player_aa_data.second;
-        }
-        
-        player_data.clear();
+        oldMissedShots = LogShots::missedShots;
     }
 }
 
@@ -761,17 +746,55 @@ void Resolver::PostFrameStageNotify(ClientFrameStage_t stage)
 {
 }
 
-void Resolver::FireGameEvent(IGameEvent* event)
+/*void Resolver1::FrameStageNotify1(ClientFrameStage_t stage, C_BaseEntity* entity)
 {
-    if (!event)
+    if (!pEngine->IsInGame())
         return;
     
-    if (strcmp(event->GetName(), ("player_connect_full")) != 0 && strcmp(event->GetName(), ("cs_game_disconnected")) != 0)
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer)
         return;
     
-    if (event->GetInt("userid") && pEngine->GetPlayerForUserID(event->GetInt("userid")) != pEngine->GetLocalPlayer())
-        return;
+    //static std::array<int, 64> oldMissedShots = { 0 };
+    //extern std::array<int, 64> missedShots;
+    if (stage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START)
+    {
+        for (int i = 1; i < pEngine->GetMaxClients(); ++i)
+        {
+            C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(i);
+           
+           
+            
+            if (!player
+                || player == localplayer
+                || player->GetDormant()
+                || !player->GetAlive()
+                || player->GetImmune()
+                || player->GetTeam() == localplayer->GetTeam())
+                continue;
+            
+            //player_info_t entityInformation;
+            //spEngine->GetPlayerInfo(i, &entityInformation);
+             CCSGOAnimState* animState = player->GetAnimState();
+            
+            if (vars.aimbot.yresolve != 6)
+                continue;
+            float maxDelta = AntiAim::GetMaxxDelta(animState);
+            
+            //player_data.push_back(std::pair<C_BasePlayer*, QAngle>(player, *player->GetEyeAngles()));
+            
+            //player->GetEyeAngles()->y = *player->GetLowerBodyYawTarget();
+            entity->GetEyeAngless()->y = (rand() % 2) ?
+            entity->GetEyeAngless()->y + (maxDelta * 0.66f) :
+            entity->GetEyeAngless()->y - (maxDelta * 0.66f);
+        }
+    }
+    else if (stage == ClientFrameStage_t::FRAME_RENDER_END)
+    {
     
-    Resolver::Players.clear();
-}*/
+    }
+}
 
+void Resolver1::PostFrameStageNotify1(ClientFrameStage_t stage)
+{
+}*/

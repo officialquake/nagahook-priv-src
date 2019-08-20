@@ -1,14 +1,13 @@
-//
-//  grenadeprediction.hpp
-//  vHook
-//
-//  Created by Timothy Dillan on 19/8/19.
-//  Copyright © 2019 ViKiNG. All rights reserved.
-//
+#pragma once
+#include "main.h"
 
-#ifndef grenadeprediction_hpp
-#define grenadeprediction_hpp
 
-#include <stdio.h>
-
-#endif /* grenadeprediction_hpp */
+namespace GrenadePrediction
+{
+    extern float cameraHeight;
+    // Hooks
+    void OverrideView( CViewSetup* pSetup );
+    void Paint();
+    //void RenderView( void* thisptr, CViewSetup& setup, CViewSetup& hudViewSetup, unsigned int nClearFlags, int whatToDraw );
+    void CreateMove( CUserCmd *cmd ); // For not allowing Jumps via Scroll wheel
+}

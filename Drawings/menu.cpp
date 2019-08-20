@@ -692,7 +692,8 @@ void cMenu::renderAntiAim(int x, int y) {
     Resolve.push_back("Raizoh00k2");
     Resolve.push_back("Brute");
     Resolve.push_back("Ayyware");
-    //Resolve.push_back("Fuzion");
+    Resolve.push_back("Spacehook");
+   // Resolve.push_back("Fuzion");
     
     this->renderCheckbox(x + 235, y + 205, "Yaw Resolver", &vars.aimbot.Yawresolver);
     

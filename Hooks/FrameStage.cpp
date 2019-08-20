@@ -183,6 +183,9 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     {   // Call functions here just so its cleaner
         RemoveFlash(curStage);
         FakePing();
+        Resolver::FrameStageNotify(curStage, local);
+        //Resolver1::FrameStageNotify1(curStage, local);
+        
         
         
         
@@ -191,32 +194,40 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     clientVMT->GetOriginalMethod<tFrameStage>(37)(thisptr, curStage);
     
-    
+    Resolver::PostFrameStageNotify(curStage);
+    //Resolver1::PostFrameStageNotify1(curStage);
     
     if(pEngine->IsInGame() && vars.aimbot.enabled && vars.aimbot.Yawresolver && curStage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START && vars.aimbot.yresolve > 0)
     {
-        for(int i = 1; i < pEngine->GetMaxClients(); i++)
+        if(vars.aimbot.backtrack)
         {
-            C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(i);
-            auto* entity = pEntList->GetClientEntity(i);
-            //auto local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-            C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-            
-            if (!player
-                || player == localplayer
-                || player->GetDormant()
-                || !player->GetAlive()
-                || player->GetImmune()
-                || player->GetTeam() == localplayer->GetTeam())
-                continue;
-        
-            //backtracking->Store(entity);
-            
-            //*(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation1) = AAA_Pitch(entity);
-            if(vars.aimbot.backtrack){
+            for(int i = 1; i < pEngine->GetMaxClients(); i++)
+            {
+                auto* entity = pEntList->GetClientEntity(i);
+                
+                if(!entity)
+                    continue;
+                
+                if(!entity->GetAlive())
+                    continue;
+                
+                if(entity->GetImmune())
+                    continue;
+                
+                if(entity->GetDormant())
+                    continue;
+                
+                if(entity == local)
+                    continue;
+                
+                if(!gCorrections[entity->GetIndex()].resolved)
+                    continue;
+                
                 backtracking->Update(pGlobals->tickcount);
+                
+                //*(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation1) = AAA_Pitch(entity);
+                *(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation2) = AAA_Yaw(entity);
             }
-            *(float*)((uintptr_t)entity + offsets.DT_BasePlayer.m_angRotation2) = AAA_Yaw(entity);
         }
         
     }
