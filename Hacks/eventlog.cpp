@@ -40,12 +40,12 @@ void Eventlog::Paint(void) {
     int w, h;
     pEngine->GetScreenSize(w, h);
     
-    Color color = Color( 255, 79, 56, 255 );
+    Color color = Color::White();
     //float sc = 1.0f/255.0f;
     color.SetAlpha(min(color.a(), (int)(diff * color.a() / duration * 2)));
     
     
-    int textHeight = (int)draw->GetTextSize( "[cool]", espfont ).y;
+    int textHeight = (int)draw->GetTextSize( "[cool]", hhhfont ).y;
     
     for ( unsigned int i = 0; i < logToShow.size(); i++ ) {
         long timestamp = logToShow[i].second;
@@ -63,7 +63,7 @@ void Eventlog::Paint(void) {
         Vector2D pos = Vector2D(w / 5, h / 6.5 - textHeight * i);
         color.SetAlpha(std::min(color.a(), (int)(diff * color.a() / duration * 2)));
         
-        draw->drawstring(pos, showLog.c_str(), espfont, color);
+        draw->drawstring(pos, showLog.c_str(), hhhfont, color);
         
     }
 }

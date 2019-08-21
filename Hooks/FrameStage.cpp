@@ -7,6 +7,7 @@
 #include "../Hacks/antiaim.h"
 #include "../Hacks/resolver.h"
 
+
 float GetMaxxDelta(CCSGOAnimState *animState ) {
     
     float speedFraction = std::max(0.0f, std::min(animState->feetShuffleSpeed, 1.0f));
@@ -182,7 +183,8 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     
     {   // Call functions here just so its cleaner
         RemoveFlash(curStage);
-        FakePing();
+        //FakePing();
+        InverseRagdoll();
         Resolver::FrameStageNotify(curStage, local);
         //Resolver1::FrameStageNotify1(curStage, local);
         

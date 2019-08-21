@@ -1,43 +1,43 @@
 class Skins {
 public:
-    int knifeT      = WEAPON_KNIFE_KARAMBIT;
-    int knifeCT     = WEAPON_KNIFE_KARAMBIT;
-    int TknifeID    = 409;  // Ruby
-    int CTknifeID   = 409;   // Fade
+    int knifeT      = WEAPON_KNIFE_M9_BAYONET;
+    int knifeCT     = WEAPON_KNIFE_M9_BAYONET;
+    int TknifeID    = 12;  // Ruby
+    int CTknifeID   = 12;   // Fade
     
-    int gloveCT      = GLOVE_SPORTY;
-    int gloveT     = GLOVE_SPORTY;
-    int CTgloveID    = 10047;
-    int TgloveID   = 10047;
+    int gloveCT      = GLOVE_SPECIALIST;
+    int gloveT     = GLOVE_SPECIALIST;
+    int CTgloveID    = 10033;
+    int TgloveID   = 10033;
     // Rifles
     int galil   = 661;
-    int famas   = 604;
-    int ak47    = 801;
+    int famas   = 529;
+    int ak47    = 639;
     int m4a4    = 309;
     int m4a1    = 430;
     int scout   = 222;
     int sg      = 259;
-    int aug     = 455;
-    int awp     = 662;
+    int aug     = 601;
+    int awp     = 259;
     int g3      = 511;
-    int scar    = 597;
+    int scar    = 232;
     // Pistols
-    int glock   = 586;
+    int glock   = 353;
     int usp     = 504;
-    int p2000   = 71;
-    int dual    = 747;
+    int p2000   = 591;
+    int dual    = 276;
     int p250    = 668;
     int tec9    = 671;
     int five7   = 44;
     int cz      = 350;
-    int deagle  = 711;
+    int deagle  = 232;
     int revolver= 12;
     // SMGs
-    int mac10   = 433;
-    int mp9     = 549;
-    int mp7     = 627;
+    int mac10   = 589;
+    int mp9     = 33;
+    int mp7     = 696;
     int ump     = 436;
-    int p90     = 636;
+    int p90     = 169;
     int bizon   = 203;
     // Heavys
     int nova    = 537;

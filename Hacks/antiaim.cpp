@@ -725,11 +725,9 @@ float Freestand(C_BaseEntity* local, CUserCmd* cmd)
 void DoAntAimFake(CCSGOAnimState* animState, Vector &angle){
     if (!animState)
         return;
-    static bool yFlip = false;
+    //static bool yFlip = false;
     float maxDelta = AntiAim::GetMaxxDelta(animState);
-    //bool LBYUpdateb = LBYUpdate();
     angle.y -= maxDelta;
-    
     
 }
 
@@ -940,7 +938,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 
                 DoAntAimFake(animState, angle);
                 NormalizeAngles(angle);
-                Global::fake_angle = angle.y;
+                
             }
             
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {
@@ -1107,6 +1105,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 
             } // End Of FakeAA Yaw
         }
+    }
+    
+    if (bSendPacket){
+        Global::real_ang1e = CreateMove::lastTickViewAngles;
+    }else{
+        Global::fake_ang1e = cmd->viewangles;
     }
         
     cmd->viewangles.ClampAngles();

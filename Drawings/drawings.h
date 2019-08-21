@@ -2,7 +2,7 @@
 
 #define PI 3.14159265358979323846f
 
-extern HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, framefont, espfont, mFont, osFont, sFont, tFont, cFont, titleFont, subtitleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont, bombfont;
+extern HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, framefont, espfont, mFont, osFont, sFont, tFont, cFont, titleFont, subtitleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont, bombfont, hhfont, hhhfont;
 // if you want to add more
 
 typedef int ViVec_t;
@@ -39,6 +39,7 @@ public:
     void drawstring(int x, int y, Color color, HFONT font, const char* szString, bool bCenter = false);
     void drawString(int font, bool bCenter, int x, int y, Color c, const char *fmt, ...);
     void drawstring(Vector2D pos, const char* szString, HFONT font, Color color);
+    void KeyBindButton(ButtonCode_t* key);
     void drawgradient(int x, int y, int w, int h, Color col1, Color col2);
     void GradientH(int x, int y, int width, int height, Color color1, Color color2);
     void BorderBox(int x, int y, int w, int h, int thickness, Color color);

@@ -39,6 +39,12 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             bombfont = pSurface->CreateFont();
             pSurface->SetFontGlyphSet(bombfont, "Verdana", 45, 1000, 0, 0, FONTFLAG_ANTIALIAS);
             
+            hhfont = pSurface->CreateFont();
+            pSurface->SetFontGlyphSet(hhfont, "Segoe UI", 12, 0, 0, 0, FONTFLAG_ANTIALIAS);
+            
+            hhhfont = pSurface->CreateFont();
+            pSurface->SetFontGlyphSet(hhhfont, "Segoe UI", 12, 0, 0, 0, FONTFLAG_OUTLINE);
+            
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
             //espfont         = draw->createfont(espfont, "Segoe UI", 11,  FONTFLAG_ANTIALIAS);
             csgo_icons      = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_ANTIALIAS);

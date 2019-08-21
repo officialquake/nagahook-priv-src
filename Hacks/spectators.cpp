@@ -59,7 +59,7 @@ void Spectatorlist()
     // Change these to change the location of the window. It doesn't drag.
 
     std::string spec_title = "Spectators";
-    draw->drawstring(x + 30, y + 15, Color::Red(), espfont, spec_title.c_str());
+    draw->drawstring(x + 30, y + 15, Color::Red(), hhfont, spec_title.c_str());
     
     static int count = 0;
     
@@ -74,7 +74,7 @@ void Spectatorlist()
             continue;
         
         count += 1;
-        draw->drawstring(x + 30, y + 30 + (12 * count), Color::Red(), espfont, entityInformation.name);
+        draw->drawstring(x + 30, y + 30 + (12 * count), Color::Red(), hhfont, entityInformation.name);
 
     }
     

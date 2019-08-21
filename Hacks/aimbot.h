@@ -31,6 +31,7 @@ enum HITSCAN
     lowerbody = 8,
     arms = 9,
     legs = 10,
+    baimlowerbody = 11
     //test2       = 6,
     //Mixed       = 7,
 };

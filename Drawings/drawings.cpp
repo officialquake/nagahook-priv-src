@@ -2,7 +2,7 @@
 
 cDrawings* draw = new cDrawings();
 
-HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, espfont, osFont, tFont, titleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont, bombfont; // if you want to add more fonts add them here and in drawings.h
+HFONT supremacy, subtitleFont, slider, pFont, framefont, mFont, lbyfont, eFont, sFont, specfont, xFont, cFont, xFontGay, iFont, mSection, iFont2, iFont3, weapfont, test, LBY, espfont, osFont, tFont, titleFont, heading, o4Font_20, o4Font_11, o4Font_03, csgo_icons, copyright, indicatorFont, bombfont, hhfont, hhhfont; // if you want to add more fonts add them here and in drawings.h
 bool bWasPressed, bWasReleased;
 
 

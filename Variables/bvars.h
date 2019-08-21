@@ -233,7 +233,7 @@ public:
         bool lbybreaker           = false;
         bool lbybreakermanual           = false;
         float lbybreakeroffset = 180.0f;
-        
+        bool meme           = false;
         // Different Clantags
         bool clantag         = false;    // Enables clantag
         

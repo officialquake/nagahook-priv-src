@@ -552,7 +552,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         pModelRender->ForcedMaterialOverride(nullptr);
                         
                     }
-                    if (vars.misc.desynchams && entity == local  && vars.misc.thirdperson && !local->IsScoped() && vars.visuals.localchams){
+                    if (vars.misc.desynchams && entity == local && !local->IsScoped()){
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
@@ -561,19 +561,20 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         for (int i = 0; i < 128; i++)
                         {
                             
-                            AngleMatrix(Vector(0, Global::fake_angle, 0), BoneMatrix[i]);
+                            AngleMatrix(Vector(0, Global::fake_ang1e.y, 0), BoneMatrix[i]);
                             MatrixMultiply(BoneMatrix[i], pCustomBoneToWorld[i]);
                             BonePos = Vector(pCustomBoneToWorld[i][0][3], pCustomBoneToWorld[i][1][3], pCustomBoneToWorld[i][2][3]) - pInfo.origin;
-                            VectorRotate(BonePos, Vector(0, Global::fake_angle, 0), OutPos);
+                            VectorRotate(BonePos, Vector(0, Global::fake_ang1e.y, 0), OutPos);
                             OutPos += pInfo.origin;
                             BoneMatrix[i][0][3] = OutPos.x;
                             BoneMatrix[i][1][3] = OutPos.y;
                             BoneMatrix[i][2][3] = OutPos.z;
                         }
+                        firstLit->AlphaModulate(155 / 255.f);
+                        firstLit->ColorModulate(Color::Red());
                         pModelRender->ForcedMaterialOverride(firstLit);
                         CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
                         pModelRender->ForcedMaterialOverride(nullptr);
-                        return;
 
                     }
                     if(vars.misc.thirdperson && local->IsScoped() && entity == local) {

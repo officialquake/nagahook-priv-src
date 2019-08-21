@@ -8,6 +8,9 @@ namespace Global
     extern C_BasePlayer*        local;
     extern C_BaseCombatWeapon*  weapon;
     extern float fake_angle;
+    extern float real_angle;
+    extern Vector fake_ang1e;
+    extern Vector real_ang1e;
 }
 extern ISurface*            pSurface;
 extern CEffects*            pEffects;

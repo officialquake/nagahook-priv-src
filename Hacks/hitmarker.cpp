@@ -39,7 +39,7 @@ void Hitmarkers::Paint(void){
     };
     for (auto& it : sides)
         draw->drawline(w / 2 +  (vars.visuals.hitinnergap * it[0]), h / 2 + (vars.visuals.hitinnergap * it[1]), w / 2 + (vars.visuals.hitsize * it[0]), h / 2 + (vars.visuals.hitsize * it[1]), color);
-    float textHeight = draw->GetTextSize("[cool]", espfont).y;
+    float textHeight = draw->GetTextSize("[cool]", hhhfont).y;
     for (unsigned int i = 0; i < damages.size(); i++) {
         long timestamp = damages[i].second;
         long hitDiff = timestamp + duration - now;
@@ -54,7 +54,7 @@ void Hitmarkers::Paint(void){
         std::string damageStr = '-' + std::to_string(damage);
         color.SetAlpha(std::min(color.a(), (int)(diff * color.a() / duration * 2)));
         
-        draw->drawstring(pos, damageStr.c_str(), espfont, color);
+        draw->drawstring(pos, damageStr.c_str(), hhhfont, color);
         //draw->AddText(w / 2 + vars.visuals.hitsize + 4, h / 2 - vars.visuals.hitsize - textHeight * i + 4, damageStr.c_str(), color);
     }
 }

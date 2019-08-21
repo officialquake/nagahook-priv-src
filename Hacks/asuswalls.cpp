@@ -64,6 +64,21 @@ void FullBright(){
         fullbright->SetValue(0);
     }
 }
+void InverseRagdoll(){
+    
+    if (!pEngine->IsConnected() || !pEngine->IsInGame())
+        return;
+    
+    static ConVar* inverseragdoll = pCvar->FindVar("cl_ragdoll_gravity");
+    inverseragdoll->nFlags &= ~FCVAR_CHEAT;
+    
+    if (vars.misc.meme) {
+        inverseragdoll->SetValue(-600);
+    }
+    else{
+        inverseragdoll->SetValue(600);
+    }
+}
 void NightMode()
 {
     static bool nightmode_performed = false, nightmode_lastsetting;

@@ -674,6 +674,7 @@ void cMenu::renderAntiAim(int x, int y) {
     hitscan.push_back("lowerbody");
     hitscan.push_back("arms");
     hitscan.push_back("legs");
+    hitscan.push_back("baimlowerbody");
     //CT.push_back("Test 2");
     //CT.push_back("Mixed");
     this->renderCombo(x + 235, y + 155, 150, 20, "Off", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);
@@ -920,9 +921,9 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
     this->renderSlider(x + 469, y + 55, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    /*this->renderCheckbox(x + 474, y + 75, "FakePing", &vars.misc.fakeping);
-    this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);*/
+    this->renderCheckbox(x + 474, y + 85, "meme dead grav", &vars.misc.meme);
+    //this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
+    //this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
 
    

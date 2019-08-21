@@ -54,6 +54,8 @@ void manualaa(C_BaseEntity* Local, int keynum)
 {
     if (!vars.visuals.antiaim_indicator )
         return;
+    if(!vars.misc.manualaa)
+        return;
     if(!pEngine->IsInGame() && !pEngine->IsConnected())
         return;
     
@@ -78,14 +80,14 @@ void manualaa(C_BaseEntity* Local, int keynum)
     
      //cmd->viewangles.y += (switchside) ? -90 : 90;
     
-    left = (switchside) ?  false : true;
-    right = (switchside) ? true : false;
+    left = (switchside) ?  true : false;
+    right = (switchside) ? false : true;
 
     
-    if(keynum == KEY_SLASH)
+    /*if(keynum == KEY_SLASH)
     {
         vars.misc.manualcrosshair = !vars.misc.manualcrosshair;
-    }
+    }*/
     
     //float_t pos = Global::cmd->viewangles.y;
     
@@ -107,11 +109,11 @@ void manualaa(C_BaseEntity* Local, int keynum)
         
         if( right  ) {
             draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
-            draw->drawstring(y - 60, x, Color(255, 255, 255, 125), indicatorFont, ("A")); // White
+            draw->drawstring(y - 60, x, Color(192, 192, 192, 125), indicatorFont, ("A")); // White
         }
         
         if( left ){
-            draw->drawstring(y + 40, x, Color(255, 255, 255, 125), indicatorFont, ("B")); // White
+            draw->drawstring(y + 40, x, Color(192, 192, 192, 125), indicatorFont, ("B")); // White
             draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }
     }

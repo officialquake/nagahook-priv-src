@@ -7,6 +7,9 @@ namespace Global
     C_BasePlayer* local;
     C_BaseCombatWeapon* localWeapon;
     float fake_angle;
+    float real_angle;
+     Vector fake_ang1e;
+     Vector real_ang1e;
 }
 
 int __attribute__((constructor)) Init()
