@@ -35,7 +35,7 @@ enum VIEW_ANTIAIM_YAW {
     SidewaysLeft    = 10,
     SidewaysRight   = 11,
     LBYBreaker      = 12,
-    Desync1      = 12,
+    Desync1      = 13
 };
 
 enum VIEW_ANTIIAIM_FYAW {
@@ -46,20 +46,20 @@ enum VIEW_ANTIIAIM_FYAW {
     FakeInverseRotation = 5,
     Desync      = 6,
     FakeLBY         = 7,
-    FakeSideLBY     = 8,
+    FakeSideLBY     = 8
     
 };
 
 enum VIEW_ANTIIAIM_MYAW
 {
     LowerBody       = 1,
-    Rotate          = 2,
+    Rotate          = 2
 };
 
 enum VIEW_ANTIIAIM_AYAW
 {
     LowerBod        = 1,
-    Rotatee         = 2,
+    Rotatee         = 2
 };
 
 void antiResolverFlip(CUserCmd* cmd, C_BaseEntity* local);
