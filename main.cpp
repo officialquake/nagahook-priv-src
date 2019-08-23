@@ -8,10 +8,17 @@ namespace Global
     C_BaseCombatWeapon* localWeapon;
     float fake_angle;
     float real_angle;
-     Vector fake_ang1e;
-     Vector real_ang1e;
+    Vector fake_ang1e;
+    Vector real_ang1e;
+     //Vector GFakeAngle;
+     //Vector GRealAngle;
 }
 
+namespace AntiAem
+{
+    Vector GFakeAngle;
+    Vector GRealAngle;
+}
 int __attribute__((constructor)) Init()
 {
 

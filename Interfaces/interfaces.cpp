@@ -26,7 +26,7 @@ IGameMovement*      pGameMovement   = nullptr;
 IPhysicsSurfaceProps* pPhysics      = nullptr;
 IGameEventManager2* pGameEventManager = nullptr;
 INetChannelInfo*    nci             = nullptr;
-int* nPredictionRandomSeed  = nullptr;
+
 CMoveData* MoveData         = nullptr;
 
 

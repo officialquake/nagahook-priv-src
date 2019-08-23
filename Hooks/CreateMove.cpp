@@ -60,14 +60,13 @@ void RecoilControl(C_BaseEntity* local, CUserCmd* cmd)
     
 }
 
-static CEnginePrediction PredictionSystem;
 
 void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vector& vOldAngles, float& flForwardmove, float& flSidemove,  bool& sendPacket, CCSGOAnimState* animState, C_BasePlayer* player)
 {
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
-    PredictionSystem.Start(cmd);
+    StartPrediction(cmd);
     DoAim(cmd, local, weapon, flForwardmove, flSidemove, player);
     DoTrigger(cmd, weapon);
     backtracking->legitBackTrack(cmd, local);
@@ -79,23 +78,19 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     resolverfucker(cmd, local);
     RecoilControl(local, cmd);
     ContinuousPistols(cmd, weapon);
-    //AutoSlow(player, weapon, cmd);
     AutoCock(cmd, weapon);
+    DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     Hitchance(local, weapon);
     AutoKnife(cmd);
     LogShots::CreateMove(cmd);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
     doManual(cmd, local, weapon);
-    
-    PredictionSystem.End();
-    
-    
+    EndPrediction();
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     duck->DuckCool(cmd);
-    
-    DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     DoSpammer();
+    
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
         SetClanTag(draw->m_szChangedValue[3].c_str(), "Xanax");
     //movement->FakeLag(cmd, sendPacket);

@@ -18,6 +18,8 @@ void DoSpammer()
     if (!vars.misc.spammer)
         return;
     
+    
+    
     static int i;
     i++;
     

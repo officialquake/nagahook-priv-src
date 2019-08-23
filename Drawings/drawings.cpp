@@ -517,11 +517,11 @@ void cDrawings::drawgradient(int x, int y, int w, int h, Color col1, Color col2)
 }
 
 
-void cDrawings::GradientH(int x, int y, int width, int height, Color color1, Color color2) {
+void cDrawings::GradientH(int x, int y, int width, int height, Color color1, Color color2, Color color3) {
     
-    float flDifferenceR = (float)(color2.r() - color1.r()) / (float)width;
-    float flDifferenceG = (float)(color2.g() - color1.g()) / (float)width;
-    float flDifferenceB = (float)(color2.b() - color1.b()) / (float)width;
+    float flDifferenceR = (float)(color3.r() - color2.r() - color1.r()) / (float)width;
+    float flDifferenceG = (float)(color3.g() - color2.g() - color1.g()) / (float)width;
+    float flDifferenceB = (float)(color3.b() - color2.b() - color1.b()) / (float)width;
     
     for (float i = 0.f; i < width; i++) {
         

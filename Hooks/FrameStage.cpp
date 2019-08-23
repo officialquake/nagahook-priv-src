@@ -133,6 +133,9 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     if(vars.visuals.skinc) {
         skinchanger->FrameStageNotify(curStage);
     }
+    if(vars.misc.updateskins) {
+        skinchanger->ForceSkins();
+    }
     
     
     if(vars.misc.asuswalls)

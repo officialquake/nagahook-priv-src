@@ -53,9 +53,15 @@ namespace Global
     extern float fake_angle;
     extern float real_angle;
     extern Vector fake_ang1e;
+    //extern Vector GFakeAngle;
+    //extern Vector GRealAngle;
     extern Vector real_ang1e;
 }
 
+/*namespace AntiAem{
+    extern Vector GFakeAngle;
+    extern Vector GRealAngle;
+}*/
 namespace CreateMove
 {
     extern bool sendPacket;

@@ -36,6 +36,7 @@ public:
     // Config
     bool mCol_opend;
     bool cfg_opend;
+    bool skin_opend;
     
     // For text input
     bool misc_name, misc_changename;
@@ -104,6 +105,7 @@ public:
         int fakewalktype = 0;         // Fakewalk types
         bool backtrack = false;
         bool autoslow = false;
+         int skinssg = 0;
         
         bool freestanding = false;
         
@@ -205,6 +207,7 @@ public:
         bool dlight = false;
         bool dlightenemy = false;
         bool dlightallies = false;
+        bool updateskins = false;
         float loggerduration = 3000.f;
         float dlightradius = 500.0f;
         float loggerlines = 10;
@@ -224,6 +227,7 @@ public:
         bool airstuck       = false;    // Airstuck
         bool fovt           = true;    // Fov Changer Enabled
         int fov             = 20;       // FOV changer
+        int ssgskin             = 0;       // FOV changer
         bool watermark      = false;
         bool backtrack = false;
         bool moonwalk = false;
@@ -231,6 +235,7 @@ public:
         bool freestanding           = false;
         
         bool lbybreaker           = false;
+        bool desyncenabled           = false;
         bool lbybreakermanual           = false;
         float lbybreakeroffset = 180.0f;
         bool meme           = false;

@@ -1,13 +1,18 @@
 #include "skinchanger.h"
 #include "../Variables/skins.h"
+
+
 int KnifeCT = skin.knifeCT; // Change Knife model here
 int KnifeT = skin.knifeT;
 int GloveCT = skin.gloveCT;
 int GloveT = skin.gloveT;
+unsigned int SSGSKIN = 624;
+
 
 unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     /* https://github.com/sonicrules11/CSGO-skin-ID-dumper/blob/master/item_index.txt */
     // make_pair(WEAPON, cSkin(Skin, Seed, -1, Stattrak, Entity Quality, (char*)("Name") or nullptr for no name, Wear)),
+    
     make_pair(WEAPON_KNIFE, cSkin(skin.TknifeID, -1, KnifeCT, -1, 3, (char*)("Sharper Dildo"), 0.0001f)), // Ruby Doppler
     make_pair(WEAPON_KNIFE_T, cSkin(skin.CTknifeID, -1, KnifeT, -1, 3, (char*)("Bloody Dildo"), 0.0001f)), // Fade
     /*make_pair(WEAPON_C4, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
@@ -32,7 +37,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_TEC9, cSkin(skin.tec9, -1, -1, -1, 0, nullptr, 0.0001f)), // Ossified
     make_pair(WEAPON_USP_SILENCER, cSkin(skin.usp, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     // Rifles
-    make_pair(WEAPON_AK47, cSkin(skin.ak47, -1, -1, 1337, 0, nullptr, 0.0001f)), // Jaguar
+    make_pair(WEAPON_AK47, cSkin(vars.misc.ssgskin, -1, -1, 1337, 0, nullptr, 0.0001f)), // Jaguar
     make_pair(WEAPON_AUG, cSkin(skin.aug, -1, -1, 1337, 0, nullptr, 0.0001f)), // Akihabara Accept
     make_pair(WEAPON_AWP, cSkin(skin.awp, -1, -1, 1337, 0, nullptr, 0.0001f)), // Asiimov
     make_pair(WEAPON_FAMAS, cSkin(skin.famas, -1, -1, -1, 0, nullptr, 0.0001f)), // Roll Cage
@@ -41,6 +46,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_M4A1, cSkin(skin.m4a4, -1, -1, -1, 0, nullptr, 0.0001f)), // Neo-Noir
     make_pair(WEAPON_SCAR20, cSkin(skin.scar, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     make_pair(WEAPON_SG556, cSkin(skin.sg, -1, -1, 1337, 0, nullptr, 0.0001f)), // Mayan Dreams
+    
     make_pair(WEAPON_SSG08, cSkin(skin.scout, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
     make_pair(WEAPON_GALILAR, cSkin(skin.galil, -1, -1, -1, 0, nullptr, 0.0001f)), // Sugar Rush
     // SMGs
@@ -64,7 +70,17 @@ unordered_map<int, const char*> cSkinchanger::ModelList;
 
 cSkinchanger* skinchanger = new cSkinchanger;
 
+
+
 void cSkinchanger::FrameStageNotify(ClientFrameStage_t stage) {
+    if (vars.misc.ssgskin == 0) {
+        SSGSKIN = 624;
+    }else if (vars.misc.ssgskin == 1){
+        SSGSKIN == 222;
+    }else if (vars.misc.ssgskin == 2){
+        SSGSKIN == 503;
+    }
+    
     if(stage == FRAME_NET_UPDATE_POSTDATAUPDATE_START){
         pLocalPlayer = (C_BaseEntity*)(pEntList->GetClientEntity(pEngine->GetLocalPlayer()));
         
@@ -78,6 +94,7 @@ void cSkinchanger::FrameStageNotify(ClientFrameStage_t stage) {
     }
 }
 
+
 void cSkinchanger::FindModels() {
     ModelList[pModelInfo->GetModelIndex("models/weapons/v_knife_default_ct.mdl")] = KnifeToModelMatrix[KnifeCT].c_str();
     ModelList[pModelInfo->GetModelIndex("models/weapons/v_knife_default_t.mdl")] = KnifeToModelMatrix[KnifeT].c_str();
@@ -89,6 +106,8 @@ void cSkinchanger::ForceSkins() {
     player_info_t player_info;
     
     pEngine->GetPlayerInfo(pLocalPlayer->GetId(), &player_info);
+    
+    
         
         int* pWeapons = pLocalPlayer->GetWeapons();
         

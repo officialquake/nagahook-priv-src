@@ -15,7 +15,9 @@ public:
     int ak47    = 639;
     int m4a4    = 309;
     int m4a1    = 430;
+    
     int scout   = 222;
+    
     int sg      = 259;
     int aug     = 601;
     int awp     = 259;

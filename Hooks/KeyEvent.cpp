@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "../Variables/skins.h"
 
 int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbinding)
 {
@@ -24,7 +24,10 @@ int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbind
             vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
         }
         
+        
     }
+    
+    
     
     if(eventcode == 1)  // Key released
     {

@@ -48,7 +48,24 @@ void DrawScope(C_BaseEntity* local)
     draw->drawline(0, h / 2, w, h / 2, Color::Black());
 }
 
+static auto percent_col = [](int per) -> Color {
+    int red = per < 50 ? 255 : floorf(255 - (per * 2 - 100) * 255.f / 100.f);
+    int green = per > 50 ? 255 : floorf((per * 2) * 255.f / 100.f);
+    
+    return Color(red, green, 0, 255);
+};
 
+void DrawFakeAngle(C_BaseEntity* local) {
+    
+    if(!local)
+        return;
+    
+    if(!local->GetAlive())
+        return;
+    
+    if (vars.misc.antiaim)
+        draw->drawstring(10, 25, percent_col(fabs(AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y)), specfont, "FAKE");
+}
 
 void manualaa(C_BaseEntity* Local, int keynum)
 {

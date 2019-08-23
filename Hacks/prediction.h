@@ -20,7 +20,7 @@
  static std::map<int, const char*> GetModeValues();
  void StartSingle(CUserCmd* cmd, C_BaseCombatWeapon* pWeapon, C_BaseEntity* pLocal);
  void Start(CUserCmd* cmd);
- void End();
+ void End();a
  private:
  static CEnginePrediction* instance;
  float m_flOldCurtime = 0.f;

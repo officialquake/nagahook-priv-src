@@ -45,6 +45,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             hhhfont = pSurface->CreateFont();
             pSurface->SetFontGlyphSet(hhhfont, "Segoe UI", 12, 0, 0, 0, FONTFLAG_OUTLINE);
             
+            
             framefont       = draw->createfont(framefont, "BigNoodleTitling", 14, FONTFLAG_ANTIALIAS);
             //espfont         = draw->createfont(espfont, "Segoe UI", 11,  FONTFLAG_ANTIALIAS);
             csgo_icons      = draw->createfont(csgo_icons, "icomoon", 11, FONTFLAG_ANTIALIAS);
@@ -147,7 +148,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             SniperCrosshair::Paint();
             Eventlog::Paint();
             BulletTracers::Paint();
-            
+            DrawFakeAngle(local);
         
             //aw_hitmarker->initilisze();
         }

@@ -6,7 +6,6 @@
 //  Copyright © 2019 ViKiNG. All rights reserved.
 //
 #pragma once
-#include "../Hacks/antiaim.h"
+#include "../main.h"
 matrix3x4_t localfakelagmatrix[128];
-Vector fakeangle;
-Vector realangle;
+

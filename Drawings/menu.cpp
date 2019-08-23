@@ -640,7 +640,7 @@ void cMenu::renderAntiAim(int x, int y) {
     }*/
      this->renderCheckbox(x + 474, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
     this->renderCheckbox(x + 474, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
-    this->renderSlider(x + 474, y + 225, 130, "LBY Breaker Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    this->renderSlider(x + 471, y + 225, 115, "Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
     this->renderCheckbox(x + 474, y + 255, "Manual AA", &vars.misc.manualaa); // 60
     
     this->renderCheckbox(x + 474, y + 275, "Fake AA", &vars.misc.fakeaa); // 60
@@ -651,6 +651,9 @@ void cMenu::renderAntiAim(int x, int y) {
     if((!vars.aaX_opend) && !vars.aaY_opend) {
         this->renderCombo(x + 474, y + 345, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
+    
+    this->renderCheckbox(x + 474, y + 375, "Yaw Enabled (Desync)", &vars.misc.desyncenabled);
+    this->renderCheckbox(x + 474, y + 395, "Freestanding (Desync)", &vars.misc.freestanding);
     
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
@@ -855,9 +858,9 @@ void cMenu::renderVis(int x, int y) {
     
     this->renderCheckbox(x + 474, y + 15, "Hitmarker", &vars.visuals.hitmarker);
     this->renderCheckbox(x + 474, y + 35, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
-    this->renderSlider(x + 474, y + 55, 150, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 474, y + 75, 150, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
-    this->renderSlider(x + 474, y + 95, 150, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderSlider(x + 474, y + 55, 115, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 474, y + 75, 115, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
+    this->renderSlider(x + 474, y + 95, 115, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
     this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
     this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
     this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
@@ -865,14 +868,14 @@ void cMenu::renderVis(int x, int y) {
     
     this->renderCheckbox(x + 474, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
     this->renderCheckbox(x + 474, y + 215, "Show Allies Log", &vars.misc.showallieslog);
-    this->renderSlider(x + 474, y + 245, 130, "Logger Duration", vars.misc.loggerduration, 5000.f, 0.f);
-    this->renderSlider(x + 474, y + 275, 130, "Logger Lines", vars.misc.loggerlines, 15, 0);
+    this->renderSlider(x + 474, y + 245, 115, "Logger Duration", vars.misc.loggerduration, 5000.f, 0.f);
+    this->renderSlider(x + 474, y + 275, 115, "Logger Lines", vars.misc.loggerlines, 15, 0);
     this->renderCheckbox(x + 474, y + 315, "Show local player", &vars.misc.showlocalplayer);
     
     this->renderCheckbox(x + 474, y + 335, "Dlights", &vars.misc.dlight);
     this->renderCheckbox(x + 474, y + 355, "Dlight enemy", &vars.misc.dlightenemy);
     this->renderCheckbox(x + 474, y + 375, "Dlight allies", &vars.misc.dlightallies);
-    this->renderSlider(x + 474, y + 405, 130, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
+    this->renderSlider(x + 474, y + 405, 115, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
     
     this->renderCheckbox(x + 474, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
     this->renderCheckbox(x + 474, y + 455, "Bullet Tracers", &vars.visuals.bullett);
@@ -920,7 +923,7 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 474, y + 15, "Fake Lag", &vars.misc.fakelag);
     this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
-    this->renderSlider(x + 469, y + 55, 150, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
+    this->renderSlider(x + 469, y + 55, 115, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
     this->renderCheckbox(x + 474, y + 85, "meme dead grav", &vars.misc.meme);
     //this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
     //this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
@@ -1002,17 +1005,20 @@ void cMenu::renderConfigs(int x, int y) {
 }
 
 void cMenu::renderCredits(int x, int y) {
-    draw->drawstring(x + 15, y + 25, nagatoro, osFont, "ViKiNG", true);
-    draw->drawstring(x + 15, y + 45, nagatoro, osFont, "-X/Syn", true);
-    draw->drawstring(x + 15, y + 65, nagatoro, osFont, "Pwned", true);
-    draw->drawstring(x + 15, y + 85, nagatoro, osFont, "Warlauke", true);
-    draw->drawstring(x + 15, y + 105, nagatoro, osFont, "CreditCode", true);
-    draw->drawstring(x + 15, y + 125, nagatoro, osFont, "Gael", true);
-    draw->drawstring(x + 15, y + 145, nagatoro, osFont, "Tim", true);
+    vector<string> conf;
     
-    draw->drawstring(x + 250, y + 25, nagatoro, osFont, "Nagatoro", true);
+    conf.push_back("Dragonfire");
+    conf.push_back("Blood in the Water");
+    conf.push_back("Big Iron");
+    
+    this->renderCombo(x, y + 265,  150, 20, "Dragonfire", conf, vars.misc.ssgskin, &vars.skin_opend);
+    if(!vars.skin_opend) {
+        this->renderButton(x, y + 285, "Load", &vars.misc.updateskins);
+        
+    }
 
 }
+
 
 // Menu tabs
 enum mTab
@@ -1035,14 +1041,14 @@ void cMenu::renderMenu() {
     
     static int x = 100;
     static int y = 100;
-    int w = 710;
+    int w = 695;
     int h = 600;
     int hh = 22; // The height of the dragable area
     
     
     
     draw->fillrgba(x, y, w, h, Color(28, 28, 28, 255));
-    draw->fillrgba(x, y + 19, w, 3, Color(255, 0, 0, 255));
+    draw->GradientH(x, y + 19, w, 3, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
     static int counter = 0;
     static float colors[3] = { 1.f, 0.f, 0.f };
     
@@ -1060,64 +1066,64 @@ void cMenu::renderMenu() {
         colors[prev] -= 0.05f;
         colors[counter] += 0.05f;
     }
-    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255), csgo_icons, "q", true);
+    draw->drawstring(x + ( ( w - 4 ) / 2 ) + 2, y + 10, Color::White(), mFont, "killers.cc", true);
     
     // Draws tabs
-    draw->RectOutlined(x + 7, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 107, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 207, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 307, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 407, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 507, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
-    draw->RectOutlined(x + 607, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 7, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 107, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 207, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 307, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 407, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 507, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
+    //draw->RectOutlined(x + 607, y + 18 + 7, 96, 25, 1, Color(18, 18, 18, 255), Color(colors[0] * 255, colors[1] * 255, colors[2] * 255, 255));
     
     
     // Handles tabs
     if(draw->inArea(x + 2, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 2, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 2, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::LegitBot;
         
     } else if(draw->inArea(x + 102, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 102, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 102, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::RageBot;
         
     } else if(draw->inArea(x + 202, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 202, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 202, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Visuals;
         
     } else if(draw->inArea(x + 302, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 302, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 302, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Misc;
         
     } else if(draw->inArea(x + 402, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 402, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+       // draw->RectOutlined(x + 402, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::ColorsTab;
         
     } else if(draw->inArea(x + 502, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 502, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 502, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::ConfigTab;
             
     } else if(draw->inArea(x + 602, y + 27, 96, 20)) {
         
-        draw->RectOutlined(x + 602, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
+        //draw->RectOutlined(x + 602, y + 20 + 5, 96, 25, 1, Color(12, 12, 12, 255), greycolor);
         
         if(WasReleased)
             curTab = mTab::Credits;
@@ -1134,23 +1140,23 @@ void cMenu::renderMenu() {
             break;
             
         case mTab::RageBot:
-            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 20, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
-            render_section(x + 488, y + 55, 220, h - 62, "Anti-Aim");
+            render_section(x + 460, y + 55, 220, h - 62, "Anti-Aim");
             this->renderAntiAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case mTab::Visuals:
-            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 20, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
-            render_section(x + 488, y + 55, 220, h - 62, "Other2");
+            render_section(x + 460, y + 55, 220, h - 62, "Other2");
             this->renderVis(x + 35, y + 30 + 20 + 5);
             break;
             
         case mTab::Misc:
-            render_section(x + 10, y + 55, 220, h - 62, "Main");
+            render_section(x + 20, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
-            render_section(x + 488, y + 55, 220, h - 62, "HvH");
+            render_section(x + 460, y + 55, 220, h - 62, "HvH");
             this->renderMisc(x + 35, y + 30 + 20 + 5);
             break;
             
@@ -1167,8 +1173,8 @@ void cMenu::renderMenu() {
             break;
             
         case mTab::Credits:
-            render_section(x + 10, y + 55, 220, h - 62, "Main Contributors");
-            render_section(x + 249, y + 55, 220, h - 62, "Others");
+            render_section(x + 10, y + 55, 220, h - 62, "Weapons");
+            render_section(x + 249, y + 55, 220, h - 62, "Weapons");
             this->renderCredits(x + 35, y + 30 + 20 + 5);
             break;
             
@@ -1194,7 +1200,7 @@ void cMenu::renderMenu() {
     draw->drawstring(x + 350, y + 22 + 16, Color::White(), osFont, "MISC", true);
     draw->drawstring(x + 450, y + 22 + 15, Color::White(), osFont, "COLORS", true);
     draw->drawstring(x + 550, y + 22 + 15, Color::White(), osFont, "CONFIG", true);
-    draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "CREDITS", true);
+    draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "SKINS", true);
     
     Pressed(MOUSE_LEFT);
     draw->MoveMenu(x, y, w, hh, 1);

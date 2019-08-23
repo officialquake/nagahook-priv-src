@@ -1,6 +1,4 @@
-#include "main.h"
 #include "DrawModelExecute.h"
-
 
 
 string DirName(string source)
@@ -537,19 +535,21 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     }();
                     
                     
-                    if (vars.misc.desynchams && vars.misc.thirdperson && !local->IsScoped()){
+                    if (vars.misc.desynchams && vars.misc.thirdperson && !local->IsScoped() && vars.misc.antiaim && entity == local){
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
-                        float fakeangle = Global::fake_ang1e.y;
+                        //float fakeangle = AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y;
+                        float fakeangle = AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y;
+                        //float faekangle = AntiAem::GFakeAngle.y;
                         matrix3x4_t BoneMatrix[128];
                         for (int i = 0; i < 128; i++)
                         {
                             
-                            AngleMatrix(Vector(0, Global::fake_angle, 0), BoneMatrix[i]);
+                            AngleMatrix(Vector(0, fakeangle, 0), BoneMatrix[i]);
                             MatrixMultiply(BoneMatrix[i], pCustomBoneToWorld[i]);
                             BonePos = Vector(pCustomBoneToWorld[i][0][3], pCustomBoneToWorld[i][1][3], pCustomBoneToWorld[i][2][3]) - pInfo.origin;
-                            VectorRotate(BonePos, Vector(0, Global::fake_angle, 0), OutPos);
+                            VectorRotate(BonePos, Vector(0, fakeangle, 0), OutPos);
                             OutPos += pInfo.origin;
                             BoneMatrix[i][0][3] = OutPos.x;
                             BoneMatrix[i][1][3] = OutPos.y;

@@ -4,6 +4,7 @@
 #include "../EventListener.h"
 EventListener* eventlistener = nullptr;
 bool* bSendPacket = nullptr;
+int* nPredictionRandomSeed  = nullptr;
 
 void InitializeInterfaces()
 {

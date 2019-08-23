@@ -5,6 +5,7 @@
 // ClientVMT
 #define FrameStageIndex 37
 #define FireEventIndex 9
+
 /*
 * VMT End
 */

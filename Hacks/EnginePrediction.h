@@ -1,22 +1,14 @@
-#ifndef EnginePrediction_h
-#define EnginePrediction_h
+//
+//  PredictionSystem.hpp
+//  Breathless
+//
+//  Created by Paul on 28/7/19.
+//  Copyright © 2019 syn. All rights reserved.
+//
 
-#include "../main.h"
+#include <stdio.h>
 
-extern float m_flOldCurtime;
-extern float m_flOldFrametime;
+#include "main.h"
 
-class CEnginePrediction {
-public:
-    CEnginePrediction();
-    void Start(CUserCmd* cmd);
-    void End();
-private:
-    static CEnginePrediction* instance;
-    float m_flOldCurtime = 0.f;
-    float m_flOldFrametime = 0.f;
-    CMoveData m_MoveData;
-    int oldPFlags;
-};
-
-#endif /* EnginePrediction_h */
+void StartPrediction(CUserCmd* cmd);
+void EndPrediction();

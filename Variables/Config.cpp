@@ -103,7 +103,7 @@ void Config::LoadConfig() {
     vars.aimbot.backtrack = cfgget_b("Aimbot", "Backtrack");
     vars.aimbot.accuracyhithcance = cfgget_i("Aimbot", "ACHC");
     vars.aimbot.hitscantype = cfgget_i("Aimbot", "HT");
-    vars.aimbot.freestand = cfgget_b("Aimbot", "FT");
+    vars.misc.freestanding = cfgget_b("Aimbot", "FT");
     vars.aimbot.hitchance = cfgget_b("Aimbot", "Hitchance");
     vars.aimbot.jitter = cfgget_i("Aimbot", "Jitter");
     
@@ -200,6 +200,7 @@ void Config::LoadConfig() {
     vars.misc.spammer = cfgget_b("Misc", "Chat Spam");
     vars.misc.moonwalk = cfgget_b("Misc", "Moonwalk");
     vars.misc.clantag = cfgget_b("Misc", "Clantag");
+    
     vars.misc.spreadcrosshair = cfgget_b("Misc", "Spread");
     
     
@@ -229,6 +230,8 @@ void Config::LoadConfig() {
     vars.aimbot.baimxhp = cfgget_i("Aimbot", "BaimxHP");
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
     vars.visuals.bullett = cfgget_b("Misc", "Bullet");
+    vars.misc.desyncenabled = cfgget_b("Aimbot", "YawD");
+    //vars.misc.freestanding = cfgget_b("Aimbot", "Freestanding");
     
     
     //Colours
@@ -421,7 +424,8 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Aimbot", "Back", GetBoolValue(vars.misc.backjizzer));
     cfg.SetBoolValue("Aimbot", "LBY", GetBoolValue(vars.misc.turbojizzer));
     cfg.SetBoolValue("Aimbot", "Tank", GetBoolValue(vars.misc.tank));
-    cfg.SetBoolValue("Aimbot", "FT", GetBoolValue(vars.aimbot.freestand));
+     cfg.SetBoolValue("Aimbot", "YawD", GetBoolValue(vars.misc.desyncenabled));
+    cfg.SetBoolValue("Aimbot", "FT", GetBoolValue(vars.misc.freestanding));
     cfg.SetBoolValue("Aimbot", "Backtrack", GetBoolValue(vars.aimbot.backtrack));
     cfg.SetBoolValue("Aimbot", "Radar", GetBoolValue(vars.misc.radar));
     cfg.SetBoolValue("Aimbot", "Baim", GetBoolValue(vars.aimbot.baimhp));
