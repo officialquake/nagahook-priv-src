@@ -271,10 +271,10 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
     static IMaterial* secondLayer = CreateMaterial(true, false, "VertexLitGeneric");
     
     static IMaterial* firstLit = CreateMaterial(false, false, "UnlitGeneric");
-    static IMaterial* secondLit = CreateMaterial(true, false, "UnlitGeneric");
+    //static IMaterial* secondLit = CreateMaterial(true, false, "UnlitGeneric");
     
     static IMaterial* firstWire = CreateMaterial(false, true, "WireFrame");
-    static IMaterial* secondWire = CreateMaterial(true, true, "WireFrame");
+    //static IMaterial* secondWire = CreateMaterial(true, true, "WireFrame");
     
     static IMaterial* Plastic = pMatSystem->FindMaterial("models/inventory_items/trophy_majors/crystal_blue", TEXTURE_GROUP_OTHER);
     static IMaterial* Glass = pMatSystem->FindMaterial("models/inventory_items/cologne_prediction/cologne_prediction_glass", TEXTURE_GROUP_OTHER);
@@ -467,7 +467,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                     
                     
                     
-                    IMaterial* materialCheckSecond = [&]() -> IMaterial*
+                    /*IMaterial* materialCheckSecond = [&]() -> IMaterial*
                     {
                         if(vars.visuals.playersType == 0)
                             return secondLit;
@@ -475,7 +475,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             return secondLayer;
                         else if (vars.visuals.playersType == 2)
                             return secondWire;
-                    }();
+                    }();*/
                     
                     IMaterial* materialFakelag = [&]() -> IMaterial*
                     {

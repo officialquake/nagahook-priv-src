@@ -1,15 +1,5 @@
 #include "thirdperson.hpp"
 
-
-static Vector GetDesiredCameraOffset()
-{
-    ConVar* cam_idealdist = pCvar->FindVar("cam_idealdist");
-    ConVar* cam_idealdistright = pCvar->FindVar("cam_idealdistright");
-    ConVar* cam_idealdistup = pCvar->FindVar("cam_idealdistup");
-    
-    return Vector(cam_idealdist->GetFloat(), cam_idealdistright->GetFloat(), cam_idealdistup->GetFloat());
-}
-
 void ThirdPerson::OverrideView(CViewSetup* pSetup)
 {
     if(!vars.misc.thirdperson) {

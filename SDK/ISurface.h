@@ -129,7 +129,6 @@ public:
     }
     void add_textured_polygon(int n, Vertex_t* vertice, int r, int g, int b, int a) {
         static int texture_id = CreateNewTextureID(true);
-        static unsigned char buf[4] = { 255, 255, 255, 255 };
         set_drawing_color(r, g, b, a);
         DrawSetTexture(texture_id);
         DrawTexturedPolygon(n, vertice);

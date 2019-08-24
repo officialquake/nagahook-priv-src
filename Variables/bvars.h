@@ -211,7 +211,7 @@ public:
         float loggerduration = 3000.f;
         float dlightradius = 500.0f;
         float loggerlines = 10;
-        bool logshots = true;
+        bool logshots = false;
         bool showlocalplayer = false;
         
         bool norecoil       = true;

@@ -138,7 +138,7 @@ void grenadeESP(C_BaseEntity* entity){
         return;
     
     Color color;
-    char* name = nullptr;
+    const char* name = nullptr;
     
     IMaterial* mats[32];
     pModelInfo->GetModelMaterials(model, hdr->numtextures, mats);
@@ -468,10 +468,8 @@ void DrawPlayerESP()
         sprintf(getYaw, "Y: %1.0f", entity->GetYawRotation());
         sprintf(getPitch, "X: %1.0f", entity->GetHeadRotation());
         
-        Vector vFrom = GetHitboxPosition(entity, (int)HITBOX_HEAD);
         Vector vW2s;
         Vector vvvv;
-        Vector origin = entity->GetVecOrigin();
         
         if(DrawPlayerBox(entity, players)) {
             

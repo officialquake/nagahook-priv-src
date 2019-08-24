@@ -51,6 +51,30 @@ void LogShots::Paint()
     if (!vars.misc.logshots)
         return;
     
+    for (auto ev : LogShots::eventList)
+    {
+        float delta = ev.expTime - pGlobals->curtime;
+        auto white = Color(255, 255, 255, 180);
+        
+        if (ev.expTime > pGlobals->curtime && delta < 6.f)
+        {
+            if (delta < 0.5f)
+            {
+                auto clamped = std::clamp(delta * 2, 0.f, 1.f);
+                //white.SetAlpha(a) = clamped * 180;
+                offset -= (1.f - clamped) * 12;
+            }
+            
+            //draw->drawstring(pos, showLog.c_str(), hhhfont, color);
+            
+            draw->Text(8, offset, ev.string.c_str(), hhhfont, white);
+            offset += 12;
+            i++;
+        } else{
+            eventList.erase(eventList.begin() + i);
+            if (i > 0) i--;
+        }
+    }
 
 }
 
@@ -79,16 +103,15 @@ void LogShots::FireGameEvent(IGameEvent *event)
         
         if (victim == pEngine->GetLocalPlayer())
             return;
-        
-        auto ent = pEntList->GetClientEntity(pEngine->GetPlayerForUserID(victim));
+
         player_info_t info;
         pEngine->GetPlayerInfo(victim, &info);
         
         std::string str;
         str += std::string(("Hit ")) + info.name + (" in the ") + hitgroup + (" for ") + damage + (" dmg (") + health + (" health remaining.)\n");
         
-       // cvar->ConsoleColorPrintf(ColorRGBA(39, 106, 219, 255), ("[SpaceHook] "));
-        //cvar->ConsoleDPrintf(str.c_str());
+    
+        pCvar->ConsoleDPrintf(str.c_str());
         eventList.push_back(LoggedEvent(str, pGlobals->curtime + 5.f));
         
         missedShots[victim - 1] = 0;
@@ -182,14 +205,14 @@ void LogShots::CreateMove(CUserCmd* cmd)
         }
         
         eventList.push_back({str, pGlobals->curtime + 5.f});
-        //cvar->ConsoleColorPrintf(ColorRGBA(39, 106, 219, 255), ("[SpaceHook] "));
-        //cvar->ConsoleDPrintf(str.c_str());
+    
+        pCvar->ConsoleDPrintf(str.c_str());
         
         missedShots[shot.ent->GetIndex() - 1]++;
     } else { // spread
         eventList.push_back({"Missed shot due to spread", pGlobals->curtime + 5.f});
-        //cvar->ConsoleColorPrintf(ColorRGBA(39, 106, 219, 255), ("[SpaceHook] "));
-        //cvar->ConsoleDPrintf(("Missed shot due to spread\n"));
+        //pCvar->ConsoleColorPrintf(ColorRGBA(39, 106, 219, 255), ("[SpaceHook] "));
+        pCvar->ConsoleDPrintf(("Missed shot due to spread\n"));
     }
     
     shot.processed = true;

@@ -43,13 +43,6 @@ float AAA_Yaw(C_BaseEntity* entity)
     int index = entity->GetIndex();
     float angle = gCorrections[index].y;
     
-    
-    bool LBYbreak;
-    for (int i = 0; i < 13; i++)
-    {
-        entity->GetAnimTime();
-    }
-    
     bool IsMovingOnInAir = {
         //Check if player has a velocity greater than 0 (moving) and if they are onground.
         !(entity->GetFlags() & FL_ONGROUND)
@@ -68,27 +61,15 @@ float AAA_Yaw(C_BaseEntity* entity)
     bool maybeFakeWalking = {
         MovingOnGround && entity->GetVelocity().Length2D() < 36.0f
     };
-    
-    bool HasFakeHead = {
-        //lby should update if distance from lby to eye angles exceeds 35 degrees
-        abs(entity->GetEyeAngles()->y - entity->GetLowerBodyYawTarget()) > 35
-    };
-    
-    
-    bool Lbywithin35 = {
-        //lby should update if distance from lby to eye angles less than 35 degrees=
-        abs(entity->GetEyeAngles()->y - entity->GetLowerBodyYawTarget()) < 35
-    };
+
     
     int shotmissed = 0;
     int shots = 1;
-    bool bLowerBodyUpdated;
     
     if (vars.aimbot.yresolve == 1)
     { // rev(testing)
         
         static float old_simtime[65];// Using fake angles?
-        static float lbybreakshit[65];// Using fake angles?
         static float storedhealth[65];
         
         
@@ -106,7 +87,6 @@ float AAA_Yaw(C_BaseEntity* entity)
         float last_lby[64] = { 0.f };
         float last_lby_delta[64] = { 0.f };
         float large_lby_delta[64] = { 0.f };
-        float moving_lby[64] = { 0.f };
         bool bSawUpdate[64] = { false };
         bool  was_moving[64] = { false };
         float flLbyFlickTime[64] = { 0.f };
@@ -427,7 +407,6 @@ float AAA_Yaw(C_BaseEntity* entity)
             
             
             auto new_yaw = angle;
-            int vel = entity->GetVelocity().Length2D();
             float cur = pGlobals->curtime;
             float CurrentLowerbody = entity->GetLowerBodyYawTarget();
             bool is_fakewalk = entity->GetVelocity().Length2D() > 0 && entity->GetVelocity().Length2D() < 50;

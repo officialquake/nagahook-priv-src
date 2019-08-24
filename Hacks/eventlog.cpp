@@ -83,59 +83,7 @@ void Eventlog::FireGameEvent(IGameEvent* event)
     if (!localplayer)
         return;
     
-    if (strstr(event->GetName(), "player_hurt")){
-        
-        int hurt_player_id = event->GetInt("userid");
-        int attacker_id = event->GetInt("attacker");
-        
-        if (pEngine->GetPlayerForUserID(hurt_player_id) == pEngine->GetLocalPlayer())
-            return;
-        
-        if (pEngine->GetPlayerForUserID(attacker_id) != pEngine->GetLocalPlayer())
-            return;
-        
-        
-        C_BasePlayer* hurt_player = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetPlayerForUserID(hurt_player_id));
-        if (!hurt_player)
-            return;
-        
-        if (hurt_player->GetTeam() == localplayer->GetTeam() && !vars.misc.showallieslog)
-            return;
-        
-        if (hurt_player->GetTeam() != localplayer->GetTeam() && !vars.misc.showenemieslog)
-            return;
-        
-        long now = GetEpochTime();
-        lastLogTimestamp = now;
-        
-        std::string damageLog = "damage: -";
-        damageLog += std::to_string(event->GetInt("dmg_health"));
-        
-        if ((pEngine->GetPlayerForUserID(hurt_player_id) == pEngine->GetLocalPlayer() && (pEngine->GetPlayerForUserID(attacker_id) != pEngine->GetLocalPlayer()))){
-            damageLog += (" from ");
-            
-            player_info_t damageFromPlayer;
-            pEngine->GetPlayerInfo(pEngine->GetPlayerForUserID(attacker_id), &damageFromPlayer);
-            damageLog += std::string(damageFromPlayer.name);
-        } else if ((pEngine->GetPlayerForUserID(hurt_player_id) != pEngine->GetLocalPlayer() && (pEngine->GetPlayerForUserID(attacker_id) == pEngine->GetLocalPlayer()))){
-            damageLog += (" to ");
-            
-            player_info_t damageToPlayer;
-            pEngine->GetPlayerInfo(pEngine->GetPlayerForUserID(hurt_player_id), &damageToPlayer);
-            damageLog += std::string(damageToPlayer.name);
-        }
-        
-        if ((hurt_player->GetHealth()) - (event->GetInt("dmg_health")) <= 0){
-            damageLog += (" (dead)");
-        } else if ((hurt_player->GetHealth()) - (event->GetInt("dmg_health")) > 0){
-            damageLog += (" (left ");
-            damageLog += std::to_string((hurt_player->GetHealth()) - (event->GetInt("dmg_health")));
-            damageLog += (" hp)");
-        }
-        
-        logToShow.insert(logToShow.begin(), std::pair<std::string, long>(damageLog, now));
-        
-    } else if (strstr(event->GetName(), ("item_purchase"))){
+    if (strstr(event->GetName(), ("item_purchase"))){
         
         int buyer_player_id = event->GetInt("userid");
         

@@ -42,7 +42,7 @@ void InitializeVMTs()
 {
     uintptr_t findClientMode = CPatternScanner::Instance()->GetPointer("client_panorama.dylib",(unsigned char*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xA) + 0x4;
     uintptr_t findGlobalVars = CPatternScanner::Instance()->GetPointer("client_panorama.dylib", (unsigned char*)GLOBALS_SIG, GLOBALS_MASK, 0x3) + 0x4;
-    uintptr_t viewrenderPtr = CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)VIEWRENDER_SIG, VIEWREDNER_MASK);
+   // uintptr_t viewrenderPtr = CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)VIEWRENDER_SIG, VIEWREDNER_MASK);
     uintptr_t findRankReveal = CPatternScanner::Instance()->GetPointer("client_panorama.dylib",(unsigned char*)RANKREVEAL_SIG, RANKREVEAL_MASK, 0x15) + 0x4;
     uintptr_t findClanTag    = CPatternScanner::Instance()->GetPointer("engine.dylib", (unsigned char*) CLANTAG_SIG, CLANTAG_MASK, 0xB) + 0x4;
     uintptr_t sendPacketPtr =  CPatternScanner::Instance()->GetProcedure("engine.dylib", (unsigned char*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;

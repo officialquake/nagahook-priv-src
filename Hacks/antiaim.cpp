@@ -211,8 +211,6 @@ bool EdgeAntiAim(C_BaseEntity* pLocalBaseEntity, CUserCmd* cmd, float flWall, fl
 #define TICK_INTERVAL            (pGlobals->interval_per_tick)
 //#define TIME_TO_TICKS( dt )        ( (int)( 0.5f + (float)(dt) / TICK_INTERVAL ) )
 void DesyncAA(CUserCmd* cmd, C_BaseEntity* local){
-    float speed = local->GetVelocity().Length2D();
-    
     float standing = 115.f;
     float server_time = local->GetTickBase() * pGlobals->interval_per_tick * 2;
     float time = TIME_TO_TICKS(server_time);
@@ -334,8 +332,6 @@ void resolverfucker(CUserCmd* cmd, C_BaseEntity* local)
         return;
     if(!vars.misc.resolverfucker)
         return;
-    
-    static bool resolverfucker = false;
     cmd->viewangles.y += atTargets.y +  30 + RandomInt(-30, 30);
     
     
@@ -420,16 +416,17 @@ void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
         return;
     
     static bool back = false;
+    float change;
     int random = rand() % 100;
     if (random < 98)
         cmd->viewangles.y -= 180;
     if (random < 15)
     {
-        float change = -70 + (rand() % (int)(140 + 1));
+        change = -70 + (rand() % (int)(140 + 1));
     }
     if (random == 60)
     {
-        float change = -90 + (rand() % (int)(180 + 1));
+        change = -90 + (rand() % (int)(180 + 1));
         cmd->viewangles.y += change;
     }
     
@@ -822,6 +819,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState)
 {
     //Vector angle = cmd->viewangles;
+    //float flServerTime = (float)(local->GetTickBase()  * pGlobals->interval_per_tick);
     
     if (!vars.misc.antiaim)
         return;
@@ -835,14 +833,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     
-    if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
+    if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < local->GetTickBase() * pGlobals->interval_per_tick) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
     {
         AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
         return;
     }
     
-     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
-         return;
     
     if (!vars.misc.fakelag) {
         *bSendPacket = cmd->command_number % 2;
@@ -868,7 +864,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     static bool bFlip = false;
     
     float maxDelta = GetMaxDelta(animState);
-    float getmaxdelta = GetMaxDesyncDelta(animState);
     static int fakeTick = 0;
     bool bAttack = true;
     bFlip = !bFlip;
@@ -1039,10 +1034,13 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         motion++;
                     int value = ServerTime % 2;
                     switch (value) {
-                        case 0:cmd->viewangles.y = local->GetLowerBodyYawTarget() - 90.00f > 35 ? local->GetLowerBodyYawTarget() - 180.f : local->GetLowerBodyYawTarget() - 90.f; break;
+                        case 0:
                             *bSendPacket = false;
-                        case 1:cmd->viewangles.y = local->GetLowerBodyYawTarget() + 90.00f > 35 ? local->GetLowerBodyYawTarget() - 90.f : local->GetLowerBodyYawTarget() + 90.f; break;
+                            cmd->viewangles.y = local->GetLowerBodyYawTarget() - 90.00f > 35 ? local->GetLowerBodyYawTarget() - 180.f : local->GetLowerBodyYawTarget() - 90.f; break;
+                        case 1:
                             *bSendPacket = true;
+                            cmd->viewangles.y = local->GetLowerBodyYawTarget() + 90.00f > 35 ? local->GetLowerBodyYawTarget() - 90.f : local->GetLowerBodyYawTarget() + 90.f; break;
+                            
                     }
                     counter++;
                 } else {
@@ -1050,10 +1048,13 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                         motion++;
                     int value = ServerTime % 2;
                     switch (value) {
-                        case 0:cmd->viewangles.y = angle_for_yaw.y + (rand() % 100 > 33 ? (rand() % 50 > 13 ? (rand() % 20 + 40) : -(rand() % 20 + 40)) : (rand() % 100 > 71 ? (rand() % 20 + 150) : -(rand() % 20 + 150))); break;
+                        case 0:
                             *bSendPacket = false;
-                        case 1:cmd->viewangles.y = angle_for_yaw.y + (rand() % 100 > 33 ? (rand() % 50 > 13 ? (rand() % 20 + 40) : -(rand() % 20 + 40)) : (rand() % 100 > 71 ? (rand() % 20 + 150) : -(rand() % 20 + 150))); break;
+                            cmd->viewangles.y = angle_for_yaw.y + (rand() % 100 > 33 ? (rand() % 50 > 13 ? (rand() % 20 + 40) : -(rand() % 20 + 40)) : (rand() % 100 > 71 ? (rand() % 20 + 150) : -(rand() % 20 + 150))); break;
+                        case 1:
                             *bSendPacket = true;
+                            cmd->viewangles.y = angle_for_yaw.y + (rand() % 100 > 33 ? (rand() % 50 > 13 ? (rand() % 20 + 40) : -(rand() % 20 + 40)) : (rand() % 100 > 71 ? (rand() % 20 + 150) : -(rand() % 20 + 150))); break;
+                            
                     }
                     counter++;
                 }

@@ -56,8 +56,6 @@ auto Pressed (ButtonCode_t code) -> void {
 
 void cMenu::renderCheckbox(int x, int y, const char* str, bool *var) {
     
-    int size = 8;
-    
     draw->fillrgba(x, y, 18, 8, Color(56,56,56,242));
     draw->fillrgba(x + 1, y + 1, 10 - 2, 8 - 2, Color(252,252,252,255));
     
@@ -881,7 +879,7 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 444, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
     this->renderCheckbox(x + 444, y + 455, "Bullet Tracers", &vars.visuals.bullett);
     this->renderCheckbox(x + 444, y + 475, "Full-Bright", &vars.misc.fullbright);
-    this->renderCheckbox(x + 444, y + 495, "Grenade Pred", &vars.misc.grenadepred);
+    this->renderCheckbox(x + 444, y + 495, "Shot Logs", &vars.misc.logshots);
 }
 
 

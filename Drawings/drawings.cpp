@@ -540,28 +540,28 @@ void cDrawings::drawmouse() { // Draws mouse
     int mouse_y = this->GetMouse().y;
     
     this->fillrgba(mouse_x + 1, mouse_y, 1, 17, Color(0, 0, 0, 255));
-    
+    //draw->GradientH(mouse_x + 1, mouse_y, 1, 17, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
     
     for(int i = 0; i < 11; i++)
         this->fillrgba(mouse_x + 2 + i, mouse_y + 1 + i, 1, 1, Color(0, 0, 0, 255));
     
-    this->fillrgba(mouse_x + 7, mouse_y + 12, 6, 1, Color(0, 0, 0, 255));
-    this->fillrgba(mouse_x + 6, mouse_y + 12, 1, 1, Color(0, 0, 0, 255));
-    this->fillrgba(mouse_x + 5, mouse_y + 13, 1, 1, Color(0, 0, 0, 255));
-    this->fillrgba(mouse_x + 4, mouse_y + 14, 1, 1, Color(0, 0, 0, 255));
-    this->fillrgba(mouse_x + 3, mouse_y + 15, 1, 1, Color(0, 0, 0, 255));
-    this->fillrgba(mouse_x + 2, mouse_y + 16, 1, 1, Color(0, 0, 0, 255));
+    draw->GradientH(mouse_x + 7, mouse_y + 12, 6, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 6, mouse_y + 12, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 5, mouse_y + 13, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 4, mouse_y + 14, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 3, mouse_y + 15, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 2, mouse_y + 16, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
     
     
     for(int i = 0; i < 4; i++)
-        this->fillrgba(mouse_x + 2 + i, mouse_y + 2 + i, 1, 14 - (i * 2), Color(150, 20, 20, 230));
+        draw->GradientH(mouse_x + 2 + i, mouse_y + 2 + i, 1, 14 - (i * 2), Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
     
-    this->fillrgba(mouse_x + 6, mouse_y + 6, 1, 6, Color(150, 20, 20, 230));
-    this->fillrgba(mouse_x + 7, mouse_y + 7, 1, 5, Color(150, 20, 20, 230));
-    this->fillrgba(mouse_x + 8, mouse_y + 8, 1, 4, Color(150, 20, 20, 230));
-    this->fillrgba(mouse_x + 9, mouse_y + 9, 1, 3, Color(150, 20, 20, 230));
-    this->fillrgba(mouse_x + 10, mouse_y + 10, 1, 2, Color(150, 20, 20, 230));
-    this->fillrgba(mouse_x + 11, mouse_y + 11, 1, 1, Color(150, 20, 20, 230));
+    draw->GradientH(mouse_x + 6, mouse_y + 6, 1, 6, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 7, mouse_y + 7, 1, 5, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 8, mouse_y + 8, 1, 4, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 9, mouse_y + 9, 1, 3, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 10, mouse_y + 10, 1, 2, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
+    draw->GradientH(mouse_x + 11, mouse_y + 11, 1, 1, Color(185, 55, 140, 255), Color(35, 85, 145, 255), Color(144, 238, 144, 200));
     
 }
 
@@ -814,7 +814,20 @@ void cDrawings::drawString(int font, bool bCenter, int x, int y, Color c, const 
     free(pszStringWide);
 }
 
+void cDrawings::Text(int x, int y, const char* text, HFONT font, Color col)
+{
+    std::wstring wc = StringToWstring(text);
     
+    pSurface->DrawSetTextPos(x, y);
+    pSurface->DrawSetTextFont(font);
+    pSurface->DrawSetTextColor(col);
+    pSurface->DrawPrintText(wc.c_str(), wcslen(wc.c_str()));
+}
+
+void cDrawings::Text(Vector2D pos, const char* text, HFONT font, Color col)
+{
+    Text(pos.x, pos.y, text, font, col);
+}
 
 void cDrawings::handleinput(int eventcode, string arr[100]) {
     

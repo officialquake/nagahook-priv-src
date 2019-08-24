@@ -24,7 +24,6 @@ void C_Misc::clan_tag()
             SetClanTag("i kill jews for fun", "i kill jews for fun");
         }*/
     static std::string cur_clantag = "        killers.cc";
-    static int old_time;
     
     static int i = 0;
     

@@ -41,6 +41,8 @@ public:
     void drawstring(Vector2D pos, const char* szString, HFONT font, Color color);
     void KeyBindButton(ButtonCode_t* key);
     void drawgradient(int x, int y, int w, int h, Color col1, Color col2);
+    void Text(int x, int y, const char* text, HFONT font, Color col);
+    void Text(Vector2D pos, const char* text, HFONT font, Color col);
     void GradientH(int x, int y, int width, int height, Color color1, Color color2, Color color3);
     void BorderBox(int x, int y, int w, int h, int thickness, Color color);
     void RectOutlined(int x, int y, int w, int h, int thickness, Color color, Color outlined);

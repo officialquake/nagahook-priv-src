@@ -851,6 +851,21 @@ public:
                 return false;
         }
     }
+    bool IsGay()
+    {
+        switch (*this->GetItemDefinitionIndex())
+        {
+            case WEAPON_AUG:
+            
+            case WEAPON_G3SG1:
+            case WEAPON_SCAR20:
+            case WEAPON_SG556:
+            case WEAPON_REVOLVER:
+                return true;
+            default:
+                return false;
+        }
+    }
 };
 
 class C_BaseViewModel: public C_BaseEntity {

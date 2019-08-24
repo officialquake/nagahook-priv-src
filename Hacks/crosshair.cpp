@@ -110,12 +110,12 @@ void manualaa(C_BaseEntity* Local, int keynum)
     
     if(vars.visuals.indicatorAA_types == 1){
         
-        if( left  )
+        if( right  )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("LEFT"));
         }
         
-        if( right )
+        if( left )
         {
             draw->drawstring(25, 600, Color(255, 0, 0, 255), copyright, ("RIGHT"));
         }
@@ -124,12 +124,12 @@ void manualaa(C_BaseEntity* Local, int keynum)
     if(vars.visuals.indicatorAA_types == 2){
         
         
-        if( right  ) {
+        if( left  ) {
             draw->drawstring(y + 40, x, Color(255, 0, 0, 125), indicatorFont, ("B")); // Blue
             draw->drawstring(y - 60, x, Color(192, 192, 192, 125), indicatorFont, ("A")); // White
         }
         
-        if( left ){
+        if( right ){
             draw->drawstring(y + 40, x, Color(192, 192, 192, 125), indicatorFont, ("B")); // White
             draw->drawstring(y - 60, x, Color(255, 0, 0, 125), indicatorFont, ("A")); // Blue
         }

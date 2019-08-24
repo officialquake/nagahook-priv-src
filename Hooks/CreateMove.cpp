@@ -161,7 +161,6 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
     float forward = cmd->forwardmove;
     float sidemove = cmd->sidemove;
     float upmove = cmd->upmove;
-    float bestdmg = 0.0f;
     
     if(pEngine->IsInGame() && pEngine->IsConnected())
     {

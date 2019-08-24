@@ -17,7 +17,7 @@ public:
         pGameEventManager->RemoveListener(this);
     }
     
-    void FireGameEvent(IGameEvent* event)
+    void FireGameEvent(IGameEvent* event) override
     {
         Hitmarkers::FireGameEvent(event);
         LogShots::FireGameEvent(event);
