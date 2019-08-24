@@ -19,6 +19,8 @@ namespace AntiAem
     Vector GFakeAngle;
     Vector GRealAngle;
     Vector GRealAngle1;
+    Vector realangle;
+    Vector fakeangle;
 }
 int __attribute__((constructor)) Init()
 {

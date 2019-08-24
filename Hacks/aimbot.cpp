@@ -12,17 +12,10 @@
 
 C_BaseEntity* Aimbot::curTarget = nullptr;
 
-
 void AutoSlow(C_BasePlayer* player, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd)
 {
     
-    if (!vars.aimbot.autoslow){
-        return;
-    }
-    
-    if (!player){
-        return;
-    }
+
     
     
    
@@ -312,6 +305,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 
                 }
                 if(vars.aimbot.autoslow){
+                    
                     C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
                     
                     C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());

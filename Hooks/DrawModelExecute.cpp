@@ -540,7 +540,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         Vector OutPos;
                         QAngle real, ang,forward;
                         
-                        float fakeangle = fabs(AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y);
+                        float fakeangle = AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y;
                         matrix3x4_t BoneMatrix[128];
                         for (int i = 0; i < 128; i++)
                         {
@@ -554,9 +554,9 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                             BoneMatrix[i][1][3] = OutPos.y;
                             BoneMatrix[i][2][3] = OutPos.z;
                         }
-                        firstLit->AlphaModulate(155 / 255.f);
-                        firstLit->ColorModulate(Color::Red());
-                        pModelRender->ForcedMaterialOverride(firstLit);
+                        firstLayer->AlphaModulate(155 / 255.f);
+                        firstLayer->ColorModulate(Color::White());
+                        pModelRender->ForcedMaterialOverride(firstLayer);
                         CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
                     }
                     

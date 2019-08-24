@@ -314,7 +314,7 @@ void DrawOtherESP() {
 
 
 
-void DrawSpread() {
+void DrawSpread(C_BaseEntity* local) {
     
     if(!pEngine->IsInGame())
         return;
@@ -322,33 +322,27 @@ void DrawSpread() {
     if(!vars.misc.spreadcrosshair)
         return;
     
-    
-    float GetInaccuracy = 0.f;
-    
-    C_BasePlayer* localplayer = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!localplayer)
-        return;
-    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
-    if (!activeWeapon)
+    if(!local)
         return;
     
-    int w, h;
-    pEngine->GetScreenSize(w, h);
+    auto weapon = GetActiveWeapon(local);
     
-    int crX = w / 2, crY = h / 2;
-    int drX;
-    int drY;
+    if(!weapon)
+        return;
     
-    char getInaccuracy[255];
-    float flCone = activeWeapon->GetInaccuracy();
-    float flSpread = activeWeapon->GetSpread();
-    float flRadius = (flCone + flSpread) * 500.0f;
-    auto accuracy = activeWeapon->GetInaccuracy() * 550.f; //3000
-    //sprintf(getInaccuracy, "Accuracy: 100.f", activeWeapon->GetInaccuracy());
+    static int Height, Width;
+    pEngine->GetScreenSize(Width, Height);
     
-    draw->DrawFilledCircle(Vector2D(crX, crY), Color(24, 24, 24, 124), flRadius, 60);
-    //draw->DrawFilledCircle(Vector2D(xs, ys), Color(24, 24, 24, 124), accuracy, 60);
-    //draw->drawstring(10, h - 440, Color::Red(), tFont, getInaccuracy);
+    if ( vars.misc.spreadcrosshair ) {
+        float cone = weapon->GetSpread() + weapon->GetInaccuracy();
+        if ( cone > 0.0f ) {
+            float radius = ( cone * Height ) / 1.5f;
+            
+            draw->DrawFilledCircle(Vector2D(Width/2, Height/2), Color(24, 24, 24, 124), radius, 60);
+            
+            
+        }
+    }
 }
 
 void DrawAngles(C_BaseEntity* local)
@@ -369,10 +363,9 @@ void DrawAngles(C_BaseEntity* local)
     CTraceFilter filter;
     
     filter.pSkip = local;
-    
-    
-    AngleVectors(Vector(0, local->GetLowerBodyYawTarget(), 0), &forward);
     src3D = local->GetVecOrigin();
+    
+    AngleVectors(Vector(0, AntiAem::fakeangle.y, 0), &forward);
     dst3D = src3D + (forward * 45.f);
     
     ray.Init(src3D, dst3D);
@@ -383,10 +376,12 @@ void DrawAngles(C_BaseEntity* local)
         return;
     
     draw->Line(src.x, src.y, dst.x, dst.y, Color::Blue());
-    draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "LBY");
+    
+    if (vars.visuals.anglelinenames)
+        draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "FAKE");
     
     
-    AngleVectors(Vector(0, YAW, 0), &forward);
+    AngleVectors(Vector(0, local->GetLowerBodyYawTarget(), 0), &forward);
     dst3D = src3D + (forward * 45.f);
     
     ray.Init(src3D, dst3D);
@@ -397,7 +392,9 @@ void DrawAngles(C_BaseEntity* local)
         return;
     
     draw->Line(src.x, src.y, dst.x, dst.y, Color(0, 255, 0, 255));
-    draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
+    
+    if (vars.visuals.anglelinenames)
+        draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
 }
 //}
 

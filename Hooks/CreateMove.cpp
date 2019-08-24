@@ -82,6 +82,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     GrenadePrediction::CreateMove(cmd);
     ContinuousPistols(cmd, weapon);
     AutoCock(cmd, weapon);
+    AutoZeus(cmd, local, weapon);
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     Hitchance(local, weapon);
     AutoKnife(cmd);

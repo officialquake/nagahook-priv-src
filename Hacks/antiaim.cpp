@@ -1059,16 +1059,17 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                if (*bSendPacket)
+                if (bSendPacket)
                 {
                     desync(local, cmd, 0);
+                    AntiAem::fakeangle.y = cmd->viewangles.y;
                 }
                 else
                 {
                     cmd->viewangles.y -= 180;
                     
                     AntiAem::GRealAngle.y = cmd->viewangles.y;
-                    //AntiAem::GRealAngle1.y = cmd->viewangles.y;
+                    AntiAem::realangle.y = cmd->viewangles.y;
                 }
                 
                 
