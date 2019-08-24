@@ -28,6 +28,22 @@ struct Ray_t
         m_StartOffset.Zero( );
         m_Start = vecStart;
     }
+    void Init(Vector const& start, Vector const& end, Vector const& mins, Vector const& maxs)
+    {
+        VectorSubtract(end, start, m_Delta);
+        
+        m_pWorldAxisTransform = nullptr;
+        m_IsSwept = (m_Delta.LengthSqr() != 0);
+        
+        VectorSubtract(maxs, mins, m_Extents);
+        m_Extents *= 0.5f;
+        m_IsRay = (m_Extents.LengthSqr() < 1e-6);
+        
+        VectorAdd(mins, maxs, m_StartOffset);
+        m_StartOffset *= 0.5f;
+        VectorAdd(start, m_StartOffset, m_Start);
+        m_StartOffset *= -1.0f;
+    }
 };
 
 struct cplane_t

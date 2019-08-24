@@ -64,7 +64,7 @@ void DrawFakeAngle(C_BaseEntity* local) {
         return;
     
     if (vars.misc.antiaim)
-        draw->drawstring(10, 25, percent_col(fabs(AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y)), specfont, "FAKE");
+        draw->drawstring(10, 25, percent_col(fabs(GFakeAngle.y - GRealAngle.y)), hhhfont, "FAKE");
 }
 
 void manualaa(C_BaseEntity* Local, int keynum)

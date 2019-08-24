@@ -369,9 +369,10 @@ void DrawAngles(C_BaseEntity* local)
     CTraceFilter filter;
     
     filter.pSkip = local;
-    src3D = local->GetVecOrigin();
     
-    AngleVectors(Vector(0, YAW, 0), &forward);
+    
+    AngleVectors(Vector(0, local->GetLowerBodyYawTarget(), 0), &forward);
+    src3D = local->GetVecOrigin();
     dst3D = src3D + (forward * 45.f);
     
     ray.Init(src3D, dst3D);
@@ -387,7 +388,7 @@ void DrawAngles(C_BaseEntity* local)
         draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "LBY");
     
     
-    AngleVectors(Vector(0, *local->GetLowerBodyYaw(), 0), &forward);
+    AngleVectors(Vector(0, local->GetEyeAngles()->y, 0), &forward);
     dst3D = src3D + (forward * 45.f);
     
     ray.Init(src3D, dst3D);

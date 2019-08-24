@@ -10,7 +10,7 @@ static Vector GetDesiredCameraOffset()
     return Vector(cam_idealdist->GetFloat(), cam_idealdistright->GetFloat(), cam_idealdistup->GetFloat());
 }
 
-void ThirdPerson::OverrideView(CViewSetup& pSetup)
+void ThirdPerson::OverrideView(CViewSetup* pSetup)
 {
     if(!vars.misc.thirdperson) {
         pInput->m_fCameraInThirdPerson = false;

@@ -2,6 +2,9 @@
 
 extern Vector tpangles;
 
+extern Vector GFakeAngle;
+extern Vector GRealAngle;
+
 typedef void (*tPaintTraverse)(void*, VPANEL panel, bool forceRepaint, bool allowForce);
 //typedef void (*RenderViewFn) (void*, CViewSetup&, CViewSetup&, unsigned int, int);
 typedef bool (*tCreateMove)(void*, float flSampleInput, CUserCmd* cmd);
@@ -20,7 +23,7 @@ typedef bool(*tFireGameEvent)(void*, IGameEvent*);
 extern void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce);
 extern bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd);
 extern int  hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbinding);
-extern void hkOverrideView(void* thisptr, CViewSetup& setup);
+extern void hkOverrideView(void* thisptr, CViewSetup* setup);
 extern void hkFrameStage(void* thisptr, ClientFrameStage_t curStage);
 //extern void RenderView(void* thisptr, CViewSetup& setup, CViewSetup& hudViewSetup, unsigned int nClearFlags, int whatToDraw);
 extern void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld, CUserCmd* cmd);

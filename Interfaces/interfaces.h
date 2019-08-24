@@ -17,6 +17,7 @@ namespace Global
 namespace AntiAem{
     extern Vector GFakeAngle;
     extern Vector GRealAngle;
+    extern Vector GRealAngle1;
 }
 
 extern ISurface*            pSurface;

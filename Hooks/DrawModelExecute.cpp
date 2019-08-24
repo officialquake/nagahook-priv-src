@@ -539,9 +539,8 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         Vector BonePos;
                         Vector OutPos;
                         QAngle real, ang,forward;
-                        //float fakeangle = AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y;
-                        float fakeangle = AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y;
-                        //float faekangle = AntiAem::GFakeAngle.y;
+                        
+                        float fakeangle = fabs(AntiAem::GFakeAngle.y - AntiAem::GRealAngle.y);
                         matrix3x4_t BoneMatrix[128];
                         for (int i = 0; i < 128; i++)
                         {

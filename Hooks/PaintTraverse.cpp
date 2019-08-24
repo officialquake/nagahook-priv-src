@@ -10,7 +10,7 @@
 #include "../Hacks/eventlog.hpp"
 #include "../Hacks/dlights.hpp"
 #include "../Hacks/logshots.hpp"
-
+#include "../Hacks/grenadeprediction.hpp"
 void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce)
 {
     
@@ -147,6 +147,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             DrawSpread();
             SniperCrosshair::Paint();
             Eventlog::Paint();
+            GrenadePrediction::Paint();
             BulletTracers::Paint();
             DrawFakeAngle(local);
         

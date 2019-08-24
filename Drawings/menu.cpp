@@ -327,11 +327,11 @@ void cMenu::render_section(int x, int y, int w, int h, const char* label)
     draw->RectOutlined(x, y, w, h, 1, Color(28, 28, 28, 255), Color(43, 43, 43, 255));
     // ImGui::PushFont(Fonts::section);
     
-    auto text_size = draw->GetTextSize(label, mSection);
+    auto text_size = draw->GetTextSize(label, mFont);
     
     draw->fillrgba(x + 12, y - 1, text_size.x + 7, 3, Color(28, 28, 28, 255));
     // draw->drawbox(x + 12, y - 1, text_size.x + 7, 3, Color(255, 20, 20, 255));
-    draw->drawstring(x + 15, y - 6, FontColor, mSection, label);
+    draw->drawstring(x + 15, y - 6, FontColor, mFont, label);
 }
 
 void cMenu::render_tab_section(int x, int y, int w, int h)
@@ -608,28 +608,28 @@ void cMenu::renderAntiAim(int x, int y) {
     LegitAA.push_back("Sideways");
     LegitAA.push_back("Adaptive Side");
     
-    this->renderCheckbox(x - 15, y + 15, "Ragebot Enabled", &vars.aimbot.enabled);
-    this->renderCheckbox(x - 15, y + 35, "SilentAim", &vars.aimbot.silent);
+    this->renderCheckbox(x - 8, y + 15, "Ragebot Enabled", &vars.aimbot.enabled);
+    this->renderCheckbox(x - 8, y + 35, "SilentAim", &vars.aimbot.silent);
     //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
-    this->renderSlider(x + 5, y + 55, 150, "FOV", vars.aimbot.FovToPlayer, 180, 0);
+    this->renderSlider(x + 10, y + 55, 150, "FOV", vars.aimbot.FovToPlayer, 180, 0);
     // draw->drawstring(x, y + 70, FontColor, mFont, "Hitbox");
-    this->renderSlider(x + 5, y + 75, 150, "Hitbox", vars.aimbot.hitbox, 19, 0);
-    this->renderCheckbox(x - 15, y + 95, "Auto Wall", &vars.aimbot.autowall);
-    this->renderSlider(x + 5, y + 115, 150, "Minimum Damage", vars.aimbot.mindmg, 100, 0);
-    this->renderCheckbox(x - 15, y + 135, "Hitchance", &vars.aimbot.hitchance);
-    this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
-    this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
-    this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
-    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
+    this->renderSlider(x + 10, y + 75, 150, "Hitbox", vars.aimbot.hitbox, 19, 0);
+    this->renderCheckbox(x - 8, y + 95, "Auto Wall", &vars.aimbot.autowall);
+    this->renderSlider(x + 10, y + 115, 150, "Minimum Damage", vars.aimbot.mindmg, 100, 0);
+    this->renderCheckbox(x - 8, y + 135, "Hitchance", &vars.aimbot.hitchance);
+    this->renderSlider(x + 10, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
+    this->renderSlider(x + 10, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
+    this->renderCheckbox(x - 8, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
+    this->renderSlider(x + 10, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);
     
-    this->renderCheckbox(x + 474, y + 15, "Anti-Aim", &vars.misc.antiaim);
-    this->renderCheckbox(x + 474, y + 35, "Show Real Angles", &vars.misc.thirdpersonmode);
-    this->renderCheckbox(x + 474, y + 55, "AA Turbo Jitter", &vars.misc.turbojizzer);
-    this->renderCheckbox(x + 474, y + 75, "AA Back Jitter", &vars.misc.backjizzer);
-    this->renderCheckbox(x + 474, y + 95, "AA LBY Spin", &vars.misc.lby_spin);
-    this->renderCheckbox(x + 474, y + 115, "AA Edge", &vars.visuals.edge);
-    this->renderCheckbox(x + 474, y + 135, "Resolver Fucker", &vars.misc.resolverfucker);
-    this->renderCheckbox(x + 474, y + 155, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
+    this->renderCheckbox(x + 444, y + 15, "Anti-Aim", &vars.misc.antiaim);
+    this->renderCheckbox(x + 444, y + 35, "Show Real Angles", &vars.misc.thirdpersonmode);
+    this->renderCheckbox(x + 444, y + 55, "AA Turbo Jitter", &vars.misc.turbojizzer);
+    this->renderCheckbox(x + 444, y + 75, "AA Back Jitter", &vars.misc.backjizzer);
+    this->renderCheckbox(x + 444, y + 95, "AA LBY Spin", &vars.misc.lby_spin);
+    this->renderCheckbox(x + 444, y + 115, "AA Edge", &vars.visuals.edge);
+    this->renderCheckbox(x + 444, y + 135, "Resolver Fucker", &vars.misc.resolverfucker);
+    this->renderCheckbox(x + 444, y + 155, "Anti Resolver Flip", &vars.misc.antiResolverFlip);
     /*this->renderCheckbox(x + 474, y + 175, "Fake AA", &vars.misc.fakeaa); // 60
     this->renderCombo(x + 474, y + 205, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
     if(!vars.aaX_opend){
@@ -638,22 +638,23 @@ void cMenu::renderAntiAim(int x, int y) {
     if((!vars.aaX_opend) && !vars.aaY_opend) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }*/
-     this->renderCheckbox(x + 474, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
-    this->renderCheckbox(x + 474, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
-    this->renderSlider(x + 471, y + 225, 115, "Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
-    this->renderCheckbox(x + 474, y + 255, "Manual AA", &vars.misc.manualaa); // 60
+     this->renderCheckbox(x + 444, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
+    this->renderCheckbox(x + 444, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
+    this->renderSlider(x + 444, y + 225, 115, "Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    this->renderCheckbox(x + 444, y + 255, "Manual AA", &vars.misc.manualaa); // 60
     
-    this->renderCheckbox(x + 474, y + 275, "Fake AA", &vars.misc.fakeaa); // 60
-    this->renderCombo(x + 474, y + 305, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
+    this->renderCheckbox(x + 444, y + 275, "Fake AA", &vars.misc.fakeaa); // 60
+    this->renderCombo(x + 444, y + 305, 90, 20, "Pitch", Pitch, vars.misc.aaX, &vars.aaX_opend);
     if(!vars.aaX_opend){
-        this->renderCombo(x + 474, y + 325, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
+        this->renderCombo(x + 444, y + 325, 90, 20, "Yaw", Yaw, vars.misc.aaY, &vars.aaY_opend);
     }
     if((!vars.aaX_opend) && !vars.aaY_opend) {
-        this->renderCombo(x + 474, y + 345, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
+        this->renderCombo(x + 444, y + 345, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }
     
-    this->renderCheckbox(x + 474, y + 375, "Yaw Enabled (Desync)", &vars.misc.desyncenabled);
-    this->renderCheckbox(x + 474, y + 395, "Freestanding (Desync)", &vars.misc.freestanding);
+    this->renderCheckbox(x + 444, y + 375, "Yaw Enabled (Desync)", &vars.misc.desyncenabled);
+    this->renderCheckbox(x + 444, y + 395, "Freestanding (Desync)", &vars.misc.freestanding);
+    //this->renderCheckbox(x + 444, y + 415, "Osiris Legit Desync", &vars.misc.OsirisLegitDesync);
     
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
@@ -780,44 +781,44 @@ void cMenu::renderVis(int x, int y) {
     localchams.push_back("Plastic");
     localchams.push_back("Lit");
     
-    this->renderCheckbox(x - 15, y + 15, "Enabled", &vars.visuals.enabled);
-    this->renderCheckbox(x - 15, y + 35, "Enemy only", &vars.visuals.enemyonly);
-    this->renderCheckbox(x - 15, y + 55, "Vis Only", &vars.visuals.visonly);
-    this->renderCheckbox(x - 15, y + 75, "Box", &vars.visuals.box);
-    this->renderCheckbox(x - 15, y + 95, "Name", &vars.visuals.name);
-    this->renderCheckbox(x - 15, y + 115, "Health", &vars.visuals.health);
-    this->renderCheckbox(x - 15, y + 135, "Armour", &vars.visuals.armour);
-    this->renderCheckbox(x - 15, y + 155, "Heath text", &vars.visuals.healthtext);
-    this->renderCheckbox(x - 15, y + 175, "Skeleton", &vars.visuals.skeleton);
-    this->renderCheckbox(x - 15, y + 195, "Snaplines", &vars.visuals.snapline);
-    this->renderCheckbox(x - 15, y + 215, "Grenade ESP", &vars.visuals.grenade);
-    this->renderCheckbox(x - 15, y + 235, "Weapon ESP", &vars.visuals.active);
+    this->renderCheckbox(x - 8, y + 15, "Enabled", &vars.visuals.enabled);
+    this->renderCheckbox(x - 8, y + 35, "Enemy only", &vars.visuals.enemyonly);
+    this->renderCheckbox(x - 8, y + 55, "Vis Only", &vars.visuals.visonly);
+    this->renderCheckbox(x - 8, y + 75, "Box", &vars.visuals.box);
+    this->renderCheckbox(x - 8, y + 95, "Name", &vars.visuals.name);
+    this->renderCheckbox(x - 8, y + 115, "Health", &vars.visuals.health);
+    this->renderCheckbox(x - 8, y + 135, "Armour", &vars.visuals.armour);
+    this->renderCheckbox(x - 8, y + 155, "Heath text", &vars.visuals.healthtext);
+    this->renderCheckbox(x - 8, y + 175, "Skeleton", &vars.visuals.skeleton);
+    this->renderCheckbox(x - 8, y + 195, "Snaplines", &vars.visuals.snapline);
+    this->renderCheckbox(x - 8, y + 215, "Grenade ESP", &vars.visuals.grenade);
+    this->renderCheckbox(x - 8, y + 235, "Weapon ESP", &vars.visuals.active);
     
 
-    this->renderCheckbox(x - 15, y + 255, "Player Chams", &vars.visuals.chams);
-    this->renderCheckbox(x - 15, y + 275, "Hand Chams", &vars.visuals.handchams);
-    this->renderCheckbox(x - 15, y + 295, "Weapon Chams", &vars.visuals.weaponchams);
-    this->renderCheckbox(x - 15, y + 315, "Fake Lag Chams", &vars.misc.flagchams);
-    this->renderCheckbox(x - 15, y + 335, "Local Player Chams", &vars.visuals.localchams);
+    this->renderCheckbox(x - 8, y + 255, "Player Chams", &vars.visuals.chams);
+    this->renderCheckbox(x - 8, y + 275, "Hand Chams", &vars.visuals.handchams);
+    this->renderCheckbox(x - 8, y + 295, "Weapon Chams", &vars.visuals.weaponchams);
+    this->renderCheckbox(x - 8, y + 315, "Fake Lag Chams", &vars.misc.flagchams);
+    this->renderCheckbox(x - 8, y + 335, "Local Player Chams", &vars.visuals.localchams);
     
     if(vars.visuals.chams) {
-        this->renderCombo(x + 10, y + 355, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
+        this->renderCombo(x + 15, y + 355, 150, 20, "Platinum", Players, vars.visuals.playersType, &vars.players_opend);
     }
     if(vars.visuals.handchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 375, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
+            this->renderCombo(x + 15, y + 375, 150, 20, "Platinum", Hands, vars.visuals.handsType, &vars.hands_opend);
     }
     if(vars.visuals.weaponchams) {
         if((!vars.players_opend) && !vars.hands_opend)
-            this->renderCombo(x + 10, y + 395, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
+            this->renderCombo(x + 15, y + 395, 150, 20, "Platinum", Weapons, vars.visuals.weaponType, &vars.weapons_opend);
     }
     if(vars.misc.flagchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 415, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
+            this->renderCombo(x + 15, y + 415, 150, 20, "Platinum", fakelag, vars.visuals.fakelagtype, &vars.fakelag_opend);
     }
     if(vars.visuals.localchams) {
         if(!vars.players_opend)
-            this->renderCombo(x + 10, y + 435, 150, 20, "Platinum", localchams, vars.visuals.localchamstype, &vars.local_opend);
+            this->renderCombo(x + 15, y + 435, 150, 20, "Platinum", localchams, vars.visuals.localchamstype, &vars.local_opend);
     }
     
     
@@ -856,30 +857,31 @@ void cMenu::renderVis(int x, int y) {
     this->renderCheckbox(x + 235, y + 455, "Asuswall", &vars.misc.asuswalls);
     this->renderSlider(x + 230, y + 475, 150, "", vars.misc.asusalpha, 1.f, 0.f);
     
-    this->renderCheckbox(x + 474, y + 15, "Hitmarker", &vars.visuals.hitmarker);
-    this->renderCheckbox(x + 474, y + 35, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
-    this->renderSlider(x + 474, y + 55, 115, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
-    this->renderSlider(x + 474, y + 75, 115, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
-    this->renderSlider(x + 474, y + 95, 115, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
-    this->renderCheckbox(x + 474, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
-    this->renderCheckbox(x + 474, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
-    this->renderCheckbox(x + 474, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
-    this->renderCheckbox(x + 474, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
+    this->renderCheckbox(x + 444, y + 15, "Hitmarker", &vars.visuals.hitmarker);
+    this->renderCheckbox(x + 444, y + 35, "Hitmarker Sounds", &vars.visuals.hitmarkersounds);
+    this->renderSlider(x + 444, y + 55, 115, "Hitmarker Size", vars.visuals.hitsize, 32, 0);
+    this->renderSlider(x + 444, y + 75, 115, "Hitmarker Duration", vars.visuals.hitduration, 3000, 0);
+    this->renderSlider(x + 444, y + 95, 115, "Hitmarker In-Gap", vars.visuals.hitinnergap, 16, 0);
+    this->renderCheckbox(x + 444, y + 115, "Hitmarker Allies", &vars.visuals.allieshit);
+    this->renderCheckbox(x + 444, y + 135, "Hitmarker Enemies", &vars.visuals.enemyhit);
+    this->renderCheckbox(x + 444, y + 155, "Left-Hand Knife", &vars.visuals.inverseragdoll);
+    this->renderCheckbox(x + 444, y + 175, "Sniper Crosshair", &vars.misc.snipercrosshair);
     
-    this->renderCheckbox(x + 474, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
-    this->renderCheckbox(x + 474, y + 215, "Show Allies Log", &vars.misc.showallieslog);
-    this->renderSlider(x + 474, y + 245, 115, "Logger Duration", vars.misc.loggerduration, 5000.f, 0.f);
-    this->renderSlider(x + 474, y + 275, 115, "Logger Lines", vars.misc.loggerlines, 15, 0);
-    this->renderCheckbox(x + 474, y + 315, "Show local player", &vars.misc.showlocalplayer);
+    this->renderCheckbox(x + 444, y + 195, "Show Enemies Log", &vars.misc.showenemieslog);
+    this->renderCheckbox(x + 444, y + 215, "Show Allies Log", &vars.misc.showallieslog);
+    this->renderSlider(x + 444, y + 245, 115, "Logger Duration", vars.misc.loggerduration, 5000.f, 0.f);
+    this->renderSlider(x + 444, y + 275, 115, "Logger Lines", vars.misc.loggerlines, 15, 0);
+    this->renderCheckbox(x + 444, y + 315, "Show local player", &vars.misc.showlocalplayer);
     
-    this->renderCheckbox(x + 474, y + 335, "Dlights", &vars.misc.dlight);
-    this->renderCheckbox(x + 474, y + 355, "Dlight enemy", &vars.misc.dlightenemy);
-    this->renderCheckbox(x + 474, y + 375, "Dlight allies", &vars.misc.dlightallies);
-    this->renderSlider(x + 474, y + 405, 115, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
+    this->renderCheckbox(x + 444, y + 335, "Dlights", &vars.misc.dlight);
+    this->renderCheckbox(x + 444, y + 355, "Dlight enemy", &vars.misc.dlightenemy);
+    this->renderCheckbox(x + 444, y + 375, "Dlight allies", &vars.misc.dlightallies);
+    this->renderSlider(x + 444, y + 405, 115, "Dlight Radius", vars.misc.dlightradius, 1000, 0);
     
-    this->renderCheckbox(x + 474, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
-    this->renderCheckbox(x + 474, y + 455, "Bullet Tracers", &vars.visuals.bullett);
-    this->renderCheckbox(x + 474, y + 475, "Full-Bright", &vars.misc.fullbright);
+    this->renderCheckbox(x + 444, y + 435, "Possible Desync Chams", &vars.misc.desynchams);
+    this->renderCheckbox(x + 444, y + 455, "Bullet Tracers", &vars.visuals.bullett);
+    this->renderCheckbox(x + 444, y + 475, "Full-Bright", &vars.misc.fullbright);
+    this->renderCheckbox(x + 444, y + 495, "Grenade Pred", &vars.misc.grenadepred);
 }
 
 
@@ -899,16 +901,16 @@ void cMenu::renderMisc(int x, int y) {
     fakeping.push_back("v2");//xanax moving
 
     
-    this->renderCheckbox(x - 15, y + 15, "Bhop", &vars.misc.bhop);
-    this->renderCheckbox(x - 15, y + 35, "Auto strafe", &vars.misc.autostrafe);
-    this->renderCheckbox(x - 15, y + 55, "Circle Strafe", &vars.misc.cstrafe);
-    this->renderCheckbox(x - 15, y + 75, "FOV Changer", &vars.misc.fovt);
-    this->renderSlider(x - 5, y + 95, 150, "", vars.misc.fov, 70, 0);
-    this->renderCheckbox(x - 15, y + 115, "No recoil", &vars.misc.norecoil);
-    this->renderCheckbox(x - 15, y + 135, "No visual recoil", &vars.misc.novisual);
-    this->renderCheckbox(x - 15, y + 155, "Chat Spam", &vars.misc.spammer);
-    this->renderCheckbox(x - 15, y + 175, "Thirdperson", &vars.misc.thirdperson);
-    this->renderSlider(x - 5, y + 195, 150, "", vars.misc.tpoffset, 200, 0);
+    this->renderCheckbox(x - 8, y + 15, "Bhop", &vars.misc.bhop);
+    this->renderCheckbox(x - 8, y + 35, "Auto strafe", &vars.misc.autostrafe);
+    this->renderCheckbox(x - 8, y + 55, "Circle Strafe", &vars.misc.cstrafe);
+    this->renderCheckbox(x - 8, y + 75, "FOV Changer", &vars.misc.fovt);
+    this->renderSlider(x + 1, y + 95, 150, "", vars.misc.fov, 70, 0);
+    this->renderCheckbox(x - 8, y + 115, "No recoil", &vars.misc.norecoil);
+    this->renderCheckbox(x - 8, y + 135, "No visual recoil", &vars.misc.novisual);
+    this->renderCheckbox(x - 8, y + 155, "Chat Spam", &vars.misc.spammer);
+    this->renderCheckbox(x - 8, y + 175, "Thirdperson", &vars.misc.thirdperson);
+    this->renderSlider(x + 1, y + 195, 150, "", vars.misc.tpoffset, 200, 0);
     
     this->renderCheckbox(x + 235, y + 15, "WorldPaint", &vars.misc.worldpaint);
     this->renderCheckbox(x + 235, y + 35, "Spec List", &vars.misc.showspectators);
@@ -920,11 +922,11 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 235, y + 135, "No Duck Cooldown", &vars.misc.noduckcooldown);
     this->renderCheckbox(x + 235, y + 155, "Anti afk-kick", &vars.visuals.antiafkkick);
     
-    this->renderCheckbox(x + 474, y + 15, "Fake Lag", &vars.misc.fakelag);
-    this->renderCheckbox(x + 474, y + 35, "Adaptive", &vars.misc.adaptive);
+    this->renderCheckbox(x + 444, y + 15, "Fake Lag", &vars.misc.fakelag);
+    this->renderCheckbox(x + 444, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
-    this->renderSlider(x + 469, y + 55, 115, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 474, y + 85, "meme dead grav", &vars.misc.meme);
+    this->renderSlider(x + 444, y + 55, 115, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
+    this->renderCheckbox(x + 444, y + 85, "meme dead grav", &vars.misc.meme);
     //this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
     //this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
     
@@ -1140,21 +1142,21 @@ void cMenu::renderMenu() {
             break;
             
         case mTab::RageBot:
-            render_section(x + 20, y + 55, 220, h - 62, "Main");
+            render_section(x + 26, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
             render_section(x + 460, y + 55, 220, h - 62, "Anti-Aim");
             this->renderAntiAim(x + 35, y + 30 + 20 + 5);
             break;
             
         case mTab::Visuals:
-            render_section(x + 20, y + 55, 220, h - 62, "Main");
-            render_section(x + 249, y + 55, 220, h - 62, "Other");
-            render_section(x + 460, y + 55, 220, h - 62, "Other2");
+            render_section(x + 26, y + 55, 220, h - 62, "Main");
+            render_section(x + 249, y + 55, 220, h - 62, "Visuals");
+            render_section(x + 460, y + 55, 220, h - 62, "Other");
             this->renderVis(x + 35, y + 30 + 20 + 5);
             break;
             
         case mTab::Misc:
-            render_section(x + 20, y + 55, 220, h - 62, "Main");
+            render_section(x + 26, y + 55, 220, h - 62, "Main");
             render_section(x + 249, y + 55, 220, h - 62, "Other");
             render_section(x + 460, y + 55, 220, h - 62, "HvH");
             this->renderMisc(x + 35, y + 30 + 20 + 5);

@@ -236,6 +236,7 @@ public:
         
         bool lbybreaker           = false;
         bool desyncenabled           = false;
+        bool OsirisLegitDesync           = false;
         bool lbybreakermanual           = false;
         float lbybreakeroffset = 180.0f;
         bool meme           = false;

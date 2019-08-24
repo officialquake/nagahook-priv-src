@@ -17,6 +17,7 @@
 #include "../Hacks/autostop.hpp"
 #include "../Hacks/legit.hpp"
 #include "../Hacks/logshots.hpp"
+#include "../Hacks/grenadeprediction.hpp"
 
 Vector tpangles;
 
@@ -76,7 +77,9 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     lby_spin(cmd, local);
     tank(cmd, local);
     resolverfucker(cmd, local);
+    AntAimCMove(cmd);
     RecoilControl(local, cmd);
+    GrenadePrediction::CreateMove(cmd);
     ContinuousPistols(cmd, weapon);
     AutoCock(cmd, weapon);
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
@@ -88,7 +91,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     EndPrediction();
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
-    duck->DuckCool(cmd);
+    
     DoSpammer();
     
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
@@ -194,7 +197,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         
         movement->FakeLag(cmd);
         Fakewalk(cmd, local);
-        AntAimCMove(cmd);
+        duck->DuckCool(cmd);
         
         *sendPacket = CreateMove::sendPacket;
 

@@ -1,14 +1,17 @@
 #include "../main.h"
 #include "../Hacks/thirdperson.hpp"
+#include "../Hacks/grenadeprediction.hpp"
 
-void hkOverrideView(void* thisptr, CViewSetup& setup)
+void hkOverrideView(void* thisptr, CViewSetup* setup)
 {
     
     auto* local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
+    GrenadePrediction::OverrideView(setup);
+    
     if(vars.misc.enabled && vars.misc.fovt && vars.misc.fov > 0) {
         if(local && !local->IsScoped()) {
-            setup.fov += vars.misc.fov;
+            setup->fov += vars.misc.fov;
         }
 
     
@@ -17,6 +20,6 @@ void hkOverrideView(void* thisptr, CViewSetup& setup)
         ThirdPerson::OverrideView(setup);
     }
     
-    createmoveVMT->GetOriginalMethod<tOverrideView>(19)(thisptr, setup);
+    createmoveVMT->GetOriginalMethod<tOverrideView>(19)(thisptr, *setup);
     }
 }

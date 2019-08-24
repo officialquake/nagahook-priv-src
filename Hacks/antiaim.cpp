@@ -9,7 +9,8 @@
 
 static bool manualswitch = true;
 
-
+Vector GFakeAngle;
+Vector GRealAngle;
 Vector atTargets;
 bool isManual = false;
 bool Swtich = false;
@@ -665,6 +666,19 @@ float GetMaxDesyncDelta(CCSGOAnimState *animState)
     return abs(delta);
 }
 
+float getMaxDesyncAngle(C_BaseEntity* local)
+{
+    if (auto animState = local->GetAnimState()) {
+        float yawModifier = (animState->runningAccelProgress * -0.3f - 0.2f) * std::clamp(animState->feetShuffleSpeed, 0.0f, 1.0f) + 1.0f;
+        
+        if (animState->duckProgress > 0.0f)
+            yawModifier += (animState->duckProgress * std::clamp(animState->feetShuffleSpeed2, 0.0f, 1.0f) * (0.5f - yawModifier));
+        
+        return animState->velocityY * yawModifier;
+    }
+    return 0.0f;
+}
+
 
 bool LBYUpdate()
 {
@@ -705,13 +719,13 @@ bool desync(C_BaseEntity *const local, CUserCmd* cmd, int mode) {
     float desyncdelta = GetMaxDelta12(local->GetAnimState());
     
     if(mode > 0)
-        yaw = AntiAem::GRealAngle.y + mode == 1 ? desyncdelta : -desyncdelta;
+        yaw = GRealAngle.y + mode == 1 ? desyncdelta : -desyncdelta;
     else
-        yaw = AntiAem::GRealAngle.y + switch_ == true ? desyncdelta : -desyncdelta;
+        yaw = GRealAngle.y + switch_ == true ? desyncdelta : -desyncdelta;
     
     NormalizeYaw(yaw);
     
-    AntiAem::GFakeAngle.y = yaw;
+    GFakeAngle.y = yaw;
     cmd->viewangles.y = yaw;
     
     switch_ = !switch_;
@@ -758,7 +772,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y -= 90;
             
-            AntiAem::GRealAngle.y = cmd->viewangles.y;
+            GRealAngle.y = cmd->viewangles.y;
         }
         
     }else if (Right > Left){
@@ -771,7 +785,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y += 90;
             
-            AntiAem::GRealAngle.y = cmd->viewangles.y;
+            GRealAngle.y = cmd->viewangles.y;
         }
         
     }else if (Back > Right || Back > Left){
@@ -784,7 +798,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y += 180;
             
-            AntiAem::GRealAngle.y = cmd->viewangles.y;
+            GRealAngle.y = cmd->viewangles.y;
         }
         
     } else if(no_active){
@@ -797,7 +811,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y -= 180;
             
-            AntiAem::GRealAngle.y = cmd->viewangles.y;
+            GRealAngle.y = cmd->viewangles.y;
         }
         
     }
@@ -824,7 +838,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
     {
-        AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
+        GRealAngle = GFakeAngle = cmd->viewangles;
         return;
     }
     
@@ -889,6 +903,17 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             switch_ = !switch_;
         }
         }
+    
+    if (vars.misc.OsirisLegitDesync) {
+        static auto lastYaw{ 0.0f };
+        
+        if (!bSendPacket) {
+            cmd->viewangles.Normalize();
+            lastYaw = std::clamp(cmd->viewangles.y, -180.0f, 180.0f);
+        } else {
+            cmd->viewangles.y = lastYaw + getMaxDesyncAngle(local);
+        }
+    }
     
         if (vars.misc.fakeaa) {
             fakeswitch = !fakeswitch;
@@ -1043,7 +1068,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 {
                     cmd->viewangles.y -= 180;
                     
-                    AntiAem::GRealAngle.y = cmd->viewangles.y;
+                    GRealAngle.y = cmd->viewangles.y;
+                    //GRealAngle1.y = cmd->viewangles.y;
                 }
                 
                 
@@ -1245,7 +1271,7 @@ void AntAimCMove(CUserCmd* cmd){
     
     
     if( vars.misc.lbybreaker ){
-        if( CreateMove::sendPacket && (vel2D >= 0.1f || !(localplayer->GetFlags() & FL_ONGROUND) || localplayer->GetFlags() & FL_FROZEN) ){
+        if(bSendPacket && (vel2D >= 0.1f || !(localplayer->GetFlags() & FL_ONGROUND) || localplayer->GetFlags() & FL_FROZEN) ){
             // todo: add first choked tick check
             lbyBreak = false;
             lastCheck = pGlobals->curtime;
