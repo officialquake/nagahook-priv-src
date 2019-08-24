@@ -35,6 +35,8 @@
 		8FB45F20207FCF79003567EF /* asuswalls.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB45F1E207FCF78003567EF /* asuswalls.h */; };
 		8FEBA0322005201200F991CA /* hitmarker.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FEBA0302005201200F991CA /* hitmarker.h */; };
 		8FEBA0332005201200F991CA /* hitmarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBA0312005201200F991CA /* hitmarker.cpp */; };
+		911D111F2310F5EC00E3B589 /* elf.h in Headers */ = {isa = PBXBuildFile; fileRef = 911D111E2310F5EC00E3B589 /* elf.h */; };
+		911D11212310F67700E3B589 /* link.h in Headers */ = {isa = PBXBuildFile; fileRef = 911D11202310F67700E3B589 /* link.h */; };
 		91216B9122C777810042172E /* triggerbot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91216B8F22C777810042172E /* triggerbot.cpp */; };
 		91216B9222C777810042172E /* triggerbot.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91216B9022C777810042172E /* triggerbot.hpp */; };
 		91286C1222EE046C00AFBC06 /* autostop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91286C1022EE046C00AFBC06 /* autostop.cpp */; };
@@ -178,6 +180,8 @@
 		8FEBA0302005201200F991CA /* hitmarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hitmarker.h; path = Hacks/hitmarker.h; sourceTree = "<group>"; };
 		8FEBA0312005201200F991CA /* hitmarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hitmarker.cpp; path = Hacks/hitmarker.cpp; sourceTree = "<group>"; };
 		911A997D22F27EE4005DE75B /* animstate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = animstate.h; path = SDK/animstate.h; sourceTree = "<group>"; };
+		911D111E2310F5EC00E3B589 /* elf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elf.h; sourceTree = "<group>"; };
+		911D11202310F67700E3B589 /* link.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = link.h; path = SDK/link.h; sourceTree = "<group>"; };
 		91216B8F22C777810042172E /* triggerbot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = triggerbot.cpp; path = Hacks/triggerbot.cpp; sourceTree = "<group>"; };
 		91216B9022C777810042172E /* triggerbot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = triggerbot.hpp; path = Hacks/triggerbot.hpp; sourceTree = "<group>"; };
 		91286C1022EE046C00AFBC06 /* autostop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autostop.cpp; path = Hacks/autostop.cpp; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 		E1FE19AB1E718EF70018D409 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				911D111E2310F5EC00E3B589 /* elf.h */,
 				919D5CD92304352C00BC7CD0 /* Singleton.h */,
 				E1FE19AC1E718F020018D409 /* C_BaseEntity.h */,
 				8614F617209CCB2300C49CE0 /* CBaseAnimating.h */,
@@ -520,6 +525,7 @@
 				911A997D22F27EE4005DE75B /* animstate.h */,
 				918B1ED0230996BC00A10D54 /* MemoryProtection.cpp */,
 				918B1ED1230996BC00A10D54 /* MemoryProtection.hpp */,
+				911D11202310F67700E3B589 /* link.h */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				8F5AAA151FF278A0003787BA /* fakewalk.h in Headers */,
 				8F4CF114200401BA0075C822 /* INetChannelInfo.h in Headers */,
 				B67AE8521F91CE7D00ADDCD8 /* aimbot.h in Headers */,
+				911D111F2310F5EC00E3B589 /* elf.h in Headers */,
 				86EB4C14209CCBEC00C493D8 /* AnimLayer.h in Headers */,
 				B67AE85A1F91D0B200ADDCD8 /* autowall.h in Headers */,
 				91216B9222C777810042172E /* triggerbot.hpp in Headers */,
@@ -598,6 +605,7 @@
 				E1FE19CA1E718F020018D409 /* IMaterial.h in Headers */,
 				E1FE19CC1E718F020018D409 /* ISurface.h in Headers */,
 				E1FE19C61E718F020018D409 /* IClientEntityList.h in Headers */,
+				911D11212310F67700E3B589 /* link.h in Headers */,
 				E1FE19C51E718F020018D409 /* IBaseClientDLL.h in Headers */,
 				91E8803A230B9304008B93D8 /* logshots.hpp in Headers */,
 				9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */,

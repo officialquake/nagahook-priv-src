@@ -383,12 +383,10 @@ void DrawAngles(C_BaseEntity* local)
         return;
     
     draw->Line(src.x, src.y, dst.x, dst.y, Color::Blue());
-    
-    if (vars.visuals.anglelinenames)
-        draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "LBY");
+    draw->drawstring(dst.x, dst.y, Color::Blue(), espfont, "LBY");
     
     
-    AngleVectors(Vector(0, local->GetEyeAngles()->y, 0), &forward);
+    AngleVectors(Vector(0, YAW, 0), &forward);
     dst3D = src3D + (forward * 45.f);
     
     ray.Init(src3D, dst3D);
@@ -399,9 +397,7 @@ void DrawAngles(C_BaseEntity* local)
         return;
     
     draw->Line(src.x, src.y, dst.x, dst.y, Color(0, 255, 0, 255));
-    
-    if (vars.visuals.anglelinenames)
-        draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
+    draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
 }
 //}
 

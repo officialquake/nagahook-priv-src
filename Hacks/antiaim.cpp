@@ -9,8 +9,7 @@
 
 static bool manualswitch = true;
 
-Vector GFakeAngle;
-Vector GRealAngle;
+
 Vector atTargets;
 bool isManual = false;
 bool Swtich = false;
@@ -719,13 +718,13 @@ bool desync(C_BaseEntity *const local, CUserCmd* cmd, int mode) {
     float desyncdelta = GetMaxDelta12(local->GetAnimState());
     
     if(mode > 0)
-        yaw = GRealAngle.y + mode == 1 ? desyncdelta : -desyncdelta;
+        yaw = AntiAem::GRealAngle.y + mode == 1 ? desyncdelta : -desyncdelta;
     else
-        yaw = GRealAngle.y + switch_ == true ? desyncdelta : -desyncdelta;
+        yaw = AntiAem::GRealAngle.y + switch_ == true ? desyncdelta : -desyncdelta;
     
     NormalizeYaw(yaw);
     
-    GFakeAngle.y = yaw;
+    AntiAem::GFakeAngle.y = yaw;
     cmd->viewangles.y = yaw;
     
     switch_ = !switch_;
@@ -772,7 +771,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y -= 90;
             
-            GRealAngle.y = cmd->viewangles.y;
+            AntiAem::GRealAngle.y = cmd->viewangles.y;
         }
         
     }else if (Right > Left){
@@ -785,7 +784,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y += 90;
             
-            GRealAngle.y = cmd->viewangles.y;
+            AntiAem::GRealAngle.y = cmd->viewangles.y;
         }
         
     }else if (Back > Right || Back > Left){
@@ -798,7 +797,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y += 180;
             
-            GRealAngle.y = cmd->viewangles.y;
+            AntiAem::GRealAngle.y = cmd->viewangles.y;
         }
         
     } else if(no_active){
@@ -811,7 +810,7 @@ float Freestand(C_BaseEntity *const local, CUserCmd* cmd)
         {
             cmd->viewangles.y -= 180;
             
-            GRealAngle.y = cmd->viewangles.y;
+            AntiAem::GRealAngle.y = cmd->viewangles.y;
         }
         
     }
@@ -838,7 +837,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     if (cmd->buttons & IN_ATTACK || cmd->buttons & IN_USE)
     {
-        GRealAngle = GFakeAngle = cmd->viewangles;
+        AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
         return;
     }
     
@@ -1068,8 +1067,8 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 {
                     cmd->viewangles.y -= 180;
                     
-                    GRealAngle.y = cmd->viewangles.y;
-                    //GRealAngle1.y = cmd->viewangles.y;
+                    AntiAem::GRealAngle.y = cmd->viewangles.y;
+                    //AntiAem::GRealAngle1.y = cmd->viewangles.y;
                 }
                 
                 
