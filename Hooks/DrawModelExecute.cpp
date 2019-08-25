@@ -557,7 +557,7 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         firstLayer->AlphaModulate(155 / 255.f);
                         firstLayer->ColorModulate(Color::White());
                         pModelRender->ForcedMaterialOverride(firstLayer);
-                        CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix); // CALL UR ORIGINL HERE
+                        CallOriginalModel(thisptr, context, state, pInfo, BoneMatrix);
                     }
                     
                     if (CreateMove::sendPacket == true)

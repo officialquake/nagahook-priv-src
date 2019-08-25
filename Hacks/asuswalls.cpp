@@ -79,6 +79,33 @@ void InverseRagdoll(){
         inverseragdoll->SetValue(600);
     }
 }
+void ViewmodelHVH(){
+    
+    if (!pEngine->IsConnected() || !pEngine->IsInGame())
+        return;
+    
+    static ConVar* inverseragdoll1 = pCvar->FindVar("sv_competitive_minspec");
+    static ConVar* inverseragdoll2 = pCvar->FindVar("viewmodel_offset_x");
+    static ConVar* inverseragdoll3 = pCvar->FindVar("viewmodel_offset_y");
+    static ConVar* inverseragdoll4 = pCvar->FindVar("viewmodel_offset_z");
+    static ConVar* inverseragdoll5 = pCvar->FindVar("viewmodel_fov");
+    inverseragdoll1->nFlags &= ~FCVAR_CHEAT;
+    
+    if (vars.misc.hvhviewmodel) {
+        inverseragdoll1->SetValue(0);
+        inverseragdoll2->SetValue(vars.misc.viewmodelx);
+        inverseragdoll3->SetValue(vars.misc.viewmodely);
+        inverseragdoll4->SetValue(-10);
+        inverseragdoll5->SetValue(vars.misc.viewmodelfov);
+    }
+    else{
+        inverseragdoll1->SetValue(1);
+        inverseragdoll2->SetValue(2.5f);
+        inverseragdoll3->SetValue(1);
+        inverseragdoll4->SetValue(-1.5f);
+        inverseragdoll5->SetValue(80);
+    }
+}
 void NightMode()
 {
     static bool nightmode_performed = false, nightmode_lastsetting;

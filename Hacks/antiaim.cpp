@@ -833,7 +833,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
     
-    if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < local->GetTickBase() * pGlobals->interval_per_tick) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
+    if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < (local->GetTickBase()  * pGlobals->interval_per_tick)) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
     {
         AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
         return;
@@ -1062,12 +1062,12 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
                 if (bSendPacket)
                 {
-                    desync(local, cmd, 0);
+                   desync(local, cmd, 2);
                     AntiAem::fakeangle.y = cmd->viewangles.y;
                 }
                 else
                 {
-                    cmd->viewangles.y -= 180;
+                    cmd->viewangles.y -= 90;
                     
                     AntiAem::GRealAngle.y = cmd->viewangles.y;
                     AntiAem::realangle.y = cmd->viewangles.y;

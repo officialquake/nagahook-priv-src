@@ -71,7 +71,7 @@ public:
         
         bool autoknife     = false;         // Enable
         bool autostop     = false;         // Enable
-        bool prediction        = false;
+        bool prediction        = true;
         int baimxhp     = 0;         // Enable
         bool baimhp     = false;         // Enable
         int jitter     = 0;
@@ -217,6 +217,7 @@ public:
         bool norecoil       = true;
         bool scopeonly       = true;
         bool thirdperson    = false;     // Basically RCS without slider
+        bool thirdpersonkeybindez    = false;     // Basically RCS without slider
          bool manualcrosshair    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
         bool manualaa    = false;     // Basically RCS without slider
@@ -240,6 +241,11 @@ public:
         bool lbybreakermanual           = false;
         float lbybreakeroffset = 180.0f;
         bool meme           = false;
+         bool hvhviewmodel           = false;
+        int viewmodelx = 5;
+        int viewmodely = 10;
+        //unsigned int viewmodelz = -10;
+        int viewmodelfov = 80;
         // Different Clantags
         bool clantag         = false;    // Enables clantag
         

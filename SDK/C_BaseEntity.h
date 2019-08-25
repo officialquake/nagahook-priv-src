@@ -856,10 +856,47 @@ public:
         switch (*this->GetItemDefinitionIndex())
         {
             case WEAPON_AUG:
-            
+            case WEAPON_AK47:
+            case WEAPON_FAMAS:
+            case WEAPON_GALILAR:
+            case WEAPON_M4A1:
+            case WEAPON_M4A1_SILENCER:
+            case WEAPON_SSG08:
+            case WEAPON_ELITE:
+            case WEAPON_DEAGLE:
+            case WEAPON_FIVESEVEN:
+            case WEAPON_GLOCK:
+            case WEAPON_TEC9:
+            case WEAPON_HKP2000:
+            case WEAPON_USP_SILENCER:
+            case WEAPON_P250:
+            case WEAPON_CZ75A:
+            case WEAPON_AWP:
             case WEAPON_G3SG1:
             case WEAPON_SCAR20:
             case WEAPON_SG556:
+            case WEAPON_KNIFE:
+            case WEAPON_KNIFE_T:
+            case WEAPON_KNIFE_GUT:
+            case WEAPON_KNIFE_FLIP:
+            case WEAPON_KNIFE_BAYONET:
+            case WEAPON_KNIFE_M9_BAYONET:
+            case WEAPON_NEGEV:
+            case WEAPON_M249:
+            case WEAPON_XM1014:
+            case WEAPON_MAG7:
+            case WEAPON_SAWEDOFF:
+            case WEAPON_NOVA:
+            case WEAPON_KNIFE_KARAMBIT:
+            case WEAPON_KNIFE_TACTICAL:
+            case WEAPON_KNIFE_BUTTERFLY:
+            case WEAPON_KNIFE_SURVIVAL_BOWIE:
+            case WEAPON_KNIFE_FALCHION:
+            case WEAPON_KNIFE_PUSH:
+            case WEAPON_KNIFE_URSUS:
+            case WEAPON_KNIFE_GYPSY_JACKKNIFE:
+            case WEAPON_KNIFE_STILETTO:
+            case WEAPON_KNIFE_WIDOWMAKER:
             case WEAPON_REVOLVER:
                 return true;
             default:

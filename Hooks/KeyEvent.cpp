@@ -15,16 +15,24 @@ int hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbind
                 pEngine->ExecuteClientCmd("cl_mouseenable 1");
             
         }
-        if(keynum == KEY_V)
-        {
-            vars.misc.thirdperson = !vars.misc.thirdperson;
-        }
-        if(keynum == KEY_PERIOD)
-        {
-            vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
-        }
         
-        
+        if(vars.misc.thirdpersonkeybindez)
+        {
+            if(keynum == KEY_V)
+            {
+                vars.misc.thirdperson = !vars.misc.thirdperson;
+                vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
+            }
+        }else{
+            if(keynum == KEY_V)
+            {
+                vars.misc.thirdperson = !vars.misc.thirdperson;
+            }
+            if(keynum == KEY_COMMA)
+            {
+                vars.misc.thirdpersonmode = !vars.misc.thirdpersonmode;
+            }
+        }
     }
     
     

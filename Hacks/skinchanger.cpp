@@ -6,7 +6,7 @@ int KnifeCT = skin.knifeCT; // Change Knife model here
 int KnifeT = skin.knifeT;
 int GloveCT = skin.gloveCT;
 int GloveT = skin.gloveT;
-unsigned int SSGSKIN = 624;
+int SSGSKIN = 624;
 
 
 unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
@@ -37,7 +37,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_TEC9, cSkin(skin.tec9, -1, -1, -1, 0, nullptr, 0.0001f)), // Ossified
     make_pair(WEAPON_USP_SILENCER, cSkin(skin.usp, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     // Rifles
-    make_pair(WEAPON_AK47, cSkin(vars.misc.ssgskin, -1, -1, 1337, 0, nullptr, 0.0001f)), // Jaguar
+    make_pair(WEAPON_AK47, cSkin(skin.ak47, -1, -1, 1337, 0, nullptr, 0.0001f)), // Jaguar
     make_pair(WEAPON_AUG, cSkin(skin.aug, -1, -1, 1337, 0, nullptr, 0.0001f)), // Akihabara Accept
     make_pair(WEAPON_AWP, cSkin(skin.awp, -1, -1, 1337, 0, nullptr, 0.0001f)), // Asiimov
     make_pair(WEAPON_FAMAS, cSkin(skin.famas, -1, -1, -1, 0, nullptr, 0.0001f)), // Roll Cage
@@ -47,7 +47,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_SCAR20, cSkin(skin.scar, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     make_pair(WEAPON_SG556, cSkin(skin.sg, -1, -1, 1337, 0, nullptr, 0.0001f)), // Mayan Dreams
     
-    make_pair(WEAPON_SSG08, cSkin(skin.scout, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
+    make_pair(WEAPON_SSG08, cSkin(SSGSKIN, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
     make_pair(WEAPON_GALILAR, cSkin(skin.galil, -1, -1, -1, 0, nullptr, 0.0001f)), // Sugar Rush
     // SMGs
     make_pair(WEAPON_MAC10, cSkin(skin.mac10, -1, -1, -1, 0, nullptr, 0.0001f)), // Neon Rider

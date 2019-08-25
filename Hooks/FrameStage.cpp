@@ -187,6 +187,7 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     {   // Call functions here just so its cleaner
         RemoveFlash(curStage);
         //FakePing();
+        ViewmodelHVH();
         InverseRagdoll();
         Resolver::FrameStageNotify(curStage, local);
         //Resolver1::FrameStageNotify1(curStage, local);

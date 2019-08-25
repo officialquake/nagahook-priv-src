@@ -924,10 +924,14 @@ void cMenu::renderMisc(int x, int y) {
     this->renderCheckbox(x + 444, y + 35, "Adaptive", &vars.misc.adaptive);
     //this->renderCheckbox(x + 235, y + 220, "Fake Lag Chams", &vars.misc.flagchams);
     this->renderSlider(x + 444, y + 55, 115, "Fake Lag Factor", vars.misc.fakelagfactor, 16, 0);
-    this->renderCheckbox(x + 444, y + 85, "meme dead grav", &vars.misc.meme);
+    this->renderCheckbox(x + 444, y + 85, "Inverse Ragdoll Gravity", &vars.misc.meme);
+    this->renderCheckbox(x + 444, y + 105, "HvH Viewmodel", &vars.misc.hvhviewmodel);
     //this->renderCombo(x + 474, y + 95,  150, 20, "v1", fakeping, vars.misc.fakepingtype, &vars.fakeping_opend);
-    //this->renderSlider(x + 469, y + 124, 150, "Fake Ping Value", vars.misc.fakepingvalue, 5, 0);
+    this->renderSlider(x + 444, y + 135, 115, "Horizontal Viewmodel", vars.misc.viewmodelx, 20, 0);
+    this->renderSlider(x + 444, y + 165, 115, "Vertical Viewmodel", vars.misc.viewmodely, 20, 0);
+    this->renderSlider(x + 444, y + 195, 115, "Viewmodel FOV", vars.misc.viewmodelfov, 150, 0);
     
+    this->renderCheckbox(x + 444, y + 225, "Thirdperson & Real Angles", &vars.misc.thirdpersonkeybindez);
 
    
     

@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cstdint>
+#include <cstddef>
+#include <vector>
+
 class VMT
 {
 private:
@@ -8,8 +14,12 @@ public:
     
     uintptr_t* original_vmt = nullptr;
     
-    unsigned int methodCount = 0;
+    uint32_t methodCount = 0;
     
+    ~VMT( ){
+        ReleaseVMT();
+        delete[] vmt;
+    }
     VMT(void* interface)
     {
         this->interface = reinterpret_cast<uintptr_t**>(interface);
@@ -21,13 +31,15 @@ public:
         
         original_vmt = *this->interface;
         
-        vmt = new uintptr_t[sizeof(uintptr_t) * method_count];
+        vmt = new uintptr_t[method_count];
         
         memcpy(vmt, original_vmt, sizeof(uintptr_t) * method_count);
+        
     }
     
     // Hook virtual method
-    void HookVM(void* method, size_t methodIndex)
+    template <typename func>
+    void HookVM(func method, size_t methodIndex)
     {
         vmt[methodIndex] = reinterpret_cast<uintptr_t>(method);
     }

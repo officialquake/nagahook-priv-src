@@ -98,6 +98,7 @@ void Config::LoadConfig() {
     vars.misc.MaaY     = cfgget_i("Misc", "MaaY");
     vars.visuals.nosmoke     = cfgget_b("Misc", "No Smoke");
     vars.misc.noduckcooldown     = cfgget_b("Misc", "No Duck");
+    vars.misc.thirdpersonkeybindez     = cfgget_b("Misc", "TPKEY");
     vars.aimbot.fakewalk     = cfgget_b("Misc", "Fake Walk");
     vars.aimbot.fakewalktype     = cfgget_i("Misc", "FakeWalkT");
     vars.aimbot.backtrack = cfgget_b("Aimbot", "Backtrack");
@@ -231,6 +232,12 @@ void Config::LoadConfig() {
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
     vars.visuals.bullett = cfgget_b("Misc", "Bullet");
     vars.misc.desyncenabled = cfgget_b("Aimbot", "YawD");
+    
+    vars.misc.hvhviewmodel = cfgget_b("Misc", "hvhviewmodel");
+    vars.misc.logshots = cfgget_b("Misc", "Log Shots");
+    vars.misc.viewmodelx = cfgget_i("Misc", "hvhviewmodelx");
+    vars.misc.viewmodely = cfgget_i("Misc", "hvhviewmodely");
+    vars.misc.viewmodelfov = cfgget_i("Misc", "hvhviewmodelfov");
     //vars.misc.freestanding = cfgget_b("Aimbot", "Freestanding");
     
     
@@ -399,7 +406,16 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "Chat Spam", GetBoolValue(vars.misc.spammer));
     cfg.SetBoolValue("Misc", "Clantag", GetBoolValue(vars.misc.clantag));
     cfg.SetBoolValue("Visuals", "Skin Changer", GetBoolValue(vars.visuals.skinc));
+    cfg.SetBoolValue("Misc", "TPKEY", GetBoolValue(vars.misc.thirdpersonkeybindez));
     cfg.SetBoolValue("Misc", "Antiunt", GetBoolValue(vars.misc.antiuntrust));
+
+    
+    cfg.SetBoolValue("Misc", "hvhviewmodel", GetBoolValue(vars.misc.hvhviewmodel));
+    cfg.SetBoolValue("Misc", "Log Shots", GetBoolValue(vars.misc.logshots));
+    cfg.SetLongValue("Misc", "hvhviewmodelx", GetIntValue(vars.misc.viewmodelx));
+    cfg.SetLongValue("Misc", "hvhviewmodely", GetIntValue(vars.misc.viewmodely));
+    cfg.SetLongValue("Misc", "hvhviewmodelfov", GetIntValue(vars.misc.viewmodelfov));
+    
     
     cfg.SetLongValue("Misc", "FOVf", GetIntValue(vars.misc.fov));
     cfg.SetLongValue("Misc", "TPOff", GetIntValue(vars.misc.tpoffset));
