@@ -16,25 +16,10 @@ void NameStealer::SetName(const char* name)
     cvar_name->SetValue(name);
 }
 
-void NameStealer::GaelGay(){
-    if(vars.aimbot.namestealer){
-        if(vars.aimbot.nametype == 0){
-            SetName("killers.cc");
-        }else if(vars.aimbot.nametype == 1){
-            SetName("unnamed");
-        }else if(vars.aimbot.nametype == 2){
-            SetName(":(");
-        }else if(vars.aimbot.nametype == 3){
-            SetName("?");
-        }else if(vars.aimbot.nametype == 4){
-            SetName("not hittin p");
-        }
-    }
-}
 
-//void NameStealer::BeginFrame(float frameTime)
-//{
-    /*if (!pEngine->IsInGame())
+void NameStealer::BeginFrame(float frameTime)
+{
+    if (!pEngine->IsInGame())
         return;
     
     if (changes == -1)
@@ -70,5 +55,5 @@ void NameStealer::GaelGay(){
         return;
     }
     
-    SetName("noob");
-}*/
+    SetName("realnigga.club");
+}

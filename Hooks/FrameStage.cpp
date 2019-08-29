@@ -6,6 +6,7 @@
 #include "../Hacks/nosmoke.hpp"
 #include "../Hacks/antiaim.h"
 #include "../Hacks/resolver.h"
+
 #include "../Hacks/namestealer.hpp"
 
 float GetMaxxDelta(CCSGOAnimState *animState ) {
@@ -191,6 +192,7 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
         ViewmodelHVH();
         InverseRagdoll();
         Resolver::FrameStageNotify(curStage, local);
+    
         //Resolver1::FrameStageNotify1(curStage, local);
         
         

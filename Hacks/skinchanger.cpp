@@ -10,30 +10,12 @@ int SSGSKIN = 624;
 int SSGSKIN2 = 222;
 int SSGSKIN3 = 503;
 
-int ssgskin1(){
-    if (vars.misc.ssgskin == 0) {
-        return SSGSKIN;
-    }else if (vars.misc.ssgskin == 1){
-        return SSGSKIN2;
-    }else if (vars.misc.ssgskin == 2){
-        return SSGSKIN3;
-    }
-}
-
-
 unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     /* https://github.com/sonicrules11/CSGO-skin-ID-dumper/blob/master/item_index.txt */
     // make_pair(WEAPON, cSkin(Skin, Seed, -1, Stattrak, Entity Quality, (char*)("Name") or nullptr for no name, Wear)),
     
     make_pair(WEAPON_KNIFE, cSkin(skin.TknifeID, -1, KnifeCT, -1, 3, (char*)("Sharper Dildo"), 0.0001f)), // Ruby Doppler
     make_pair(WEAPON_KNIFE_T, cSkin(skin.CTknifeID, -1, KnifeT, -1, 3, (char*)("Bloody Dildo"), 0.0001f)), // Fade
-    /*make_pair(WEAPON_C4, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
-    make_pair(WEAPON_FRAG_GRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
-    make_pair(WEAPON_HEGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar
-    // Gloves
-    make_pair(WEAPON_TAGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)),
-    make_pair(WEAPON_INCGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), // Jaguar// Jaguar
-    make_pair(WEAPON_SMOKEGRENADE, cSkin(skin.ak47, -1, -1, -1, 0, nullptr, 0.0001f)), //*/
     
     make_pair(GLOVE_CT, cSkin(skin.CTgloveID, -1, GloveCT, -1, 3, (char*)("Purple Dildo"), 0.0001f)), //
     make_pair(GLOVE_T, cSkin(skin.TgloveID, -1, GloveT, -1, 3, nullptr, 0.0001f)), //
@@ -59,7 +41,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_SCAR20, cSkin(skin.scar, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     make_pair(WEAPON_SG556, cSkin(skin.sg, -1, -1, 1337, 0, nullptr, 0.0001f)), // Mayan Dreams
     
-    make_pair(WEAPON_SSG08, cSkin(ssgskin1(), -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
+    make_pair(WEAPON_SSG08, cSkin(skin.scout, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
     make_pair(WEAPON_GALILAR, cSkin(skin.galil, -1, -1, -1, 0, nullptr, 0.0001f)), // Sugar Rush
     // SMGs
     make_pair(WEAPON_MAC10, cSkin(skin.mac10, -1, -1, -1, 0, nullptr, 0.0001f)), // Neon Rider
@@ -84,11 +66,8 @@ cSkinchanger* skinchanger = new cSkinchanger;
 
 
 void cSkinchanger::FrameStageNotify(ClientFrameStage_t stage) {
-  
-    
     if(stage == FRAME_NET_UPDATE_POSTDATAUPDATE_START){
         pLocalPlayer = (C_BaseEntity*)(pEntList->GetClientEntity(pEngine->GetLocalPlayer()));
-        
         if(pLocalPlayer && pLocalPlayer->GetHealth() > 0){
             if(!bInit){
                 Init();
@@ -111,9 +90,6 @@ void cSkinchanger::ForceSkins() {
     player_info_t player_info;
     
     pEngine->GetPlayerInfo(pLocalPlayer->GetId(), &player_info);
-    
-    
-        
         int* pWeapons = pLocalPlayer->GetWeapons();
         
         C_BaseViewModel* LocalPlayerViewModel = (C_BaseViewModel*)pEntList->GetClientEntityFromHandle(pLocalPlayer->GetViewModel());
@@ -252,9 +228,20 @@ void cSkinchanger::Init() {
 }
 
 void cSkinchanger::FireEventClientSide(IGameEvent *event) {
-    if(!strcmp(event->GetName(), "game_newmap")) {
-        Init();
-    }
+    if (!vars.visuals.skinc)
+        return;
+    
+    if (!pEngine->IsInGame())
+        return;
+    
+    if (!event || strcmp(event->GetName(), "player_death") != 0)
+        return;
+    
+    if (!event->GetInt("attacker") || pEngine->GetPlayerForUserID(event->GetInt("attacker")) != pEngine->GetLocalPlayer())
+        return;
+    
+    std::string weapon = event->GetString("weapon");
+
 }
 
 // Fix Animations (I don't know if any of the new knives have a new animation so I can't update them)

@@ -116,7 +116,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
     
     misc->clan_tag();
-    NameStealer::GaelGay();
+    
     createmoveVMT->GetOriginalMethod<tCreateMove>(25)(thisptr, flSampleInput, cmd);
     
     

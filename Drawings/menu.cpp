@@ -531,8 +531,8 @@ void cMenu::renderAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 75, "Auto Block", &vars.aimbot.autoaccept);
     this->renderCheckbox(x + 235, y + 95, "Auto Knife", &vars.aimbot.autoknife);
 
-    this->renderCheckbox(x + 235, y + 115, "Name Changer", &vars.aimbot.namestealer);
-    this->renderCombo(x + 235, y + 135, 150, 20, "killers.cc", Name, vars.aimbot.nametype, &vars.niggeropend);
+    //this->renderCheckbox(x + 235, y + 115, "Name Changer", &vars.aimbot.namestealer);
+    //this->renderCombo(x + 235, y + 135, 150, 20, "killers.cc", Name, vars.aimbot.nametype, &vars.niggeropend);
     //this->renderCheckbox(x + 235, y + 75, "Show Ranks", &vars.misc.showrank);
     
     /**/
