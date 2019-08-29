@@ -377,27 +377,7 @@ void turbojizzer(CUserCmd* cmd, C_BaseEntity* local)
     }
 }
 
-void LegitAA(CUserCmd* cmd, C_BaseEntity* local){
-    /*if (!local || !local->GetAlive())
-        return;
-    
-    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
-        return;
-    
-    if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
-        return;
-    if(!vars.misc.legitaa)
-        return;
-    if (*bSendPacket == true){
-        
-        Vector viewAngles;
-        pEngine->GetViewAngles(viewAngles);
-        cmd->viewangles.y = viewAngles.y;
-    }else{
-        cmd->viewangles.y += 90;
-    }
-    */
-}
+
 
 void backjizzer(CUserCmd* cmd, C_BaseEntity* local)
 {
@@ -675,6 +655,34 @@ float getMaxDesyncAngle(C_BaseEntity* local)
     return 0.0f;
 }
 
+void LegitAA(CUserCmd* cmd, C_BaseEntity* local){
+    if(!pEngine->IsInGame())
+        return;
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if ((cmd->buttons & IN_ATTACK) || (cmd->buttons & IN_USE))
+    {
+        AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
+        return;
+    }
+    
+    float desync = GetMaxDelta(local->GetAnimState());
+    if (vars.misc.legitaa) {
+        if (!bSendPacket)
+        {
+            cmd->viewangles.y -= ( vars.misc.legitaadditive + desync );
+        }
+        if (vars.misc.legitaastatic) {
+            if (!(cmd->buttons & IN_FORWARD) && !(cmd->buttons & IN_BACK) && !(pInputSystem->IsButtonDown(KEY_SPACE))) {
+                cmd->forwardmove = cmd->tick_count % 2 ? 1.01 : -1.01;
+            }
+        }
+    }
+}
 
 bool LBYUpdate()
 {
@@ -843,7 +851,7 @@ void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapo
     
     
     if (!vars.misc.fakelag)
-        *bSendPacket = cmd->command_number % 2;
+        *bSendPacket = cmd->tick_count % 2;
     
     if(vars.misc.desyncenabled)
     {
@@ -866,6 +874,7 @@ void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapo
             switch_ = !switch_;
         }
     }
+    
     cmd->viewangles.ClampAngles();
 }
 
@@ -885,7 +894,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
         return;
-
     
     if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < (local->GetTickBase()  * pGlobals->interval_per_tick)) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
     {
@@ -895,7 +903,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     
     if (!vars.misc.fakelag) {
-        *bSendPacket = cmd->command_number % 2;
+        *bSendPacket = cmd->tick_count % 2;
     }
     
     
@@ -937,36 +945,24 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     
     bool needToFlick = false;
-    float tempangle = 0.f;
     static bool lbyBreak = false;
     static float lastCheck;
-    static float nextUpdate;
     float vel2D = local->GetVelocity().Length2D();
-    if (pInputSystem->IsButtonDown(KEY_LEFT) && !manualswitch)
-        manualswitch = true;
-    
-    if (pInputSystem->IsButtonDown(KEY_RIGHT) && manualswitch)
-        manualswitch = false;
-    
-    
     if( vars.misc.lbybreaker ){
-        if(bSendPacket && (vel2D >= 0.1f || !(local->GetFlags() & FL_ONGROUND) || local->GetFlags() & FL_FROZEN) ){
-            // todo: add first choked tick check
+        
+        if( vel2D >= 0.1f || !(local->GetFlags() & FL_ONGROUND) || local->GetFlags() & FL_FROZEN ){
             lbyBreak = false;
             lastCheck = pGlobals->curtime;
-            nextUpdate = pGlobals->curtime + 0.22;
         } else {
             if( !lbyBreak && ( pGlobals->curtime - lastCheck ) > 0.22 ){
-                tempangle = vars.misc.lbybreakermanual ? manualswitch ? 57.5f + vars.misc.lbybreakeroffset : -57.5f + -vars.misc.lbybreakeroffset : vars.misc.lbybreakeroffset;
+                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
                 lbyBreak = true;
                 lastCheck = pGlobals->curtime;
-                nextUpdate = pGlobals->curtime + 1.1;
                 needToFlick = true;
             } else if( lbyBreak && ( pGlobals->curtime - lastCheck ) > 1.1 ){
-                tempangle = vars.misc.lbybreakermanual ? manualswitch ? 57.5f + vars.misc.lbybreakeroffset : -57.5f + -vars.misc.lbybreakeroffset: vars.misc.lbybreakeroffset;
+                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
                 lbyBreak = true;
                 lastCheck = pGlobals->curtime;
-                nextUpdate = pGlobals->curtime + 1.1;
                 needToFlick = true;
             }
         }
@@ -1114,15 +1110,11 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 }
             }
             if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                if (*bSendPacket)
+                cmd->viewangles.y += bSendPacket ? 180.f : 120.f;
+                if (lbyBreak)
                 {
-                    desync(local, cmd, 1);
-                }
-                else
-                {
-                    cmd->viewangles.y += 90;
-                    
-                    AntiAem::GRealAngle.y = cmd->viewangles.y;
+                    *bSendPacket = false;
+                    cmd->viewangles.y += 75.f;
                 }
                 
             }

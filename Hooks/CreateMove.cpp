@@ -84,6 +84,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     resolverfucker(cmd, local);
     DoAntiAimFake(cmd, local, weapon);
     RecoilControl(local, cmd);
+    //AutoZeus(cmd, local, weapon);
     grenade_prediction::get().Tick(cmd->buttons);
     ContinuousPistols(cmd, weapon);
     AutoCock(cmd, weapon);
@@ -203,6 +204,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         
         movement->FakeLag(cmd);
         Fakewalk(cmd, local);
+        
         duck->DuckCool(cmd);
         
         *sendPacket = CreateMove::sendPacket;

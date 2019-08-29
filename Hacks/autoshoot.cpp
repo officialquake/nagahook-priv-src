@@ -31,7 +31,7 @@ void AutoShoot(C_BaseEntity* player, C_BaseCombatWeapon* activeWeapon, CUserCmd*
     
     CSWeaponType weaponType = (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType;
     
-    if (weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE)
+    if (weaponType == CSWeaponType::WEAPONTYPE_KNIFE || weaponType == CSWeaponType::WEAPONTYPE_C4 || weaponType == CSWeaponType::WEAPONTYPE_GRENADE || *activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_TASER)
         return;
     
     
@@ -122,125 +122,6 @@ void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
     
 }
 
-/*void AutoKnife(CUserCmd* cmd){
-    if (!vars.aimbot.autoknife) {
-        return;
-    }
-    
-    C_BaseEntity* LocalPlayer = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!LocalPlayer || !LocalPlayer->IsPlayer()) {
-        return;
-    }
-    
-    C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*)pEntList->GetClientEntityFromHandle(LocalPlayer->GetActiveWeapon());
-    if (!activeWeapon) {
-        return;
-    }
-    
-    if ((CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType != CSWeaponType::WEAPONTYPE_KNIFE)
-        return;
-    
-    Vector traceStart, traceEnd;
-    trace_t tr;
-    
-    Vector angles;
-    pEngine->GetViewAngles(angles);
-    Vector viewAnglesRcs = angles + LocalPlayer->GetPunchAngles() * 2.0f;
-    
-    AngleVectors(viewAnglesRcs, &traceEnd);
-    
-    traceStart = LocalPlayer->GetEyePosition();
-    traceEnd = traceStart + (traceEnd * 8192.0f);
-    
-    Ray_t ray;
-    ray.Init(traceStart, traceEnd);
-    CTraceFilter traceFilter;
-    traceFilter.pSkip = LocalPlayer;
-    pEngineTrace->TraceRay(ray, 0x46004003, &traceFilter, &tr);
-    
-    C_BaseEntity* player = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!player) {
-        return;
-    }
-    
-    if (player->GetClientClass()->m_ClassID != EClassIds::CCSPlayer) {
-        return;
-    }
-    
-    if (player == LocalPlayer || player->GetDormant() || !player->GetAlive() || player->GetImmune()) {
-        return;
-    }
-    
-    if (player->GetTeam() == LocalPlayer->GetTeam()) {
-        return;
-    }
-    
-    Vector localPlayerOrigin = LocalPlayer->GetVecOrigin();
-    float playerDistance = localPlayerOrigin.DistTo(player->GetVecOrigin());
-    if (activeWeapon->GetNextPrimaryAttack() < pGlobals->curtime){
-        if (playerDistance <= 65.f && GetRightKnifeDamageDone(LocalPlayer, player) >= player->GetHealth()) {
-            cmd->buttons |= IN_ATTACK2;
-        } else if (IsPlayerBehind(LocalPlayer, player) && playerDistance <= 65.f) {
-            cmd->buttons |= IN_ATTACK2;
-        } else if (playerDistance <= 78.f) {
-            if (IsPlayerBehind(LocalPlayer, player)) {
-                return;
-            }
-            
-            if (playerDistance <= 65.f &&
-                (2 * GetLeftKnifeDamageDone(LocalPlayer, player)) + (GetRightKnifeDamageDone(LocalPlayer, player) - 13) < player->GetHealth()
-                ) {
-                cmd->buttons |= IN_ATTACK2;
-            } else {
-                cmd->buttons |= IN_ATTACK;
-            }
-        }
-    }
-}
-
-bool IsPlayerBehind(C_BaseEntity* localplayer, C_BaseEntity* player) {
-    Vector toTarget = (localplayer->GetVecOrigin() - player->GetVecOrigin());
-    Vector playerViewAngles;
-    AngleVectors(player->GetEyePosition(), &playerViewAngles);
-    if (toTarget.Normalized().Dot(playerViewAngles) > -0.5f) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-int GetLeftKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player) {
-    bool backstab = IsPlayerBehind(localplayer, player);
-    int armor = player->GetArmor();
-    if (!backstab) {
-        if (armor > 0) {
-            return 33; // 21
-        } else {
-            return 39; // 25
-        }
-    } else {
-        if (armor > 0) {
-            return 76; // 76
-        } else {
-            return 90; // 90
-        }
-    }
-}
-
-int GetRightKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player) {
-    bool backstab = IsPlayerBehind(localplayer, player);
-    int armor = player->GetArmor();
-    if (!backstab) {
-        if (armor > 0) {
-            return 33; // 21
-        } else {
-            return 39; // 25
-        }
-    } else {
-        return 100;
-    }
-}
-
 void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
     
     if (!vars.aimbot.autoshoot)
@@ -258,7 +139,7 @@ void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
     if (weapon->GetAmmo() == 0)
         return;
     
-    for (int i = 1; i <= pGlobals->maxClients; i++)
+    for (int i = 1; i <= pEngine->GetMaxClients(); i++)
     {
         C_BaseEntity *entity = (C_BaseEntity*)pEntList->GetClientEntity(i);
         if (!entity
@@ -308,4 +189,3 @@ void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
         }
     }
 }
-*/

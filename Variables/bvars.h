@@ -201,10 +201,12 @@ public:
         bool snipercrosshair        = false;     // Enabled
         bool antiuntrust    = true;     // Anti Untrust KEEP ON AT ALL TIMES UNLESS YOU KNOW WHAT YOURE DOING
         bool radar    = false;
+        bool slow_walk    = false;
         bool noduckcooldown    = false;
         bool spreadcrosshair    = false;
         bool dlights        = false;
         bool unload        = false;
+        float slow_walk_amount = 0.f;
         bool nadetraj = false;
         float AAAngle;
         int Up = 1;
@@ -230,10 +232,12 @@ public:
         bool thirdpersonkeybindez    = false;     // Basically RCS without slider
         bool triggerbotkey    = false;     // Basically RCS without slider
         bool manualaakey    = false;     // Basically RCS without slider
-        bool fakewalkkey    = false;     // Basically RCS without slider
-        bool autoblockkey    = false;     // Basically RCS without slider
+        bool fakewalkkey    = true;     // Basically RCS without slider
+        bool autoblockkey    = true;     // Basically RCS without slider
          bool manualcrosshair    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
+        bool legitaastatic    = false;     // Basically RCS without slider
+        int legitaadditive             = 0;       // FOV changer
         bool manualaa    = false;     // Basically RCS without slider
         bool novisual       = true;     // No visual recoil ofc
         bool bhop           = true;     // BunnyHop

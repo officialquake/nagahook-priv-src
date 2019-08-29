@@ -650,8 +650,7 @@ void cMenu::renderAntiAim(int x, int y) {
         this->renderCombo(x + 474, y + 265, 90, 20, "fYaw", FakeYaw, vars.misc.FaaY, &vars.FaaY_opend);
     }*/
      this->renderCheckbox(x + 444, y + 175, "LBY Breaker", &vars.misc.lbybreaker); // 60
-    this->renderCheckbox(x + 444, y + 195, "LBY Breaker Manual?", &vars.misc.lbybreakermanual); // 60
-    this->renderSlider(x + 444, y + 225, 115, "Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
+    this->renderSlider(x + 444, y + 215, 115, "Offset", vars.misc.lbybreakeroffset, 360.f, 0.f);
     this->renderCheckbox(x + 444, y + 255, "Manual AA", &vars.misc.manualaa); // 60
     
     this->renderCheckbox(x + 444, y + 275, "Fake AA", &vars.misc.fakeaa); // 60
@@ -665,8 +664,9 @@ void cMenu::renderAntiAim(int x, int y) {
     
     this->renderCheckbox(x + 444, y + 375, "Yaw Enabled (Desync)", &vars.misc.desyncenabled);
     this->renderCheckbox(x + 444, y + 395, "Freestanding (Desync)", &vars.misc.freestanding);
-    //this->renderCheckbox(x + 444, y + 415, "Osiris Legit Desync", &vars.misc.OsirisLegitDesync);
-    
+    //this->renderCheckbox(x + 444, y + 415, "Legit AA", &vars.misc.legitaa);
+    //this->renderSlider(x + 444, y + 435, 115, "additive (legitaa)", vars.misc.legitaadditive, 180, 0);
+    //this->renderCheckbox(x + 444, y + 465, "Static legit aa", &vars.misc.legitaastatic);
     
     //this->renderCheckbox(x - 15, y + 160, "Freestand", &vars.aimbot.freestand);
     this->renderCheckbox(x + 235, y + 15, "Fakewalk", &vars.aimbot.fakewalk);
@@ -696,11 +696,9 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 185, "AutoStop", &vars.aimbot.autostop);
     this->renderCheckbox(x + 235, y + 255, "Moonwalk", &vars.misc.moonwalk);
     this->renderCheckbox(x + 235, y + 275, "Autoslow", &vars.aimbot.autoslow);
-    //this->renderCheckbox(x + 235, y + 295, "AutoKnife", &vars.aimbot.autoknife);
-    
-    /*if (!vars.freestand_opend) {
-        this->renderSlider(x - 5, y + 180, 150, "Jitter", vars.aimbot.jitter, 180, 0);
-    }*/
+    //this->renderCheckbox(x + 235, y + 295, "Slowwalk", &vars.misc.slow_walk);
+    //this->renderSlider(x + 235, y + 315, 115, "Slowwalk Amount", vars.misc.slow_walk_amount, 100.f, 0.f);
+
     vector<string> Resolve;  // Resolver
     
     Resolve.push_back("Off");

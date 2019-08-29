@@ -445,6 +445,7 @@ void EmitSound(int iEntIndex, const char *pSample){
     }
 }
 
+
 void DrawPlayerESP()
 {
     if(!vars.visuals.enabled)

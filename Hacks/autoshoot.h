@@ -13,7 +13,7 @@ float Hitchance(C_BaseEntity* pLocal, C_BaseCombatWeapon* pWeapon);
 
 void AutoCock(CUserCmd* pCmd, C_BaseCombatWeapon* weapon);
 
-
+void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon);
 
 bool IsPlayerBehind(C_BaseEntity* localplayer, C_BaseEntity* player);
 int GetLeftKnifeDamageDone(C_BaseEntity* localplayer, C_BaseEntity* player);
