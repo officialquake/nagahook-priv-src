@@ -99,14 +99,6 @@ void manualaa(C_BaseEntity* Local, int keynum)
     
     left = (switchside) ?  true : false;
     right = (switchside) ? false : true;
-
-    
-    /*if(keynum == KEY_SLASH)
-    {
-        vars.misc.manualcrosshair = !vars.misc.manualcrosshair;
-    }*/
-    
-    //float_t pos = Global::cmd->viewangles.y;
     
     if(vars.visuals.indicatorAA_types == 1){
         

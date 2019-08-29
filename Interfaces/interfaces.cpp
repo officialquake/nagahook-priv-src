@@ -1,7 +1,7 @@
 #include "main.h"
 
 // CLEAN CODE > ALL
-
+//CGlowObjectManager* glowManager = nullptr;
 ISurface*           pSurface        = nullptr;
 CEffects*           pEffects        = nullptr;
 IPanel*             pPanel          = nullptr;
@@ -23,8 +23,10 @@ IVModelRender*      pModelRender    = nullptr;
 IPrediction*        pPrediction     = nullptr;
 IMoveHelper*        pMoveHelper     = nullptr;
 IGameMovement*      pGameMovement   = nullptr;
+//IFileSystem* fileSystem = nullptr;
 IPhysicsSurfaceProps* pPhysics      = nullptr;
 IGameEventManager2* pGameEventManager = nullptr;
+IEngineSound* sound = nullptr;
 INetChannelInfo*    nci             = nullptr;
 
 CMoveData* MoveData         = nullptr;
@@ -38,6 +40,7 @@ MsgFunc_ServerRankRevealAllFn MsgFunc_ServerRankRevealAll;
 
 
 VMT* paintVMT;
+VMT* soundVMT;
 VMT* createmoveVMT;
 VMT* clientVMT;
 VMT* modelVMT;

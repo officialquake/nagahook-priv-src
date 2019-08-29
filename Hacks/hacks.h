@@ -10,6 +10,7 @@ typedef void (*tPaintTraverse)(void*, VPANEL panel, bool forceRepaint, bool allo
 typedef bool (*tCreateMove)(void*, float flSampleInput, CUserCmd* cmd);
 typedef bool (*tDrawCrosshair)(void* thisptr);
 typedef int  (*tKeyEvent)(void*, int, int, const char*);
+typedef void (*EmitSound2Fn) (void*, IRecipientFilter&, int, int, const char*, unsigned int, const char*, float, int, soundlevel_t, int, int, const Vector*, const Vector*, void*, bool, float, int, StartSoundParams_t&);
 typedef void (*tOverrideView)(void*, CViewSetup& setup);
 typedef void (*tFrameStage)(void*, ClientFrameStage_t);
 typedef bool(*oFireEvent)       (void*, IGameEvent*, bool);
@@ -22,6 +23,7 @@ typedef bool(*tFireGameEvent)(void*, IGameEvent*);
 
 extern void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowForce);
 extern bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd);
+extern void EmitSound2(void* thisptr, IRecipientFilter& filter, int iEntIndex, int iChannel, const char* pSoundEntry, unsigned int nSoundEntryHash, const char *pSample, float flVolume, int nSeed, soundlevel_t iSoundLevel, int iFlags, int iPitch, const Vector* pOrigin, const Vector* pDirection, void* pUtlVecOrigins, bool bUpdatePositions, float soundtime, int speakerentity, StartSoundParams_t& params);
 extern int  hkKeyEvent(void* thisptr, int eventcode, int keynum, const char* currentbinding);
 extern void hkOverrideView(void* thisptr, CViewSetup* setup);
 extern void hkFrameStage(void* thisptr, ClientFrameStage_t curStage);

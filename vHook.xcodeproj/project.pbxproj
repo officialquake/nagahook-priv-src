@@ -43,9 +43,23 @@
 		91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91286C1122EE046C00AFBC06 /* autostop.hpp */; };
 		9129912C230A6C380053DE3F /* grenadeprediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9129912A230A6C380053DE3F /* grenadeprediction.cpp */; };
 		9129912D230A6C380053DE3F /* grenadeprediction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9129912B230A6C380053DE3F /* grenadeprediction.hpp */; };
+		9132D3FE23164751009CB322 /* autodefuse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132D3FC23164751009CB322 /* autodefuse.cpp */; };
+		9132D3FF23164751009CB322 /* autodefuse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9132D3FD23164751009CB322 /* autodefuse.hpp */; };
 		91346E3322C05861009AAD8E /* index.h in Headers */ = {isa = PBXBuildFile; fileRef = 91346E3222C05860009AAD8E /* index.h */; };
 		915B2EE322EA1ACC000ABA9A /* EnginePrediction.h in Headers */ = {isa = PBXBuildFile; fileRef = 915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */; };
 		915B2EE422EA1ACC000ABA9A /* EnginePrediction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */; };
+		916211102313F0B100840093 /* customglow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9162110E2313F0B100840093 /* customglow.cpp */; };
+		916211112313F0B100840093 /* customglow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9162110F2313F0B100840093 /* customglow.hpp */; };
+		916211132313F14000840093 /* CGlowObjectManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 916211122313F14000840093 /* CGlowObjectManager.h */; };
+		916211162313F5B800840093 /* showranks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 916211142313F5B800840093 /* showranks.cpp */; };
+		916211172313F5B800840093 /* showranks.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 916211152313F5B800840093 /* showranks.hpp */; };
+		9162111A2313F72100840093 /* CutlMemory.h in Headers */ = {isa = PBXBuildFile; fileRef = 916211182313F72100840093 /* CutlMemory.h */; };
+		9162111B2313F72100840093 /* Cutlvector.h in Headers */ = {isa = PBXBuildFile; fileRef = 916211192313F72100840093 /* Cutlvector.h */; };
+		9165F3CC2314CCD20017D895 /* IEngineSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 9165F3CB2314CCD20017D895 /* IEngineSound.h */; };
+		9165F3CE2314D1A50017D895 /* IFileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9165F3CD2314D1A50017D895 /* IFileSystem.h */; };
+		9165F3D12314D9010017D895 /* EmitSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9165F3CF2314D9010017D895 /* EmitSound.cpp */; };
+		9171427E231672AB00A77774 /* namestealer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9171427C231672AB00A77774 /* namestealer.cpp */; };
+		9171427F231672AB00A77774 /* namestealer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9171427D231672AB00A77774 /* namestealer.hpp */; };
 		9181811A2307346F009A67D1 /* resolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 918181192307346F009A67D1 /* resolver.h */; };
 		9181F32E22FD957A00C081E9 /* ragdoll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9181F32C22FD957A00C081E9 /* ragdoll.cpp */; };
 		9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9181F32D22FD957A00C081E9 /* ragdoll.hpp */; };
@@ -188,10 +202,24 @@
 		91286C1122EE046C00AFBC06 /* autostop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = autostop.hpp; path = Hacks/autostop.hpp; sourceTree = "<group>"; };
 		9129912A230A6C380053DE3F /* grenadeprediction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = grenadeprediction.cpp; path = Hacks/grenadeprediction.cpp; sourceTree = "<group>"; };
 		9129912B230A6C380053DE3F /* grenadeprediction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = grenadeprediction.hpp; path = Hacks/grenadeprediction.hpp; sourceTree = "<group>"; };
+		9132D3FC23164751009CB322 /* autodefuse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autodefuse.cpp; path = Hacks/autodefuse.cpp; sourceTree = "<group>"; };
+		9132D3FD23164751009CB322 /* autodefuse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = autodefuse.hpp; path = Hacks/autodefuse.hpp; sourceTree = "<group>"; };
 		91346E3222C05860009AAD8E /* index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index.h; sourceTree = "<group>"; };
 		914D20BD22F556B1005B781D /* DrawModelExecute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DrawModelExecute.h; path = Hooks/DrawModelExecute.h; sourceTree = "<group>"; };
 		915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnginePrediction.h; path = Hacks/EnginePrediction.h; sourceTree = "<group>"; };
 		915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EnginePrediction.cpp; path = Hacks/EnginePrediction.cpp; sourceTree = "<group>"; };
+		9162110E2313F0B100840093 /* customglow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = customglow.cpp; path = Hacks/customglow.cpp; sourceTree = "<group>"; };
+		9162110F2313F0B100840093 /* customglow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = customglow.hpp; path = Hacks/customglow.hpp; sourceTree = "<group>"; };
+		916211122313F14000840093 /* CGlowObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGlowObjectManager.h; path = SDK/CGlowObjectManager.h; sourceTree = "<group>"; };
+		916211142313F5B800840093 /* showranks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = showranks.cpp; path = Hacks/showranks.cpp; sourceTree = "<group>"; };
+		916211152313F5B800840093 /* showranks.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = showranks.hpp; path = Hacks/showranks.hpp; sourceTree = "<group>"; };
+		916211182313F72100840093 /* CutlMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlMemory.h; sourceTree = "<group>"; };
+		916211192313F72100840093 /* Cutlvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cutlvector.h; sourceTree = "<group>"; };
+		9165F3CB2314CCD20017D895 /* IEngineSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEngineSound.h; sourceTree = "<group>"; };
+		9165F3CD2314D1A50017D895 /* IFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFileSystem.h; sourceTree = "<group>"; };
+		9165F3CF2314D9010017D895 /* EmitSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EmitSound.cpp; path = Hooks/EmitSound.cpp; sourceTree = "<group>"; };
+		9171427C231672AB00A77774 /* namestealer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = namestealer.cpp; path = Hacks/namestealer.cpp; sourceTree = "<group>"; };
+		9171427D231672AB00A77774 /* namestealer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = namestealer.hpp; path = Hacks/namestealer.hpp; sourceTree = "<group>"; };
 		918181192307346F009A67D1 /* resolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resolver.h; path = Hacks/resolver.h; sourceTree = "<group>"; };
 		9181F32C22FD957A00C081E9 /* ragdoll.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ragdoll.cpp; path = Hacks/ragdoll.cpp; sourceTree = "<group>"; };
 		9181F32D22FD957A00C081E9 /* ragdoll.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ragdoll.hpp; path = Hacks/ragdoll.hpp; sourceTree = "<group>"; };
@@ -344,6 +372,7 @@
 				9A213B441F866CCB00518DE8 /* BeginFrame.cpp */,
 				914D20BD22F556B1005B781D /* DrawModelExecute.h */,
 				91E88035230B8C56008B93D8 /* RenderView.cpp */,
+				9165F3CF2314D9010017D895 /* EmitSound.cpp */,
 			);
 			name = Hooks;
 			sourceTree = "<group>";
@@ -448,6 +477,14 @@
 				9129912B230A6C380053DE3F /* grenadeprediction.hpp */,
 				91E88037230B9304008B93D8 /* logshots.cpp */,
 				91E88038230B9304008B93D8 /* logshots.hpp */,
+				9162110E2313F0B100840093 /* customglow.cpp */,
+				9162110F2313F0B100840093 /* customglow.hpp */,
+				916211142313F5B800840093 /* showranks.cpp */,
+				916211152313F5B800840093 /* showranks.hpp */,
+				9132D3FC23164751009CB322 /* autodefuse.cpp */,
+				9132D3FD23164751009CB322 /* autodefuse.hpp */,
+				9171427C231672AB00A77774 /* namestealer.cpp */,
+				9171427D231672AB00A77774 /* namestealer.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -481,6 +518,11 @@
 		E1FE19AB1E718EF70018D409 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				9165F3CD2314D1A50017D895 /* IFileSystem.h */,
+				9165F3CB2314CCD20017D895 /* IEngineSound.h */,
+				916211192313F72100840093 /* Cutlvector.h */,
+				916211182313F72100840093 /* CutlMemory.h */,
+				916211122313F14000840093 /* CGlowObjectManager.h */,
 				911D111E2310F5EC00E3B589 /* elf.h */,
 				919D5CD92304352C00BC7CD0 /* Singleton.h */,
 				E1FE19AC1E718F020018D409 /* C_BaseEntity.h */,
@@ -569,14 +611,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9162111A2313F72100840093 /* CutlMemory.h in Headers */,
+				9165F3CE2314D1A50017D895 /* IFileSystem.h in Headers */,
 				8FAEFEB82014046F0057A419 /* antiaiminfos.h in Headers */,
 				B67AE8561F91CE8800ADDCD8 /* antiaim.h in Headers */,
 				9181811A2307346F009A67D1 /* resolver.h in Headers */,
 				8F5AAA151FF278A0003787BA /* fakewalk.h in Headers */,
+				9171427F231672AB00A77774 /* namestealer.hpp in Headers */,
 				8F4CF114200401BA0075C822 /* INetChannelInfo.h in Headers */,
 				B67AE8521F91CE7D00ADDCD8 /* aimbot.h in Headers */,
 				911D111F2310F5EC00E3B589 /* elf.h in Headers */,
 				86EB4C14209CCBEC00C493D8 /* AnimLayer.h in Headers */,
+				916211112313F0B100840093 /* customglow.hpp in Headers */,
 				B67AE85A1F91D0B200ADDCD8 /* autowall.h in Headers */,
 				91216B9222C777810042172E /* triggerbot.hpp in Headers */,
 				9A213B431F86632D00518DE8 /* clantag.h in Headers */,
@@ -584,6 +630,7 @@
 				91A48C3622E36553008A0BBA /* Backtrack.hpp in Headers */,
 				E1FE19CD1E718F020018D409 /* IVDebugOverlay.h in Headers */,
 				8FB45F20207FCF79003567EF /* asuswalls.h in Headers */,
+				9162111B2313F72100840093 /* Cutlvector.h in Headers */,
 				8F4F524A2037568B00507024 /* checksum_md5.h in Headers */,
 				B6A954691FACAC0900351006 /* prediction.h in Headers */,
 				91286C1322EE046C00AFBC06 /* autostop.hpp in Headers */,
@@ -605,11 +652,13 @@
 				E1FE19CA1E718F020018D409 /* IMaterial.h in Headers */,
 				E1FE19CC1E718F020018D409 /* ISurface.h in Headers */,
 				E1FE19C61E718F020018D409 /* IClientEntityList.h in Headers */,
+				916211172313F5B800840093 /* showranks.hpp in Headers */,
 				911D11212310F67700E3B589 /* link.h in Headers */,
 				E1FE19C51E718F020018D409 /* IBaseClientDLL.h in Headers */,
 				91E8803A230B9304008B93D8 /* logshots.hpp in Headers */,
 				9181F32F22FD957A00C081E9 /* ragdoll.hpp in Headers */,
 				86BB1A6E20A4E13500383EF9 /* LagComp.h in Headers */,
+				9132D3FF23164751009CB322 /* autodefuse.hpp in Headers */,
 				8614F618209CCB2400C49CE0 /* CBaseAnimating.h in Headers */,
 				E1FE19C21E718F020018D409 /* Color.h in Headers */,
 				E1FE19C81E718F020018D409 /* IEngineClient.h in Headers */,
@@ -635,9 +684,11 @@
 				91B170B023011837003AF2E2 /* dlights.hpp in Headers */,
 				B67AE8461F91B20100ADDCD8 /* drawings.h in Headers */,
 				91936B5A22E7648D00529F72 /* EventListener.h in Headers */,
+				916211132313F14000840093 /* CGlowObjectManager.h in Headers */,
 				91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */,
 				8F94DAA32076AFB100177009 /* autoshoot.h in Headers */,
 				8FEBA0322005201200F991CA /* hitmarker.h in Headers */,
+				9165F3CC2314CCD20017D895 /* IEngineSound.h in Headers */,
 				91C0D53223000CF400BF63DE /* snipercrosshair.hpp in Headers */,
 				B67AE83A1F91B0D800ADDCD8 /* interfaces.h in Headers */,
 				91A48C3222E36541008A0BBA /* nosmoke.hpp in Headers */,
@@ -727,6 +778,7 @@
 				91A9506222BF11ED007E0CB7 /* thirdperson.cpp in Sources */,
 				8FEBA0332005201200F991CA /* hitmarker.cpp in Sources */,
 				B67AE8511F91CE7D00ADDCD8 /* aimbot.cpp in Sources */,
+				916211162313F5B800840093 /* showranks.cpp in Sources */,
 				148074EC1FA11AD7004ED508 /* FrameStage.cpp in Sources */,
 				8F94DAA42076AFB100177009 /* autoshoot.cpp in Sources */,
 				91BF9CC42300D9D80060F242 /* eventlog.cpp in Sources */,
@@ -752,12 +804,16 @@
 				9A213B451F866CCB00518DE8 /* BeginFrame.cpp in Sources */,
 				91A48C3722E36553008A0BBA /* Backtrack.cpp in Sources */,
 				8FAEFEB92014046F0057A419 /* antiaiminfos.cpp in Sources */,
+				9171427E231672AB00A77774 /* namestealer.cpp in Sources */,
+				9165F3D12314D9010017D895 /* EmitSound.cpp in Sources */,
 				B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */,
 				91E88039230B9304008B93D8 /* logshots.cpp in Sources */,
 				9A213B311F8660FD00518DE8 /* OverrideView.cpp in Sources */,
 				8F4E12F2200FCB8D000F17A0 /* ConvertUTF.c in Sources */,
 				9A213B361F86611C00518DE8 /* bhop.cpp in Sources */,
+				916211102313F0B100840093 /* customglow.cpp in Sources */,
 				9A213B421F86632D00518DE8 /* clantag.cpp in Sources */,
+				9132D3FE23164751009CB322 /* autodefuse.cpp in Sources */,
 				8F5AAA141FF278A0003787BA /* fakewalk.cpp in Sources */,
 				9A213B321F8660FD00518DE8 /* PaintTraverse.cpp in Sources */,
 				9181F33222FD96DE00C081E9 /* antiafkkick.cpp in Sources */,

@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+
 extern void InitializeInterfaces(); //  Handles all interfaces
 extern void InitializeVMTs();       //  Handles all vmt's
 extern void InitializeHooks();      //  Handles all hooks
@@ -31,4 +32,5 @@ extern void PrintInfo();            //  Prints cheat info
 namespace hooker
 {
     uintptr_t FindPlayerAnimStateOffset();
+    //CGlowObjectManager* FindGlowManager();
 }

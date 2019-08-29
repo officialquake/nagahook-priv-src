@@ -69,7 +69,11 @@ public:
         return getvfunc<oDrawOutlinedRect>(this, 18)(this, x0, y0, x1, y1);
     }
     
-    
+    void DrawOutlinedCircle(int x0, int y0, int x1, int y1)
+    {
+        typedef void(* oDrawOutlinedCircle)(void*, int, int, int, int);
+        return getvfunc<oDrawOutlinedCircle>(this, 103)(this, x0, y0, x1, y1);
+    }
     
     inline void DrawTexturedRect(int x, int y, int w, int h) {
         typedef void(* origFn)(void *, int, int, int, int);

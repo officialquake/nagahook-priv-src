@@ -3,6 +3,16 @@
 #include "esp.h"
 #include "../Hacks/autowall.h"
 #include "../Backtrack.hpp"
+#include "../Hacks/customglow.hpp"
+
+struct Footstep
+{
+    long expiration;
+    int entityId;
+    Vector position;
+};
+std::vector<Footstep> footsteps;
+
 void DrawSkeleton(C_BaseEntity* pEntity, Color color){
     
     studiohdr_t* pStudioModel = pModelInfo->GetStudioModel( pEntity->GetModel() );
@@ -114,8 +124,7 @@ void DrawDroppedWeapons(C_BaseCombatWeapon* weapon) {
     
     if(DrawPlayerBox(weapon, wBox)) {
         draw->drawstring(wBox.x + wBox.w / 2, wBox.y, Color::White(), espfont, model.c_str(), true);
-        
-        
+        draw->BoxEspShit(wBox.x, wBox.y, wBox.w, wBox.h, Color::White());
     }
 }
 
@@ -182,41 +191,74 @@ void grenadeESP(C_BaseEntity* entity){
     boxstruct nBox;
     
     if(DrawPlayerBox(entity, nBox)){
-        draw->drawstring(nBox.x + nBox.w + 4, nBox.y - (nBox.h/2), Color::Red(), csgo_icons, name);
-        box3d(entity, color);
+        draw->drawstring(nBox.x + nBox.w + 4, nBox.y - (nBox.h/2), Color::Yellow(), csgo_icons, name);
+        draw->BoxEspShit(nBox.x, nBox.y, nBox.w, nBox.h, Color::White());
     }
-    
-    
+        box3d(entity, color);
 }
 
-void DrawBombBar(C_BaseEntity* local, C_BasePlantedC4* bomb){
-    /*if(!bomb->IsBombTicking())
+static void CollectFootstep(int iEntIndex, const char *pSample)
+{
+    if (strstr(pSample, "player/footsteps") == NULL && strstr(pSample, "player/land") == NULL)
         return;
-    float flBlow    = bomb->GetBombTime();
-    float bombTimer = flBlow - (pGlobals->interval_per_tick * local->GetTickBase());
     
-    int x, y;
-    pEngine->GetScreenSize(x, y);//getscreensize in pixels for width of countdown bars
+    if (iEntIndex == pEngine->GetLocalPlayer())
+        return;
     
+    Footstep footstep;
+    footstep.entityId = iEntIndex;
+    footstep.position = pEntList->GetClientEntity(iEntIndex)->GetVecOrigin();
+    footstep.expiration = GetEpochTime() + vars.misc.soundtime;
     
-    float fldefuse = bomb->GetDefuseTime();//time bomb is expected to defuse. if defuse is cancelled and started again this will be changed to the new value
-    //float ExplodeTimeRemaining = flBlow - (pGlobals->interval_per_tick * local->GetTickBase());
-    float DefuseTimeRemaining = fldefuse - (pGlobals->interval_per_tick * local->GetTickBase());//subtract current time to get time remaining
-    char TimeToExplode[64]; sprintf(TimeToExplode, "Explode in: %.1f", bombTimer);//Text we gonna display for explosion
-    
-    char TimeToDefuse[64]; sprintf(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
-    if((local->HasDefuser() && flBlow > 5.25f) || (!local->HasDefuser() && flBlow > 10.25f))
-    {
-    float fraction = bombTimer / bomb->TimerThing();//the proportion of time remaining, use fltimerlength cos bomb detonation time can vary by gamemode
-    int onscreenwidth = fraction * x;//the width of the bomb timer bar. proportion of time remaining multiplied by width of screen
-    
-    float red = 255 - (fraction * 255);//make our bar fade from complete green to complete red
-    float green = fraction * 255;
-    
-    pSurface->DrawSetColor(red,green,0,255);
-    pSurface->DrawFilledRect(0, 0, onscreenwidth, 10);
-    }*/
+    footsteps.push_back(footstep);
 }
+
+static void DrawSounds()
+{
+    for (unsigned int i = 0; i < footsteps.size(); i++)
+    {
+        long diff = footsteps[i].expiration - GetEpochTime();
+        
+        if (diff <= 0)
+        {
+            footsteps.erase(footsteps.begin() + i);
+            continue;
+        }
+        
+        Vector pos2d;
+        
+        if (pOverlay->ScreenPosition(footsteps[i].position, pos2d))
+            continue;
+        
+        C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+        if (!localplayer)
+            continue;
+        
+        C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(footsteps[i].entityId);
+        if (!player)
+            continue;
+        
+        if (player->GetTeam() != localplayer->GetTeam() && !vars.misc.footstepenemies)
+            continue;
+        
+        if (player->GetTeam() == localplayer->GetTeam() && !vars.misc.footstepallies)
+            continue;
+        
+
+        
+        float percent = (float)diff / (float)vars.misc.soundtime;
+        
+        Color playerColor = Color::Red();
+        playerColor.SetAlpha(std::min(powf(percent * 2, 0.6f), 1.f) * playerColor.a()); // fades out alpha when its below 0.5
+        
+        float circleRadius = fabs(percent - 1.f) * 42.f;
+        float points = circleRadius * 0.75f;
+        
+        draw->Circle3D(footsteps[i].position, points, circleRadius, playerColor);
+    }
+}
+
+
 
 void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
 {
@@ -397,7 +439,11 @@ void DrawAngles(C_BaseEntity* local)
         draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
 }
 //}
-
+void EmitSound(int iEntIndex, const char *pSample){
+    if(vars.misc.footstep){
+        CollectFootstep(iEntIndex, pSample);
+    }
+}
 
 void DrawPlayerESP()
 {
@@ -496,11 +542,24 @@ void DrawPlayerESP()
                 draw->drawstring((players.x + 3) + players.w + 3, players.y + 1, Color::White(), espfont, health.c_str(), true);
             
             /* Draw amour bar */
-            if(vars.visuals.armour)
+            if(vars.visuals.armour){
                 DrawHealthbar(players.x, players.y + players.h + 3, players.w, 2, entity->GetArmor(), Color(72, 136, 189, 255));
-            
-            /*if(vars.visuals.armortext)
-             draw->drawstring(players.x + players.w / 2, players.y + players.h + 8, Color::White(), espfont, std::to_string(entity->GetArmor()).c_str(), true);*/
+                
+                if (entity->GetArmor() > 0)
+                {
+                    char hp[50];
+                    
+                    draw->drawstring(players.x + players.w + 1, players.y + 10, Color(255, 255, 255, 255), espfont, hp);
+                    
+                    if (entity->HasHelmet())
+                        draw->drawstring(players.x + players.w + 1, players.y + 2, Color(255, 255, 255, 255), espfont, "HK");
+                    else
+                        draw->drawstring(players.x + players.w + 1, players.y + 2, Color(210, 210, 210, 255), espfont, "Kevlar");
+                }
+                else
+                    draw->drawstring(players.x + players.w + 1, players.y + 2, Color(0, 210, 255, 255), espfont, "No Armor");
+                
+            }
             
             if(vars.visuals.active) {
                 string active = GetWeaponName(getWeapon(entity));
@@ -575,9 +634,12 @@ void DrawPlayerESP()
                 }
             }
         }
-        
+        if(vars.misc.footstep){
+            DrawSounds();
+        }
     }
 }
+
 
 
 /* Display menu */

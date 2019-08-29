@@ -106,6 +106,21 @@ void ViewmodelHVH(){
         inverseragdoll5->SetValue(80);
     }
 }
+void GrenadeTrajectory(){
+    
+    if (!pEngine->IsConnected() || !pEngine->IsInGame())
+        return;
+    
+    static ConVar* inverseragdoll6 = pCvar->FindVar("sv_grenade_trajectory");
+    inverseragdoll6->nFlags &= ~FCVAR_CHEAT;
+    
+    if (vars.misc.nadetraj) {
+        inverseragdoll6->SetValue(1);
+    }
+    else{
+        inverseragdoll6->SetValue(0);
+    }
+}
 void NightMode()
 {
     static bool nightmode_performed = false, nightmode_lastsetting;

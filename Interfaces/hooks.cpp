@@ -23,7 +23,10 @@ void InitializeInterfaces()
     pMatSystem      = GetInterface<IMaterialSystem>("./bin/osx64/materialsystem.dylib", "VMaterialSystem");
     pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client_panorama.dylib", "VClientPrediction");
     pEngineGUI      = GetInterface<IEngineVGui>("./bin/osx64/engine.dylib", "VEngineVGui");
+    sound           = GetInterface<IEngineSound>("./bin/osx64/engine.dylib", "IEngineSoundClient");
     pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
+    //fileSystem      = GetInterface<IFileSystem>("./bin/osx64/filesystem_stdio.dylib", "VFileSytem");
+    //glowManager     = GetInterface<CGlowObjectManager>("<#const char *filename#>", "<#const char *version#>")
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     pGameEventManager = GetInterface<IGameEventManager2>("./bin/osx64/engine.dylib", "GAMEEVENTSMANAGER002", true);
     eventlistener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "bullet_impact", "round_start", "round_end", "weapon_fire", "switch_team", "player_death", "item_purchase", "item_remove", "item_pickup", "bomb_begindefuse", "enter_bombzone", "bomb_beginplant" });
@@ -73,6 +76,7 @@ void InitializeVMTs()
     modelVMT        = new VMT(pModelRender);
     predVMT         = new VMT(pPrediction);
     game_event_vmt  = new VMT(pGameEventManager);
+    soundVMT        = new VMT(sound);
     //viewRenderVMT   = new VMT(viewRender);
     
 }
@@ -82,7 +86,7 @@ uintptr_t hooker::FindPlayerAnimStateOffset()
     static uintptr_t animstateoffset;
     if(!animstateoffset)
     {
-        static uintptr_t animstateoffset = *reinterpret_cast<uint32_t*>(CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)"\x48\x8B\xBB\x00\x00\x00\x00\x48\x85\xFF\x74\x41\xE8\x00\x00\x00\x00\x4C", "xxx????xxxxxx????x", 0) +3);
+        animstateoffset = *reinterpret_cast<uint32_t*>(CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)"\x48\x8B\xBB\x00\x00\x00\x00\x48\x85\xFF\x74\x41\xE8\x00\x00\x00\x00\x4C", "xxx????xxxxxx????x", 0) +3);
     }else{
     }
     return animstateoffset;
@@ -91,8 +95,12 @@ uintptr_t hooker::FindPlayerAnimStateOffset()
 
 void InitializeHooks()
 {
+    
     paintVMT->HookVM((void*)hkPaintTraverse, 42);
     paintVMT->ApplyVMT();
+    
+    soundVMT->HookVM((void*)EmitSound2, 6);
+    soundVMT->ApplyVMT();
         
     createmoveVMT->HookVM((void*)hkCreateMove, 25);
     createmoveVMT->HookVM((void*)hkOverrideView, 19);

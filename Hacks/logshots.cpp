@@ -169,7 +169,7 @@ void LogShots::CreateMove(CUserCmd* cmd)
         shot.impacts.erase(shot.impacts.begin());
     }
     
-    if (vars.aimbot.yresolve != 6)
+    if (vars.aimbot.Yawresolver)
     {
         return;
     }

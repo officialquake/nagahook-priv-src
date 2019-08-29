@@ -545,10 +545,10 @@ void hkDrawModelExecute(void* thisptr, void* context, void *state, const ModelRe
                         for (int i = 0; i < 128; i++)
                         {
                             
-                            AngleMatrix(Vector(0, fakeangle, 0), BoneMatrix[i]);
+                            AngleMatrix(Vector(0, fakeangle, AntiAem::fakeangle.z), BoneMatrix[i]);
                             MatrixMultiply(BoneMatrix[i], pCustomBoneToWorld[i]);
                             BonePos = Vector(pCustomBoneToWorld[i][0][3], pCustomBoneToWorld[i][1][3], pCustomBoneToWorld[i][2][3]) - pInfo.origin;
-                            VectorRotate(BonePos, Vector(0, fakeangle, 0), OutPos);
+                            VectorRotate(BonePos, Vector(0, fakeangle, AntiAem::fakeangle.z), OutPos);
                             OutPos += pInfo.origin;
                             BoneMatrix[i][0][3] = OutPos.x;
                             BoneMatrix[i][1][3] = OutPos.y;

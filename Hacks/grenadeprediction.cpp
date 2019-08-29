@@ -3,153 +3,171 @@
 //bool Settings::ESP::GrenadePrediction::enabled = false;
 //ColorVar Settings::ESP::GrenadePrediction::color = ImColor(26, 104, 173, 255);
 
-std::vector<Vector> grenadePath;
-std::vector<std::pair<Vector, QAngle>> otherCollisions;
-
-int grenadeType = 0;
-int grenadeAct = 0;
-
-void GrenadePrediction::CreateMove(CUserCmd *cmd) {
+void grenade_prediction::Tick(int buttons)
+{
     if (!vars.misc.grenadepred)
         return;
+    bool in_attack = buttons & IN_ATTACK;
+    bool in_attack2 = buttons & IN_ATTACK2;
     
-    C_BasePlayer* localPlayer = ( C_BasePlayer* ) pEntList->GetClientEntity( pEngine->GetLocalPlayer() );
-    if ( !localPlayer || !localPlayer->GetAlive() )
-        return;
-    
-    C_BaseCombatWeapon* activeWeapon = ( C_BaseCombatWeapon* ) pEntList->GetClientEntityFromHandle( localPlayer->GetActiveWeapon() );
-    if ( !activeWeapon || (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType != CSWeaponType::WEAPONTYPE_GRENADE )
-        return;
-    
-    C_BaseCSGrenade* grenade = ( C_BaseCSGrenade* ) activeWeapon;
-    if ( grenade->GetPinPulled() && !pInputSystem->IsButtonDown(KEY_SPACE) ) // HACK
-        cmd->buttons &= ~IN_JUMP;
+    act = (in_attack && in_attack2) ? ACT_LOB :
+    (in_attack2) ? ACT_DROP :
+    (in_attack) ? ACT_THROW :
+    ACT_NONE;
 }
-
-void GrenadePrediction::OverrideView(CViewSetup *pSetup) {
-   if (!vars.misc.grenadepred)
+void grenade_prediction::View(CViewSetup* setup)
+{
+    
+    auto local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!vars.misc.grenadepred)
         return;
-    
-    C_BasePlayer *pLocal = (C_BasePlayer *) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!pLocal || !pLocal->GetAlive())
-        return;
-    
-    C_BaseCombatWeapon *activeWeapon = (C_BaseCombatWeapon *) pEntList->GetClientEntityFromHandle(
-                                                                                                    pLocal->GetActiveWeapon());
-
-    if ( !activeWeapon || (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType != CSWeaponType::WEAPONTYPE_GRENADE )
-        return;
-    
-    C_BaseCSGrenade* grenade = ( C_BaseCSGrenade* ) activeWeapon;
-    
-    if ( grenade->GetPinPulled() ) {
-        ItemDefinitionIndex itemDefinitionIndex = *activeWeapon->GetItemDefinitionIndexx();
+    if (local && local->GetAlive())
+    {
+        C_BaseCombatWeapon* weapon = (C_BaseCombatWeapon*) pEntList->GetClientEntityFromHandle(local->GetActiveWeapon());
         
-        grenadeType = ( int ) itemDefinitionIndex;
-        Simulate( pSetup );
-    } else {
-        grenadeType = 0;
+        if (weapon && weapon->IsGrenade() && act != ACT_NONE)
+        {
+            type = *weapon->GetItemDefinitionIndex();
+            Simulate(setup);
+        }
+        else
+        {
+            type = 0;
+        }
     }
-    
 }
 
-void GrenadePrediction::Paint(void) {
-   if (!vars.misc.grenadepred)
-        return;
-    
-    C_BasePlayer* pLocal = ( C_BasePlayer* ) pEntList->GetClientEntity( pEngine->GetLocalPlayer() );
-    if ( !pLocal || !pLocal->GetAlive() )
-        return;
-    
-    C_BaseCombatWeapon* activeWeapon = ( C_BaseCombatWeapon* ) pEntList->GetClientEntityFromHandle(
-                                                                                                     pLocal->GetActiveWeapon() );
-    if ( !activeWeapon || (CSWeaponType)activeWeapon->GetCSWpnData()->m_WeaponType != CSWeaponType::WEAPONTYPE_GRENADE )
-        return;
-    
-    C_BaseCSGrenade* grenade = ( C_BaseCSGrenade* ) activeWeapon;
-    
-    if ((grenadeType) && (grenadePath.size() > 1) && (grenade->GetPinPulled())) {
-        Vector nadeStart, nadeEnd;
-        Vector prev = grenadePath[0];
-        
-        for (auto it = grenadePath.begin(), end = grenadePath.end(); it != end; ++it) {
-            if (WorldToScreen(prev, nadeStart) && WorldToScreen(*it, nadeEnd)){
-                draw->Line( ( int ) nadeStart.x, ( int ) nadeStart.y,
-                              ( int ) nadeEnd.x, ( int ) nadeEnd.y, Color::Red() );
+void grenade_prediction::Paint()
+{
+    if (vars.visuals.enabled)
+    {
+        if (!vars.misc.grenadepred)
+            return;
+        if ((type) && path.size()>1)
+        {
+            Vector nadeStart, nadeEnd;
+            
+            Color lineColor(255, 255, 255, 255);
+            Vector prev = path[0];
+            for (auto it = path.begin(), end = path.end(); it != end; ++it)
+            {
+                if (WorldToScreen(prev, nadeStart) && WorldToScreen(*it, nadeEnd))
+                {
+                    pSurface->DrawSetColor(lineColor);
+                    pSurface->DrawLine((int)nadeStart.x, (int)nadeStart.y, (int)nadeEnd.x, (int)nadeEnd.y);
+                }
+                prev = *it;
             }
-            prev = *it;
-        }
-        
-        if (WorldToScreen(prev, nadeEnd)) {
-            draw->Line( ( int ) nadeStart.x, ( int ) nadeStart.y,
-                       ( int ) nadeEnd.x, ( int ) nadeEnd.y, Color::Red() );
+            
+            if (WorldToScreen(prev, nadeEnd))
+            {
+                pSurface->DrawSetColor(Color(0, 255, 0, 255));
+                pSurface->DrawOutlinedCircle((int)nadeEnd.x, (int)nadeEnd.y, 6, 4); // size , form
+            }
         }
     }
 }
-
-void GrenadePrediction::Setup(Vector &vecSrc, Vector &vecThrow, Vector viewangles) {
+static const constexpr auto PIRAD = 0.01745329251f;
+void angle_vectors2(const Vector &angles, Vector *forward, Vector *right, Vector *up)
+{
+    float sr, sp, sy, cr, cp, cy;
+    
+    sp = static_cast<float>(sin(double(angles.x) * PIRAD));
+    cp = static_cast<float>(cos(double(angles.x) * PIRAD));
+    sy = static_cast<float>(sin(double(angles.y) * PIRAD));
+    cy = static_cast<float>(cos(double(angles.y) * PIRAD));
+    sr = static_cast<float>(sin(double(angles.z) * PIRAD));
+    cr = static_cast<float>(cos(double(angles.z) * PIRAD));
+    
+    if (forward)
+    {
+        forward->x = cp*cy;
+        forward->y = cp*sy;
+        forward->z = -sp;
+    }
+    
+    if (right)
+    {
+        right->x = (-1 * sr*sp*cy + -1 * cr*-sy);
+        right->y = (-1 * sr*sp*sy + -1 * cr*cy);
+        right->z = -1 * sr*cp;
+    }
+    
+    if (up)
+    {
+        up->x = (cr*sp*cy + -sr*-sy);
+        up->y = (cr*sp*sy + -sr*cy);
+        up->z = cr*cp;
+    }
+    
+}
+void grenade_prediction::Setup(Vector& vecSrc, Vector& vecThrow, Vector viewangles)
+{
     if (!vars.misc.grenadepred)
         return;
-    
-    C_BasePlayer *local = (C_BasePlayer *) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    if (!local || !local->GetAlive())
-        return;
-    
     Vector angThrow = viewangles;
+    auto local = pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     float pitch = angThrow.x;
     
-    if (pitch <= 90.0f) {
-        if (pitch < -90.0f) {
+    if (pitch <= 90.0f)
+    {
+        if (pitch<-90.0f)
+        {
             pitch += 360.0f;
         }
-    } else {
+    }
+    else
+    {
         pitch -= 360.0f;
     }
     float a = pitch - (90.0f - fabs(pitch)) * 10.0f / 90.0f;
     angThrow.x = a;
     
+    // Gets ThrowVelocity from weapon files
+    // Clamped to [15,750]
     float flVel = 750.0f * 0.9f;
     
     // Do magic on member of grenade object [esi+9E4h]
     // m1=1  m1+m2=0.5  m2=0
-    static const float power[] = {1.0f, 1.0f, 0.5f, 0.0f};
-    float b = power[grenadeAct];
+    static const float power[] = { 1.0f, 1.0f, 0.5f, 0.0f };
+    float b = power[act];
     // Clamped to [0,1]
     b = b * 0.7f;
     b = b + 0.3f;
     flVel *= b;
     
     Vector vForward, vRight, vUp;
-    QAngle realThrow = QAngle(angThrow.x, angThrow.y, angThrow.z);
-    
-    AngleVectors4(realThrow, vForward, vRight, vUp);
+    angle_vectors2(angThrow, &vForward, &vRight, &vUp); //angThrow.ToVector(vForward, vRight, vUp);
     
     vecSrc = local->GetEyePosition();
-    float off = (power[grenadeAct] * 12.0f) - 12.0f;
+    float off = (power[act] * 12.0f) - 12.0f;
     vecSrc.z += off;
     
+    // Game calls UTIL_TraceHull here with hull and assigns vecSrc tr.endpos
     trace_t tr;
     Vector vecDest = vecSrc;
-    vecDest += vForward * 22.0f;
+    vecDest += vForward * 22.0f; //vecDest.MultAdd(vForward, 22.0f);
     
     TraceHull(vecSrc, vecDest, tr);
     
-    Vector vecBack = vForward;
-    vecBack *= 6.0f;
+    // After the hull trace it moves 6 units back along vForward
+    // vecSrc = tr.endpos - vForward * 6
+    Vector vecBack = vForward; vecBack *= 6.0f;
     vecSrc = tr.endpos;
     vecSrc -= vecBack;
     
-    vecThrow = local->GetVelocity();
-    vecThrow *= 1.25f;
-    vecThrow += vForward * flVel;
+    // Finally calculate velocity
+    vecThrow = local->GetVelocity(); vecThrow *= 1.25f;
+    vecThrow += vForward * flVel; //    vecThrow.MultAdd(vForward, flVel);
 }
 
-void GrenadePrediction::Simulate(CViewSetup *setup) {
+void grenade_prediction::Simulate(CViewSetup* setup)
+{
     if (!vars.misc.grenadepred)
         return;
-    
     Vector vecSrc, vecThrow;
-    Setup(vecSrc, vecThrow, setup->angles);
+    Vector angles; pEngine->GetViewAngles(angles);
+    Setup(vecSrc, vecThrow, angles);
     
     float interval = pGlobals->interval_per_tick;
     
@@ -157,28 +175,27 @@ void GrenadePrediction::Simulate(CViewSetup *setup) {
     int logstep = static_cast<int>(0.05f / interval);
     int logtimer = 0;
     
-    grenadePath.clear();
-    otherCollisions.clear();
     
-    for (unsigned int i = 0; i < grenadePath.max_size() - 1; ++i) {
-        if (!logtimer) {
-            if (!grenadePath.empty() &&
-                vecSrc.DistTo(grenadePath.back()) < std::max(0.00001f, vecThrow.Length() / 25.f))
-                break;    //getto fix to smoke infinite loop anti pasta, should work fine enough
-            grenadePath.push_back(vecSrc);
-        }
+    path.clear();
+    for (unsigned int i = 0; i<path.max_size() - 1; ++i)
+    {
+        if (!logtimer)
+            path.push_back(vecSrc);
         
         int s = Step(vecSrc, vecThrow, i, interval);
-        if ((s & 1) || vecThrow == Vector(0, 0, 0)) break;
+        if ((s & 1)) break;
         
         // Reset the log timer every logstep OR we bounced
         if ((s & 2) || logtimer >= logstep) logtimer = 0;
         else ++logtimer;
     }
-    grenadePath.push_back(vecSrc);
+    path.push_back(vecSrc);
 }
 
-int GrenadePrediction::Step(Vector &vecSrc, Vector &vecThrow, int tick, float interval) {
+int grenade_prediction::Step(Vector& vecSrc, Vector& vecThrow, int tick, float interval)
+{
+    
+    // Apply gravity
     Vector move;
     AddGravityMove(move, vecThrow, interval, false);
     
@@ -188,20 +205,16 @@ int GrenadePrediction::Step(Vector &vecSrc, Vector &vecThrow, int tick, float in
     
     int result = 0;
     // Check ending conditions
-    if (CheckDetonate(vecThrow, tr, tick, interval)) {
+    if (CheckDetonate(vecThrow, tr, tick, interval))
+    {
         result |= 1;
     }
     
     // Resolve collisions
-    if (tr.fraction != 1.0f) {
+    if (tr.fraction != 1.0f)
+    {
         result |= 2; // Collision!
         ResolveFlyCollisionCustom(tr, vecThrow, interval);
-    }
-    
-    if ((result & 1) || vecThrow == Vector(0, 0, 0) || tr.fraction != 1.0f) {
-        QAngle angles;
-        VectorAngles2((tr.endpos - tr.startpos).Normalize(), angles);
-        otherCollisions.push_back(std::make_pair(tr.endpos, angles));
     }
     
     // Set new position
@@ -210,65 +223,71 @@ int GrenadePrediction::Step(Vector &vecSrc, Vector &vecThrow, int tick, float in
     return result;
 }
 
-bool GrenadePrediction::CheckDetonate(const Vector &vecThrow, const trace_t &tr, int tick, float interval) {
-    if (grenadeType == 0)
-        return false;
-    
-    switch (grenadeType) {
-        case 45: // WEAPON_SMOKEGRENADE = 45,
-        case 47: // WEAPON_DECOY = 47,
+
+bool grenade_prediction::CheckDetonate(const Vector& vecThrow, const trace_t& tr, int tick, float interval)
+{
+    switch (type)
+    {
+        case WEAPON_SMOKEGRENADE:
+        case WEAPON_DECOY:
             // Velocity must be <0.1, this is only checked every 0.2s
-            if ( vecThrow.Length2D() < 0.1f ) {
+            if (vecThrow.Length2D()<0.1f)
+            {
                 int det_tick_mod = static_cast<int>(0.2f / interval);
-                return !( tick % det_tick_mod );
+                return !(tick%det_tick_mod);
             }
             return false;
-        case 46: // WEAPON_MOLOTOV = 46,
-        case 48: // WEAPON_INCGRENADE = 48,
+            
+        case WEAPON_MOLOTOV:
+        case WEAPON_INCGRENADE:
             // Detonate when hitting the floor
-            if ( tr.fraction != 1.0f && tr.plane.normal.z > 0.7f )
+            if (tr.fraction != 1.0f && tr.plane.normal.z>0.7f)
                 return true;
             // OR we've been flying for too long
-        case 43: // WEAPON_FLASHBANG = 43,
-        case 44: // WEAPON_HEGRENADE = 44,
+            
+        case WEAPON_FLASHBANG:
+        case WEAPON_HEGRENADE:
             // Pure timer based, detonate at 1.5s, checked every 0.2s
-            return static_cast<float>(tick) * interval > 1.5f && !( tick % static_cast<int>(0.2f / interval) );
+            return static_cast<float>(tick)*interval>1.5f && !(tick%static_cast<int>(0.2f / interval));
+            
         default:
-            assert( false );
+            assert(false);
             return false;
     }
 }
 
-void GrenadePrediction::TraceHull(Vector &src, Vector &end, trace_t &tr) {
+void grenade_prediction::TraceHull(Vector& src, Vector& end, trace_t& tr)
+{
     if (!vars.misc.grenadepred)
         return;
-    
-    C_BasePlayer *localplayer = (C_BasePlayer *) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-    
-    if (!localplayer || !localplayer->GetAlive())
+    C_BasePlayer* pLocal = ( C_BasePlayer* ) pEntList->GetClientEntity( pEngine->GetLocalPlayer() );
+    if ( !pLocal || !pLocal->GetAlive() )
         return;
     
     Ray_t ray;
-    ray.Init(src, end, Vector(-2.0f, -2.0f, -2.0f), Vector(2.0f, 2.0f, 2.0f));
+    ray.Init( src, end, Vector( -2.0f, -2.0f, -2.0f ), Vector( 2.0f, 2.0f, 2.0f ) );
     
     CTraceFilter filter;
-    filter.pSkip = localplayer;
+    filter.pSkip = pLocal;
     
-    pEngineTrace->TraceRay(ray, MASK_SOLID, &filter, &tr);
+    pEngineTrace->TraceRay( ray, MASK_SOLID, &filter, &tr );
 }
 
-void GrenadePrediction::AddGravityMove(Vector &move, Vector &vel, float frametime, bool onground) {
+void grenade_prediction::AddGravityMove(Vector& move, Vector& vel, float frametime, bool onground)
+{
     if (!vars.misc.grenadepred)
         return;
-    
-    Vector basevel(0.f, 0.f, 0.f);
+    Vector basevel(0.0f, 0.0f, 0.0f);
     
     move.x = (vel.x + basevel.x) * frametime;
     move.y = (vel.y + basevel.y) * frametime;
     
-    if (onground) {
+    if (onground)
+    {
         move.z = (vel.z + basevel.z) * frametime;
-    } else {
+    }
+    else
+    {
         // Game calls GetActualGravity( this );
         float gravity = 800.0f * 0.4f;
         
@@ -279,10 +298,10 @@ void GrenadePrediction::AddGravityMove(Vector &move, Vector &vel, float frametim
     }
 }
 
-void GrenadePrediction::PushEntity(Vector &src, const Vector &move, trace_t &tr) {
-   if (!vars.misc.grenadepred)
+void grenade_prediction::PushEntity(Vector& src, const Vector& move, trace_t& tr)
+{
+    if (!vars.misc.grenadepred)
         return;
-    
     Vector vecAbsEnd = src;
     vecAbsEnd += move;
     
@@ -290,18 +309,16 @@ void GrenadePrediction::PushEntity(Vector &src, const Vector &move, trace_t &tr)
     TraceHull(src, vecAbsEnd, tr);
 }
 
-void GrenadePrediction::ResolveFlyCollisionCustom(trace_t &tr, Vector &vecVelocity, float interval) {
+void grenade_prediction::ResolveFlyCollisionCustom(trace_t& tr, Vector& vecVelocity, float interval)
+{
     if (!vars.misc.grenadepred)
         return;
-    
     // Calculate elasticity
     float flSurfaceElasticity = 1.0;  // Assume all surfaces have the same elasticity
     float flGrenadeElasticity = 0.45f; // GetGrenadeElasticity()
-    float flTotalElasticity = std::clamp(flGrenadeElasticity * flSurfaceElasticity, 0.0f, 0.9f);
-    
-    if (tr.m_pEnt) {
-        // TODO : resolve player collision
-    }
+    float flTotalElasticity = flGrenadeElasticity * flSurfaceElasticity;
+    if (flTotalElasticity>0.9f) flTotalElasticity = 0.9f;
+    if (flTotalElasticity<0.0f) flTotalElasticity = 0.0f;
     
     // Calculate bounce
     Vector vecAbsVelocity;
@@ -310,51 +327,58 @@ void GrenadePrediction::ResolveFlyCollisionCustom(trace_t &tr, Vector &vecVeloci
     
     // Stop completely once we move too slow
     float flSpeedSqr = vecAbsVelocity.LengthSqr();
+    static const float flMinSpeedSqr = 20.0f * 20.0f; // 30.0f * 30.0f in CSS
+    if (flSpeedSqr<flMinSpeedSqr)
+    {
+        //vecAbsVelocity.Zero();
+        vecAbsVelocity.x = 0.0f;
+        vecAbsVelocity.y = 0.0f;
+        vecAbsVelocity.z = 0.0f;
+    }
     
     // Stop if on ground
-    if (tr.plane.normal.z > 0.7f) {
-        if (flSpeedSqr > 96000.f) {
-            auto l = vecAbsVelocity.Normalize().Dot(tr.plane.normal);
-            if (l > 0.5f)
-                vecAbsVelocity *= 1.f - l + 0.5f;
-        }
-        static const float flMinSpeedSqr = 20.0f * 20.0f; // 30.0f * 30.0f in CSS
-        if (flSpeedSqr < flMinSpeedSqr) {
-            vecAbsVelocity.Zero();
-        }
+    if (tr.plane.normal.z>0.7f)
+    {
         vecVelocity = vecAbsVelocity;
-        vecAbsVelocity *= ((1.0f - tr.fraction) * interval);
+        vecAbsVelocity *= ((1.0f - tr.fraction) * interval); //vecAbsVelocity.Mult((1.0f - tr.fraction) * interval);
         PushEntity(tr.endpos, vecAbsVelocity, tr);
-    } else {
+    }
+    else
+    {
         vecVelocity = vecAbsVelocity;
     }
 }
 
-int GrenadePrediction::PhysicsClipVelocity(const Vector &in, const Vector &normal, Vector &out, float overbounce) {
+int grenade_prediction::PhysicsClipVelocity(const Vector& in, const Vector& normal, Vector& out, float overbounce)
+{
     static const float STOP_EPSILON = 0.1f;
     
-    float backoff;
-    float change;
-    float angle;
-    int i, blocked;
+    float    backoff;
+    float    change;
+    float    angle;
+    int        i, blocked;
     
     blocked = 0;
     
     angle = normal[2];
     
-    if (angle > 0) {
+    if (angle > 0)
+    {
         blocked |= 1;        // floor
     }
-    if (!angle) {
+    if (!angle)
+    {
         blocked |= 2;        // step
     }
     
     backoff = in.Dot(normal) * overbounce;
     
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i<3; i++)
+    {
         change = normal[i] * backoff;
         out[i] = in[i] - change;
-        if (out[i] > -STOP_EPSILON && out[i] < STOP_EPSILON) {
+        if (out[i] > -STOP_EPSILON && out[i] < STOP_EPSILON)
+        {
             out[i] = 0;
         }
     }

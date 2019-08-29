@@ -617,7 +617,6 @@ public:
     {
         return *(QAngle*)((uintptr_t)this + offsets.DT_BasePlayer.m_aimPunchAngle);
     }
-    
     QAngle* GetViewPunchAngle()
     {
         return (QAngle*)((uintptr_t)this + offsets.DT_BasePlayer.m_viewPunchAngle);

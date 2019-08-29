@@ -6,3 +6,4 @@ void NightMode();
 void FullBright();
 void InverseRagdoll();
 void ViewmodelHVH();
+void GrenadeTrajectory();

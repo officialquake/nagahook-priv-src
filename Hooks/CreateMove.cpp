@@ -17,7 +17,12 @@
 #include "../Hacks/autostop.hpp"
 #include "../Hacks/legit.hpp"
 #include "../Hacks/logshots.hpp"
+#include "../Hacks/esp.h"
 #include "../Hacks/grenadeprediction.hpp"
+#include "../Hacks/showranks.hpp"
+#include "../Hacks/customglow.hpp"
+#include "../Hacks/autodefuse.hpp"
+#include "../Hacks/namestealer.hpp"
 
 Vector tpangles;
 
@@ -77,22 +82,22 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     lby_spin(cmd, local);
     tank(cmd, local);
     resolverfucker(cmd, local);
-    AntAimCMove(cmd);
+    DoAntiAimFake(cmd, local, weapon);
     RecoilControl(local, cmd);
-    GrenadePrediction::CreateMove(cmd);
+    grenade_prediction::get().Tick(cmd->buttons);
     ContinuousPistols(cmd, weapon);
     AutoCock(cmd, weapon);
-    AutoZeus(cmd, local, weapon);
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     Hitchance(local, weapon);
-    AutoKnife(cmd);
     LogShots::CreateMove(cmd);
     DoAntiaim(cmd, local, weapon, sendPacket, animState);
     doManual(cmd, local, weapon);
     EndPrediction();
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
-    
+    Autoblock::CreateMove(cmd);
+    AutoDefuse::CreateMove(cmd);
+    AutoKnife::CreateMove(cmd);
     DoSpammer();
     
     if(draw->m_szChangedValue[3].length() > 0 && vars.misc.clantag) // Clantag Changer
@@ -111,6 +116,7 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
 {
     
     misc->clan_tag();
+    NameStealer::GaelGay();
     createmoveVMT->GetOriginalMethod<tCreateMove>(25)(thisptr, flSampleInput, cmd);
     
     

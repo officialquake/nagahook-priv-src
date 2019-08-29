@@ -491,10 +491,17 @@ void cMenu::drawcolorpicker(int x, int y, const char *szString, Color &col) {
 void cMenu::renderAim(int x, int y) {
     
     vector<string> Hitgroup;  // Resolver
+    vector<string> Name;  // Resolver
     
     Hitgroup.push_back("Head");
     Hitgroup.push_back("Body");
     Hitgroup.push_back("Legs");
+    
+    Name.push_back("killers.cc");
+    Name.push_back("unnamed");
+    Name.push_back(":(");
+    Name.push_back("?");
+    Name.push_back("not hittin p");
     
     /*this->renderCheckbox(x - 15, y, "Enabled", &vars.aimbot.enabled);
     this->renderCheckbox(x - 15, y + 20, "SilentAim", &vars.aimbot.silent);
@@ -521,6 +528,12 @@ void cMenu::renderAim(int x, int y) {
 
     this->renderCheckbox(x + 235, y + 35, "Triggerbot", &vars.aimbot.trigger);
     this->renderCheckbox(x + 235, y + 55, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 75, "Auto Block", &vars.aimbot.autoaccept);
+    this->renderCheckbox(x + 235, y + 95, "Auto Knife", &vars.aimbot.autoknife);
+
+    this->renderCheckbox(x + 235, y + 115, "Name Changer", &vars.aimbot.namestealer);
+    this->renderCombo(x + 235, y + 135, 150, 20, "killers.cc", Name, vars.aimbot.nametype, &vars.niggeropend);
+    //this->renderCheckbox(x + 235, y + 75, "Show Ranks", &vars.misc.showrank);
     
     /**/
     
@@ -697,6 +710,7 @@ void cMenu::renderAntiAim(int x, int y) {
     Resolve.push_back("Ayyware");
     Resolve.push_back("Spacehook");
     Resolve.push_back("MethJjansen");
+    Resolve.push_back("Ayyware2");
     
     this->renderCheckbox(x + 235, y + 205, "Yaw Resolver", &vars.aimbot.Yawresolver);
     
@@ -932,6 +946,11 @@ void cMenu::renderMisc(int x, int y) {
     this->renderSlider(x + 444, y + 195, 115, "Viewmodel FOV", vars.misc.viewmodelfov, 150, 0);
     
     this->renderCheckbox(x + 444, y + 225, "Thirdperson & Real Angles", &vars.misc.thirdpersonkeybindez);
+    this->renderCheckbox(x + 444, y + 245, "Grenade Prediction", &vars.misc.grenadepred);
+    this->renderCheckbox(x + 444, y + 265, "Grenade Trajectory", &vars.misc.nadetraj);
+    
+
+    
 
    
     
@@ -1010,16 +1029,146 @@ void cMenu::renderConfigs(int x, int y) {
 
 void cMenu::renderCredits(int x, int y) {
     vector<string> conf;
+    vector<string> conf1;
+    vector<string> conf2;
+    vector<string> conf3;
     
-    conf.push_back("Dragonfire");
-    conf.push_back("Blood in the Water");
-    conf.push_back("Big Iron");
+    conf.push_back("A");
+    conf.push_back("B");
+    conf.push_back("C");
+    conf.push_back("D");
+    conf.push_back("E");
+    conf.push_back("F");
+    conf.push_back("G");
+    conf.push_back("H");
+    conf.push_back("I");
+    conf.push_back("J");
+    conf.push_back("K");
+    conf.push_back("L");
+    conf.push_back("M");
+    conf.push_back("N");
+    conf.push_back("O");
+    conf.push_back("P");
+    conf.push_back("Q");
+    conf.push_back("R");
+    conf.push_back("S");
+    conf.push_back("T");
+    conf.push_back("U");
+    conf.push_back("V");
+    conf.push_back("W");
+    conf.push_back("X");
+    conf.push_back("Y");
+    conf.push_back("Z");
+    conf.push_back("4");
+    conf.push_back("6");
+    conf.push_back("7");
+    conf.push_back("8");
+    conf.push_back("9");
+    conf.push_back("LeftShift");
+    conf.push_back("LControl");
+    conf.push_back("LAlt");
     
-    this->renderCombo(x, y + 265,  150, 20, "Dragonfire", conf, vars.misc.ssgskin, &vars.skin_opend);
-    if(!vars.skin_opend) {
-        this->renderButton(x, y + 285, "Load", &vars.misc.updateskins);
-        
-    }
+    conf1.push_back("A");
+    conf1.push_back("B");
+    conf1.push_back("C");
+    conf1.push_back("D");
+    conf1.push_back("E");
+    conf1.push_back("F");
+    conf1.push_back("G");
+    conf1.push_back("H");
+    conf1.push_back("I");
+    conf1.push_back("J");
+    conf1.push_back("K");
+    conf1.push_back("L");
+    conf1.push_back("M");
+    conf1.push_back("N");
+    conf1.push_back("O");
+    conf1.push_back("P");
+    conf1.push_back("Q");
+    conf1.push_back("R");
+    conf1.push_back("S");
+    conf1.push_back("T");
+    conf1.push_back("U");
+    conf1.push_back("V");
+    conf1.push_back("W");
+    conf1.push_back("X");
+    conf1.push_back("Y");
+    conf1.push_back("Z");
+    conf1.push_back("4");
+    conf1.push_back("6");
+    conf1.push_back("7");
+    conf1.push_back("8");
+    conf1.push_back("9");
+    conf1.push_back("LeftShift");
+    conf1.push_back("LControl");
+    conf1.push_back("LAlt");
+    
+    conf2.push_back("{");
+    conf2.push_back("}");
+    conf2.push_back(";");
+    conf2.push_back("'");
+    conf2.push_back("`");
+    conf2.push_back(",");
+    conf2.push_back(".");
+    conf2.push_back("/");
+    conf2.push_back("BackSlash");
+    conf2.push_back("-");
+    conf2.push_back("=");
+    conf2.push_back("Enter");
+    conf2.push_back("Tab");
+    conf2.push_back("Caps");
+    conf2.push_back("Escape");
+    conf2.push_back("LeftShift");
+    conf2.push_back("RShift");
+    conf2.push_back("LAlt");
+    conf2.push_back("RAlt");
+    conf2.push_back("LControl");
+    conf2.push_back("RControl");
+    
+    conf3.push_back("A");
+    conf3.push_back("B");
+    conf3.push_back("C");
+    conf3.push_back("D");
+    conf3.push_back("E");
+    conf3.push_back("F");
+    conf3.push_back("G");
+    conf3.push_back("H");
+    conf3.push_back("I");
+    conf3.push_back("J");
+    conf3.push_back("K");
+    conf3.push_back("L");
+    conf3.push_back("M");
+    conf3.push_back("N");
+    conf3.push_back("O");
+    conf3.push_back("P");
+    conf3.push_back("Q");
+    conf3.push_back("R");
+    conf3.push_back("S");
+    conf3.push_back("T");
+    conf3.push_back("U");
+    conf3.push_back("V");
+    conf3.push_back("W");
+    conf3.push_back("X");
+    conf3.push_back("Y");
+    conf3.push_back("Z");
+    conf3.push_back("4");
+    conf3.push_back("6");
+    conf3.push_back("7");
+    conf3.push_back("8");
+    conf3.push_back("9");
+    conf3.push_back("LeftShift");
+    conf3.push_back("LControl");
+    conf3.push_back("LAlt");
+    
+    
+    this->renderCheckbox(x - 8, y + 15, "Thirdperson OnKey", &vars.misc.thirdpersonkeybindez);
+    this->renderCombo(x - 8, y + 35, 150, 20, "A", conf, vars.misc.tpkeybind, &vars.thirdpersonkeyopend);
+    this->renderCheckbox(x + 235, y + 15, "Triggerbot OnKey", &vars.misc.triggerbotkey);
+    this->renderCombo(x + 235, y + 35, 150, 20, "A", conf1, vars.misc.triggerbotkeybind, &vars.triggerbot_opend);
+    this->renderCheckbox(x - 8, y + 165, "Fakewalk OnKey", &vars.misc.fakewalkkey);
+    this->renderCombo(x - 8, y + 185, 150, 20, "{", conf2, vars.misc.fakewalkkeybind, &vars.fakewalk1_opend);
+    this->renderCheckbox(x + 444, y + 15, "Autoblock Keybind", &vars.misc.autoblockkey);
+    this->renderCombo(x + 444, y + 35, 150, 20, "A", conf3, vars.misc.autoblockkeybind, &vars.autoblock_opend);
 
 }
 
@@ -1177,8 +1326,9 @@ void cMenu::renderMenu() {
             break;
             
         case mTab::Credits:
-            render_section(x + 10, y + 55, 220, h - 62, "Weapons");
-            render_section(x + 249, y + 55, 220, h - 62, "Weapons");
+            render_section(x + 26, y + 55, 220, h - 62, "1");
+            render_section(x + 249, y + 55, 220, h - 62, "2");
+            render_section(x + 460, y + 55, 220, h - 62, "3");
             this->renderCredits(x + 35, y + 30 + 20 + 5);
             break;
             
@@ -1204,7 +1354,7 @@ void cMenu::renderMenu() {
     draw->drawstring(x + 350, y + 22 + 16, Color::White(), osFont, "MISC", true);
     draw->drawstring(x + 450, y + 22 + 15, Color::White(), osFont, "COLORS", true);
     draw->drawstring(x + 550, y + 22 + 15, Color::White(), osFont, "CONFIG", true);
-    draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "SKINS", true);
+    draw->drawstring(x + 650, y + 22 + 15, Color::White(), osFont, "KEYBINDS", true);
     
     Pressed(MOUSE_LEFT);
     draw->MoveMenu(x, y, w, hh, 1);

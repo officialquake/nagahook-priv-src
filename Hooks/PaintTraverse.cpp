@@ -148,7 +148,7 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             DrawSpread(local);
             SniperCrosshair::Paint();
             Eventlog::Paint();
-            GrenadePrediction::Paint();
+            grenade_prediction::get().Paint();
             BulletTracers::Paint();
             DrawFakeAngle(local);
         

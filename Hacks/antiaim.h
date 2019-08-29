@@ -70,7 +70,6 @@ void lby_spin(CUserCmd* cmd, C_BaseEntity* local);
 void tank(CUserCmd* cmd, C_BaseEntity* local);
 void resolverfucker(CUserCmd* cmd, C_BaseEntity* local);
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState);
-void AntAimCMove(CUserCmd* cmd);
 //void LegitAA(CUserCmd *pCmd, C_BaseEntity* local);
 void doManual(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon);
 //float last_fake;
@@ -78,7 +77,7 @@ void doManual(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon);
 //void DoOffsets(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket);
 void AngleVectors3(const Vector &angles, Vector& forward);
 void AngleVectors3(const Vector &angles, Vector& forward, Vector& right, Vector& up);
-
+void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon);
 //Vector GFakeAngle;
 //Vector GRealAngle;
 

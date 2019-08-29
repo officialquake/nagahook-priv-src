@@ -320,9 +320,6 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                         pCmd->upmove = 0.f;
                     }
                 }
-                if(vars.aimbot.autoknife){
-                    AutoKnife(pCmd);
-                }
                 if (pCmd->buttons & IN_ATTACK && vars.misc.logshots && player){
                     C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
                     LogShots::shots.push_back(Shots(player, localplayer->GetEyePosition(), pGlobals->curtime));

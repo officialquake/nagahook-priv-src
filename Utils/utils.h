@@ -27,6 +27,7 @@ extern QAngle CalccAngle(const Vector &src, const Vector &dst);
 extern float GetFOV(Vector start, Vector src, Vector dst);
 extern void ClampMoves(float& flForward, float& flSide, float& flUp);
 extern void ClampYaw(float& angle);
+extern void ClampAngles(Vector& angle);
 extern string GetWeaponName(C_BaseCombatWeapon* pWeapon);
 extern string GetWeaponName1(C_BaseCombatWeapon* pWeapon);
 extern float distance_point_to_line(Vector Point, Vector LineOrigin, Vector Dir);

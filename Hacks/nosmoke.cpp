@@ -30,7 +30,7 @@ void C_Smoke::remove_smoke(ClientFrameStage_t stage)
         for(auto material : smoke_materials)
         {
             IMaterial* mat = pMatSystem->FindMaterial(material, TEXTURE_GROUP_OTHER);
-            mat->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, vars.visuals.nosmoke);
+            mat->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, vars.visuals.nosmoke);
         }
         
         done = true;

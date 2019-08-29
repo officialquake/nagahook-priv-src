@@ -122,7 +122,7 @@ void ContinuousPistols(CUserCmd* pCmd, C_BaseCombatWeapon* weapon)
     
 }
 
-void AutoKnife(CUserCmd* cmd){
+/*void AutoKnife(CUserCmd* cmd){
     if (!vars.aimbot.autoknife) {
         return;
     }
@@ -308,3 +308,4 @@ void AutoZeus(CUserCmd* cmd, C_BaseEntity* pLocal, C_BaseCombatWeapon* weapon) {
         }
     }
 }
+*/

@@ -824,6 +824,23 @@ void cDrawings::Text(int x, int y, const char* text, HFONT font, Color col)
     pSurface->DrawPrintText(wc.c_str(), wcslen(wc.c_str()));
 }
 
+void cDrawings::Circle3D(Vector position, float points, float radius, Color color)
+{
+    float step = (float)M_PI * 2.0f / points;
+    
+    std::vector<Vector> points3d;
+    for (float a = 0; a < (M_PI * 2.0f); a += step)
+    {
+        Vector start(radius * cosf(a) + position.x, radius * sinf(a) + position.y, position.z);
+        Vector end(radius * cosf(a + step) + position.x, radius * sinf(a + step) + position.y, position.z);
+        
+        Vector start2d, end2d;
+        if (pOverlay->ScreenPosition(start, start2d) || pOverlay->ScreenPosition(end, end2d))
+            return;
+        
+        draw->Line(Vector2D(start2d.x, start2d.y), Vector2D(end2d.x, end2d.y), color);
+    }
+}
 void cDrawings::Text(Vector2D pos, const char* text, HFONT font, Color col)
 {
     Text(pos.x, pos.y, text, font, col);

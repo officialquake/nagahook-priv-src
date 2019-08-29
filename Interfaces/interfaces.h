@@ -27,8 +27,10 @@ extern CEffects*            pEffects;
 extern IPanel*              pPanel;
 extern ICvar*               pCvar;
 extern IBaseClientDLL*      pClient;
+extern IEngineSound* sound;
 extern IClientEntityList*   pEntList;
 extern IEngineVGui*         pEngineGUI;
+//extern IFileSystem* fileSystem;
 extern IEngineClient*       pEngine;
 extern IVModelInfo*         pModelInfo;
 extern IEngineTrace*        pEngineTrace;
@@ -43,6 +45,7 @@ extern IPrediction*         pPrediction;
 extern IGameMovement*       pGameMovement;
 extern IMoveHelper*         pMoveHelper;
 extern IPhysicsSurfaceProps*pPhysics;
+//extern CGlowObjectManager* glowManager;
 extern RandomSeedFn         RandomSeed;
 extern RandomIntFn          RandomInt;
 extern SendClanTagFn        SetClanTag;
@@ -52,12 +55,14 @@ extern INetChannelInfo*     nci;
 
 
 extern VMT* paintVMT;
+extern VMT* soundVMT;
 extern VMT* createmoveVMT;
 extern VMT* clientVMT;
 extern VMT* modelVMT;
 extern VMT* predVMT;
 extern VMT* materialVMT;
 extern VMT* game_event_vmt;
+
 extern VMT* gameEventsVMT;
 //extern VMT* viewRenderVMT;
 

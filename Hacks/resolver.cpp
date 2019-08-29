@@ -680,6 +680,25 @@ float AAA_Yaw(C_BaseEntity* entity)
             angle = entity->GetLowerBodyYawTarget();
         }
     }
+    if(vars.aimbot.yresolve == 7){
+        float movinglby[64];
+        float lbytomovinglbydelta[64]; // long name idk what else to put
+        bool onground = entity->GetFlags() & FL_ONGROUND;
+        lbytomovinglbydelta[entity->GetIndex()] = entity->GetLowerBodyYawTarget() - lbytomovinglbydelta[entity->GetIndex()];
+        
+        if (entity->GetVelocity().Length2D() > 6 && entity->GetVelocity().Length2D() < 42) { // shitty ayyware fakewalk check better than nothing.
+             entity->GetEyeAngles()->y = entity->GetLowerBodyYawTarget() + 180;
+        }
+        else if (entity->GetVelocity().Length2D() < 6 || entity->GetVelocity().Length2D() > 42) { // they are moving
+            entity->GetEyeAngles()->y = entity->GetLowerBodyYawTarget();
+            movinglby[entity->GetIndex()] = entity->GetLowerBodyYawTarget();
+        }
+        else if (lbytomovinglbydelta[entity->GetIndex()] > 50 && lbytomovinglbydelta[entity->GetIndex()] < -50) {// the 50 will allow you to have a 30 degree margin of error (do the math :))
+            entity->GetEyeAngles()->y = movinglby[entity->GetIndex()];
+        }
+        else
+            entity->GetEyeAngles()->y = entity->GetLowerBodyYawTarget();
+    }
 }
 
 

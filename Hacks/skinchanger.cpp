@@ -7,6 +7,18 @@ int KnifeT = skin.knifeT;
 int GloveCT = skin.gloveCT;
 int GloveT = skin.gloveT;
 int SSGSKIN = 624;
+int SSGSKIN2 = 222;
+int SSGSKIN3 = 503;
+
+int ssgskin1(){
+    if (vars.misc.ssgskin == 0) {
+        return SSGSKIN;
+    }else if (vars.misc.ssgskin == 1){
+        return SSGSKIN2;
+    }else if (vars.misc.ssgskin == 2){
+        return SSGSKIN3;
+    }
+}
 
 
 unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
@@ -47,7 +59,7 @@ unordered_map<int, cSkin> cSkinchanger::Skins = unordered_map<int, cSkin>( {
     make_pair(WEAPON_SCAR20, cSkin(skin.scar, -1, -1, 1337, 0, nullptr, 0.0001f)), // Blueprint
     make_pair(WEAPON_SG556, cSkin(skin.sg, -1, -1, 1337, 0, nullptr, 0.0001f)), // Mayan Dreams
     
-    make_pair(WEAPON_SSG08, cSkin(SSGSKIN, -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
+    make_pair(WEAPON_SSG08, cSkin(ssgskin1(), -1, -1, 1337, 0, nullptr, 0.0001f)), // Dragonfire
     make_pair(WEAPON_GALILAR, cSkin(skin.galil, -1, -1, -1, 0, nullptr, 0.0001f)), // Sugar Rush
     // SMGs
     make_pair(WEAPON_MAC10, cSkin(skin.mac10, -1, -1, -1, 0, nullptr, 0.0001f)), // Neon Rider
@@ -71,15 +83,8 @@ unordered_map<int, const char*> cSkinchanger::ModelList;
 cSkinchanger* skinchanger = new cSkinchanger;
 
 
-
 void cSkinchanger::FrameStageNotify(ClientFrameStage_t stage) {
-    if (vars.misc.ssgskin == 0) {
-        SSGSKIN = 624;
-    }else if (vars.misc.ssgskin == 1){
-        SSGSKIN == 222;
-    }else if (vars.misc.ssgskin == 2){
-        SSGSKIN == 503;
-    }
+  
     
     if(stage == FRAME_NET_UPDATE_POSTDATAUPDATE_START){
         pLocalPlayer = (C_BaseEntity*)(pEntList->GetClientEntity(pEngine->GetLocalPlayer()));

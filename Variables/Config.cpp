@@ -28,7 +28,6 @@ bool GetBoolValue(bool Value)
 {
     return Value;
 }
-
 int GetIntValue(int Value)
 {
     return Value;
@@ -98,7 +97,19 @@ void Config::LoadConfig() {
     vars.misc.MaaY     = cfgget_i("Misc", "MaaY");
     vars.visuals.nosmoke     = cfgget_b("Misc", "No Smoke");
     vars.misc.noduckcooldown     = cfgget_b("Misc", "No Duck");
+    
     vars.misc.thirdpersonkeybindez     = cfgget_b("Misc", "TPKEY");
+    vars.misc.tpkeybind     = cfgget_i("Misc", "TPKEYBIND");
+    
+    vars.misc.fakewalkkey     = cfgget_b("Misc", "Fakewalkkey");
+    vars.misc.fakewalkkeybind     = cfgget_i("Misc", "Fakewalkkeybind");
+    
+    vars.misc.triggerbotkey     = cfgget_b("Misc", "Triggerbotkey");
+    vars.misc.triggerbotkeybind     = cfgget_i("Misc", "Triggerbotkeybind");
+    
+    vars.misc.autoblockkey     = cfgget_b("Misc", "Autoblockkey");
+    vars.misc.autoblockkeybind     = cfgget_i("Misc", "Autoblockkeybind");
+    
     vars.aimbot.fakewalk     = cfgget_b("Misc", "Fake Walk");
     vars.aimbot.fakewalktype     = cfgget_i("Misc", "FakeWalkT");
     vars.aimbot.backtrack = cfgget_b("Aimbot", "Backtrack");
@@ -232,6 +243,13 @@ void Config::LoadConfig() {
     vars.misc.asusalpha = cfgget_f("Misc", "ASUSA");
     vars.visuals.bullett = cfgget_b("Misc", "Bullet");
     vars.misc.desyncenabled = cfgget_b("Aimbot", "YawD");
+
+    
+    vars.misc.snipercrosshair = cfgget_b("Misc", "Sniper");
+    vars.misc.nightmode = cfgget_b("Misc", "Nightmode");
+    vars.misc.fullbright = cfgget_b("Misc", "Fullbright");
+    vars.misc.nadetraj = cfgget_b("Misc", "NadeTrajectory");
+    vars.misc.grenadepred = cfgget_b("Misc", "NadePred");
     
     vars.misc.hvhviewmodel = cfgget_b("Misc", "hvhviewmodel");
     vars.misc.logshots = cfgget_b("Misc", "Log Shots");
@@ -240,7 +258,11 @@ void Config::LoadConfig() {
     vars.misc.viewmodelfov = cfgget_i("Misc", "hvhviewmodelfov");
     //vars.misc.freestanding = cfgget_b("Aimbot", "Freestanding");
     
+    vars.aimbot.autoaccept = cfgget_b("Misc", "Autoblock");
+    vars.aimbot.autoknife = cfgget_b("Misc", "Autoknife");
     
+    vars.aimbot.autodefuse = cfgget_b("Misc", "Autodefuse");
+    vars.aimbot.defusesilent = cfgget_b("Misc", "Silentdefuse");
     //Colours
     /*vars.colors.pchamr      = cfgget_f("Colours", "pChamr");
      vars.colors.pchamg      = cfgget_f("Colours", "pChamg");
@@ -316,6 +338,12 @@ void Config::SaveConfig() {
     cfg.SetLongValue("Misc", "FakeWalkT", GetIntValue(vars.aimbot.fakewalktype));
     cfg.SetBoolValue("Misc", "No Smoke", GetBoolValue(vars.visuals.nosmoke));
     cfg.SetBoolValue("Misc", "No Duck", GetBoolValue(vars.misc.noduckcooldown));
+    
+     cfg.SetBoolValue("Misc", "Sniper", GetBoolValue(vars.misc.snipercrosshair));
+     cfg.SetBoolValue("Misc", "Nightmode", GetBoolValue(vars.misc.nightmode));
+     cfg.SetBoolValue("Misc", "Fullbright", GetBoolValue(vars.misc.fullbright));
+    cfg.SetBoolValue("Misc", "NadeTrajectory", GetBoolValue(vars.misc.nadetraj));
+    cfg.SetBoolValue("Misc", "NadePred", GetBoolValue(vars.misc.grenadepred));
     //cfg.SetBoolValue("Aimbot", "Backtrack", GetBoolValue(vars.misc.backtrack));
     cfg.SetLongValue("Aimbot", "ACHC", GetIntValue(vars.aimbot.accuracyhithcance));
     cfg.SetLongValue("Aimbot", "HT", GetIntValue(vars.aimbot.hitscantype));
@@ -406,7 +434,20 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "Chat Spam", GetBoolValue(vars.misc.spammer));
     cfg.SetBoolValue("Misc", "Clantag", GetBoolValue(vars.misc.clantag));
     cfg.SetBoolValue("Visuals", "Skin Changer", GetBoolValue(vars.visuals.skinc));
+
+    
     cfg.SetBoolValue("Misc", "TPKEY", GetBoolValue(vars.misc.thirdpersonkeybindez));
+    cfg.SetLongValue("Misc", "TPKEYBIND", GetIntValue(vars.misc.tpkeybind));
+    
+    cfg.SetBoolValue("Misc", "Fakewalkkey", GetBoolValue(vars.misc.fakewalkkey));
+    cfg.SetLongValue("Misc", "Fakewalkkeybind", GetIntValue(vars.misc.fakewalkkeybind));
+    
+    cfg.SetBoolValue("Misc", "Triggerbotkey", GetBoolValue(vars.misc.triggerbotkey));
+    cfg.SetLongValue("Misc", "Triggerbotkeybind", GetIntValue(vars.misc.triggerbotkeybind));
+    
+    cfg.SetBoolValue("Misc", "Autoblockkey", GetBoolValue(vars.misc.autoblockkey));
+    cfg.SetLongValue("Misc", "Autoblockkeybind", GetIntValue(vars.misc.autoblockkeybind));
+    
     cfg.SetBoolValue("Misc", "Antiunt", GetBoolValue(vars.misc.antiuntrust));
 
     
@@ -428,6 +469,10 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "Fake Lag", GetBoolValue(vars.misc.fakelag));
     cfg.SetLongValue("Misc", "FakeLagf", GetIntValue(vars.misc.fakelagfactor));
     cfg.SetBoolValue("Misc", "Adaptive", GetBoolValue(vars.misc.adaptive));
+    cfg.SetBoolValue("Misc", "Autoknife", GetBoolValue(vars.aimbot.autoknife));
+    cfg.SetBoolValue("Misc", "Autoblock", GetBoolValue(vars.aimbot.autoaccept));
+    cfg.SetBoolValue("Misc", "Autodefuse", GetBoolValue(vars.aimbot.autodefuse));
+    cfg.SetBoolValue("Misc", "Silentdefuse", GetBoolValue(vars.aimbot.defusesilent));
     // cfg.SetBoolValue("Misc", "Night Mode", GetBoolValue(vars.misc.nightmode));
     cfg.SetBoolValue("Misc", "Asus Walls", GetBoolValue(vars.misc.asuswalls));
     cfg.SetBoolValue("Misc", "World Paint", GetBoolValue(vars.misc.worldpaint));

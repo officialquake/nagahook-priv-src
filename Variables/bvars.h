@@ -12,6 +12,7 @@ public:
     bool AaaY_opend;
     // Chams
     bool hands_opend;
+    bool niggeropend;
     bool weapons_opend;
     bool players_opend;
     bool local_opend;
@@ -37,6 +38,10 @@ public:
     bool mCol_opend;
     bool cfg_opend;
     bool skin_opend;
+    bool fakewalk1_opend;
+    bool triggerbot_opend;
+    bool autoblock_opend;
+    bool thirdpersonkeyopend;
     
     // For text input
     bool misc_name, misc_changename;
@@ -84,6 +89,11 @@ public:
         bool trigger     = false;        // Will shoot when an enemy is in your crosshair
         //bool prediction  = true;         // Player prediction
         bool autowall    = true;         // Shoots through walls if calulated damage is higher than set amount
+        bool autodefuse    = false;         // Shoots through walls if calulated damage is higher than set amount
+         bool namestealer    = false;         // Shoots through walls if calulated damage is higher than set amount
+         int  nametype      = 0;            // Autowall min damage
+        bool defusesilent    = false;         // Shoots through walls if calulated damage is higher than set amount
+        bool autoaccept    = false;         // Shoots through walls if calulated damage is higher than set amount
         int  mindmg      = 5;            // Autowall min damage
         bool hitchance  = true;         // Hitchance
         int accuracyhithcance = 0;     // Hitchance Accuacry
@@ -195,13 +205,13 @@ public:
         bool spreadcrosshair    = false;
         bool dlights        = false;
         bool unload        = false;
-        
+        bool nadetraj = false;
         float AAAngle;
         int Up = 1;
         int Down = 1;
         int Left = 1;
         int Right = 1;
-        
+        int tpkeybind = 0;
         bool showenemieslog = false;
         bool showallieslog = false;
         bool dlight = false;
@@ -218,6 +228,10 @@ public:
         bool scopeonly       = true;
         bool thirdperson    = false;     // Basically RCS without slider
         bool thirdpersonkeybindez    = false;     // Basically RCS without slider
+        bool triggerbotkey    = false;     // Basically RCS without slider
+        bool manualaakey    = false;     // Basically RCS without slider
+        bool fakewalkkey    = false;     // Basically RCS without slider
+        bool autoblockkey    = false;     // Basically RCS without slider
          bool manualcrosshair    = false;     // Basically RCS without slider
         bool legitaa    = false;     // Basically RCS without slider
         bool manualaa    = false;     // Basically RCS without slider
@@ -228,7 +242,11 @@ public:
         bool airstuck       = false;    // Airstuck
         bool fovt           = true;    // Fov Changer Enabled
         int fov             = 20;       // FOV changer
+        int manualaakeybind             = 0;       // FOV changer
+        int fakewalkkeybind             = 0;       // FOV changer
+        int autoblockkeybind             = 0;       // FOV changer
         int ssgskin             = 0;       // FOV changer
+        int triggerbotkeybind             = 0;       // FOV changer
         bool watermark      = false;
         bool backtrack = false;
         bool moonwalk = false;
@@ -249,10 +267,14 @@ public:
         // Different Clantags
         bool clantag         = false;    // Enables clantag
         
-        bool showrank       = true;     // Show everyboys rank in MM
+        bool showrank       = false;     // Show everyboys rank in MM
         bool spammer        = false;    // Chat spammer
         bool fullbright        = false;    // Chat spammer
         bool noflash        = true;     // Disabled flashbangs
+        int soundtime = 1000;
+        bool footstepenemies        = false;     // Disabled flashbangs
+        bool footstepallies        = false;     // Disabled flashbangs
+         bool footstep        = false;     // Disabled flashbangs
         int flashalpha      = 255.f;    // How "flashed" you are
         bool noscope        = false;     // Noscope
         
