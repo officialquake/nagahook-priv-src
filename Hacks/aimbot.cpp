@@ -223,9 +223,12 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
     
     Vector eyepos = local->GetEyePosition();
     
+    
+    
     for(int i = 0; i < pEntList->GetHighestEntityIndex(); i++)
     {
         auto* entity = pEntList->GetClientEntity(i);
+        //int classID = entity->GetClientClass()->m_ClassID;
         
         if(!entity)
             continue;
@@ -249,6 +252,9 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
             continue;
         
         if(weapon->GetAmmo() < 1)
+            continue;
+        
+        if(entity->GetClientClass()->m_ClassID == (int)CHostage)
             continue;
         
         if(weapon->IsKnife() || weapon->IsBomb() || weapon->IsGrenade())
