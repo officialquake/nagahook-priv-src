@@ -79,11 +79,37 @@ void Config::LoadConfig() {
     vars.misc.antiResolverFlip     = cfgget_b("Aimbot", "LBY Flip");
     
     vars.aimbot.LegitEnabled     = cfgget_b("Aimbot", "Legit Enabled");
-    vars.aimbot.legitFOV = cfgget_f("Aimbot", "Legit FOV");
-    vars.aimbot.smooth     = cfgget_b("Aimbot", "Smoothing");
-    vars.aimbot.smoothf = cfgget_f("Aimbot", "Smoothing FOV");
-    vars.aimbot.legitHitscan     = cfgget_b("Aimbot", "Legit Hitscan");
-    vars.aimbot.legitHitscanType     = cfgget_i("Aimbot", "Legit Hitscan Type");
+    
+    vars.aimbot.pistolFOV = cfgget_f("Aimbot", "Pistol FOV");
+    vars.aimbot.pistolsmooth     = cfgget_b("Aimbot", "Pistol Smooth");
+    vars.aimbot.pistolsmoothf = cfgget_f("Aimbot", "Pistol Smooth FOV");
+    vars.aimbot.legitPistolHitscan     = cfgget_b("Aimbot", "Legit Pistol Hitscan");
+    vars.aimbot.legitPistolHitscanType     = cfgget_i("Aimbot", "Legit Pistol Hitscan Type");
+    
+    vars.aimbot.rifleFOV = cfgget_f("Aimbot", "Rifle FOV");
+    vars.aimbot.riflesmooth     = cfgget_b("Aimbot", "Rifle Smooth");
+    vars.aimbot.riflesmoothf = cfgget_f("Aimbot", "Rifle Smooth FOV");
+    vars.aimbot.legitRifleHitscan     = cfgget_b("Aimbot", "Legit Rifle Hitscan");
+    vars.aimbot.legitRifleHitscanType     = cfgget_i("Aimbot", "Legit Rifle Hitscan Type");
+    
+    vars.aimbot.sniperFOV = cfgget_f("Aimbot", "Sniper FOV");
+    vars.aimbot.snipersmooth     = cfgget_b("Aimbot", "Sniper Smooth");
+    vars.aimbot.snipersmoothf = cfgget_f("Aimbot", "Sniper Smooth FOV");
+    vars.aimbot.legitSniperHitscan     = cfgget_b("Aimbot", "Legit Sniper Hitscan");
+    vars.aimbot.legitSniperHitscanType     = cfgget_i("Aimbot", "Legit Sniper Hitscan Type");
+    
+    vars.aimbot.smgFOV = cfgget_f("Aimbot", "Smg FOV");
+    vars.aimbot.smgsmooth     = cfgget_b("Aimbot", "Smg Smooth");
+    vars.aimbot.smgsmoothf = cfgget_f("Aimbot", "Smg Smooth FOV");
+    vars.aimbot.legitSmgHitscan     = cfgget_b("Aimbot", "Legit Smg Hitscan");
+    vars.aimbot.legitSmgHitscanType     = cfgget_i("Aimbot", "Legit Smg Hitscan Type");
+    
+    vars.aimbot.heavyFOV = cfgget_f("Aimbot", "Heavy FOV");
+    vars.aimbot.heavysmooth     = cfgget_b("Aimbot", "Heavy Smooth");
+    vars.aimbot.heavysmoothf = cfgget_f("Aimbot", "Heavy Smooth FOV");
+    vars.aimbot.legitHeavyHitscan     = cfgget_b("Aimbot", "Legit Heavy Hitscan");
+    vars.aimbot.legitHeavyHitscanType     = cfgget_i("Aimbot", "Legit Heavy Hitscan Type");
+    
     //Right Aimbot
     vars.misc.antiaim  = (ButtonCode_t)cfgget_b("Aimbot", "AntiAim Enabled");
     vars.misc.thirdpersonmode     = cfgget_b("Aimbot", "Show Real Angles");
@@ -328,11 +354,36 @@ void Config::SaveConfig() {
     //cfg.SetBoolValue("Aimbot", "Auto Cock", GetBoolValue(vars.aimbot.autocock));
     
     cfg.SetBoolValue("Aimbot", "Legit Enabled", GetBoolValue(vars.aimbot.LegitEnabled));
-    cfg.SetDoubleValue("Aimbot", "Legit FOV", GetFloatValue(vars.aimbot.legitFOV));
-    cfg.SetBoolValue("Aimbot", "Smoothing", GetBoolValue(vars.aimbot.smooth));
-    cfg.SetDoubleValue("Aimbot", "Smoothing FOV", GetFloatValue(vars.aimbot.smoothf));
-    cfg.SetBoolValue("Aimbot", "Legit Hitscan", GetBoolValue(vars.aimbot.legitHitscan));
-    cfg.SetLongValue("Aimbot", "Legit Hitscan Type", GetIntValue(vars.aimbot.legitHitscanType));
+    
+    cfg.SetDoubleValue("Aimbot", "Pistol FOV", GetFloatValue(vars.aimbot.pistolFOV));
+    cfg.SetBoolValue("Aimbot", "Pistol Smooth", GetBoolValue(vars.aimbot.pistolsmooth));
+    cfg.SetDoubleValue("Aimbot", "Pistol Smooth FOV", GetFloatValue(vars.aimbot.pistolsmoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Pistol Hitscan", GetBoolValue(vars.aimbot.legitPistolHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Pistol Hitscan Type", GetIntValue(vars.aimbot.legitPistolHitscanType));
+    
+    cfg.SetDoubleValue("Aimbot", "Rifle FOV", GetFloatValue(vars.aimbot.rifleFOV));
+    cfg.SetBoolValue("Aimbot", "Rifle Smooth", GetBoolValue(vars.aimbot.riflesmooth));
+    cfg.SetDoubleValue("Aimbot", "Rifle Smooth FOV", GetFloatValue(vars.aimbot.riflesmoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Rifle Hitscan", GetBoolValue(vars.aimbot.legitRifleHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Rifle Hitscan Type", GetIntValue(vars.aimbot.legitRifleHitscanType));
+    
+    cfg.SetDoubleValue("Aimbot", "Sniper FOV", GetFloatValue(vars.aimbot.sniperFOV));
+    cfg.SetBoolValue("Aimbot", "Sniper Smooth", GetBoolValue(vars.aimbot.snipersmooth));
+    cfg.SetDoubleValue("Aimbot", "Sniper Smooth FOV", GetFloatValue(vars.aimbot.snipersmoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Sniper Hitscan", GetBoolValue(vars.aimbot.legitSniperHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Sniper Hitscan Type", GetIntValue(vars.aimbot.legitSniperHitscanType));
+    
+    cfg.SetDoubleValue("Aimbot", "Smg FOV", GetFloatValue(vars.aimbot.smgFOV));
+    cfg.SetBoolValue("Aimbot", "Smg Smooth", GetBoolValue(vars.aimbot.smgsmooth));
+    cfg.SetDoubleValue("Aimbot", "Smg Smooth FOV", GetFloatValue(vars.aimbot.smgsmoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Smg Hitscan", GetBoolValue(vars.aimbot.legitSmgHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Smg Hitscan Type", GetIntValue(vars.aimbot.legitSmgHitscanType));
+    
+    cfg.SetDoubleValue("Aimbot", "Heavy FOV", GetFloatValue(vars.aimbot.heavyFOV));
+    cfg.SetBoolValue("Aimbot", "Heavy Smooth", GetBoolValue(vars.aimbot.heavysmooth));
+    cfg.SetDoubleValue("Aimbot", "Heavy Smooth FOV", GetFloatValue(vars.aimbot.heavysmoothf));
+    cfg.SetBoolValue("Aimbot", "Legit Heavy Hitscan", GetBoolValue(vars.aimbot.legitHeavyHitscan));
+    cfg.SetLongValue("Aimbot", "Legit Heavy Hitscan Type", GetIntValue(vars.aimbot.legitHeavyHitscanType));
     
     cfg.SetBoolValue("Misc", "Fake Walk", GetBoolValue(vars.aimbot.fakewalk));
     cfg.SetLongValue("Misc", "FakeWalkT", GetIntValue(vars.aimbot.fakewalktype));

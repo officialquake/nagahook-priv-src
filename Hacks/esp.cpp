@@ -4,13 +4,14 @@
 #include "../Hacks/autowall.h"
 #include "../Backtrack.hpp"
 #include "../Hacks/customglow.hpp"
-
 struct Footstep
 {
     long expiration;
     int entityId;
     Vector position;
 };
+Vector viewanglesBackup;
+
 std::vector<Footstep> footsteps;
 
 void DrawSkeleton(C_BaseEntity* pEntity, Color color){
@@ -197,7 +198,7 @@ void grenadeESP(C_BaseEntity* entity){
         box3d(entity, color);
 }
 
-static void CollectFootstep(int iEntIndex, const char *pSample)
+void ESP::CollectFootstep(int iEntIndex, const char *pSample)
 {
     if (strstr(pSample, "player/footsteps") == NULL && strstr(pSample, "player/land") == NULL)
         return;
@@ -208,12 +209,13 @@ static void CollectFootstep(int iEntIndex, const char *pSample)
     Footstep footstep;
     footstep.entityId = iEntIndex;
     footstep.position = pEntList->GetClientEntity(iEntIndex)->GetVecOrigin();
+    
     footstep.expiration = GetEpochTime() + vars.misc.soundtime;
     
     footsteps.push_back(footstep);
 }
 
-static void DrawSounds()
+void ESP::DrawSounds()
 {
     for (unsigned int i = 0; i < footsteps.size(); i++)
     {
@@ -244,8 +246,6 @@ static void DrawSounds()
         if (player->GetTeam() == localplayer->GetTeam() && !vars.misc.footstepallies)
             continue;
         
-
-        
         float percent = (float)diff / (float)vars.misc.soundtime;
         
         Color playerColor = Color::Red();
@@ -256,6 +256,11 @@ static void DrawSounds()
         
         draw->Circle3D(footsteps[i].position, points, circleRadius, playerColor);
     }
+}
+
+void ESP::EmitSound(int iEntIndex, const char *pSample){
+    if(vars.misc.footstep)
+        ESP::CollectFootstep(iEntIndex, pSample);
 }
 
 
@@ -439,11 +444,7 @@ void DrawAngles(C_BaseEntity* local)
         draw->drawstring(dst.x, dst.y, Color(0, 255, 0, 255), espfont, "REAL");
 }
 //}
-void EmitSound(int iEntIndex, const char *pSample){
-    if(vars.misc.footstep){
-        CollectFootstep(iEntIndex, pSample);
-    }
-}
+
 
 
 void DrawPlayerESP()
@@ -603,6 +604,9 @@ void DrawPlayerESP()
             if((entity->GetFlashDuration() - pGlobals->curtime > 2.0f))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Yellow(), espfont, "Flashed");
         }
+        if(vars.misc.footstep){
+            ESP::DrawSounds();
+        }
         if (entity && entity != local && !entity->GetDormant())
         {
             if (entity->GetAlive())
@@ -635,9 +639,7 @@ void DrawPlayerESP()
                 }
             }
         }
-        if(vars.misc.footstep){
-            DrawSounds();
-        }
+        
     }
 }
 

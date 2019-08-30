@@ -20,6 +20,11 @@ public:
     bool fakeping_opend;
     // Menu
     bool legithitscanpri_opend;
+    bool legithitscanpistolpri_opend;
+    bool legithitscanriflepri_opend;
+    bool legithitscansniperpri_opend;
+    bool legithitscansmgpri_opend;
+    bool legithitscanheavypri_opend;
     bool colors_opend;
     // Misc
     bool fakelag_opend;
@@ -65,14 +70,40 @@ public:
         bool enabled     = true;         // Enable
         
         bool LegitEnabled = false;
+        
         bool legitHitscan = false;
+         bool legitPistolHitscan = false;
+         bool legitRifleHitscan = false;
+         bool legitSniperHitscan = false;
+         bool legitSmgHitscan = false;
+         bool legitHeavyHitscan = false;
         float legitFOV = 0.f;
+        float pistolFOV = 0.f;
+        float pistolsmoothf    = 0.f;
+        float rifleFOV = 0.f;
+        float riflesmoothf    = 0.f;
+        float sniperFOV = 0.f;
+        float snipersmoothf    = 0.f;
+        float smgFOV = 0.f;
+        float smgsmoothf    = 0.f;
+        float heavyFOV = 0.f;
+        float heavysmoothf    = 0.f;
         bool smooth        = false;
-        float smoothf    = 1.f;
+        bool pistolsmooth        = false;
+        bool riflesmooth        = false;
+        bool snipersmooth        = false;
+        bool smgsmooth        = false;
+        bool heavysmooth        = false;
+        float smoothf    = 0.f;
         bool LegitRCS = false;
         float LegitRCSx = 0.f;
         float LegitRCSy = 0.f;
         int legitHitscanType = 0;
+        int legitPistolHitscanType = 0;
+        int legitRifleHitscanType = 0;
+        int legitSniperHitscanType = 0;
+        int legitSmgHitscanType = 0;
+        int legitHeavyHitscanType = 0;
         
         bool autoknife     = false;         // Enable
         bool autostop     = false;         // Enable

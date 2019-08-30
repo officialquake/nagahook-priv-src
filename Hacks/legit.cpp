@@ -73,7 +73,295 @@ int MakeLegitHitscan(C_BaseEntity* entity, CUserCmd* cmd)
     
 }
 
+int MakeLegitHitscanPistol(C_BaseEntity* entity, CUserCmd* cmd)
+{
+    vector<int> hitboxes;
+    
+    switch (vars.aimbot.legitPistolHitscanType)//here
+    {
+        case 0:
+            hitboxes.push_back(HITBOX_HEAD);
+            // hitboxes.push_back(HITBOX_NECK);
+            break;
+        case 1:
+            hitboxes.push_back(HITBOX_UPPER_CHEST);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            // hitboxes.push_back(HITBOX_BELLY);
+            //    hitboxes.push_back(HITBOX_PELVIS);
+            break;
+        case 2:
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_CALF);
+            hitboxes.push_back(HITBOX_LEFT_CALF);
+            
+            break;
+            
+    }
+    
+    if(vars.aimbot.legitPistolHitscan)
+    {
+        
+        int highestdamage_hitbox = 0;
+        int highestdamage = 0;
+        
+        for(auto hit : hitboxes)
+        {
+            Vector vDest = GetHitboxPosition(entity, hit);
+            float thisDamage = 0.f;
+            Autowall::FireBulletData data;
+            
+            thisDamage = Autowall::GetDamage(vDest, true, data);
+            
+            
+            if(thisDamage > highestdamage)
+            {
+                highestdamage = thisDamage;
+                highestdamage_hitbox = hit;
+            }
+            
+        }
+        
+        return highestdamage_hitbox;
+    }
+    else
+    {
+        return vars.aimbot.hitbox;
+    }
+    
+}
 
+int MakeLegitHitscanRifle(C_BaseEntity* entity, CUserCmd* cmd)
+{
+    vector<int> hitboxes;
+    
+    switch (vars.aimbot.legitRifleHitscanType)//here
+    {
+        case 0:
+            hitboxes.push_back(HITBOX_HEAD);
+            // hitboxes.push_back(HITBOX_NECK);
+            break;
+        case 1:
+            hitboxes.push_back(HITBOX_UPPER_CHEST);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            // hitboxes.push_back(HITBOX_BELLY);
+            //    hitboxes.push_back(HITBOX_PELVIS);
+            break;
+        case 2:
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_CALF);
+            hitboxes.push_back(HITBOX_LEFT_CALF);
+            
+            break;
+            
+    }
+    
+    if(vars.aimbot.legitRifleHitscan)
+    {
+        
+        int highestdamage_hitbox = 0;
+        int highestdamage = 0;
+        
+        for(auto hit : hitboxes)
+        {
+            Vector vDest = GetHitboxPosition(entity, hit);
+            float thisDamage = 0.f;
+            Autowall::FireBulletData data;
+            
+            thisDamage = Autowall::GetDamage(vDest, true, data);
+            
+            
+            if(thisDamage > highestdamage)
+            {
+                highestdamage = thisDamage;
+                highestdamage_hitbox = hit;
+            }
+            
+        }
+        
+        return highestdamage_hitbox;
+    }
+    else
+    {
+        return vars.aimbot.hitbox;
+    }
+    
+}
+
+int MakeLegitHitscanSniper(C_BaseEntity* entity, CUserCmd* cmd)
+{
+    vector<int> hitboxes;
+    
+    switch (vars.aimbot.legitSniperHitscanType)//here
+    {
+        case 0:
+            hitboxes.push_back(HITBOX_HEAD);
+            // hitboxes.push_back(HITBOX_NECK);
+            break;
+        case 1:
+            hitboxes.push_back(HITBOX_UPPER_CHEST);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            // hitboxes.push_back(HITBOX_BELLY);
+            //    hitboxes.push_back(HITBOX_PELVIS);
+            break;
+        case 2:
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_CALF);
+            hitboxes.push_back(HITBOX_LEFT_CALF);
+            
+            break;
+            
+    }
+    
+    if(vars.aimbot.legitSniperHitscan)
+    {
+        
+        int highestdamage_hitbox = 0;
+        int highestdamage = 0;
+        
+        for(auto hit : hitboxes)
+        {
+            Vector vDest = GetHitboxPosition(entity, hit);
+            float thisDamage = 0.f;
+            Autowall::FireBulletData data;
+            
+            thisDamage = Autowall::GetDamage(vDest, true, data);
+            
+            
+            if(thisDamage > highestdamage)
+            {
+                highestdamage = thisDamage;
+                highestdamage_hitbox = hit;
+            }
+            
+        }
+        
+        return highestdamage_hitbox;
+    }
+    else
+    {
+        return vars.aimbot.hitbox;
+    }
+    
+}
+
+int MakeLegitHitscanSmg(C_BaseEntity* entity, CUserCmd* cmd)
+{
+    vector<int> hitboxes;
+    
+    switch (vars.aimbot.legitSmgHitscanType)//here
+    {
+        case 0:
+            hitboxes.push_back(HITBOX_HEAD);
+            // hitboxes.push_back(HITBOX_NECK);
+            break;
+        case 1:
+            hitboxes.push_back(HITBOX_UPPER_CHEST);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            // hitboxes.push_back(HITBOX_BELLY);
+            //    hitboxes.push_back(HITBOX_PELVIS);
+            break;
+        case 2:
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_CALF);
+            hitboxes.push_back(HITBOX_LEFT_CALF);
+            
+            break;
+            
+    }
+    
+    if(vars.aimbot.legitSmgHitscan)
+    {
+        
+        int highestdamage_hitbox = 0;
+        int highestdamage = 0;
+        
+        for(auto hit : hitboxes)
+        {
+            Vector vDest = GetHitboxPosition(entity, hit);
+            float thisDamage = 0.f;
+            Autowall::FireBulletData data;
+            
+            thisDamage = Autowall::GetDamage(vDest, true, data);
+            
+            
+            if(thisDamage > highestdamage)
+            {
+                highestdamage = thisDamage;
+                highestdamage_hitbox = hit;
+            }
+            
+        }
+        
+        return highestdamage_hitbox;
+    }
+    else
+    {
+        return vars.aimbot.hitbox;
+    }
+    
+}
+
+int MakeLegitHitscanHeavy(C_BaseEntity* entity, CUserCmd* cmd)
+{
+    vector<int> hitboxes;
+    
+    switch (vars.aimbot.legitHeavyHitscanType)//here
+    {
+        case 0:
+            hitboxes.push_back(HITBOX_HEAD);
+            // hitboxes.push_back(HITBOX_NECK);
+            break;
+        case 1:
+            hitboxes.push_back(HITBOX_UPPER_CHEST);
+            hitboxes.push_back(HITBOX_LOWER_CHEST);
+            // hitboxes.push_back(HITBOX_BELLY);
+            //    hitboxes.push_back(HITBOX_PELVIS);
+            break;
+        case 2:
+            hitboxes.push_back(HITBOX_RIGHT_THIGH);
+            hitboxes.push_back(HITBOX_LEFT_THIGH);
+            hitboxes.push_back(HITBOX_RIGHT_CALF);
+            hitboxes.push_back(HITBOX_LEFT_CALF);
+            
+            break;
+            
+    }
+    
+    if(vars.aimbot.legitHeavyHitscan)
+    {
+        
+        int highestdamage_hitbox = 0;
+        int highestdamage = 0;
+        
+        for(auto hit : hitboxes)
+        {
+            Vector vDest = GetHitboxPosition(entity, hit);
+            float thisDamage = 0.f;
+            Autowall::FireBulletData data;
+            
+            thisDamage = Autowall::GetDamage(vDest, true, data);
+            
+            
+            if(thisDamage > highestdamage)
+            {
+                highestdamage = thisDamage;
+                highestdamage_hitbox = hit;
+            }
+            
+        }
+        
+        return highestdamage_hitbox;
+    }
+    else
+    {
+        return vars.aimbot.hitbox;
+    }
+    
+}
 
 void NormalizeAnglesLol(Vector& angle) {
     while (angle.x > 89.0f)
@@ -123,9 +411,175 @@ Vector Smooth(Vector& angle, C_BaseCombatWeapon* activeWeapon)
     return angle = viewAngles + toChange;
 }
 
+Vector SmoothPistol(Vector& angle, C_BaseCombatWeapon* activeWeapon)
+{
+    if (!vars.aimbot.LegitEnabled)
+        return;
+    
+    if (!vars.aimbot.pistolsmooth) // here
+        return;
+    
+    if (vars.aimbot.silent)
+        return;
+    
+    if (!activeWeapon->IsPistol())
+        return;
+    
+    Vector viewAngles = Vector(0.f, 0.f, 0.f);
+    pEngine->GetViewAngles(viewAngles);
+    
+    Vector delta = angle - viewAngles;
+    NormalizeAnglesLol(delta);
+    //here
+    float smooth = powf(vars.aimbot.pistolsmoothf, 0.4f); // Makes more slider space for actual useful values
+    
+    smooth = min(0.959999f, smooth); //std::min
+    
+    
+    Vector toChange = Vector();
+    //  switch (vars.aimbot.smoothtype)
+    
+    toChange = delta - delta * smooth;
+    
+    
+    return angle = viewAngles + toChange;
+}
 
+Vector SmoothRifle(Vector& angle, C_BaseCombatWeapon* activeWeapon)
+{
+    if (!vars.aimbot.LegitEnabled)
+        return;
+    
+    if (!vars.aimbot.riflesmooth) // here
+        return;
+    
+    if (vars.aimbot.silent)
+        return;
+    
+    if (!activeWeapon->IsRifle())
+        return;
+    
+    Vector viewAngles = Vector(0.f, 0.f, 0.f);
+    pEngine->GetViewAngles(viewAngles);
+    
+    Vector delta = angle - viewAngles;
+    NormalizeAnglesLol(delta);
+    //here
+    float smooth = powf(vars.aimbot.riflesmoothf, 0.4f); // Makes more slider space for actual useful values
+    
+    smooth = min(0.959999f, smooth); //std::min
+    
+    
+    Vector toChange = Vector();
+    //  switch (vars.aimbot.smoothtype)
+    
+    toChange = delta - delta * smooth;
+    
+    
+    return angle = viewAngles + toChange;
+}
 
+Vector SmoothSniper(Vector& angle, C_BaseCombatWeapon* activeWeapon)
+{
+    if (!vars.aimbot.LegitEnabled)
+        return;
+    
+    if (!vars.aimbot.snipersmooth) // here
+        return;
+    
+    if (vars.aimbot.silent)
+        return;
+    
+    if (!activeWeapon->IsSnipScope1())
+        return;
+    
+    Vector viewAngles = Vector(0.f, 0.f, 0.f);
+    pEngine->GetViewAngles(viewAngles);
+    
+    Vector delta = angle - viewAngles;
+    NormalizeAnglesLol(delta);
+    //here
+    float smooth = powf(vars.aimbot.snipersmoothf, 0.4f); // Makes more slider space for actual useful values
+    
+    smooth = min(0.959999f, smooth); //std::min
+    
+    
+    Vector toChange = Vector();
+    //  switch (vars.aimbot.smoothtype)
+    
+    toChange = delta - delta * smooth;
+    
+    
+    return angle = viewAngles + toChange;
+}
 
+Vector SmoothSmg(Vector& angle, C_BaseCombatWeapon* activeWeapon)
+{
+    if (!vars.aimbot.LegitEnabled)
+        return;
+    
+    if (!vars.aimbot.smgsmooth) // here
+        return;
+    
+    if (vars.aimbot.silent)
+        return;
+    
+    if (!activeWeapon->IsSmg())
+        return;
+    
+    Vector viewAngles = Vector(0.f, 0.f, 0.f);
+    pEngine->GetViewAngles(viewAngles);
+    
+    Vector delta = angle - viewAngles;
+    NormalizeAnglesLol(delta);
+    //here
+    float smooth = powf(vars.aimbot.smgsmoothf, 0.4f); // Makes more slider space for actual useful values
+    
+    smooth = min(0.959999f, smooth); //std::min
+    
+    
+    Vector toChange = Vector();
+    //  switch (vars.aimbot.smoothtype)
+    
+    toChange = delta - delta * smooth;
+    
+    
+    return angle = viewAngles + toChange;
+}
+
+Vector SmoothHeavy(Vector& angle, C_BaseCombatWeapon* activeWeapon)
+{
+    if (!vars.aimbot.LegitEnabled)
+        return;
+    
+    if (!vars.aimbot.heavysmooth) // here
+        return;
+    
+    if (vars.aimbot.silent)
+        return;
+    
+    if (!activeWeapon->IsHeavy())
+        return;
+    
+    Vector viewAngles = Vector(0.f, 0.f, 0.f);
+    pEngine->GetViewAngles(viewAngles);
+    
+    Vector delta = angle - viewAngles;
+    NormalizeAnglesLol(delta);
+    //here
+    float smooth = powf(vars.aimbot.heavysmoothf, 0.4f); // Makes more slider space for actual useful values
+    
+    smooth = min(0.959999f, smooth); //std::min
+    
+    
+    Vector toChange = Vector();
+    //  switch (vars.aimbot.smoothtype)
+    
+    toChange = delta - delta * smooth;
+    
+    
+    return angle = viewAngles + toChange;
+}
 
 void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, float& flForward, float& flSide)//here
 {
@@ -173,8 +627,18 @@ void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon,
         
         
         
+        if(vars.aimbot.legitPistolHitscan && weapon->IsPistol()){
+            vFrom = GetHitboxPosition(entity, MakeLegitHitscanPistol(entity, pCmd));//here
+        }else if(vars.aimbot.legitRifleHitscan && weapon->IsRifle()){
+            vFrom = GetHitboxPosition(entity, MakeLegitHitscanRifle(entity, pCmd));//here
+        }else if(vars.aimbot.legitSniperHitscan && weapon->IsSnipScope1()){
+            vFrom = GetHitboxPosition(entity, MakeLegitHitscanSniper(entity, pCmd));//here
+        }else if(vars.aimbot.legitSmgHitscan && weapon->IsSmg()){
+            vFrom = GetHitboxPosition(entity, MakeLegitHitscanSmg(entity, pCmd));//here
+        }else if(vars.aimbot.legitHeavyHitscan && weapon->IsHeavy()){
+            vFrom = GetHitboxPosition(entity, MakeLegitHitscanHeavy(entity, pCmd));//here
+        }
         
-        vFrom = GetHitboxPosition(entity, MakeLegitHitscan(entity, pCmd));//here
         
         vTo = CalcAngle(eyepos, vFrom);
         
@@ -189,13 +653,11 @@ void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon,
             canHit = getdmg >= vars.aimbot.mindmg;
         }
         
-        // FOV HERE
-        
         atTargets = vTo;
         
         if(canHit || isVISIBLE)
         {
-            if(GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.legitFOV) //here
+            if((GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.pistolFOV && weapon->IsPistol())) //here
             {
                 bool bAttack = true;
                 
@@ -204,8 +666,119 @@ void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon,
                 
                 if(pCmd->buttons & IN_ATTACK)
                 {
-                    if(vars.aimbot.smooth) //here
-                        pCmd->viewangles = Smooth(vTo, weapon);
+                    
+                    if(vars.aimbot.pistolsmooth){
+                        pCmd->viewangles = SmoothPistol(vTo, weapon);
+                    }
+                    
+                    if(!vars.aimbot.silent)
+                    {
+                        pCmd->viewangles = vTo;
+                        pEngine->SetViewAngles(pCmd->viewangles);
+                    }
+                    else
+                    {
+                        pCmd->viewangles = vTo;
+                    }
+                    
+                }
+                
+            }
+            if((GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.rifleFOV && weapon->IsRifle())) //here
+            {
+                bool bAttack = true;
+                
+                if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
+                    bAttack = false;
+                
+                if(pCmd->buttons & IN_ATTACK)
+                {
+                    
+                    if(vars.aimbot.riflesmooth){
+                        pCmd->viewangles = SmoothRifle(vTo, weapon);
+                    }
+                    
+                    if(!vars.aimbot.silent)
+                    {
+                        pCmd->viewangles = vTo;
+                        pEngine->SetViewAngles(pCmd->viewangles);
+                    }
+                    else
+                    {
+                        pCmd->viewangles = vTo;
+                    }
+                    
+                }
+                
+            }
+            if((GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.sniperFOV && weapon->IsSnipScope1())) //here
+            {
+                bool bAttack = true;
+                
+                if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
+                    bAttack = false;
+                
+                if(pCmd->buttons & IN_ATTACK)
+                {
+                    
+                    if(vars.aimbot.snipersmooth){
+                        pCmd->viewangles = SmoothSniper(vTo, weapon);
+                    }
+                    
+                    if(!vars.aimbot.silent)
+                    {
+                        pCmd->viewangles = vTo;
+                        pEngine->SetViewAngles(pCmd->viewangles);
+                    }
+                    else
+                    {
+                        pCmd->viewangles = vTo;
+                    }
+                    
+                }
+                
+            }
+            if((GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.smgFOV && weapon->IsSmg())) //here
+            {
+                bool bAttack = true;
+                
+                if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
+                    bAttack = false;
+                
+                if(pCmd->buttons & IN_ATTACK)
+                {
+                    
+                    if(vars.aimbot.smgsmooth){
+                        pCmd->viewangles = SmoothSmg(vTo, weapon);
+                    }
+                    
+                    if(!vars.aimbot.silent)
+                    {
+                        pCmd->viewangles = vTo;
+                        pEngine->SetViewAngles(pCmd->viewangles);
+                    }
+                    else
+                    {
+                        pCmd->viewangles = vTo;
+                    }
+                    
+                }
+                
+            }
+            if((GetFOV(pCmd->viewangles, local->GetEyePosition(), vFrom) <= vars.aimbot.heavyFOV && weapon->IsHeavy())) //here
+            {
+                bool bAttack = true;
+                
+                if (weapon->GetNextPrimaryAttack() - pGlobals->interval_per_tick > local->GetTickBase() * pGlobals->interval_per_tick)
+                    bAttack = false;
+                
+                if(pCmd->buttons & IN_ATTACK)
+                {
+                    
+                    if(vars.aimbot.heavysmooth){
+                        pCmd->viewangles = SmoothHeavy(vTo, weapon);
+                    }
+                    
                     if(!vars.aimbot.silent)
                     {
                         pCmd->viewangles = vTo;

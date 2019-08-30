@@ -851,7 +851,7 @@ void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapo
     
     
     if (!vars.misc.fakelag)
-        *bSendPacket = cmd->tick_count % 2;
+        *bSendPacket = cmd->command_number % 2;
     
     if(vars.misc.desyncenabled)
     {
@@ -903,7 +903,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
     
     
     if (!vars.misc.fakelag) {
-        *bSendPacket = cmd->tick_count % 2;
+        *bSendPacket = cmd->command_number % 2;
     }
     
     
@@ -972,10 +972,10 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
         if(vars.misc.aaX > 0)
         {
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Down){
-                cmd->viewangles.x = 89;
+                cmd->viewangles.x = 87;
             }
             if(vars.misc.aaX == VIEW_ANTIAIM_PITCH::Up) {
-                cmd->viewangles.x = -89;
+                cmd->viewangles.x = -87;
             }
         }
         

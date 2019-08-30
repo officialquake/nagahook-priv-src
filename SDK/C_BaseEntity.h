@@ -850,6 +850,19 @@ public:
                 return false;
         }
     }
+    bool IsSnipScope1()
+    {
+        switch (*this->GetItemDefinitionIndex())
+        {
+            case WEAPON_AWP:
+            case WEAPON_G3SG1:
+            case WEAPON_SCAR20:
+            case WEAPON_SSG08:
+                return true;
+            default:
+                return false;
+        }
+    }
     bool IsGay()
     {
         switch (*this->GetItemDefinitionIndex())

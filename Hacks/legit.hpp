@@ -13,6 +13,7 @@ void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon,
 namespace LegitAim
 {
     extern C_BaseEntity* curTarget;
+    void is_pistol(C_BaseCombatWeapon* weapon, C_BaseEntity* local);
 }
 
 

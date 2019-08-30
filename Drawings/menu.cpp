@@ -5,6 +5,7 @@
 
 #include "menu.h"
 #include "Config.h"
+#include "../Hacks/namestealer.hpp"
 
 cMenu* menu = new cMenu();
 Config cfg;
@@ -497,64 +498,50 @@ void cMenu::renderAim(int x, int y) {
     Hitgroup.push_back("Body");
     Hitgroup.push_back("Legs");
     
-    Name.push_back("killers.cc");
-    Name.push_back("unnamed");
-    Name.push_back(":(");
-    Name.push_back("?");
-    Name.push_back("not hittin p");
-    
-    /*this->renderCheckbox(x - 15, y, "Enabled", &vars.aimbot.enabled);
-    this->renderCheckbox(x - 15, y + 20, "SilentAim", &vars.aimbot.silent);
-    //draw->drawstring(x + 5, y + 40, FontColor, mFont, "FOV");
-    this->renderSlider(x + 5, y + 40, 150, "Fov", vars.aimbot.FovToPlayer, 180, 0);
-    // draw->drawstring(x, y + 70, FontColor, mFont, "Hitbox");
-    this->renderSlider(x + 5, y + 70, 150, "Hitbox", vars.aimbot.hitbox, 19, 0);
-    this->renderCheckbox(x - 15, y + 90, "Auto Wall", &vars.aimbot.autowall);
-    this->renderSlider(x + 5, y + 110, 150, "Minimum Damage", vars.aimbot.mindmg, 100, 0);
-    this->renderCheckbox(x - 15, y + 140, "Hitchance", &vars.aimbot.hitchance);
-    this->renderSlider(x + 5, y + 155, 150, "", vars.aimbot.accuracyhithcance, 100, 0);
-    this->renderSlider(x + 5, y + 180, 150, "Pointscale", vars.aimbot.pointscale, 100, 0);
-    this->renderCheckbox(x - 15, y + 200, "Baim Under x HP", &vars.aimbot.baimhp);
-    this->renderSlider(x + 5, y + 220, 150, "", vars.aimbot.baimxhp, 100, 0);*/
     
     this->renderCheckbox(x - 15, y + 15, "Legit Aimbot", &vars.aimbot.LegitEnabled);
-    this->renderSlider(x + 5, y + 35, 150, "FOV", vars.aimbot.legitFOV, 5.0f, 0.0f);
-    this->renderCheckbox(x - 15, y + 55, "Smoothing", &vars.aimbot.smooth);
-    this->renderSlider(x + 5, y + 75, 150, "Amount", vars.aimbot.smoothf, 1.0f, 0.0f);
-    this->renderCheckbox(x - 15, y + 95, "Target Hitgroup", &vars.aimbot.legitHitscan);
-    this->renderCombo(x + 10, y + 115, 150, 20, "Head", Hitgroup, vars.aimbot.legitHitscanType, &vars.legithitscanpri_opend);
     
-    this->renderCheckbox(x + 235, y + 15, "Backtrack", &vars.aimbot.backtrack);
+    this->renderSlider(x + 5, y + 35, 150, "Pistol FOV", vars.aimbot.pistolFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 55, "Pistol Smooth", &vars.aimbot.pistolsmooth);
+    this->renderSlider(x + 5, y + 75, 150, "Amount", vars.aimbot.pistolsmoothf, 1.0f, 0.0f);
+    
+    this->renderSlider(x + 5, y + 105, 150, "Rifle FOV", vars.aimbot.rifleFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 125, "Rifle Smooth", &vars.aimbot.riflesmooth);
+    this->renderSlider(x + 5, y + 145, 150, "Amount", vars.aimbot.riflesmoothf, 1.0f, 0.0f);
+    
+    this->renderSlider(x + 5, y + 175, 150, "Sniper FOV", vars.aimbot.sniperFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 195, "Sniper Smooth", &vars.aimbot.snipersmooth);
+    this->renderSlider(x + 5, y + 215, 150, "Amount", vars.aimbot.snipersmoothf, 1.0f, 0.0f);
+    
+    this->renderSlider(x + 5, y + 245, 150, "Smg FOV", vars.aimbot.smgFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 265, "Smg Smooth", &vars.aimbot.smgsmooth);
+    this->renderSlider(x + 5, y + 285, 150, "Amount", vars.aimbot.smgsmoothf, 1.0f, 0.0f);
+    
+    this->renderSlider(x + 5, y + 315, 150, "Heavy FOV", vars.aimbot.heavyFOV, 5.0f, 0.0f);
+    this->renderCheckbox(x - 15, y + 335, "Heavy Smooth", &vars.aimbot.heavysmooth);
+    this->renderSlider(x + 5, y + 355, 150, "Amount", vars.aimbot.heavysmoothf, 1.0f, 0.0f);
+    
+    this->renderCheckbox(x + 235, y + 15, "Pistol Hitscan", &vars.aimbot.legitPistolHitscan);
+    this->renderCombo(x + 235, y + 35, 150, 20, "Head", Hitgroup, vars.aimbot.legitPistolHitscanType, &vars.legithitscanpistolpri_opend);
+    
+    this->renderCheckbox(x + 235, y + 65, "Rifle Hitscan", &vars.aimbot.legitRifleHitscan);
+    this->renderCombo(x + 235, y + 85, 150, 20, "Head", Hitgroup, vars.aimbot.legitRifleHitscanType, &vars.legithitscanriflepri_opend);
+    
+    this->renderCheckbox(x + 235, y + 115, "Sniper Hitscan", &vars.aimbot.legitSniperHitscan);
+    this->renderCombo(x + 235, y + 135, 150, 20, "Head", Hitgroup, vars.aimbot.legitSniperHitscanType, &vars.legithitscansniperpri_opend);
+    
+    this->renderCheckbox(x + 235, y + 165, "Smg Hitscan", &vars.aimbot.legitSmgHitscan);
+    this->renderCombo(x + 235, y + 185, 150, 20, "Head", Hitgroup, vars.aimbot.legitSmgHitscanType, &vars.legithitscansmgpri_opend);
+    
+    this->renderCheckbox(x + 235, y + 215, "Heavy Hitscan", &vars.aimbot.legitHeavyHitscan);
+    this->renderCombo(x + 235, y + 235, 150, 20, "Head", Hitgroup, vars.aimbot.legitHeavyHitscanType, &vars.legithitscanheavypri_opend);
+    
+    this->renderCheckbox(x + 235, y + 265, "Backtrack", &vars.aimbot.backtrack);
 
-    this->renderCheckbox(x + 235, y + 35, "Triggerbot", &vars.aimbot.trigger);
-    this->renderCheckbox(x + 235, y + 55, "Radar", &vars.misc.radar);
-    this->renderCheckbox(x + 235, y + 75, "Auto Block", &vars.aimbot.autoaccept);
-    this->renderCheckbox(x + 235, y + 95, "Auto Knife", &vars.aimbot.autoknife);
-
-    //this->renderCheckbox(x + 235, y + 115, "Name Changer", &vars.aimbot.namestealer);
-    //this->renderCombo(x + 235, y + 135, 150, 20, "killers.cc", Name, vars.aimbot.nametype, &vars.niggeropend);
-    //this->renderCheckbox(x + 235, y + 75, "Show Ranks", &vars.misc.showrank);
-    
-    /**/
-    
-
-    
-    //this->renderCheckbox(x + 235, y + 280, "Auto Stop", &vars.aimbot.autostop);
-    
-    
-    /*vector<string> hitscan;
-    // X
-    hitscan.push_back("off");
-    hitscan.push_back("low");//xanax moving
-    hitscan.push_back("normal");//supremacy $
-    hitscan.push_back("high");//gamesense
-    hitscan.push_back("extreme");
-    hitscan.push_back("baim");
-    //CT.push_back("Test 2");
-    //CT.push_back("Mixed");
-    this->renderCombo(x + 260, y + 120, 150, 20, "Hitscan", hitscan, vars.aimbot.hitscantype, &vars.hitscan_opend);*/
-    
-    
+    this->renderCheckbox(x + 235, y + 285, "Triggerbot", &vars.aimbot.trigger);
+    this->renderCheckbox(x + 235, y + 305, "Radar", &vars.misc.radar);
+    this->renderCheckbox(x + 235, y + 325, "Auto Block", &vars.aimbot.autoaccept);
+    this->renderCheckbox(x + 235, y + 345, "Auto Knife", &vars.aimbot.autoknife);
     
     
     
@@ -945,7 +932,10 @@ void cMenu::renderMisc(int x, int y) {
     
     this->renderCheckbox(x + 444, y + 225, "Thirdperson & Real Angles", &vars.misc.thirdpersonkeybindez);
     this->renderCheckbox(x + 444, y + 245, "Grenade Prediction", &vars.misc.grenadepred);
-    this->renderCheckbox(x + 444, y + 265, "Grenade Trajectory", &vars.misc.nadetraj);
+    /*this->renderCheckbox(x + 444, y + 265, "Footstep", &vars.misc.footstep);
+    this->renderSlider(x + 444, y + 285, 115, "Footstep Duration", vars.misc.soundtime, 5000, 0);
+    this->renderButton(x + 444, y + 305, "Hide Name", &vars.aimbot.namestealer);*/
+    
     
 
     
@@ -1341,7 +1331,6 @@ void cMenu::renderMenu() {
         config->LoadConfig();
         skins_cfg->LoadSkins();
     }
-    
     if(cfg.saveconfig) {
         config->SaveConfig();
     }
