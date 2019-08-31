@@ -191,8 +191,7 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
         ViewmodelHVH();
         InverseRagdoll();
         Resolver::FrameStageNotify(curStage, local);
-    
-        //Resolver1::FrameStageNotify1(curStage, local);
+       
         
         
         
@@ -203,13 +202,13 @@ void hkFrameStage(void* thisptr, ClientFrameStage_t curStage)
     clientVMT->GetOriginalMethod<tFrameStage>(37)(thisptr, curStage);
     
     Resolver::PostFrameStageNotify(curStage);
-    //Resolver1::PostFrameStageNotify1(curStage);
+    
     
     if(pEngine->IsInGame() && vars.aimbot.enabled && vars.aimbot.Yawresolver && curStage == ClientFrameStage_t::FRAME_NET_UPDATE_POSTDATAUPDATE_START && vars.aimbot.yresolve > 0)
     {
         if(vars.aimbot.backtrack)
         {
-            for(int i = 1; i < pEngine->GetMaxClients(); i++)
+            for(int i = 1; i < 64; i++)
             {
                 auto* entity = pEntList->GetClientEntity(i);
                 

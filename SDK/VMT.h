@@ -15,11 +15,7 @@ public:
     uintptr_t* original_vmt = nullptr;
     
     uint32_t methodCount = 0;
-    
-    ~VMT( ){
-        ReleaseVMT();
-        delete[] vmt;
-    }
+
     VMT(void* interface)
     {
         this->interface = reinterpret_cast<uintptr_t**>(interface);
