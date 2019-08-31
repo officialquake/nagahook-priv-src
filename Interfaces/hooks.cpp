@@ -23,7 +23,7 @@ void InitializeInterfaces()
     pMatSystem      = GetInterface<IMaterialSystem>("./bin/osx64/materialsystem.dylib", "VMaterialSystem");
     pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client_panorama.dylib", "VClientPrediction");
     pEngineGUI      = GetInterface<IEngineVGui>("./bin/osx64/engine.dylib", "VEngineVGui");
-    sound           = GetInterface<IEngineSound>("./bin/osx64/engine.dylib", "IEngineSoundClient");
+   // sound           = GetInterface<IEngineSound>("./bin/osx64/engine.dylib", "IEngineSoundClient");
     pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
     //fileSystem      = GetInterface<IFileSystem>("./bin/osx64/filesystem_stdio.dylib", "VFileSytem");
     //glowManager     = GetInterface<CGlowObjectManager>("<#const char *filename#>", "<#const char *version#>")
@@ -56,7 +56,7 @@ void InitializeVMTs()
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     ProtectAddr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
     pInput = *reinterpret_cast<CInput**>(GetAbsoluteAddress(getvfunc<uintptr_t>(pClient, 16) + 4, 3, 7));
-    //viewRender      = reinterpret_cast<CViewRender*>(viewrenderPtr);
+    //glowManager = reinterpret_cast<GlowObjectManagerFn>(CPatternScanner::Instance()->GetProcedure("client_panorama.dylib", (unsigned char*)"\xE8\x00\x00\x00\x00\xC7\x40\x00\x00\x00\x00\x00\x48\x8D\x3D\x00\x00\x00\x00\xBE", "x????xx????xxxx????x", 0))();
     
     void* handle = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
     RandomInt       = reinterpret_cast<RandomIntFn>(dlsym(handle, "RandomInt"));
@@ -76,7 +76,7 @@ void InitializeVMTs()
     modelVMT        = new VMT(pModelRender);
     predVMT         = new VMT(pPrediction);
     game_event_vmt  = new VMT(pGameEventManager);
-    soundVMT        = new VMT(sound);
+    //soundVMT        = new VMT(sound);
     //viewRenderVMT   = new VMT(viewRender);
     
 }
@@ -98,9 +98,6 @@ void InitializeHooks()
     
     paintVMT->HookVM((void*)hkPaintTraverse, 42);
     paintVMT->ApplyVMT();
-    
-    soundVMT->HookVM((void*)EmitSound2, 6);
-    soundVMT->ApplyVMT();
         
     createmoveVMT->HookVM((void*)hkCreateMove, 25);
     createmoveVMT->HookVM((void*)hkOverrideView, 19);

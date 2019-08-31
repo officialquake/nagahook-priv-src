@@ -45,7 +45,7 @@ extern IPrediction*         pPrediction;
 extern IGameMovement*       pGameMovement;
 extern IMoveHelper*         pMoveHelper;
 extern IPhysicsSurfaceProps*pPhysics;
-//extern CGlowObjectManager* glowManager;
+extern CGlowObjectManager* glowManager;
 extern RandomSeedFn         RandomSeed;
 extern RandomIntFn          RandomInt;
 extern SendClanTagFn        SetClanTag;
@@ -55,7 +55,6 @@ extern INetChannelInfo*     nci;
 
 
 extern VMT* paintVMT;
-extern VMT* soundVMT;
 extern VMT* createmoveVMT;
 extern VMT* clientVMT;
 extern VMT* modelVMT;

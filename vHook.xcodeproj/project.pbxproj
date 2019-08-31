@@ -57,7 +57,6 @@
 		9162111B2313F72100840093 /* Cutlvector.h in Headers */ = {isa = PBXBuildFile; fileRef = 916211192313F72100840093 /* Cutlvector.h */; };
 		9165F3CC2314CCD20017D895 /* IEngineSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 9165F3CB2314CCD20017D895 /* IEngineSound.h */; };
 		9165F3CE2314D1A50017D895 /* IFileSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9165F3CD2314D1A50017D895 /* IFileSystem.h */; };
-		9165F3D12314D9010017D895 /* EmitSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9165F3CF2314D9010017D895 /* EmitSound.cpp */; };
 		9171427E231672AB00A77774 /* namestealer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9171427C231672AB00A77774 /* namestealer.cpp */; };
 		9171427F231672AB00A77774 /* namestealer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9171427D231672AB00A77774 /* namestealer.hpp */; };
 		9181811A2307346F009A67D1 /* resolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 918181192307346F009A67D1 /* resolver.h */; };
@@ -87,6 +86,8 @@
 		91BF9CC52300D9D80060F242 /* eventlog.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91BF9CC32300D9D80060F242 /* eventlog.hpp */; };
 		91C0D53123000CF400BF63DE /* snipercrosshair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91C0D52F23000CF400BF63DE /* snipercrosshair.cpp */; };
 		91C0D53223000CF400BF63DE /* snipercrosshair.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91C0D53023000CF400BF63DE /* snipercrosshair.hpp */; };
+		91D5A0BF231A431B00BF160B /* glowing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91D5A0BD231A431B00BF160B /* glowing.cpp */; };
+		91D5A0C0231A431B00BF160B /* glowing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91D5A0BE231A431B00BF160B /* glowing.hpp */; };
 		91E6831D22E6F5ED0040A7D4 /* IEngineVGui.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */; };
 		91E6831F22E6F6F10040A7D4 /* FireEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */; };
 		91E88036230B8C56008B93D8 /* RenderView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E88035230B8C56008B93D8 /* RenderView.cpp */; };
@@ -217,7 +218,6 @@
 		916211192313F72100840093 /* Cutlvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cutlvector.h; sourceTree = "<group>"; };
 		9165F3CB2314CCD20017D895 /* IEngineSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEngineSound.h; sourceTree = "<group>"; };
 		9165F3CD2314D1A50017D895 /* IFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFileSystem.h; sourceTree = "<group>"; };
-		9165F3CF2314D9010017D895 /* EmitSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EmitSound.cpp; path = Hooks/EmitSound.cpp; sourceTree = "<group>"; };
 		9171427C231672AB00A77774 /* namestealer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = namestealer.cpp; path = Hacks/namestealer.cpp; sourceTree = "<group>"; };
 		9171427D231672AB00A77774 /* namestealer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = namestealer.hpp; path = Hacks/namestealer.hpp; sourceTree = "<group>"; };
 		918181192307346F009A67D1 /* resolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resolver.h; path = Hacks/resolver.h; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		91BF9CC32300D9D80060F242 /* eventlog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = eventlog.hpp; path = Hacks/eventlog.hpp; sourceTree = "<group>"; };
 		91C0D52F23000CF400BF63DE /* snipercrosshair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = snipercrosshair.cpp; path = Hacks/snipercrosshair.cpp; sourceTree = "<group>"; };
 		91C0D53023000CF400BF63DE /* snipercrosshair.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = snipercrosshair.hpp; path = Hacks/snipercrosshair.hpp; sourceTree = "<group>"; };
+		91D5A0BD231A431B00BF160B /* glowing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = glowing.cpp; path = Hacks/glowing.cpp; sourceTree = "<group>"; };
+		91D5A0BE231A431B00BF160B /* glowing.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = glowing.hpp; path = Hacks/glowing.hpp; sourceTree = "<group>"; };
 		91E6831C22E6F5ED0040A7D4 /* IEngineVGui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IEngineVGui.h; path = SDK/IEngineVGui.h; sourceTree = "<group>"; };
 		91E6831E22E6F6F10040A7D4 /* FireEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FireEvent.cpp; sourceTree = "<group>"; };
 		91E88035230B8C56008B93D8 /* RenderView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = RenderView.cpp; path = Hooks/RenderView.cpp; sourceTree = "<group>"; };
@@ -372,7 +374,6 @@
 				9A213B441F866CCB00518DE8 /* BeginFrame.cpp */,
 				914D20BD22F556B1005B781D /* DrawModelExecute.h */,
 				91E88035230B8C56008B93D8 /* RenderView.cpp */,
-				9165F3CF2314D9010017D895 /* EmitSound.cpp */,
 			);
 			name = Hooks;
 			sourceTree = "<group>";
@@ -485,6 +486,8 @@
 				9132D3FD23164751009CB322 /* autodefuse.hpp */,
 				9171427C231672AB00A77774 /* namestealer.cpp */,
 				9171427D231672AB00A77774 /* namestealer.hpp */,
+				91D5A0BD231A431B00BF160B /* glowing.cpp */,
+				91D5A0BE231A431B00BF160B /* glowing.hpp */,
 			);
 			name = Hacks;
 			sourceTree = "<group>";
@@ -685,6 +688,7 @@
 				B67AE8461F91B20100ADDCD8 /* drawings.h in Headers */,
 				91936B5A22E7648D00529F72 /* EventListener.h in Headers */,
 				916211132313F14000840093 /* CGlowObjectManager.h in Headers */,
+				91D5A0C0231A431B00BF160B /* glowing.hpp in Headers */,
 				91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */,
 				8F94DAA32076AFB100177009 /* autoshoot.h in Headers */,
 				8FEBA0322005201200F991CA /* hitmarker.h in Headers */,
@@ -793,6 +797,7 @@
 				B67AE8311F91AED700ADDCD8 /* patternscan.cpp in Sources */,
 				9ADC15EC1F8F77F600BBF4A7 /* esp.cpp in Sources */,
 				B6A954681FACAC0900351006 /* prediction.cpp in Sources */,
+				91D5A0BF231A431B00BF160B /* glowing.cpp in Sources */,
 				B67AE83B1F91B0D800ADDCD8 /* Info.cpp in Sources */,
 				96E80CAD20BCEE5F00C87050 /* skinchanger.cpp in Sources */,
 				14D91C001F99B58F00252244 /* crosshair.cpp in Sources */,
@@ -805,7 +810,6 @@
 				91A48C3722E36553008A0BBA /* Backtrack.cpp in Sources */,
 				8FAEFEB92014046F0057A419 /* antiaiminfos.cpp in Sources */,
 				9171427E231672AB00A77774 /* namestealer.cpp in Sources */,
-				9165F3D12314D9010017D895 /* EmitSound.cpp in Sources */,
 				B67AE8381F91B0D800ADDCD8 /* hooks.cpp in Sources */,
 				91E88039230B9304008B93D8 /* logshots.cpp in Sources */,
 				9A213B311F8660FD00518DE8 /* OverrideView.cpp in Sources */,

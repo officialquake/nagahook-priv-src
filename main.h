@@ -39,7 +39,7 @@ using namespace std;
 #include "SDK/Vector.h"
 #include "Cutlvector.h"
 #include "CutlMemory.h"
-//#include "SDK/CGlowObjectManager.h"
+
 #include "SDK/Others.h"
 #include "SDK/CPlayerResource.h"
 #include "SDK/common.h"

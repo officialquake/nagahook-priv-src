@@ -3,7 +3,7 @@
 #include "esp.h"
 #include "../Hacks/autowall.h"
 #include "../Backtrack.hpp"
-#include "../Hacks/customglow.hpp"
+#include "../Hacks/glowing.hpp"
 struct Footstep
 {
     long expiration;
@@ -129,6 +129,83 @@ void DrawDroppedWeapons(C_BaseCombatWeapon* weapon) {
     }
 }
 
+/*static void DrawGlow(C_BaseEntity* client)
+{
+    C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
+    if (!localplayer)
+        return;
+    
+    for (int i = 0; i < glowManager->m_GlowObjectDefinitions.Count(); i++)
+    {
+        GlowObjectDefinition_t& glow_object = glowManager->m_GlowObjectDefinitions[i];
+        
+        if (glow_object.IsUnused() || !glow_object.m_pEntity)
+            continue;
+        
+        Color color;
+        ClientClass* client = glow_object.m_pEntity->GetClientClass();
+        bool shouldGlow = true;
+        
+        if (client->m_ClassID == EClassIds::CCSPlayer)
+        {
+            C_BasePlayer* player = (C_BasePlayer*) glow_object.m_pEntity;
+            
+            if (player->GetDormant() || !player->GetAlive())
+                continue;
+            
+            if (player == localplayer)
+            {
+                color = Color::Red();
+            }
+            else
+            {
+                if (!Entity::IsTeamMate(player, localplayer))
+                {
+                    if (Entity::IsVisible(player, (int)Bone::BONE_HEAD))
+                        color = Settings::ESP::Glow::enemyVisibleColor.Color(player);
+                    else
+                        color = Settings::ESP::Glow::enemyColor.Color(player);
+                }
+                else
+                    color = Settings::ESP::Glow::allyColor.Color(player);
+            }
+        }
+        else if (client->m_ClassID != EClassIds::CBaseWeaponWorldModel &&
+                 (strstr(client->m_pNetworkName, "Weapon") || client->m_ClassID == EClassIds::CDEagle || client->m_ClassID == EClassIds::CAK47))
+        {
+            color = Settings::ESP::Glow::weaponColor.Color();
+        }
+        else if (client->m_ClassID == EClassIds::CBaseCSGrenadeProjectile || client->m_ClassID == EClassIds::CDecoyProjectile ||
+                 client->m_ClassID == EClassIds::CMolotovProjectile || client->m_ClassID == EClassIds::CSmokeGrenadeProjectile)
+        {
+            color = Settings::ESP::Glow::grenadeColor.Color();
+        }
+        else if (client->m_ClassID == EClassIds::CBaseAnimating)
+        {
+            color = Settings::ESP::Glow::defuserColor.Color();
+            
+            if (localplayer->HasDefuser() || localplayer->GetTeam() == TeamID::TEAM_TERRORIST)
+                shouldGlow = false;
+        }
+        else if (client->m_ClassID == EClassIds::CChicken)
+        {
+            color = Settings::ESP::Glow::chickenColor.Color();
+            
+            *reinterpret_cast<C_Chicken*>(glow_object.m_pEntity)->GetShouldGlow() = shouldGlow;
+        }
+        
+        shouldGlow = shouldGlow && color.a() > 0;
+        
+        glow_object.m_flGlowColor[0] = color.Value.x;
+        glow_object.m_flGlowColor[1] = color.Value.y;
+        glow_object.m_flGlowColor[2] = color.Value.z;
+        glow_object.m_flGlowAlpha = shouldGlow ? color.Value.w : 1.0f;
+        glow_object.m_flBloomAmount = 1.0f;
+        glow_object.m_bRenderWhenOccluded = shouldGlow;
+        glow_object.m_bRenderWhenUnoccluded = false;
+    }
+}*/
+
 void grenadeESP(C_BaseEntity* entity){
     
     if(!vars.visuals.grenade)
@@ -197,73 +274,6 @@ void grenadeESP(C_BaseEntity* entity){
     }
         box3d(entity, color);
 }
-
-void ESP::CollectFootstep(int iEntIndex, const char *pSample)
-{
-    if (strstr(pSample, "player/footsteps") == NULL && strstr(pSample, "player/land") == NULL)
-        return;
-    
-    if (iEntIndex == pEngine->GetLocalPlayer())
-        return;
-    
-    Footstep footstep;
-    footstep.entityId = iEntIndex;
-    footstep.position = pEntList->GetClientEntity(iEntIndex)->GetVecOrigin();
-    
-    footstep.expiration = GetEpochTime() + vars.misc.soundtime;
-    
-    footsteps.push_back(footstep);
-}
-
-void ESP::DrawSounds()
-{
-    for (unsigned int i = 0; i < footsteps.size(); i++)
-    {
-        long diff = footsteps[i].expiration - GetEpochTime();
-        
-        if (diff <= 0)
-        {
-            footsteps.erase(footsteps.begin() + i);
-            continue;
-        }
-        
-        Vector pos2d;
-        
-        if (pOverlay->ScreenPosition(footsteps[i].position, pos2d))
-            continue;
-        
-        C_BasePlayer* localplayer = (C_BasePlayer*) pEntList->GetClientEntity(pEngine->GetLocalPlayer());
-        if (!localplayer)
-            continue;
-        
-        C_BasePlayer* player = (C_BasePlayer*) pEntList->GetClientEntity(footsteps[i].entityId);
-        if (!player)
-            continue;
-        
-        if (player->GetTeam() != localplayer->GetTeam() && !vars.misc.footstepenemies)
-            continue;
-        
-        if (player->GetTeam() == localplayer->GetTeam() && !vars.misc.footstepallies)
-            continue;
-        
-        float percent = (float)diff / (float)vars.misc.soundtime;
-        
-        Color playerColor = Color::Red();
-        playerColor.SetAlpha(std::min(powf(percent * 2, 0.6f), 1.f) * playerColor.a()); // fades out alpha when its below 0.5
-        
-        float circleRadius = fabs(percent - 1.f) * 42.f;
-        float points = circleRadius * 0.75f;
-        
-        draw->Circle3D(footsteps[i].position, points, circleRadius, playerColor);
-    }
-}
-
-void ESP::EmitSound(int iEntIndex, const char *pSample){
-    if(vars.misc.footstep)
-        ESP::CollectFootstep(iEntIndex, pSample);
-}
-
-
 
 void DrawBombPlanted(C_BaseEntity* local, C_BasePlantedC4* bomb)
 {
@@ -603,9 +613,6 @@ void DrawPlayerESP()
             }
             if((entity->GetFlashDuration() - pGlobals->curtime > 2.0f))
                 draw->drawstring(players.x + players.w / 2, players.y - 27, Color::Yellow(), espfont, "Flashed");
-        }
-        if(vars.misc.footstep){
-            ESP::DrawSounds();
         }
         if (entity && entity != local && !entity->GetDormant())
         {

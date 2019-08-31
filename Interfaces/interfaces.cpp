@@ -1,7 +1,7 @@
 #include "main.h"
 
 // CLEAN CODE > ALL
-//CGlowObjectManager* glowManager = nullptr;
+CGlowObjectManager* glowManager = nullptr;
 ISurface*           pSurface        = nullptr;
 CEffects*           pEffects        = nullptr;
 IPanel*             pPanel          = nullptr;
@@ -40,7 +40,6 @@ MsgFunc_ServerRankRevealAllFn MsgFunc_ServerRankRevealAll;
 
 
 VMT* paintVMT;
-VMT* soundVMT;
 VMT* createmoveVMT;
 VMT* clientVMT;
 VMT* modelVMT;

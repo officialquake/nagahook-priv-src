@@ -1,6 +1,7 @@
 #pragma once
 
 // Special values for GlowObjectDefinition_t::m_nNextFreeSlot
+#include "../main.h"
 #define END_OF_FREE_LIST -1
 #define ENTRY_IN_USE -2
 

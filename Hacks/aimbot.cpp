@@ -21,6 +21,42 @@ void AutoSlow(C_BasePlayer* player, C_BaseCombatWeapon* active_weapon, CUserCmd*
    
 }
 
+
+template<class T, class U>
+inline T clamp(T in, U low, U high)
+{
+    if (in <= low)
+        return low;
+    else if (in >= high)
+        return high;
+    else
+        return in;
+}
+
+float LagFix()
+{
+    float updaterate = pCvar->FindVar("cl_updaterate")->GetFloat();
+    ConVar* minupdate = pCvar->FindVar("sv_minupdaterate");
+    ConVar* maxupdate = pCvar->FindVar("sv_maxupdaterate");
+    
+    if (minupdate && maxupdate)
+        updaterate = maxupdate->GetFloat();
+    
+    float ratio = pCvar->FindVar("cl_interp_ratio")->GetFloat();
+    
+    if (ratio == 0)
+        ratio = 1.0f;
+    
+    float lerp = pCvar->FindVar("cl_interp")->GetFloat();
+    ConVar* cmin = pCvar->FindVar("sv_client_min_interp_ratio");
+    ConVar* cmax = pCvar->FindVar("sv_client_max_interp_ratio");
+    
+    if (cmin && cmax && cmin->GetFloat() != 1)
+        ratio = clamp(ratio, cmin->GetFloat(), cmax->GetFloat());
+    
+    return std::max(lerp, ratio / updaterate);
+}
+
 int MakeHitscan(C_BaseEntity* entity)
 {
     vector<int> hitboxes;
@@ -338,6 +374,7 @@ void DoAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, floa
                 
                 if(pCmd->buttons & IN_ATTACK)
                 {
+                    pCmd->tick_count = TIME_TO_TICKS(entity->GetSimulationTime() + LagFix());
                     if(!vars.aimbot.silent)
                     {
                         pCmd->viewangles = vTo;
