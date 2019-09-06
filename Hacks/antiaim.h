@@ -18,6 +18,7 @@ namespace AntiAim{
     
 }
 
+
 namespace fake{
     //
 }
@@ -81,7 +82,8 @@ void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapo
 //Vector GFakeAngle;
 //Vector GRealAngle;
 
-
+void DoLBYBreaker(C_BaseEntity* local, CUserCmd* cmd, CCSGOAnimState* animState, C_BaseCombatWeapon* weapon);
+void DoDesync(C_BaseEntity* local, CUserCmd* cmd, CCSGOAnimState* animState, C_BaseCombatWeapon* weapon);
 
 
 

@@ -9,26 +9,22 @@ static float GetHitgroupDamageMultiplier(HitGroups iHitGroup)
 {
     switch (iHitGroup)
     {
-        case HitGroups::HITGROUP_HEAD:
-            return 4.0f;
-        case HitGroups::HITGROUP_CHEST:
-        case HitGroups::HITGROUP_LEFTARM:
-        case HitGroups::HITGROUP_RIGHTARM:
-            return 1.0f;
-        case HitGroups::HITGROUP_STOMACH:
+        case HITGROUP_HEAD:
+            return 4.f;
+        case HITGROUP_STOMACH:
             return 1.25f;
-        case HitGroups::HITGROUP_LEFTLEG:
-        case HitGroups::HITGROUP_RIGHTLEG:
+        case HITGROUP_LEFTLEG:
+        case HITGROUP_RIGHTLEG:
             return 0.75f;
-        default:
-            return 1.0f;
     }
+    
+    return 1.0f;
 }
 
 static void ScaleDamage(HitGroups hitgroup, C_BasePlayer* enemy, float weapon_armor_ratio, float& current_damage)
 {
     current_damage *= GetHitgroupDamageMultiplier(hitgroup);
-
+    
     if (enemy->GetArmor() > 0.0f && hitgroup < HITGROUP_LEFTLEG)
     {
         if (hitgroup == HITGROUP_HEAD && !enemy->HasHelmet())
@@ -260,4 +256,3 @@ float Autowall::GetDamage(const Vector& point, bool teamCheck, FireBulletData& f
     
     return damage;
 }
-

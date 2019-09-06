@@ -699,6 +699,7 @@ float AAA_Yaw(C_BaseEntity* entity)
         else
             entity->GetEyeAngles()->y = entity->GetLowerBodyYawTarget();
     }
+    return angle;
 }
 
 

@@ -23,6 +23,7 @@
 #include "../Hacks/customglow.hpp"
 #include "../Hacks/autodefuse.hpp"
 #include "../Hacks/namestealer.hpp"
+#include "../Hacks/airstuck.hpp"
 
 Vector tpangles;
 
@@ -72,10 +73,7 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     
     DoAutoStrafe(cmd, local);
     DoBhop(cmd, local);
-    StartPrediction(cmd);
-    DoAim(cmd, local, weapon, flForwardmove, flSidemove, player);
-    DoTrigger(cmd, weapon);
-    backtracking->legitBackTrack(cmd, local);
+    
     antiResolverFlip(cmd, local);
     turbojizzer(cmd, local);
     backjizzer(cmd, local);
@@ -83,17 +81,25 @@ void hacks(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, Vecto
     tank(cmd, local);
     resolverfucker(cmd, local);
     DoAntiAimFake(cmd, local, weapon);
+    DoDesync(local, cmd, animState, weapon);
+    DoLBYBreaker(local, cmd, animState, weapon);
+    DoAntiaim(cmd, local, weapon, sendPacket, animState);
+    doManual(cmd, local, weapon);
+    
+    StartPrediction(cmd);
+    Airstuck::CreateMove(cmd);
+    DoAim(cmd, local, weapon, flForwardmove, flSidemove, player);
+    DoTrigger(cmd, weapon);
+    backtracking->legitBackTrack(cmd, local);
     RecoilControl(local, cmd);
-    //AutoZeus(cmd, local, weapon);
     grenade_prediction::get().Tick(cmd->buttons);
     ContinuousPistols(cmd, weapon);
     AutoCock(cmd, weapon);
     DoLegitAim(cmd, local, weapon, flForwardmove, flSidemove);
     Hitchance(local, weapon);
     LogShots::CreateMove(cmd);
-    DoAntiaim(cmd, local, weapon, sendPacket, animState);
-    doManual(cmd, local, weapon);
     EndPrediction();
+    
     CirlceStrafe(local, cmd, vOldAngles);
     Moonwalk(cmd);
     Autoblock::CreateMove(cmd);
@@ -186,10 +192,8 @@ bool hkCreateMove(void* thisptr, float flSampleInput, CUserCmd* cmd)
         
        
         
-        if(vars.misc.enabled && vars.misc.antiuntrust)
-        {
             cmd->viewangles.ClampAngles();
-        }
+    
     }
     
     

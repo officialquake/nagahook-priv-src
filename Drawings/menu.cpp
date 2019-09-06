@@ -683,7 +683,7 @@ void cMenu::renderAntiAim(int x, int y) {
     this->renderCheckbox(x + 235, y + 185, "AutoStop", &vars.aimbot.autostop);
     this->renderCheckbox(x + 235, y + 255, "Moonwalk", &vars.misc.moonwalk);
     this->renderCheckbox(x + 235, y + 275, "Autoslow", &vars.aimbot.autoslow);
-    //this->renderCheckbox(x + 235, y + 295, "Slowwalk", &vars.misc.slow_walk);
+    this->renderCheckbox(x + 235, y + 295, "Airstuck (KEY_Z)", &vars.misc.airstuck);
     //this->renderSlider(x + 235, y + 315, 115, "Slowwalk Amount", vars.misc.slow_walk_amount, 100.f, 0.f);
 
     vector<string> Resolve;  // Resolver

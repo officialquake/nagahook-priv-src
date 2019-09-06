@@ -477,7 +477,7 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "Bhop", GetBoolValue(vars.misc.bhop));
     cfg.SetBoolValue("Misc", "Auto Strafe", GetBoolValue(vars.misc.autostrafe));
     cfg.SetBoolValue("Misc", "cStrafe", GetBoolValue(vars.misc.cstrafe));
-    cfg.SetBoolValue("Misc", "Airstuck", GetBoolValue(vars.misc.airstuck));
+    //cfg.SetBoolValue("Misc", "Airstuck", GetBoolValue(vars.misc.airstuck));
     cfg.SetBoolValue("Misc", "Show Rank", GetBoolValue(vars.misc.showrank));
     //cfg.SetBoolValue("Misc", "Asus", GetBoolValue(vars.misc.asuswalls));
     cfg.SetBoolValue("Misc", "No Flash Enable", GetBoolValue(vars.misc.noflash));

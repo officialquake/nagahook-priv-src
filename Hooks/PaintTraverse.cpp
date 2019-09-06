@@ -144,7 +144,6 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
             Hitmarkers::Paint();
             Spectatorlist();    // Draws speclist
             DrawAngles(local);
-            LogShots::Paint();
             DrawSpread(local);
             SniperCrosshair::Paint();
             Eventlog::Paint();

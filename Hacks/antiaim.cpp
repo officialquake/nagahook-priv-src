@@ -878,6 +878,119 @@ void DoAntiAimFake(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapo
     cmd->viewangles.ClampAngles();
 }
 
+void DoDesync(C_BaseEntity* local, CUserCmd* cmd, CCSGOAnimState* animState, C_BaseCombatWeapon* weapon){
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (!weapon)
+        return;
+    
+    if (weapon->IsGrenade() || weapon->IsBomb() || (weapon->IsKnife() && vars.aimbot.autoknife))
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < (local->GetTickBase()  * pGlobals->interval_per_tick)) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
+    {
+        AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
+        return;
+    }
+    
+    if (local->GetImmune())
+        return;
+    
+    float maxDelta = GetMaxDelta(animState);
+    bool should_clamp = true;
+    Vector angle = cmd->viewangles;
+    Vector oldAngle = cmd->viewangles;
+    float oldForward = cmd->forwardmove;
+    float oldSideMove = cmd->sidemove;
+    if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1 && !bSendPacket) {
+        angle.y -= maxDelta;
+        NormalizeAngles(angle);
+    }
+    
+    if (should_clamp)
+    {
+        NormalizeAngles(angle);
+        ClampAngles(angle);
+    }
+    cmd->viewangles = angle;
+    CorrectMovement(oldAngle, cmd, oldForward, oldSideMove);
+}
+
+
+
+void DoLBYBreaker(C_BaseEntity* local, CUserCmd* cmd, CCSGOAnimState* animState, C_BaseCombatWeapon* weapon){
+    
+    if (!vars.misc.antiaim)
+        return;
+    
+    if (!local || !local->GetAlive())
+        return;
+    
+    if (!weapon)
+        return;
+    
+    if (weapon->IsGrenade() || weapon->IsBomb() || (weapon->IsKnife() && vars.aimbot.autoknife))
+        return;
+    
+    if (local->GetMoveType() == MOVETYPE_LADDER || local->GetMoveType() == MOVETYPE_NOCLIP)
+        return;
+    
+    if ((cmd->buttons & IN_ATTACK && weapon->GetNextPrimaryAttack() < (local->GetTickBase()  * pGlobals->interval_per_tick)) || (cmd->buttons & IN_ATTACK && weapon->IsGay()) || (cmd->buttons & IN_USE))
+    {
+        AntiAem::GRealAngle = AntiAem::GFakeAngle = cmd->viewangles;
+        return;
+    }
+    
+    if (local->GetImmune())
+        return;
+    
+    
+    Vector oldAngle = cmd->viewangles;
+    float oldForward = cmd->forwardmove;
+    float oldSideMove = cmd->sidemove;
+    
+    Vector angle = cmd->viewangles;
+    
+    bool should_clamp = true;
+    bool needToFlick = false;
+    static bool lbyBreak = false;
+    
+    static float lastCheck;
+    float vel2D = local->GetVelocity().Length2D();
+    if( vars.misc.lbybreaker ){
+        
+        if( vel2D >= 0.1f || !(local->GetFlags() & FL_ONGROUND) || local->GetFlags() & FL_FROZEN ){
+            lbyBreak = false;
+            lastCheck = pGlobals->curtime;
+        } else {
+            if( !lbyBreak && ( pGlobals->curtime - lastCheck ) > 0.22 ){
+                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
+                lbyBreak = true;
+                lastCheck = pGlobals->curtime;
+                needToFlick = true;
+            } else if( lbyBreak && ( pGlobals->curtime - lastCheck ) > 1.1 ){
+                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
+                lbyBreak = true;
+                lastCheck = pGlobals->curtime;
+                needToFlick = true;
+            }
+        }
+    }
+    if(should_clamp){
+        NormalizeAngles(angle);
+        ClampAngles(angle);
+    }
+     cmd->viewangles = angle;
+     CorrectMovement(oldAngle, cmd, oldForward, oldSideMove);
+}
+
 void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, bool& bPacket, CCSGOAnimState* animState)
 {
     //Vector angle = cmd->viewangles;
@@ -943,30 +1056,6 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                 bPacket = true;
         }
     
-    
-    bool needToFlick = false;
-    static bool lbyBreak = false;
-    static float lastCheck;
-    float vel2D = local->GetVelocity().Length2D();
-    if( vars.misc.lbybreaker ){
-        
-        if( vel2D >= 0.1f || !(local->GetFlags() & FL_ONGROUND) || local->GetFlags() & FL_FROZEN ){
-            lbyBreak = false;
-            lastCheck = pGlobals->curtime;
-        } else {
-            if( !lbyBreak && ( pGlobals->curtime - lastCheck ) > 0.22 ){
-                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
-                lbyBreak = true;
-                lastCheck = pGlobals->curtime;
-                needToFlick = true;
-            } else if( lbyBreak && ( pGlobals->curtime - lastCheck ) > 1.1 ){
-                cmd->viewangles.y -= vars.misc.lbybreakeroffset;
-                lbyBreak = true;
-                lastCheck = pGlobals->curtime;
-                needToFlick = true;
-            }
-        }
-    }
         
         
         if(vars.misc.aaX > 0)
@@ -1109,15 +1198,7 @@ void DoAntiaim(CUserCmd* cmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon, b
                     counter++;
                 }
             }
-            if(vars.misc.aaY == VIEW_ANTIAIM_YAW::Desync1) {
-                cmd->viewangles.y += bSendPacket ? 180.f : 120.f;
-                if (lbyBreak)
-                {
-                    *bSendPacket = false;
-                    cmd->viewangles.y += 75.f;
-                }
-                
-            }
+            
                 
             
             if(vars.misc.FaaY > 0 && (vars.misc.fakeaa && bPacket)) {

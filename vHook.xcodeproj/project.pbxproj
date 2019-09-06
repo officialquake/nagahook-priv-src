@@ -76,6 +76,8 @@
 		91A48C3F22E3669E008A0BBA /* noduckcooldown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */; };
 		91A9506222BF11ED007E0CB7 /* thirdperson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A9506022BF11ED007E0CB7 /* thirdperson.cpp */; };
 		91A9506322BF11ED007E0CB7 /* thirdperson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A9506122BF11ED007E0CB7 /* thirdperson.hpp */; };
+		91A97A8323228CF900A82B8C /* airstuck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A97A8123228CF800A82B8C /* airstuck.cpp */; };
+		91A97A8423228CF900A82B8C /* airstuck.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91A97A8223228CF900A82B8C /* airstuck.hpp */; };
 		91B170AF23011837003AF2E2 /* dlights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B170AD23011837003AF2E2 /* dlights.cpp */; };
 		91B170B023011837003AF2E2 /* dlights.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 91B170AE23011837003AF2E2 /* dlights.hpp */; };
 		91BBD44222C0829C006B9EA0 /* moonwalk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91BBD44022C0829C006B9EA0 /* moonwalk.cpp */; };
@@ -237,6 +239,8 @@
 		91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = noduckcooldown.cpp; sourceTree = "<group>"; };
 		91A9506022BF11ED007E0CB7 /* thirdperson.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = thirdperson.cpp; path = Hacks/thirdperson.cpp; sourceTree = "<group>"; };
 		91A9506122BF11ED007E0CB7 /* thirdperson.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = thirdperson.hpp; path = Hacks/thirdperson.hpp; sourceTree = "<group>"; };
+		91A97A8123228CF800A82B8C /* airstuck.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = airstuck.cpp; path = Hacks/airstuck.cpp; sourceTree = "<group>"; };
+		91A97A8223228CF900A82B8C /* airstuck.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = airstuck.hpp; path = Hacks/airstuck.hpp; sourceTree = "<group>"; };
 		91B170AD23011837003AF2E2 /* dlights.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = dlights.cpp; path = Hacks/dlights.cpp; sourceTree = "<group>"; };
 		91B170AE23011837003AF2E2 /* dlights.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = dlights.hpp; path = Hacks/dlights.hpp; sourceTree = "<group>"; };
 		91BBD44022C0829C006B9EA0 /* moonwalk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = moonwalk.cpp; sourceTree = "<group>"; };
@@ -412,6 +416,8 @@
 		E181BB151E74661D00D1CCED /* Hacks */ = {
 			isa = PBXGroup;
 			children = (
+				91A97A8123228CF800A82B8C /* airstuck.cpp */,
+				91A97A8223228CF900A82B8C /* airstuck.hpp */,
 				915B2EE222EA1ACB000ABA9A /* EnginePrediction.cpp */,
 				915B2EE122EA1ACB000ABA9A /* EnginePrediction.h */,
 				91A48C3D22E3669E008A0BBA /* noduckcooldown.cpp */,
@@ -616,6 +622,7 @@
 			files = (
 				9162111A2313F72100840093 /* CutlMemory.h in Headers */,
 				9165F3CE2314D1A50017D895 /* IFileSystem.h in Headers */,
+				91A97A8423228CF900A82B8C /* airstuck.hpp in Headers */,
 				8FAEFEB82014046F0057A419 /* antiaiminfos.h in Headers */,
 				B67AE8561F91CE8800ADDCD8 /* antiaim.h in Headers */,
 				9181811A2307346F009A67D1 /* resolver.h in Headers */,
@@ -819,6 +826,7 @@
 				9A213B421F86632D00518DE8 /* clantag.cpp in Sources */,
 				9132D3FE23164751009CB322 /* autodefuse.cpp in Sources */,
 				8F5AAA141FF278A0003787BA /* fakewalk.cpp in Sources */,
+				91A97A8323228CF900A82B8C /* airstuck.cpp in Sources */,
 				9A213B321F8660FD00518DE8 /* PaintTraverse.cpp in Sources */,
 				9181F33222FD96DE00C081E9 /* antiafkkick.cpp in Sources */,
 				B67AE84D1F91CD8200ADDCD8 /* menu.cpp in Sources */,

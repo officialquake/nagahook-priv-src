@@ -614,6 +614,9 @@ void DoLegitAim(CUserCmd* pCmd, C_BaseEntity* local, C_BaseCombatWeapon* weapon,
         if(weapon->GetAmmo() < 1)
             continue;
         
+        if(entity->GetClientClass()->m_ClassID == (int)CHostage)
+            continue;
+        
         if(weapon->IsKnife() || weapon->IsBomb())
             continue;
         
