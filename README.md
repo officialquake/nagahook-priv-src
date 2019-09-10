@@ -1,4 +1,4 @@
-# nagahook
+# killers.cc
 A better Version of breathless maybe ;^)
 
 ## Why is this existing and not on the face.us repo?
@@ -6,7 +6,7 @@ The face.us repository got deleted by faithful (CreditCode) the creator, long li
 
 # Credits
 
-Raizo (updating)
+Raizo (updating breathless)
 
 ViKiNG (Making Barbossa)
 
