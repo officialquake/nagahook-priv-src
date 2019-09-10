@@ -282,7 +282,8 @@ public:
         int autoblockkeybind             = 0;       // FOV changer
         int ssgskin             = 0;       // FOV changer
         int triggerbotkeybind             = 0;       // FOV changer
-        bool watermark      = false;
+        bool watermark      = true;
+        bool watermark1      = false;
         bool backtrack = false;
         bool moonwalk = false;
         float tpoffset = 64.f;

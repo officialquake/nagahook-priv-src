@@ -844,7 +844,7 @@ void cMenu::renderVis(int x, int y) {
     this->renderCombo(x + 235, y + 252, 125, 20, "Off", Indicator, vars.visuals.indicatorAA_types, &vars.indicatorAA_opend);
     this->renderCheckbox(x + 235, y + 275, "AA Lines", & vars.visuals.aaline);
     this->renderCheckbox(x + 235, y + 295, "Angle Line Names", & vars.visuals.anglelinenames);
-    this->renderCheckbox(x + 235, y + 315, "Watermark", &vars.misc.watermark);
+    this->renderCheckbox(x + 235, y + 315, "Watermark", &vars.misc.watermark1);
     this->renderCheckbox(x + 235, y + 335, "Nightmode", &vars.misc.nightmode);
     this->renderSlider(x + 230, y + 355, 150, "Player Chams", vars.visuals.playerchams_alpha, 255, 0);
     this->renderSlider(x + 230, y + 375, 150, "Hand Chams", vars.visuals.handchams_alpha, 255, 0);

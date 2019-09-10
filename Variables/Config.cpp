@@ -232,7 +232,7 @@ void Config::LoadConfig() {
     vars.misc.fov           = cfgget_i("Misc", "FOVf");
     vars.misc.tpoffset           = cfgget_i("Misc", "TPOff");
     vars.misc.fovt = cfgget_b("Misc", "FOV");
-    vars.misc.watermark     = cfgget_b("Misc", "Watermark");
+
     vars.misc.norecoil      = cfgget_b("Misc", "No Recoil");
     vars.misc.novisual= cfgget_b("Misc", "No Visual Recoil");
     vars.misc.spammer = cfgget_b("Misc", "Chat Spam");
@@ -514,7 +514,6 @@ void Config::SaveConfig() {
     cfg.SetBoolValue("Misc", "FOV", GetBoolValue(vars.misc.fovt));
     cfg.SetBoolValue("Misc", "Moonwalk", GetBoolValue(vars.misc.moonwalk));
     cfg.SetBoolValue("Misc", "Bullet", GetBoolValue(vars.visuals.bullett));
-    cfg.SetBoolValue("Misc", "Watermark", GetBoolValue(vars.misc.watermark));
     cfg.SetBoolValue("Misc", "No Scope", GetBoolValue(vars.misc.noscope));
     cfg.SetBoolValue("Misc", "Spread", GetBoolValue(vars.misc.spreadcrosshair));
     cfg.SetBoolValue("Misc", "Fake Lag", GetBoolValue(vars.misc.fakelag));

@@ -164,70 +164,16 @@ void hkPaintTraverse(void* thisptr, VPANEL panel, bool forceRepaint, bool allowF
         
         if(vars.misc.watermark)
         {
+            std::string name = (" killers.cc | ");
+            std::string fps = "fps: " + std::to_string(static_cast<int>(1.f / pGlobals->frametime)) + " |  ";
+            std::string creator = ("Credits | i'm tim#9436");
+            //std::string ping = "ms: " + std::to_string((int)(nci->GetAvgLatency(FLOW_INCOMING) + nci->GetAvgLatency(FLOW_OUTGOING) * 1000));
             
-            static int Tick = 0;
-            Tick++;
-            
-            if (Tick > 0 && Tick < 30)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "");
-            }
-            else if (Tick > 30 && Tick < 60)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "|");
-            }
-            else if (Tick > 60 && Tick < 90)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-");
-            }
-            else if (Tick > 90 && Tick < 120)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-|");
-            }
-            else if (Tick > 120 && Tick < 150)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D");
-            }
-            else if (Tick > 150 && Tick < 180)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E ");
-            }
-            else if (Tick > 180 && Tick < 210)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A");
-            }
-            else if (Tick > 210 && Tick < 240)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D");
-            }
-            else if (Tick > 240 && Tick < 270)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |");
-            }
-            else if (Tick > 270 && Tick < 300)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デ");
-            }
-            else if (Tick > 300 && Tick < 330)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッ");
-            }
-            else if (Tick > 330 && Tick < 360)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッ|");
-            }
-            else if (Tick > 360 && Tick < 390)
-            {
-                draw->drawstring(10, 15, Color::White(), espfont, "-D E A D |  デッド");
-            }
+            std::string watermarktext = name + fps.c_str() + creator;
             
             
             
-            // Reset
-            if(Tick > 390)
-            {
-                Tick = 0;
-            }
+            draw->drawstring(10, 15, Color::White(), hhhfont, watermarktext.c_str());
         }
         
         

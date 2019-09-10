@@ -559,9 +559,7 @@ void DrawPlayerESP()
                 
                 if (entity->GetArmor() > 0)
                 {
-                    char hp[50];
-                    
-                    draw->drawstring(players.x + players.w + 1, players.y + 10, Color(255, 255, 255, 255), espfont, hp);
+    
                     
                     if (entity->HasHelmet())
                         draw->drawstring(players.x + players.w + 1, players.y + 2, Color(255, 255, 255, 255), espfont, "HK");
